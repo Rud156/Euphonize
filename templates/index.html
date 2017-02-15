@@ -11,34 +11,36 @@
 </head>
 
 <body>
-    <div id="leftSide">
-        <div id="VideoImageHolder">
-            <img src="" id="VideoImage" />
-        </div>
-        <div id="VideoName"></div>
-    </div>
-    <div id="rightSide">
-        <div id="UserSearch">
-            <button type="submit" id="submitBtn">
+    <div id="UserSearch">
+        <button type="submit" id="submitBtn">
                 <i class="fa fa-search"></i>
             </button>
-            <input type="text" height="50px" id="titleSearch" placeholder="Enter music title..." />
-            <input type="text" height="50px" id="artistSearch" placeholder="Enter artist name..."/>
+        <input type="text" height="50px" id="titleSearch" placeholder="Enter music title..." />
+        <input type="text" height="50px" id="artistSearch" placeholder="Enter artist name..." />
+    </div>
+    <div id="bottomUI">
+        <div id="leftSide">
+            <div id="VideoImageHolder">
+                <img src="" id="VideoImage" />
+            </div>
+            <div id="VideoName"></div>
         </div>
-        <div id="audioPlayer">
-            <audio id="audioElement"></audio>
-            <div id="controlsHolder">
-                <div id="seekBar">
-                    <p class="timer" id="currentTime">00:00</p>
-                    <input class="range-slider__range" type="range" value="0" id="seekSlider" />
-                    <p class="timer" id="leftTime">00:00</p>
-                </div>
-                <div id="controlBtns">
-                    <i class="fa fa-backward" id="backward"></i>
-                    <i class="fa fa-play" id="PPBtn"></i>
-                    <i class="fa fa-forward" id="foward"></i>
-                    <input class="range-slider__range" type="range" min="0" max="1" step="0.1" value="1" id="volumeSlider" />
-                    <i class="fa fa-volume-up" id="muteBtn"></i>
+        <div id="rightSide">
+            <div id="audioPlayer">
+                <audio id="audioElement"></audio>
+                <div id="controlsHolder">
+                    <div id="seekBar">
+                        <p class="timer" id="currentTime">00:00</p>
+                        <input class="range-slider__range" type="range" value="0" id="seekSlider" />
+                        <p class="timer" id="leftTime">00:00</p>
+                    </div>
+                    <div id="controlBtns">
+                        <i class="fa fa-backward" id="backward"></i>
+                        <i class="fa fa-play" id="PPBtn"></i>
+                        <i class="fa fa-forward" id="foward"></i>
+                        <input class="range-slider__range" type="range" min="0" max="1" step="0.1" value="1" id="volumeSlider" />
+                        <i class="fa fa-volume-up" id="muteBtn"></i>
+                    </div>
                 </div>
             </div>
         </div>

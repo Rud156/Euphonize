@@ -2,7 +2,11 @@ i {
     cursor: pointer;
     margin: 0 10px 0 10px;
 }
-
+#bottomUI {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
 /* Left Side */
 #leftSide {
     width: 20%;
