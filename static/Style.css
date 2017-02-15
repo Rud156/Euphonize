@@ -37,10 +37,10 @@ i {
 /* Right Side Ends */
 
 /* User Search Box Start */
-#searchBox {
-    width: 90%;
+#artistSearch, #titleSearch {
+    width: 40%;
     float: right;
-    margin: 10px 0 10px 0;
+    margin: 10px;
     height: 25px;
     border-radius: 5px;
     padding: 7px;

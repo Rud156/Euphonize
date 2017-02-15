@@ -96,15 +96,16 @@ prevAudio.addEventListener('click', function () {
 });
 
 function sendData() {
-    var searchBox = <HTMLInputElement>document.getElementById('searchBox');
-    var data = { 'url': searchBox.value };
+    var titleBox = <HTMLInputElement>document.getElementById('titleSearch');
+    var artistBox = <HTMLInputElement>document.getElementById('artistSearch');
+    var data = { 'title': titleBox.value, 'artist': artistBox.value };
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),
         url: 'http://localhost:5000/GetVideo',
         success: function (data) {
-            if (data.success){
+            if (data.success) {
                 audio.src = data.url;
                 audio.play();
                 isPlaying = true;

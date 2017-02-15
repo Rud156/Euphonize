@@ -77,8 +77,9 @@ prevAudio.addEventListener('click', function () {
     // TODO: Change Audio
 });
 function sendData() {
-    var searchBox = document.getElementById('searchBox');
-    var data = { 'url': searchBox.value };
+    var titleBox = document.getElementById('titleSearch');
+    var artistBox = document.getElementById('artistSearch');
+    var data = { 'title': titleBox.value, 'artist': artistBox.value };
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
