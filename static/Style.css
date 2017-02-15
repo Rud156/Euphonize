@@ -1,0 +1,166 @@
+i {
+    cursor: pointer;
+    margin: 0 10px 0 10px;
+}
+
+/* Left Side */
+#leftSide {
+    width: 20%;
+    float: left;
+}
+#VideoImage {
+    display: none;
+    width: 100%;
+    height: auto;
+    float: left;
+}
+#VideoName {
+    width: 50%;
+    font-size: 1.3em;
+    padding: 7px 7px 7px 14px;
+    font-weight: bolder;
+    word-wrap: break-word;
+    float: left;
+}
+#VideoImageHolder{
+    width: 40%;
+    height: 110px;
+    float: left;
+}
+/* Left Side Ends */
+
+/* Right Side */
+#rightSide {
+    width: 80%;
+    float: left;
+}
+/* Right Side Ends */
+
+/* User Search Box Start */
+#searchBox {
+    width: 90%;
+    float: right;
+    margin: 10px 0 10px 0;
+    height: 25px;
+    border-radius: 5px;
+    padding: 7px;
+}
+#submitBtn {
+    background: transparent;
+    float: right;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+input[type=range]::-ms-tooltip {
+    display: none;
+}
+/* Users Search Box End */
+
+/* Media Bar and timer */
+#controlsHolder {
+    text-align: center;
+    font-size: 2em;
+    width: 90%;
+    float: right;
+}
+#seekBar {
+    text-align: center;
+}
+#currentTime, #leftTime {
+    font-size: 0.7em;
+    width: 10%;
+    margin: 0;
+    float: left;
+}
+/* Media Bar and timer End */
+
+/* Media PLayer Controls */
+#volumeSlider {
+    width: 30%;
+}
+#controlBtn {
+    float: none;
+}
+#seekSlider {
+    width: 80%;
+    float: left;
+    margin-top: 7px;
+}
+/* Media PLayer And Controls Ends */
+
+
+/* Range Slider */
+.range-slider__range {
+    -webkit-appearance: none;
+    width: calc(100% - (73px));
+    height: 10px;
+    border-radius: 5px;
+    background: #d7dcdf;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+.range-slider__range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2c3e50;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+.range-slider__range::-webkit-slider-thumb:hover {
+    background: #1abc9c;
+}
+.range-slider__range:active::-webkit-slider-thumb {
+    background: #1abc9c;
+}
+.range-slider__range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #2c3e50;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+.range-slider__range::-moz-range-thumb:hover {
+    background: #1abc9c;
+}
+.range-slider__range:active::-moz-range-thumb {
+    background: #1abc9c;
+}
+
+.range-slider__value {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    background: #2c3e50;
+    padding: 5px 10px;
+    margin-left: 8px;
+}
+.range-slider__value:after {
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 7px solid #2c3e50;
+    border-bottom: 7px solid transparent;
+    content: '';
+}
+
+::-moz-range-track {
+    background: #d7dcdf;
+    border: 0;
+}
+/* End Range Slider */

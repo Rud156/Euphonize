@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../static/Style.css" />
+    <script src="../static/jquery-3.1.1.js"></script>
+    <title> You Stream </title>
+</head>
+
+<body>
+    <div id="leftSide">
+        <div id="VideoImageHolder">
+            <img src="" id="VideoImage" />
+        </div>
+        <div id="VideoName"></div>
+    </div>
+    <div id="rightSide">
+        <div id="UserSearch">
+            <button type="submit" id="submitBtn">
+                <i class="fa fa-search"></i>
+            </button>
+            <input type="text" height="50px" id="searchBox" />
+        </div>
+        <div id="audioPlayer">
+            <audio src="../static/Jar Of Hearts.mp3" id="audioElement"></audio>
+            <div id="controlsHolder">
+                <div id="seekBar">
+                    <p class="timer" id="currentTime">00:00</p>
+                    <input class="range-slider__range" type="range" value="0" id="seekSlider" />
+                    <p class="timer" id="leftTime">00:00</p>
+                </div>
+                <div id="controlBtns">
+                    <i class="fa fa-backward" id="backward"></i>
+                    <i class="fa fa-play" id="PPBtn"></i>
+                    <i class="fa fa-forward" id="foward"></i>
+                    <input class="range-slider__range" type="range" min="0" max="1" step="0.1" value="1" id="volumeSlider" />
+                    <i class="fa fa-volume-up" id="muteBtn"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/Script.js"></script>
+</body>
+
+</html>
