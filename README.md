@@ -7,5 +7,5 @@ ROADMAP for v0.1 :
 - [ ] Youtube Results
 - [ ] Media Player
 - [ ] Dynamic Audio Switching
-- [ ] Meta Data extracter
+- [ ] Meta Data extracter - discogs.com ( search using URL parameters )
 - [ ] Basic Flask site with Search and play functionality
