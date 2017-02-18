@@ -14,6 +14,7 @@ var audioSlider = <HTMLInputElement>document.getElementById('seekSlider');
 // Time Display
 var curTime = document.getElementById('currentTime');
 var lefTime = document.getElementById('leftTime');
+var prevVolume: number;
 
 // Search Elements
 var submitBtn = document.getElementById('submitBtn');
@@ -76,15 +77,23 @@ muteBtn.addEventListener('click', function () {
     if (audio.muted) {
         audio.muted = false;
         muteBtn.className = 'fa fa-volume-up';
+        audio.volume = prevVolume;
+        volumeSlider.value = prevVolume.toString();
     }
     else {
         audio.muted = true;
         muteBtn.className = 'fa fa-volume-off';
+        prevVolume = parseFloat(volumeSlider.value);
+        volumeSlider.value = "0";
     }
 });
 
 volumeSlider.addEventListener('change', function () {
     audio.volume = parseFloat(volumeSlider.value);
+    if (audio.muted) {
+        audio.muted = false;
+        muteBtn.className = 'fa fa-volume-up';
+    }
 });
 
 nextAudio.addEventListener('click', function () {

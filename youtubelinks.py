@@ -7,7 +7,7 @@ header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/201
 allVideoUrls = []
 
 
-def GetLinks(link):
+def get_links(link):
     print "Getting link " + link
     try:
         page = requests.get(link, headers=header)
@@ -88,7 +88,7 @@ def BestVideo():
 
 if __name__ == '__main__':
     global allVideoUrls
-    allVideoUrls = GetLinks('https://www.youtube.com/watch?v=ZiYdOwOrGyc')
+    allVideoUrls = get_links('https://www.youtube.com/watch?v=ZiYdOwOrGyc')
     BestAudio()
     BestVideo()
     #

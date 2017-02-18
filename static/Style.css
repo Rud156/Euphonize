@@ -2,6 +2,9 @@ i {
     cursor: pointer;
     margin: 0 10px 0 10px;
 }
+div {
+    overflow: auto;
+}
 #bottomUI {
     bottom: 0;
     position: fixed;
@@ -9,14 +12,13 @@ i {
 }
 /* Left Side */
 #leftSide {
-    width: 20%;
+    width: 30%;
     float: left;
 }
 #VideoImage {
     display: none;
-    width: 100%;
-    height: auto;
-    float: left;
+    height: 110px;
+    margin: 0 auto;
 }
 #VideoName {
     width: 50%;
@@ -24,18 +26,19 @@ i {
     padding: 7px 7px 7px 14px;
     font-weight: bolder;
     word-wrap: break-word;
-    float: left;
 }
 #VideoImageHolder{
+    overflow: hidden;
+    text-align: center;
     width: 40%;
-    height: 110px;
     float: left;
+    margin-bottom: 10px;
 }
 /* Left Side Ends */
 
 /* Right Side */
 #rightSide {
-    width: 80%;
+    width: 70%;
     float: left;
 }
 /* Right Side Ends */
@@ -65,7 +68,7 @@ input[type=range]::-ms-tooltip {
 #controlsHolder {
     text-align: center;
     font-size: 2em;
-    width: 90%;
+    width: 100%;
     float: right;
 }
 #seekBar {
