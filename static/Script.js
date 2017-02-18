@@ -18,6 +18,9 @@ submitBtn.addEventListener('click', sendData);
 var isPlaying = false;
 // Video Elements
 var videoImage = document.getElementById('VideoImage');
+videoImage.addEventListener('error', function (event) {
+    event.target.src = '../static/brokenalbumart.png';
+});
 var videoName = document.getElementById('VideoName');
 function formatTime(time) {
     var tempTime = time;

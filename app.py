@@ -29,10 +29,11 @@ def get_video():
         image_url = images[0]['image_url']
     else:
         image_url = video.thumb
+    title = (video.title[: 35] + '...') if len(video.title) > 35 else video.title
     data_set = {
         'success': True,
         'url': audio_stream.url,
-        'name': video.title,
+        'name': title,
         'image': image_url
     }
     return jsonify(data_set)

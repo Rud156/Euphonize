@@ -2,6 +2,12 @@ i {
     cursor: pointer;
     margin: 0 10px 0 10px;
 }
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 div {
     overflow: auto;
 }
@@ -14,6 +20,7 @@ div {
 #leftSide {
     width: 30%;
     float: left;
+    padding-bottom: 10px;
 }
 #VideoImage {
     display: none;
@@ -25,7 +32,7 @@ div {
     font-size: 1.3em;
     padding: 7px 7px 7px 14px;
     font-weight: bolder;
-    word-wrap: break-word;
+    text-overflow: ellipsis;
 }
 #VideoImageHolder{
     overflow: hidden;
@@ -40,6 +47,7 @@ div {
 #rightSide {
     width: 70%;
     float: left;
+    padding-bottom: 10px;
 }
 /* Right Side Ends */
 
@@ -47,7 +55,7 @@ div {
 #artistSearch, #titleSearch {
     width: 40%;
     float: right;
-    margin: 10px;
+    margin: 10px 7px 10px 0;
     height: 25px;
     border-radius: 5px;
     padding: 7px;
@@ -73,12 +81,14 @@ input[type=range]::-ms-tooltip {
 }
 #seekBar {
     text-align: center;
+    padding: 7px;
 }
 #currentTime, #leftTime {
     font-size: 0.7em;
     width: 10%;
     margin: 0;
     float: left;
+    padding: 7px;
 }
 /* Media Bar and timer End */
 
@@ -90,11 +100,33 @@ input[type=range]::-ms-tooltip {
     float: none;
 }
 #seekSlider {
-    width: 80%;
+    width: 75%;
     float: left;
-    margin-top: 7px;
+    margin-top: 14px;
 }
 /* Media PLayer And Controls Ends */
+
+/* Media Queries */
+@media screen and (max-width: 820px) {
+    #artistSearch, #titleSearch {
+        width: 30%;
+    }
+    #leftSide, #rightSide {
+        width: 100%;
+    }
+    #seekBar {
+        padding: 0;
+    }
+    #currentTime, #leftTime {
+        width: 100%;
+        padding: 0;
+        float: none;
+    }
+    #seekSlider {
+        float: none;
+    }
+}
+/* End of Media Queries */
 
 
 /* Range Slider */

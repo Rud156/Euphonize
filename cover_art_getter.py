@@ -12,7 +12,7 @@ def cover_art(search_term):
     try:
         page = requests.get('https://www.discogs.com/search/?q=' + search_term + '&type=all', headers=header)
     except (requests.ConnectionError, requests.ConnectTimeout) as e:
-        print "Error Occurred " + e
+        print "Error Occurred " + str(e)
         return None, False
 
     tree = html.fromstring(page.content)

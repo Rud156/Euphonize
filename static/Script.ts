@@ -23,6 +23,9 @@ var isPlaying = false;
 
 // Video Elements
 var videoImage = <HTMLImageElement>document.getElementById('VideoImage');
+videoImage.addEventListener('error', function(event){
+    event.target.src = '../static/brokenalbumart.png';
+});
 var videoName = document.getElementById('VideoName');
 
 function formatTime(time: number): string {
