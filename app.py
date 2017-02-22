@@ -18,18 +18,20 @@ def get_video():
 
     audio_title = json_value['title']
     audio_artist = json_value['artist']
-    request_string = audio_title + " " + audio_artist
-    videos = youtube_search(request_string)
-    images, success = cover_art(request_string)
+    request_youtube = audio_title + " " + audio_artist + " lyrics"
+    videos = youtube_search(request_youtube)
+    request_discog = audio_title + " " + audio_artist
+    images, success = cover_art(request_discog)
 
     video = pafy.new(videos[0])
     audio_stream = video.getbestaudio()
-    print video.thumb
     if success:
         image_url = images[0]['image_url']
     else:
         image_url = video.thumb
     title = (video.title[: 35] + '...') if len(video.title) > 35 else video.title
+    print title
+    print image_url
     data_set = {
         'success': True,
         'url': audio_stream.url,

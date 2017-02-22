@@ -14,7 +14,8 @@ def youtube_search(search_term):
 
     search_response = youtube.search().list(
         q=search_term,
-        part="id,snippet"
+        part="id,snippet",
+        maxResults=25
     ).execute()
 
     videos = []
