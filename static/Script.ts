@@ -80,7 +80,7 @@ audioSlider.addEventListener('mouseup', function () {
 muteBtn.addEventListener('click', function () {
     if (audio.muted) {
         audio.muted = false;
-        muteBtn.className = 'im im-volume';
+        muteBtn.className = 'im im-volume w3-padding';
         audio.volume = prevVolume;
         volumeSlider.value = prevVolume.toString();
     }
@@ -94,14 +94,13 @@ muteBtn.addEventListener('click', function () {
 
 volumeSlider.addEventListener('change', function () {
     audio.volume = parseFloat(volumeSlider.value);
-    if(volumeSlider.value === "0"){
-        console.log("Volume slider value is 0");
-        audio.muted = true;
-        muteBtn.className = "im im-volume-off w3-padding";
-    }
     if (audio.muted) {
         audio.muted = false;
         muteBtn.className = 'im im-volume w3-padding';
+    }
+    if (parseFloat(volumeSlider.value) === 0) {
+        audio.muted = true;
+        muteBtn.className = 'im im-volume-off w3-padding';
     }
 });
 
