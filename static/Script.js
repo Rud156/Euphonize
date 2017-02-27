@@ -16,13 +16,13 @@ var prevVolume;
 var submitBtn = document.getElementById('submitBtn');
 submitBtn.addEventListener('click', sendData);
 var isPlaying = false;
-// Video Elements
-var videoImage = document.getElementById('VideoImage');
-videoImage.addEventListener('error', function (event) {
+// Audio Elements
+var audioImage = document.getElementById('songImage');
+audioImage.addEventListener('error', function (event) {
     var image = event.target;
     image.src = '../static/brokenalbumart.png';
 });
-var videoName = document.getElementById('VideoName');
+var audioName = document.getElementById('songName');
 function formatTime(time) {
     var tempTime = time;
     var minutes = parseInt((tempTime / 60).toString());
@@ -40,12 +40,12 @@ audio.addEventListener('timeupdate', function () {
 });
 playPauseBtn.addEventListener('click', function () {
     if (isPlaying) {
-        playPauseBtn.className = 'fa fa-play';
+        playPauseBtn.className = 'im im-play';
         audio.pause();
         isPlaying = false;
     }
     else {
-        playPauseBtn.className = 'fa fa-pause';
+        playPauseBtn.className = 'im im-pause';
         audio.play();
         isPlaying = true;
     }
@@ -65,22 +65,26 @@ audioSlider.addEventListener('mouseup', function () {
 muteBtn.addEventListener('click', function () {
     if (audio.muted) {
         audio.muted = false;
-        muteBtn.className = 'fa fa-volume-up';
+        muteBtn.className = 'im im-volume';
         audio.volume = prevVolume;
         volumeSlider.value = prevVolume.toString();
     }
     else {
         audio.muted = true;
-        muteBtn.className = 'fa fa-volume-off';
+        muteBtn.className = 'im im-volume-off w3-padding';
         prevVolume = parseFloat(volumeSlider.value);
         volumeSlider.value = "0";
     }
 });
 volumeSlider.addEventListener('change', function () {
     audio.volume = parseFloat(volumeSlider.value);
+    if (volumeSlider.value === "0") {
+        audio.muted = true;
+        muteBtn.className = "im im-volume-off w3-padding";
+    }
     if (audio.muted) {
         audio.muted = false;
-        muteBtn.className = 'fa fa-volume-up';
+        muteBtn.className = 'im im-volume w3-padding';
     }
 });
 nextAudio.addEventListener('click', function () {
@@ -90,9 +94,8 @@ prevAudio.addEventListener('click', function () {
     // TODO: Change Audio
 });
 function sendData() {
-    var titleBox = document.getElementById('titleSearch');
-    var artistBox = document.getElementById('artistSearch');
-    var data = { 'title': titleBox.value, 'artist': artistBox.value };
+    var titleBox = document.getElementById('searchBox');
+    var data = { 'title': titleBox.value };
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -103,16 +106,19 @@ function sendData() {
                 audio.src = data.url;
                 audio.play();
                 isPlaying = true;
-                videoImage.src = data.image;
-                videoImage.style.display = 'block';
-                videoName.innerHTML = data.name;
-                playPauseBtn.className = 'fa fa-pause';
+                audioImage.src = data.image;
+                audioImage.style.display = 'block';
+                audioName.innerHTML = data.name;
+                playPauseBtn.className = 'im im-pause';
             }
-            else
+            else {
                 console.log("Error Occured");
+                window.alert("Error Occured");
+            }
         },
         error: function () {
             console.log("Error Occured");
+            window.alert("Error Occured");
         }
     });
 }

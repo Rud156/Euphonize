@@ -17,11 +17,9 @@ def get_video():
     json_value = request.json
 
     audio_title = json_value['title']
-    audio_artist = json_value['artist']
-    request_youtube = audio_title + " " + audio_artist + " lyrics"
+    request_youtube = audio_title + " lyrics"
     videos = youtube_search(request_youtube)
-    request_discog = audio_title + " " + audio_artist
-    images, success = cover_art(request_discog)
+    images, success = cover_art(audio_title)
 
     video = pafy.new(videos[0])
     audio_stream = video.getbestaudio()

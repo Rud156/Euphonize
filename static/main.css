@@ -24,12 +24,13 @@ i {
     color: grey;
     border: none;
 }
-#searchBox {
+#search_box {
     border: none;
     padding: 7px;
     height: 45px;
     font-size: 25px;
 }
+
 /* End of Top UI */
 
 /* Bottom UI */

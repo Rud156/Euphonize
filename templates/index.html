@@ -4,47 +4,167 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.iconmonstr.com/1.1.0/css/iconmonstr-iconic-font.min.css">
+    <link rel="stylesheet" href="../static/skeleton.css" />
     <link rel="stylesheet" href="../static/Style.css" />
     <script src="../static/jquery-3.1.1.js"></script>
     <title> You Stream </title>
 </head>
 
 <body>
-    <div id="UserSearch">
-        <button type="submit" id="submitBtn">
-                <i class="fa fa-search"></i>
-            </button>
-        <input type="text" height="50px" id="titleSearch" placeholder="Enter music title..." />
-        <input type="text" height="50px" id="artistSearch" placeholder="Enter artist name..." />
-    </div>
-    <div id="bottomUI">
-        <div id="leftSide">
-            <div id="VideoImageHolder">
-                <img id="VideoImage" />
-            </div>
-            <div id="VideoName"></div>
-        </div>
-        <div id="rightSide">
-            <div id="audioPlayer">
-                <audio id="audioElement"></audio>
-                <div id="controlsHolder">
-                    <div id="seekBar">
-                        <p class="timer" id="currentTime">00:00</p>
-                        <input class="range-slider__range" type="range" value="0" id="seekSlider" />
-                        <p class="timer" id="leftTime">00:00</p>
+    <!-- START NAVIGATION -->
+    <nav class="w3-top">
+        <div class="w3-container w3-padding-top">
+            <div class="w3-row w3-center">
+                <!-- START SEARCH BOX -->
+                <div class="w3-threequarter w3-input" id="search">
+                    <div class="w3-threequarter w3-input w3-card-2 w3-container">
+                        <input class="w3-col s11" id="searchBox" type="text" placeholder='Search for a song...' />
+                        <i class="im im-magnifier w3-padding-large w3-col s1 submitBtn" id="submitBtn"></i>
                     </div>
-                    <div id="controlBtns">
-                        <i class="fa fa-backward" id="backward"></i>
-                        <i class="fa fa-play" id="PPBtn"></i>
-                        <i class="fa fa-forward" id="foward"></i>
+                </div>
+                <!-- END SEARCH BOX -->
+
+                <!-- START User Profile -->
+                <div class="w3-quarter w3-padding" id="profile_img">
+                    <div class="w3-xlarge w3-padding">User</div>
+                    <div class="w3-dropdown-hover user_circle">
+                        <img id="user_img" src="../static/default.png" />
+                        <div class="w3-dropdown-content w3-border w3-card-8">
+                            <a href="#">Profile</a>
+                            <a href="#">Favourites</a>
+                            <a href="#">My Playlists</a>
+                            <a href="#">Settings</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END User Profile -->
+            </div>
+    </nav>
+    <!-- END NAVIGATION -->
+
+    <!-- Music Browsing Section !-->
+    <div class="w3-row w3-container " id="main_section">
+
+        <!-- Side Navigation 
+			+ Should hold links to Billboards ( e.g : Top 100,        	Trending , New and Rising )
+			+ Playslist selection
+			+ Full music collection
+		!-->
+
+        <div class="w3-col m3 w3-padding" id="side_nav">
+
+            <div class="browse_link">
+                <h7>BROWSE</h7>
+                <ul>
+                    <li><a href="">Hot</a></li>
+                    <li><a href="">Indie</a></li>
+                    <li><a href="">Recommended</a></li>
+                </ul>
+            </div>
+            <div class="user_link">
+                <h7>MY MUSIC</h7>
+                <ul>
+                    <li><a href="">Playlist</a></li>
+                    <li><a href="">Collection</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Music Browse Area
+				+ Display music based on selection of the side menu 
+				+ By default , recommended music & new music.
+			!-->
+
+        <div class="w3-col m6 w3-padding" id="main_browse">
+            <!--
+				+ Default , hot and rising.
+			!-->
+            <div id="main_browse_top">
+                <h3>Top Charts</h3>
+                <button id="station_btn" class="w3-right">Start Station</button>
+            </div>
+            <div id="main_browse_content">
+                <div class="card_wrapper">
+                    <img src="../static/default.png">
+                    <p class="song_title">Never give up</p>
+                    <p class="artist_title">Sia</p>
+                </div>
+
+                <div class="card_wrapper">
+                    <img src="../static/default.png">
+                    <p class="song_title">Eyes to the sky</p>
+                    <p class="artist_title">Jon Bellion</p>
+                </div>
+
+                <div class="card_wrapper">
+                    <img src="../static/default.png">
+                    <p class="song_title">Heavy</p>
+                    <p class="artist_title">Linkin Park</p>
+                </div>
+
+                <div class="card_wrapper">
+                    <img src="../static/default.png">
+                    <p class="song_title">For you</p>
+                    <p class="artist_title">Genevieve</p>
+                </div>
+
+                <div class="card_wrapper">
+                    <img src="../static/default.png">
+                    <p class="song_title">Hold no guns</p>
+                    <p class="artist_title">Death cab for cute</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Music Queue
+				+ Display currentlu playing music. 
+		!-->
+
+        <div class="w3-col m3 w3-padding" id="music_queue">
+            <h5>QUEUE</h5>
+        </div>
+    </div>
+
+    <!-- Music browse ends !-->
+
+    <!-- Media Player Starts -->
+    <div class="w3-bottom w3-black w3-padding-large">
+        <audio id="audioElement"></audio>
+        <div class="w3-row w3-center">
+            <div class="w3-col m2 w3-padding-top">
+                <i class="im im-angle-left w3-padding" id="foward"></i>
+                <i class="im im-play w3-padding" id="PPBtn"></i>
+                <i class="im im-angle-right w3-padding" id="backward"></i>
+            </div>
+            <div class="w3-col m8">
+                <div class="w3-large w3-text-shadow">
+                    <b>
+                        <span id="songName">
+						    ----
+                        </span>
+					</b>
+                </div>
+                <div>
+                    <p class="w3-large" id="currentTime">--:--</p>
+                    <input class="range-slider__range" type="range" value="0" id="seekSlider" />
+                    <p class="w3-large" id="leftTime">--:--</p>
+                </div>
+            </div>
+            <div class="w3-col m2">
+                <div class="w3-row w3-padding-top">
+                    <div class="w3-col m6 w3-padding-top">
                         <input class="range-slider__range" type="range" min="0" max="1" step="0.1" value="1" id="volumeSlider" />
-                        <i class="fa fa-volume-up" id="muteBtn"></i>
+                        <i class="im im-volume w3-padding" id="muteBtn"></i>
+                    </div>
+                    <div class="w3-col m6 w3-padding-top">
+                        <img height="50px" src="../static/default.png" id="songImage" class="w3-right" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Media Player Ends !-->
     <script src="../static/Script.js"></script>
 </body>
 
