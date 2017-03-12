@@ -1,7 +1,7 @@
 import pafy
 from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
-from cover_art_getter import cover_art
+from cover_art_getter import last_fm_cover_art
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 app = Flask(__name__)
@@ -19,12 +19,12 @@ def get_video():
     audio_title = json_value['title']
     request_youtube = audio_title + " lyrics"
     videos = youtube_search(request_youtube)
-    images, success = cover_art(audio_title)
+    image, success = last_fm_cover_art(audio_title)
 
     video = pafy.new(videos[0])
     audio_stream = video.getbestaudio()
     if success:
-        image_url = images[0]['image_url']
+        image_url = image
     else:
         image_url = video.thumb
     title = (video.title[: 35] + '...') if len(video.title) > 35 else video.title

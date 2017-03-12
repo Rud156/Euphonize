@@ -1,7 +1,12 @@
 /// <reference path="./jquery.d.ts" />
+/// <reference path="./underscore.d.ts" />
+/// <reference path="./jqueryUI.d.ts" />
+
+
 
 // Main Audio Element
 var audio = <HTMLAudioElement>document.getElementById('audioElement');
+var searchReusltsArray: Array<String> = []; // Results Array from Last.Fm
 
 // Control Buttons
 var playPauseBtn = document.getElementById('PPBtn');
@@ -17,9 +22,41 @@ var lefTime = document.getElementById('leftTime');
 var prevVolume: number;
 
 // Search Elements
+var searchBox = <HTMLInputElement>document.getElementById('searchBox');
 var submitBtn = document.getElementById('submitBtn');
 submitBtn.addEventListener('click', sendData);
+
+// Delayed function for Last.Fm request
+var getTracksFromLastFm = _.debounce(() => {
+    searchReusltsArray.length = 0;
+    var data = searchBox.value;
+    data = data.replace(/ /g, "%20");
+    var url = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + data +
+        "&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json";
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: url,
+        success: function(data){
+            for(var i = 0; i < data.results.trackmatches.track.length; i++)
+                searchReusltsArray.push(data.results.trackmatches.track[i].name + " - " 
+                    + data.results.trackmatches.track[i].artist);
+            console.log(searchReusltsArray);
+        },
+        error: function(){
+            console.log("Error Occurred");
+        }
+    });
+}, 1000);
+
+// AutoCompletion From Results of Last.Fm
+$("#searchBox").autocomplete({
+    source: searchReusltsArray
+})
+
+// Continued Search Elements...
 var isPlaying = false;
+searchBox.addEventListener("keyup", getTracksFromLastFm);
 
 // Audio Elements
 var audioImage = <HTMLImageElement>document.getElementById('songImage');
@@ -113,8 +150,7 @@ prevAudio.addEventListener('click', function () {
 });
 
 function sendData() {
-    var titleBox = <HTMLInputElement>document.getElementById('searchBox');
-    var data = { 'title': titleBox.value };
+    var data = { 'title': searchBox.value };
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -141,3 +177,4 @@ function sendData() {
         }
     });
 }
+
