@@ -41,7 +41,6 @@ var getTracksFromLastFm = _.debounce(() => {
             for(var i = 0; i < data.results.trackmatches.track.length; i++)
                 searchReusltsArray.push(data.results.trackmatches.track[i].name + " - " 
                     + data.results.trackmatches.track[i].artist);
-            console.log(searchReusltsArray);
         },
         error: function(){
             console.log("Error Occurred");

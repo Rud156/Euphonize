@@ -27,7 +27,7 @@ def get_video():
         image_url = image
     else:
         image_url = video.thumb
-    title = (video.title[: 35] + '...') if len(video.title) > 35 else video.title
+    title = (audio_title[: 35] + '...') if len(audio_title) > 35 else audio_title
     print title
     print image_url
     data_set = {
