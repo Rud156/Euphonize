@@ -23,6 +23,8 @@ submitBtn.addEventListener('click', sendData);
 var getTracksFromLastFm = _.debounce(function () {
     searchReusltsArray.length = 0;
     var data = searchBox.value;
+    if (data.trim() === "")
+        return;
     data = data.replace(/ /g, "%20");
     var url = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + data +
         "&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json";
@@ -34,16 +36,17 @@ var getTracksFromLastFm = _.debounce(function () {
             for (var i = 0; i < data.results.trackmatches.track.length; i++)
                 searchReusltsArray.push(data.results.trackmatches.track[i].name + " - "
                     + data.results.trackmatches.track[i].artist);
-            console.log(searchReusltsArray);
         },
         error: function () {
             console.log("Error Occurred");
         }
     });
 }, 1000);
+// AutoCompletion From Results of Last.Fm
 $("#searchBox").autocomplete({
     source: searchReusltsArray
 });
+// Continued Search Elements...
 var isPlaying = false;
 searchBox.addEventListener("keyup", getTracksFromLastFm);
 // Audio Elements
