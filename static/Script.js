@@ -41,7 +41,7 @@ var getTracksFromLastFm = _.debounce(function () {
             console.log("Error Occurred");
         }
     });
-}, 1000);
+}, 500);
 // AutoCompletion From Results of Last.Fm
 $("#searchBox").autocomplete({
     source: searchReusltsArray
