@@ -30,6 +30,8 @@ submitBtn.addEventListener('click', sendData);
 var getTracksFromLastFm = _.debounce(() => {
     searchReusltsArray.length = 0;
     var data = searchBox.value;
+    if (data.trim() === "")
+        return;
     data = data.replace(/ /g, "%20");
     var url = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=" + data +
         "&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json";
@@ -37,12 +39,12 @@ var getTracksFromLastFm = _.debounce(() => {
         type: 'GET',
         contentType: 'application/json',
         url: url,
-        success: function(data){
-            for(var i = 0; i < data.results.trackmatches.track.length; i++)
-                searchReusltsArray.push(data.results.trackmatches.track[i].name + " - " 
+        success: function (data) {
+            for (var i = 0; i < data.results.trackmatches.track.length; i++)
+                searchReusltsArray.push(data.results.trackmatches.track[i].name + " - "
                     + data.results.trackmatches.track[i].artist);
         },
-        error: function(){
+        error: function () {
             console.log("Error Occurred");
         }
     });
