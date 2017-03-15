@@ -63,5 +63,5 @@ def top_artist():
 if __name__ == '__main__':
 	
 	# Run funciton here
-	x = top_artist()
-	print x
+	#blah blah
+    print "Hello"
