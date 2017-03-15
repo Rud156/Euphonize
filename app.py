@@ -2,6 +2,7 @@ import pafy
 from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
 from cover_art_getter import last_fm_cover_art
+import LastFM_Top
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 app = Flask(__name__)
@@ -38,6 +39,47 @@ def get_video():
         'image': image_url
     }
     return jsonify(data_set)
+
+
+@app.route('/top_artists_user_cu', methods=['GET'])
+def get_top_artists():
+    artists = LastFM_Top.top_artists()
+    return jsonify(artists)
+
+
+@app.route('/top_tracks_user_cu', methods=['GET'])
+def get_top_tracks():
+    tracks = LastFM_Top.top_tracks()
+    return jsonify(tracks)
+
+
+@app.route('/top_albums_user_cu', methods=['GET'])
+def get_top_albums():
+    albums = LastFM_Top.top_albums()
+    return jsonify(albums)
+
+
+@app.route('/artist_top_user_cu', methods=['GET'])
+def artist_top():
+    artist = request.args.get('name')
+    data = request.args.get('data')
+    if data == 'tracks':
+        return jsonify(LastFM_Top.get_artist_top_albums(artist))
+    else:
+        return jsonify(LastFM_Top.get_artist_top_tracks(artist))
+
+
+@app.route('/popular_genre', methods=['GET'])
+def popular_genre():
+    data = request.args.get('data')
+    if data == 'tags':
+        return jsonify(LastFM_Top.top_tags())
+    elif data == 'albums':
+        tag_name = request.args.get('tag_name')
+        return jsonify(LastFM_Top.get_albums_for_tags(tag_name))
+    else:
+        tag_name = request.args.get('tag_name')
+        return jsonify(LastFM_Top.get_tracks_for_tags(tag_name))
 
 
 if __name__ == '__main__':

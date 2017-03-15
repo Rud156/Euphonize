@@ -109,6 +109,22 @@ def get_albums_for_tags(tag_name):
     return albums
 
 
+def get_tracks_for_tags(tag_name):
+    data = requests.get('http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=' + tag_name +
+                        '&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json&limit=100')
+    data = json.loads(data.content)
+    all_tracks = data['tracks']['track']
+    tracks = []
+    for i in xrange(0, len(all_tracks)):
+        data_set = {
+            'name': all_tracks[i]['name'],
+            'artist': all_tracks[i]['artist']['name'],
+            'image': all_tracks[i]['image'][2]['#text']
+        }
+        tracks.append(data_set)
+    return tracks
+
+
 if __name__ == '__main__':
     info = get_artist_top_albums('Taylor Swift')
     print info
