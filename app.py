@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
 from cover_art_getter import last_fm_cover_art
 import LastFM_Top
+import top_chart
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 app = Flask(__name__)
@@ -41,16 +42,38 @@ def get_video():
     return jsonify(data_set)
 
 
-@app.route('/top_artists_user_cu', methods=['GET'])
+@app.route('/top_artists', methods=['GET'])
 def get_top_artists():
-    artists = LastFM_Top.top_artists()
-    return jsonify(artists)
+    data = request.args.get('type')
+    if data == 'user_cu':
+        artists = LastFM_Top.top_artists()
+        return jsonify(artists)
+    else:
+        artists = top_chart.top_artist()
+        return jsonify(artists)
 
 
-@app.route('/top_tracks_user_cu', methods=['GET'])
+@app.route('/top_tracks', methods=['GET'])
 def get_top_tracks():
-    tracks = LastFM_Top.top_tracks()
-    return jsonify(tracks)
+    data = request.args.get('type')
+    if data == 'user_cu':
+        tracks = LastFM_Top.top_tracks()
+        return jsonify(tracks)
+    else:
+        tracks = top_chart.top_chart()
+        return jsonify(tracks)
+
+
+@app.route('/top_emerging_tracks', methods=['GET'])
+def top_emerging_tracks():
+    data = top_chart.emerge_chart()
+    return jsonify(data)
+
+
+@app.route('/top_trending', methods=['GET'])
+def top_trending():
+    data = top_chart.trending_chart()
+    return jsonify(data)
 
 
 @app.route('/top_albums_user_cu', methods=['GET'])
