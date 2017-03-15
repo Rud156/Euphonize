@@ -61,7 +61,14 @@ def top_artist():
     results_top_chart = dict(song_Artist)
     return results_top_chart
 if __name__ == '__main__':
+<<<<<<< HEAD
 
     # Run funciton here
     x = top_artist()
     print x
+=======
+	
+	# Run funciton here
+	#blah blah
+    print "Hello"
+>>>>>>> 709155e2a6f88e2a70f2cc0c6423df594d0a05d9
