@@ -132,7 +132,7 @@ function sendData() {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),
-        url: 'http://localhost:5000/GetVideo',
+        url: 'http://localhost:5000/get_video',
         success: function (data) {
             if (data.success) {
                 audio.src = data.url;

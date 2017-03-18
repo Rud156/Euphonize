@@ -14,7 +14,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/GetVideo', methods=['POST'])
+@app.route('/get_video', methods=['POST'])
 def get_video():
     json_value = request.json
 
@@ -76,16 +76,16 @@ def top_trending():
     return jsonify(data)
 
 
-@app.route('/top_albums_user_cu', methods=['GET'])
+@app.route('/top_albums', methods=['GET'])
 def get_top_albums():
     albums = LastFM_Top.top_albums()
     return jsonify(albums)
 
 
-@app.route('/artist_top_user_cu', methods=['GET'])
+@app.route('/artist_top', methods=['GET'])
 def artist_top():
     artist = request.args.get('name')
-    data = request.args.get('data')
+    data = request.args.get('type')
     if data == 'tracks':
         return jsonify(LastFM_Top.get_artist_top_albums(artist))
     else:
@@ -94,17 +94,17 @@ def artist_top():
 
 @app.route('/popular_genre', methods=['GET'])
 def popular_genre():
-    data = request.args.get('data')
+    data = request.args.get('type')
     if data == 'tags':
         return jsonify(LastFM_Top.top_tags())
     elif data == 'albums':
         tag_name = request.args.get('tag_name')
-        return jsonify(LastFM_Top.get_albums_for_tags(tag_name))
+        return jsonify(LastFM_Top.get_albums_for_tags(tag_name, 100))
     else:
         tag_name = request.args.get('tag_name')
         return jsonify(LastFM_Top.get_tracks_for_tags(tag_name))
 
 
 if __name__ == '__main__':
-    app.secret_key = 'sonu5'
+    app.secret_key = 'someSecret'
     app.run(debug=True, threaded=True)

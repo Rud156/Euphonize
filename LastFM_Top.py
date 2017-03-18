@@ -50,7 +50,7 @@ def top_albums():
     temp_albums = []
 
     for i in xrange(0, len(all_tags)):
-        temp_albums.append(get_albums_for_tags(all_tags[i]))
+        temp_albums.append(get_albums_for_tags(all_tags[i], 5))
 
     for i in xrange(0, len(temp_albums[0])):
         for j in xrange(0, len(temp_albums)):
@@ -93,9 +93,9 @@ def get_artist_top_albums(artist_name):
     return albums
 
 
-def get_albums_for_tags(tag_name):
+def get_albums_for_tags(tag_name, limit):
     data = requests.get('http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=' + tag_name +
-                        '&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json&limit=5')
+                        '&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json&limit=' + str(limit))
     data = json.loads(data.content)
     all_albums = data['albums']['album']
     albums = []
@@ -126,5 +126,5 @@ def get_tracks_for_tags(tag_name):
 
 
 if __name__ == '__main__':
-    info = top_tracks()
+    info = get_albums_for_tags('pop', 100)
     print info
