@@ -12,6 +12,7 @@
     <script src="../static/jquery-3.1.1.js"></script>
     <script src="../static/underscore-min.js"></script>
     <script src="../static/jquery-ui.min.js"></script>
+    <script src="../static/knockout-3.4.2.js"></script>
     <title> You Stream </title>
 </head>
 
@@ -88,35 +89,11 @@
                 <h3>Top Charts</h3>
                 <button id="station_btn" class="w3-right">Start Station</button>
             </div>
-            <div id="main_browse_content">
-                <div class="card_wrapper">
-                    <img src="../static/default.png">
-                    <p class="song_title">Never give up</p>
-                    <p class="artist_title">Sia</p>
-                </div>
-
-                <div class="card_wrapper">
-                    <img src="../static/default.png">
-                    <p class="song_title">Eyes to the sky</p>
-                    <p class="artist_title">Jon Bellion</p>
-                </div>
-
-                <div class="card_wrapper">
-                    <img src="../static/default.png">
-                    <p class="song_title">Heavy</p>
-                    <p class="artist_title">Linkin Park</p>
-                </div>
-
-                <div class="card_wrapper">
-                    <img src="../static/default.png">
-                    <p class="song_title">For you</p>
-                    <p class="artist_title">Genevieve</p>
-                </div>
-
-                <div class="card_wrapper">
-                    <img src="../static/default.png">
-                    <p class="song_title">Hold no guns</p>
-                    <p class="artist_title">Death cab for cute</p>
+            <div id="main_browse_content" data-bind="foreach: topChartsData">
+                <div class="card_wrapper" data-bind="click: $root.playMedia">
+                    <img data-bind="attr: {src: image}">
+                    <p class="song_title" data-bind="text: name"></p>
+                    <p class="artist_title" data-bind="text: artist"></p>
                 </div>
             </div>
         </div>
@@ -170,6 +147,7 @@
     </div>
     <!-- Media Player Ends !-->
     <script src="../static/Script.js"></script>
+    <script src="../static/UIHandler.js"></script>
 </body>
 
 </html>

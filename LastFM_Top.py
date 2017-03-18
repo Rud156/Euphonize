@@ -126,5 +126,5 @@ def get_tracks_for_tags(tag_name):
 
 
 if __name__ == '__main__':
-    info = get_albums_for_tags('pop', 100)
+    info = get_artist_top_albums('Taylor Swift')
     print info
