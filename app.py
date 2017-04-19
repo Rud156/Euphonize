@@ -1,7 +1,7 @@
 import pafy
 from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
-from cover_art_getter import itunes_album_art
+from cover_art_getter import itunes_album_art , last_fm_cover_art
 import LastFM_Top
 import top_chart
 
@@ -28,7 +28,12 @@ def get_video():
     if success:
         image_url = image
     else:
-        image_url = video.thumb
+        image,success = last_fm_cover_art(audio_title)
+        if(success):
+            image_url = image
+        else:
+            image_url = video.thumb
+            
     title = audio_title.split(' - ')
     title[0], title[1] = title[1], title[0]
     title = "<br />".join(title)

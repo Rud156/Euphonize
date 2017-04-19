@@ -51,7 +51,7 @@ def last_fm_cover_art(search_term):
         print "Error Occurred " + str(e)
         return None, False
     try:
-        image = response["track"]["album"]["image"][2]["#text"]
+        image = response["track"]["album"]["image"][3]["#text"]
     except KeyError as e:
         print "Error Occurred: " + str(e)
         return None, False
@@ -75,7 +75,7 @@ def itunes_album_art(search_term):
     try:
         image = response["results"][0]["artworkUrl30"]
         image = image.replace("30x30bb.jpg" , "400x400bb.jpg")
-    except KeyError as e:
+    except (KeyError, IndexError) as e:
         print "Error Occurred: " + str(e)
         return None, False
     return image, True
