@@ -1,7 +1,7 @@
 import pafy
 from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
-from cover_art_getter import last_fm_cover_art
+from cover_art_getter import itunes_album_art
 import LastFM_Top
 import top_chart
 
@@ -21,7 +21,7 @@ def get_video():
     audio_title = json_value['title']
     request_youtube = audio_title + " lyrics"
     videos = youtube_search(request_youtube)
-    image, success = last_fm_cover_art(audio_title)
+    image, success = itunes_album_art(audio_title)
 
     video = pafy.new(videos[0])
     audio_stream = video.getbestaudio()

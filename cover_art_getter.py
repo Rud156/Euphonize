@@ -57,10 +57,32 @@ def last_fm_cover_art(search_term):
         return None, False
     return image, True
 
+def itunes_album_art(search_term):
+    print "Getting cover art for "+ search_term
+    track_parts = search_term.split(" - ")
+
+    track = track_parts[0]
+    track = track.replace(" ", "+")
+    artist = track_parts[1]
+    artist = artist.replace(" ", "+")
+
+    try:
+        response = requests.get("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term="+track+"+"+artist)
+        response = json.loads(response.content)
+    except Exception as e:
+        print "Error Occurred " + str(e)
+        return None, False
+    try:
+        image = response["results"][0]["artworkUrl30"]
+        image = image.replace("30x30bb.jpg" , "400x400bb.jpg")
+    except KeyError as e:
+        print "Error Occurred: " + str(e)
+        return None, False
+    return image, True
 
 if __name__ == '__main__':
     query = raw_input('Enter a search term: ')
-    results, success = last_fm_cover_art(query)
+    results, success = itunes_album_art(query)
     if success:
         print "Got Results"
         print results
