@@ -1,24 +1,30 @@
 /// <reference path="./jquery.d.ts" />
 /// <reference path="./underscore.d.ts" />
 /// <reference path="./jqueryUI.d.ts" />
+
 // Main Audio Element
 var audio = document.getElementById('audioElement');
 var searchReusltsArray = []; // Results Array from Last.Fm
+
 // Control Buttons
 var playPauseBtn = document.getElementById('PPBtn');
-var nextAudio = document.getElementById('foward');
+var nextAudio = document.getElementById('forward');
 var prevAudio = document.getElementById('backward');
-var muteBtn = document.getElementById('muteBtn');
-var volumeSlider = document.getElementById('volumeSlider');
-var audioSlider = document.getElementById('seekSlider');
+var audioSlider = document.getElementsByClassName('seekSlider');
+
 // Time Display
-var curTime = document.getElementById('currentTime');
-var lefTime = document.getElementById('leftTime');
+var curTime = document.getElementsByClassName('currentTime');
+var lefTime = document.getElementsByClassName('leftTime');
 var prevVolume;
+
 // Search Elements
-var searchBox = document.getElementById('searchBox');
-var submitBtn = document.getElementById('submitBtn');
-submitBtn.addEventListener('click', sendData);
+var searchBox = document.getElementById('searchInput');
+searchBox.addEventListener('keydown', function (data) {
+    console.log(data);
+});
+// var submitBtn = document.getElementById('submitBtn');
+// submitBtn.addEventListener('click', sendData);
+
 // Delayed function for Last.Fm request
 var getTracksFromLastFm = _.debounce(function () {
     searchReusltsArray.length = 0;
@@ -34,28 +40,32 @@ var getTracksFromLastFm = _.debounce(function () {
         url: url,
         success: function (data) {
             for (var i = 0; i < data.results.trackmatches.track.length; i++)
-                searchReusltsArray.push(data.results.trackmatches.track[i].name + " - "
-                    + data.results.trackmatches.track[i].artist);
+                searchReusltsArray.push(data.results.trackmatches.track[i].name + " - " +
+                    data.results.trackmatches.track[i].artist);
         },
         error: function () {
             console.log("Error Occurred");
         }
     });
 }, 500);
+
 // AutoCompletion From Results of Last.Fm
 $("#searchBox").autocomplete({
     source: searchReusltsArray
 });
+
 // Continued Search Elements...
 var isPlaying = false;
 searchBox.addEventListener("keyup", getTracksFromLastFm);
+
 // Audio Elements
 var audioImage = document.getElementById('songImage');
 audioImage.addEventListener('error', function (event) {
     var image = event.target;
     image.src = '../static/brokenalbumart.png';
 });
-var audioName = document.getElementById('songName');
+
+var audioName = document.getElementsByClassName('songName');
 function formatTime(time) {
     var tempTime = time;
     var minutes = parseInt((tempTime / 60).toString());
@@ -65,67 +75,65 @@ function formatTime(time) {
     var formattedTime = stringMinutes + ":" + stringSeconds;
     return formattedTime;
 }
+
 audio.addEventListener('timeupdate', function () {
     var value = (100 / audio.duration) * audio.currentTime;
-    audioSlider.value = value.toString();
-    curTime.innerHTML = formatTime(audio.currentTime);
-    lefTime.innerHTML = formatTime(audio.duration - audio.currentTime);
+    for (var i = 0; i < audioSlider.length; i++)
+        audioSlider[i].value = value.toString();
+    for (var i = 0; i < curTime.length; i++) {
+        curTime[i].innerHTML = formatTime(audio.currentTime);
+        lefTime[i].innerHTML = formatTime(audio.duration - audio.currentTime);
+    }
 });
+
 playPauseBtn.addEventListener('click', function () {
     if (isPlaying) {
-        playPauseBtn.className = 'im im-play';
+        playPauseBtn.innerHTML = 'play_arrow';
         audio.pause();
         isPlaying = false;
     }
     else {
-        playPauseBtn.className = 'im im-pause';
+        playPauseBtn.innerHTML = 'pause';
         audio.play();
         isPlaying = true;
     }
 });
-audioSlider.addEventListener('change', function () {
-    var time = audio.duration * (parseFloat(audioSlider.value) / 100);
+
+audioSlider[0].addEventListener('change', function () {
+    var time = audio.duration * (parseFloat(audioSlider[0].value) / 100);
     audio.currentTime = time;
 });
-audioSlider.addEventListener('mousedown', function () {
+audioSlider[1].addEventListener('change', function () {
+    var time = audio.duration * (parseFloat(audioSlider[1].value) / 100);
+    audio.currentTime = time;
+});
+
+audioSlider[0].addEventListener('mousedown', function () {
     if (isPlaying)
         audio.pause();
 });
-audioSlider.addEventListener('mouseup', function () {
+audioSlider[1].addEventListener('mousedown', function () {
+    if (isPlaying)
+        audio.pause();
+});
+
+audioSlider[0].addEventListener('mouseup', function () {
     if (isPlaying)
         audio.play();
 });
-muteBtn.addEventListener('click', function () {
-    if (audio.muted) {
-        audio.muted = false;
-        muteBtn.className = 'im im-volume w3-padding';
-        audio.volume = prevVolume;
-        volumeSlider.value = prevVolume.toString();
-    }
-    else {
-        audio.muted = true;
-        muteBtn.className = 'im im-volume-off w3-padding';
-        prevVolume = parseFloat(volumeSlider.value);
-        volumeSlider.value = "0";
-    }
+audioSlider[1].addEventListener('mouseup', function () {
+    if (isPlaying)
+        audio.play();
 });
-volumeSlider.addEventListener('change', function () {
-    audio.volume = parseFloat(volumeSlider.value);
-    if (audio.muted) {
-        audio.muted = false;
-        muteBtn.className = 'im im-volume w3-padding';
-    }
-    if (parseFloat(volumeSlider.value) === 0) {
-        audio.muted = true;
-        muteBtn.className = 'im im-volume-off w3-padding';
-    }
-});
+
 nextAudio.addEventListener('click', function () {
     // TODO: Change Audio
 });
+
 prevAudio.addEventListener('click', function () {
     // TODO: Change Audio
 });
+
 function sendData() {
     var data = { 'title': searchBox.value };
     $.ajax({
@@ -140,8 +148,11 @@ function sendData() {
                 isPlaying = true;
                 audioImage.src = data.image;
                 audioImage.style.display = 'block';
-                audioName.innerHTML = data.name;
-                playPauseBtn.className = 'im im-pause';
+
+                for (var i = 0; i < audioName.length; i++)
+                    audioName[i].innerHTML = data.name;
+
+                playPauseBtn.innerHTML = 'pause';
             }
             else {
                 console.log("Error Occured");
