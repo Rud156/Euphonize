@@ -19,11 +19,12 @@ var prevVolume;
 
 // Search Elements
 var searchBox = document.getElementById('searchInput');
-searchBox.addEventListener('keydown', function (data) {
-    console.log(data);
+searchBox.addEventListener('keydown', function (keyDownValue) {
+    if (keyDownValue.keyCode === 13)
+        sendData();
 });
-// var submitBtn = document.getElementById('submitBtn');
-// submitBtn.addEventListener('click', sendData);
+var submitBtn = document.getElementById('submitBtn');
+submitBtn.addEventListener('click', sendData);
 
 // Delayed function for Last.Fm request
 var getTracksFromLastFm = _.debounce(function () {
@@ -47,10 +48,10 @@ var getTracksFromLastFm = _.debounce(function () {
             console.log("Error Occurred");
         }
     });
-}, 500);
+}, 250);
 
 // AutoCompletion From Results of Last.Fm
-$("#searchBox").autocomplete({
+$("#searchInput").autocomplete({
     source: searchReusltsArray
 });
 
@@ -62,7 +63,7 @@ searchBox.addEventListener("keyup", getTracksFromLastFm);
 var audioImage = document.getElementById('songImage');
 audioImage.addEventListener('error', function (event) {
     var image = event.target;
-    image.src = '../static/brokenalbumart.png';
+    image.src = './../static/Images/brokenalbumart.png';
 });
 
 var audioName = document.getElementsByClassName('songName');
@@ -78,9 +79,10 @@ function formatTime(time) {
 
 audio.addEventListener('timeupdate', function () {
     var value = (100 / audio.duration) * audio.currentTime;
-    for (var i = 0; i < audioSlider.length; i++)
+    var i;
+    for (i = 0; i < audioSlider.length; i++)
         audioSlider[i].value = value.toString();
-    for (var i = 0; i < curTime.length; i++) {
+    for (i = 0; i < curTime.length; i++) {
         curTime[i].innerHTML = formatTime(audio.currentTime);
         lefTime[i].innerHTML = formatTime(audio.duration - audio.currentTime);
     }
@@ -140,7 +142,7 @@ function sendData() {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),
-        url: 'http://localhost:5000/get_video',
+        url: '/get_video',
         success: function (data) {
             if (data.success) {
                 audio.src = data.url;
