@@ -28,7 +28,6 @@ submitBtn.addEventListener('click', sendData);
 
 // Delayed function for Last.Fm request
 var getTracksFromLastFm = _.debounce(function () {
-    searchReusltsArray.length = 0;
     var data = searchBox.value;
     if (data.trim() === "")
         return;
@@ -40,6 +39,7 @@ var getTracksFromLastFm = _.debounce(function () {
         contentType: 'application/json',
         url: url,
         success: function (data) {
+            searchReusltsArray.length = 0;
             for (var i = 0; i < data.results.trackmatches.track.length; i++)
                 searchReusltsArray.push(data.results.trackmatches.track[i].name + " - " +
                     data.results.trackmatches.track[i].artist);

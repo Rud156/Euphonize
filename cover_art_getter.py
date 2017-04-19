@@ -60,8 +60,9 @@ def last_fm_cover_art(search_term):
 
 if __name__ == '__main__':
     query = raw_input('Enter a search term: ')
-    results, success = cover_art(query)
+    results, success = last_fm_cover_art(query)
     if success:
         print "Got Results"
+        print results
     else:
         print "Error Occurred"
