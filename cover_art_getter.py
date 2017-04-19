@@ -51,7 +51,7 @@ def last_fm_cover_art(search_term):
         print "Error Occurred " + str(e)
         return None, False
     try:
-        image = response["track"]["album"]["image"][2]["#text"]
+        image = response["track"]["album"]["image"][3]["#text"]
     except KeyError as e:
         print "Error Occurred: " + str(e)
         return None, False
