@@ -4,150 +4,392 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.iconmonstr.com/1.1.0/css/iconmonstr-iconic-font.min.css">
-    <link rel="stylesheet" href="../static/skeleton.css" />
-    <link rel="stylesheet" href="../static/Style.css" />
-    <link rel="stylesheet" href="../static/jquery-ui.min.css" />
-    <link rel="stylesheet" href="../static/jquery-ui.structure.min.css" />
-    <script src="../static/jquery-3.1.1.js"></script>
-    <script src="../static/underscore-min.js"></script>
-    <script src="../static/jquery-ui.min.js"></script>
-    <script src="../static/knockout-3.4.2.js"></script>
-    <title> You Stream </title>
+    <link rel="stylesheet" href="./CSS/materialize.css" />
+    <link rel="stylesheet" href="./CSS/slick.css" />
+    <link rel="stylesheet" href="./CSS/slick-theme.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="./Images/Fu.png" />
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./CSS/main.css">
+    <script src="./JS/jquery-3.1.1.js"></script>
+    <script src="./JS/materialize.min.js"></script>
+    <script src="./JS/slick.min.js"></script>
+    <title>Fumen</title>
 </head>
 
 <body>
-    <!-- START NAVIGATION -->
-    <nav class="w3-top">
-        <div class="w3-container w3-padding-top">
-            <div class="w3-row w3-center">
-                <!-- START SEARCH BOX -->
-                <div class="w3-threequarter w3-input" id="search">
-                    <div class="w3-threequarter w3-input w3-card-2 w3-container">
-                        <input class="w3-col s11" id="searchBox" type="text" placeholder='Search for a song...' />
-                        <i class="im im-magnifier w3-padding-large w3-col s1 submitBtn" id="submitBtn"></i>
-                    </div>
-                </div>
-                <!-- END SEARCH BOX -->
 
-                <!-- START User Profile -->
-                <div class="w3-quarter w3-padding" id="profile_img">
-                    <div class="w3-xlarge w3-padding">User</div>
-                    <div class="w3-dropdown-hover user_circle">
-                        <img id="user_img" src="../static/default.png" />
-                        <div class="w3-dropdown-content w3-border w3-card-8">
-                            <a href="#">Profile</a>
-                            <a href="#">Favourites</a>
-                            <a href="#">My Playlists</a>
-                            <a href="#">Settings</a>
+    <!-- Start of main top nav -->
+    <nav class="transparent" style="box-shadow: none">
+        <div class="nav-wrapper">
+            <div class="row">
+                <div class="col s3 m2 l2 center">
+                    <a href="#" data-activates="slide-out" class="brand-logo black-text left" style="margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>
+                </div>
+                <div class="col s8 m8 l8 center">
+                    <form id="searchForm" class="z-depth-1">
+                        <div class="input-field" class="transparent">
+                            <input id="searchInput" type="search" class="transparent">
+                            <label class="label-icon" for="searchInput"><i class="material-icons black-text">search</i></label>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Start of User Dropdown -->
+                <div class="col m2 l2 center hide-on-med-and-down">
+                    <a href="#" class="dropdown-button btn grad-color base-style" data-activates="userDropdown" style="font-weight: bold">User</a>
+                    <ul id='userDropdown' class='dropdown-content grad-color'>
+                        <li><a href="#!" class="white-text base-style">one</a></li>
+                        <li><a href="#!" class="white-text base-style">two</a></li>
+                        <li><a href="#!" class="white-text base-style">three</a></li>
+                    </ul>
+                </div>
+                <!-- End of User Dropdown -->
+
+            </div>
+        </div>
+    </nav>
+    <!-- End of main top nav -->
+
+    <!-- Start of side nav -->
+    <ul id="slide-out" class="side-nav" style="background: linear-gradient(red, rgb(254, 161, 125))">
+        <li><a href="#!" class="white-text base-style">What's New</a></li>
+        <li><a href="#!" class="white-text base-style">Playlists</a></li>
+        <li><a href="#!" class="white-text base-style">Library</a></li>
+        <li><a href="#!" class="white-text base-style">Discover</a></li>
+    </ul>
+    <!-- End of side nav -->
+
+    <!-- Start of Main Recomendation Part -->
+    <div class="container">
+        <!-- Start of Trending Artists -->
+        <div>
+            <div class="white-text base-style">
+                <h4>
+                    Trending Artists:
+                </h4>
+            </div>
+
+            <div class="flowy">
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/TS.png">
+                            <span class="card-title">Taylor Swift</span>
                         </div>
                     </div>
                 </div>
-                <!-- END User Profile -->
-            </div>
-    </nav>
-    <!-- END NAVIGATION -->
 
-    <!-- Music Browsing Section !-->
-    <div class="w3-row w3-container " id="main_section">
-
-        <!-- Side Navigation 
-			+ Should hold links to Billboards ( e.g : Top 100,        	Trending , New and Rising )
-			+ Playslist selection
-			+ Full music collection
-		!-->
-
-        <div class="w3-col m3 w3-padding" id="side_nav">
-
-            <div class="browse_link">
-                <h7>BROWSE</h7>
-                <ul>
-                    <li><a href="">Hot</a></li>
-                    <li><a href="">Indie</a></li>
-                    <li><a href="">Recommended</a></li>
-                </ul>
-            </div>
-            <div class="user_link">
-                <h7>MY MUSIC</h7>
-                <ul>
-                    <li><a href="">Playlist</a></li>
-                    <li><a href="">Collection</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Music Browse Area
-				+ Display music based on selection of the side menu 
-				+ By default , recommended music & new music.
-			!-->
-
-        <div class="w3-col m6 w3-padding" id="main_browse">
-            <!--
-				+ Default , hot and rising.
-			!-->
-            <div id="main_browse_top">
-                <h3>Top Charts</h3>
-                <button id="station_btn" class="w3-right">Start Station</button>
-            </div>
-            <div id="main_browse_content" data-bind="foreach: topChartsData">
-                <div class="card_wrapper" data-bind="click: $root.playMedia">
-                    <img data-bind="attr: {src: image}">
-                    <p class="song_title" data-bind="text: name"></p>
-                    <p class="artist_title" data-bind="text: artist"></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Current Music Queue
-				+ Display currentlu playing music. 
-		!-->
-
-        <div class="w3-col m3 w3-padding" id="music_queue">
-            <h5>QUEUE</h5>
-        </div>
-    </div>
-
-    <!-- Music browse ends !-->
-
-    <!-- Media Player Starts -->
-    <div class="w3-bottom w3-black w3-padding-large">
-        <audio id="audioElement"></audio>
-        <div class="w3-row w3-center">
-            <div class="w3-col m2 w3-padding-top">
-                <i class="im im-angle-left w3-padding" id="foward"></i>
-                <i class="im im-play w3-padding" id="PPBtn"></i>
-                <i class="im im-angle-right w3-padding" id="backward"></i>
-            </div>
-            <div class="w3-col m8">
-                <div class="w3-large w3-text-shadow">
-                    <b>
-                        <span id="songName">
-						    ----
-                        </span>
-					</b>
-                </div>
-                <div>
-                    <p class="w3-large" id="currentTime">--:--</p>
-                    <input class="range-slider__range" type="range" value="0" id="seekSlider" />
-                    <p class="w3-large" id="leftTime">--:--</p>
-                </div>
-            </div>
-            <div class="w3-col m2">
-                <div class="w3-row w3-padding-top">
-                    <div class="w3-col m6 w3-padding-top">
-                        <input class="range-slider__range" type="range" min="0" max="1" step="0.1" value="1" id="volumeSlider" />
-                        <i class="im im-volume w3-padding" id="muteBtn"></i>
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/OS.jpg">
+                            <span class="card-title">Owl City</span>
+                        </div>
                     </div>
-                    <div class="w3-col m6 w3-padding-top">
-                        <img height="50px" src="../static/default.png" id="songImage" class="w3-right" />
+                </div>
+
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/AA.jpg">
+                            <span class="card-title">American Authors</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/LP.jpg">
+                            <span class="card-title">Linkin Park</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Trending Artists -->
+
+        <!-- Start of Top Artists -->
+        <div style="padding-top: 50px">
+            <div class="white-text base-style">
+                <h4>
+                    Top Artists:
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/TS.png" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Taylor Swift</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/AA.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>American Authors</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/LP.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Linkin Park</h5>
+                                <h6>Rock</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/OS.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Owl City</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- End of Top Artists -->
+
+        <!-- Start of Top Emerging Artists -->
+        <div style="padding-top: 14px;">
+            <div class="white-text base-style">
+                <h4>
+                    Top Emerging Artists:
+                </h4>
+            </div>
+
+            <div class="flowy">
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/TS.png">
+                            <span class="card-title">Taylor Swift</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/OS.jpg">
+                            <span class="card-title">Owl City</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/AA.jpg">
+                            <span class="card-title">American Authors</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="./Images/LP.jpg">
+                            <span class="card-title">Linkin Park</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- End of Top Emerging Artists -->
+
+        <!-- Start of Top Albums -->
+        <div style="padding-top: 50px">
+            <div class="white-text base-style">
+                <h4>
+                    Top Albums:
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/TS.png" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Taylor Swift</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/AA.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>American Authors</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/LP.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Linkin Park</h5>
+                                <h6>Rock</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="card horizontal transparent white-text">
+                        <div class="card-image">
+                            <img src="./Images/OS.jpg" style="height: 147px; width: auto; max-width: 200000px">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <h5>Owl City</h5>
+                                <h6>Pop</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Top Albums -->
     </div>
-    <!-- Media Player Ends !-->
-    <script src="../static/Script.js"></script>
-    <script src="../static/UIHandler.js"></script>
+    <!-- End of Main Recomendation Part -->
+
+    <!-- Start of Media Player -->
+    <div id="playerHolder">
+
+        <div class="row base-style white-text show-on-small hide-on-med-and-up" style="font-weight: bolder; font-size: 20px; text-align: center">
+            <div class="col s2">
+                00:00
+            </div>
+            <div class="col s8 range-field">
+                <input type="range" />
+            </div>
+            <div class="col s2">
+                00:00
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col m2 l1 hide-on-small-only">
+                <img src="./Images/TS.png" alt="Track Image" style="max-width: 100%">
+            </div>
+
+            <div class="col m3 l3 base-style white-text hide-on-small-only" style="font-weight: bolder; font-size: 20px;">
+                Taylor Swift
+                <br /> WonderLand
+            </div>
+
+            <div class="col s12 m7 l8">
+
+                <div class="row">
+                    <!-- Start of player controls -->
+                    <div class="row base-style white-text contol-buttons" style="font-weight: bolder; font-size: 20px">
+                        <div class="col s2 m2 l2">
+                            <i class="material-icons" id="rndBtn">shuffle</i>
+                        </div>
+                        <div class="col s8 m8 l8" style="text-align: center">
+                            <i class="material-icons" id="backBtn">fast_rewind</i>
+                            <i class="material-icons" id="pauseBtn">pause</i>
+                            <i class="material-icons" id="forwardBtn">fast_forward</i>
+                        </div>
+                        <div class="col s2 m2 l2">
+                            <i class="material-icons" id="shlfBtn">repeat</i>
+                        </div>
+                    </div>
+                    <!-- End of player controls -->
+                </div>
+
+                <!-- Start of timer and scrobbler -->
+                <div class="row base-style hide-on-small-only white-text" style="font-weight: bolder; font-size: 20px; text-align: center">
+                    <div class="col m2 l2">
+                        00:00
+                    </div>
+                    <div class="col m8 l8 range-field">
+                        <input type="range" />
+                    </div>
+                    <div class="col m2 l2">
+                        00:00
+                    </div>
+                </div>
+                <!-- End of timer and scrobbler -->
+
+                <div class="row base-style show-on-small hide-on-med-and-up white-text" style="font-weight: bolder; font-size: 20px; text-align: center">
+                    Taylor Swift
+                    <br /> WonderLand
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Media Player -->
+
+    <script>
+        $(".brand-logo.left").sideNav();
+        $('.dropdown-button').dropdown({
+            hover: true,
+            belowOrigin: true
+        });
+        $('.flowy').slick({
+            infinite: true,
+            sildesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true
+        });
+    </script>
+
+    <script>
+        var searchInput = document.getElementById('searchInput');
+        var searchForm = document.getElementById('searchForm');
+        searchInput.addEventListener('focus', function () {
+            searchForm.className = "z-depth-5";
+        });
+        searchInput.addEventListener('blur', function () {
+            searchForm.className = "z-depth-1";
+        });
+    </script>
 </body>
 
 </html>
