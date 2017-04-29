@@ -154,16 +154,16 @@ function sendData() {
                 for (var i = 0; i < audioName.length; i++)
                     audioName[i].innerHTML = data.name;
 
-                playPauseBtn.innerHTML = 'pause';
+                playPauseBtn.innerHTML = 'play';
             }
             else {
-                console.log("Error Occured");
-                window.alert("Error Occured");
+                console.log("Error Occurred");
+                window.alert("Error Occurred");
             }
         },
         error: function () {
-            console.log("Error Occured");
-            window.alert("Error Occured");
+            console.log("Error Occurred");
+            window.alert("Error Occurred");
         }
     });
 }
