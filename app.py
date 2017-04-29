@@ -165,7 +165,7 @@ def get_album_info():
     artist_name = request.args.get('artist_name')
 
     # Check validity of incoming data
-    if artist_name is None or album_name:
+    if artist_name is None or album_name is None:
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     data = LastFM_Top.get_album_info(album_name, artist_name)
