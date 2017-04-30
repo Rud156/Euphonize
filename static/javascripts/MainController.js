@@ -12,6 +12,11 @@ function AlbumArtistHolder(dataObject) {
 
 
 function mainController() {
+    var self = this;
+
+    self.topArtists = ko.observableArray();
+    self.topAlbums = ko.observableArray();
+    
     // TODO: Implement this here...
 }
 
