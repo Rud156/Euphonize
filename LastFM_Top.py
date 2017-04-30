@@ -13,7 +13,7 @@ def top_tracks():
     for i in xrange(0, len(all_tracks)):
         data_set = {
             'track_name': all_tracks[i]['name'],
-            'artist': all_tracks[i]['artist']['name'],
+            'artist_name': all_tracks[i]['artist']['name'],
             'image': all_tracks[i]['image'][3]['#text']
         }
         tracks.append(data_set)
@@ -70,7 +70,7 @@ def get_artist_top_tracks(artist_name):
     for i in xrange(0, len(all_tracks)):
         data_set = {
             'track_name': all_tracks[i]['name'],
-            'artist': all_tracks[i]['artist']['name'],
+            'artist_name': all_tracks[i]['artist']['name'],
             'image': all_tracks[i]['image'][3]['#text']
         }
         print data_set
@@ -88,7 +88,7 @@ def get_artist_top_albums(artist_name):
     for i in xrange(0, len(all_albums)):
         data_set = {
             'album_name': all_albums[i]['name'],
-            'artist': all_albums[i]['artist']['name'],
+            'artist_name': all_albums[i]['artist']['name'],
             'image': all_albums[i]['image'][3]['#text']
         }
         albums.append(data_set)
@@ -104,7 +104,7 @@ def get_albums_for_tags(tag_name, limit):
     for i in xrange(0, len(all_albums)):
         data_set = {
             'album_name': all_albums[i]['name'],
-            'artist': all_albums[i]['artist']['name'],
+            'artist_name': all_albums[i]['artist']['name'],
             'image': all_albums[i]['image'][3]['#text']
         }
         albums.append(data_set)
@@ -120,7 +120,7 @@ def get_tracks_for_tags(tag_name):
     for i in xrange(0, len(all_tracks)):
         data_set = {
             'track_name': all_tracks[i]['name'],
-            'artist': all_tracks[i]['artist']['name'],
+            'artist_name': all_tracks[i]['artist']['name'],
             'image': all_tracks[i]['image'][3]['#text']
         }
         tracks.append(data_set)
@@ -175,11 +175,7 @@ def get_artist_info(artist_name):
     except KeyError:
         return None
 
+
 if __name__ == '__main__':
-    artist = raw_input('Enter an artist name: ')
-    album = raw_input('Enter an album name: ')
-    info = get_album_info(album, artist)
-    if info is not None:
-        print info
-    else:
-        print "Incorrect data supplied"
+    info = top_albums()
+    print info

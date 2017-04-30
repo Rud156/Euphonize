@@ -127,58 +127,15 @@
                         Top Artists:
                     </h4>
                 </div>
-                <div class="row">
+                <div class="row" data-bind="foreach: topArtists">
                     <div class="col s12 m4">
                         <div class="card horizontal transparent white-text">
                             <div class="card-image">
-                                <img src="./../static/Images/TS.png" style="height: 147px; width: auto; max-width: 200000px">
+                                <img data-bind="attr: {src: artistImage}" style="height: 300px; width: auto; max-width: 200000px">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <h5>Taylor Swift</h5>
-                                    <h6>Pop</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/AA.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>American Authors</h5>
-                                    <h6>Pop</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/LP.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>Linkin Park</h5>
-                                    <h6>Rock</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/OS.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>Owl City</h5>
-                                    <h6>Pop</h6>
+                                    <h5 data-bind="artistName"></h5>
                                 </div>
                             </div>
                         </div>
@@ -243,58 +200,16 @@
                         Top Albums:
                     </h4>
                 </div>
-                <div class="row">
+                <div class="row" data-bind="foreach: topAlbums">
                     <div class="col s12 m4">
                         <div class="card horizontal transparent white-text">
                             <div class="card-image">
-                                <img src="./../static/Images/TS.png" style="height: 147px; width: auto; max-width: 200000px">
+                                <img data-bind="attr: {src: albumImage}">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <h5>Taylor Swift</h5>
-                                    <h6>Pop</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/AA.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>American Authors</h5>
-                                    <h6>Pop</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/LP.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>Linkin Park</h5>
-                                    <h6>Rock</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
-                            <div class="card-image">
-                                <img src="./../static/Images/OS.jpg" style="height: 147px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5>Owl City</h5>
-                                    <h6>Pop</h6>
+                                    <h5 data-bind="text: albumName"></h5>
+                                    <h6 data-bind="text: artistName"></h6>
                                 </div>
                             </div>
                         </div>

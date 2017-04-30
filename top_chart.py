@@ -15,8 +15,8 @@ def top_chart():
     results = []
     for i in range(len(song_artist)):
         data_set = {
-            'name': song_title[i].strip().title(),
-            'artist': song_artist[i].strip().title()
+            'track_name': song_title[i].strip().title(),
+            'artist_name': song_artist[i].strip().title()
         }
         results.append(data_set)
     return results
@@ -30,8 +30,8 @@ def emerge_chart():
     res_page = page['results']
     for i in range(len(res_page)):
         data_set = {
-            'name': res_page[i]['track_name'],
-            'artist': res_page[i]['artist_name']
+            'track_name': res_page[i]['track_name'],
+            'artist_name': res_page[i]['artist_name']
         }
         results.append(data_set)
     return results
@@ -45,8 +45,8 @@ def trending_chart():
     results = []
     for i in range(len(res_page)):
         data_set = {
-            'name': res_page[i]['track_name'],
-            'artist': res_page[i]['artist_name']
+            'track_name': res_page[i]['track_name'],
+            'artist_name': res_page[i]['artist_name']
         }
         results.append(data_set)
     return results
@@ -56,11 +56,19 @@ def top_artist():
     print "Getting top artist... "
     page = requests.get("http://www.billboard.com/charts/artist-100")
     tree = html.fromstring(page.content)
-    song_artist = tree.xpath("//div/h2[@class = 'chart-row__song']/text()")
-    for i in range(len(song_artist)):
-        song_artist[i] = song_artist[i].strip().title()
-    return song_artist
+    artist_name = tree.xpath("//div/h2[@class = 'chart-row__song']/text()")
+    artist_image = tree.xpath("//div[@class = 'chart-row__image']/@style")
 
+    top = []
+    for i in xrange(0, len(artist_image)):
+        current_image = artist_image[i][artist_image[i].find("http://"): artist_image[i].find(")")]
+        current_name = artist_name[i].strip()
+        data_set = {
+            'artist_name': current_name,
+            'image': current_image
+        }
+        top.append(data_set)
+    return top
 
 if __name__ == '__main__':
     data = top_artist()
