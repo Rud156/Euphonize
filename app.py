@@ -100,7 +100,7 @@ def top_trending():
 @app.route('/top_albums', methods=['GET'])
 def get_top_albums():
     albums = LastFM_Top.top_albums()
-    return jsonify({'success': True, 'top_albums': albums})
+    return jsonify({'success': True, 'albums': albums})
 
 
 @app.route('/artist_top', methods=['GET'])

@@ -19,6 +19,7 @@
     <script src="./../static/JS/slick.min.js"></script>
     <script src="./../static/JS/jquery-ui.min.js"></script>
     <script src="./../static/JS/underscore-min.js"></script>
+    <script src="./../static/JS/knockout-3.4.2.js"></script>
     <title>Fumen</title>
 </head>
 
@@ -131,11 +132,11 @@
                     <div class="col s12 m4">
                         <div class="card horizontal transparent white-text">
                             <div class="card-image">
-                                <img data-bind="attr: {src: artistImage}" style="height: 300px; width: auto; max-width: 200000px">
+                                <img data-bind="attr: {src: image}" style="height: 150px; width: auto; max-width: 200000px">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <h5 data-bind="artistName"></h5>
+                                    <h5 data-bind="text: artistName"></h5>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +205,7 @@
                     <div class="col s12 m4">
                         <div class="card horizontal transparent white-text">
                             <div class="card-image">
-                                <img data-bind="attr: {src: albumImage}">
+                                <img data-bind="attr: {src: image}" style="height: 150px; width: auto; max-width: 200000px">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
@@ -318,6 +319,7 @@
         });
     </script>
 
+    <script src="./../static/javascripts/MainController.js"></script>
     <script src="./../static/javascripts/Script.js"></script>
 </body>
 
