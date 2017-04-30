@@ -3,9 +3,9 @@ Boilerplate and Basic Functioning for webapp
 
 ROADMAP for v0.1 :
 
-- [ ] Search Bar for Music Search
-- [ ] Youtube Results
-- [ ] Media Player
+- [x] Search Bar for Music Search
+- [x] Youtube Results
+- [x] Media Player
 - [ ] Dynamic Audio Switching
-- [ ] Meta Data extracter - discogs.com ( search using URL parameters )
-- [ ] Basic Flask site with Search and play functionality
+- [ ] Meta Data extracter - lastfm/itunes
+- [x] Basic Flask site with Search and play functionality
