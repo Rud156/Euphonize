@@ -27,7 +27,7 @@ function AlbumArtistHolder(dataObject) {
 
     this.artistName = dataObject.artist_name;
     this.albumName = dataObject.album_name ? dataObject.album_name : null;
-    this.trackName = dataObject.track_name ? dataObject.trackName : null;
+    this.trackName = dataObject.track_name ? dataObject.track_name : null;
 
 }
 

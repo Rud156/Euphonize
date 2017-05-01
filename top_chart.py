@@ -73,5 +73,5 @@ def top_artist():
     return top
 
 if __name__ == '__main__':
-    data = top_artist()
+    data = emerge_chart()
     print data
