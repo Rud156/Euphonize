@@ -4,13 +4,21 @@
 
 
 // Initializations
-function init() {
-    $('.flowy').slick({
-        infinite: true,
-        sildesToShow: 3,
-        slidesToScroll: 1,
-        variableWidth: true
-    });
+function init(trending) {
+    if (trending)
+        $('.flowy_trending').slick({
+            infinite: true,
+            sildesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true
+        });
+    else
+        $('.flowy_emerging').slick({
+            infinite: true,
+            sildesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true
+        });
 }
 
 // Generic Holder Class for Album and Artist
@@ -96,8 +104,8 @@ function mainController() {
                     data.emerge_chart.forEach(function (element) {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
-                    self.topAlbums(trackArray);
-                    init();
+                    self.topEmergingTracks(trackArray);
+                    init(false);
                 }
                 else
                     window.alert(data.message);
@@ -122,8 +130,8 @@ function mainController() {
                     data.trending.forEach(function (element) {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
-                    self.topAlbums(trackArray);
-                    init();
+                    self.topTrendingTracks(trackArray);
+                    init(true);
                 }
                 else
                     window.alert(data.message);
