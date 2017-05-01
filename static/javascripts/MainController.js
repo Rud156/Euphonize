@@ -3,11 +3,24 @@
 /// <reference path='./../JS/SammyJS.d.ts' />
 
 
+// Initializations
+function init() {
+    $('.flowy').slick({
+        infinite: true,
+        sildesToShow: 3,
+        slidesToScroll: 1,
+        variableWidth: true
+    });
+}
+
 // Generic Holder Class for Album and Artist
 function AlbumArtistHolder(dataObject) {
     this.image = dataObject.image;
+
     this.artistName = dataObject.artist_name;
     this.albumName = dataObject.album_name ? dataObject.album_name : null;
+    this.trackName = dataObject.track_name ? dataObject.trackName : null;
+
 }
 
 
@@ -16,6 +29,8 @@ function mainController() {
 
     self.topArtists = ko.observableArray();
     self.topAlbums = ko.observableArray();
+    self.topTrendingTracks = ko.observableArray();
+    self.topEmergingTracks = ko.observableArray();
 
     self.getTopArtists = function () {
         var randomNumber = Math.round(Math.random());
@@ -46,7 +61,7 @@ function mainController() {
     self.getTopAlbums = function () {
         $.ajax({
             dataType: 'json',
-            url: 'top_albums',
+            url: '/top_albums',
             success: function (data) {
                 if (data.success) {
                     self.topAlbums.removeAll();
@@ -68,17 +83,63 @@ function mainController() {
         });
     };
 
-    self.topEmergingTracks = function () {
-        // TODO: Implement this here...
+    self.getTopEmergingTracks = function () {
+        $.ajax({
+            dataType: 'json',
+            url: '/top_emerging_tracks',
+            success: function (data) {
+                if (data.success) {
+                    self.topEmergingTracks.removeAll();
+                    var trackArray = [];
+                    data.emerge_chart = data.emerge_chart.splice(0, 10);
+
+                    data.emerge_chart.forEach(function (element) {
+                        trackArray.push(new AlbumArtistHolder(element));
+                    });
+                    self.topAlbums(trackArray);
+                    init();
+                }
+                else
+                    window.alert(data.message);
+            },
+            error: function (error) {
+                console.log(error);
+                window.alert('Error Occurred');
+            }
+        });
     };
 
-    self.topTrendingTracks = function () {
-        // TODO: Implement this here...
+    self.getTopTrendingTracks = function () {
+        $.ajax({
+            dataType: 'json',
+            url: '/top_trending',
+            success: function (data) {
+                if (data.success) {
+                    self.topTrendingTracks.removeAll();
+                    var trackArray = [];
+                    data.trending = data.trending.splice(0, 10);
+
+                    data.trending.forEach(function (element) {
+                        trackArray.push(new AlbumArtistHolder(element));
+                    });
+                    self.topAlbums(trackArray);
+                    init();
+                }
+                else
+                    window.alert(data.message);
+            },
+            error: function (error) {
+                console.log(error);
+                window.alert('Error Occurred');
+            }
+        });
     };
 
     self.initialCalls = function () {
         self.getTopArtists();
         self.getTopAlbums();
+        self.getTopEmergingTracks();
+        self.getTopTrendingTracks();
     };
 
     self.initialCalls();

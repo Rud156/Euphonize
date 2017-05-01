@@ -76,43 +76,19 @@
             <div>
                 <div class="white-text base-style">
                     <h4>
-                        Trending Artists:
+                        Trending Tracks:
                     </h4>
                 </div>
 
-                <div class="flowy">
+                <div class="flowy" data-bind="foreach: topTrendingTracks">
                     <div class="fixed-width">
                         <div class="card">
                             <div class="card-image">
-                                <img src="./../static/Images/TS.png">
-                                <span class="card-title">Taylor Swift</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/OS.jpg">
-                                <span class="card-title">Owl City</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/AA.jpg">
-                                <span class="card-title">American Authors</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/LP.jpg">
-                                <span class="card-title">Linkin Park</span>
+                                <img data-bind="attr: {src: image}">
+                                <div class="card-title">
+                                    <h5 data-bind="text: trackName"></h5>
+                                    <h6 data-bind="text: artistName"></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,14 +106,10 @@
                 </div>
                 <div class="row" data-bind="foreach: topArtists">
                     <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
+                        <div class="card transparent white-text">
                             <div class="card-image">
-                                <img data-bind="attr: {src: image}" style="height: 150px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <h5 data-bind="text: artistName"></h5>
-                                </div>
+                                <img data-bind="attr: {src: image}">
+                                <span data-bind="text: artistName" class="base-style card-title"></span>
                             </div>
                         </div>
                     </div>
@@ -149,43 +121,19 @@
             <div style="padding-top: 14px;">
                 <div class="white-text base-style">
                     <h4>
-                        Top Emerging Artists:
+                        Top Emerging Tracks:
                     </h4>
                 </div>
 
-                <div class="flowy">
+                <div class="flowy" data-bind="foreach: topEmergingTracks">
                     <div class="fixed-width">
                         <div class="card">
                             <div class="card-image">
-                                <img src="./../static/Images/TS.png">
-                                <span class="card-title">Taylor Swift</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/OS.jpg">
-                                <span class="card-title">Owl City</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/AA.jpg">
-                                <span class="card-title">American Authors</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="./../static/Images/LP.jpg">
-                                <span class="card-title">Linkin Park</span>
+                                <img data-bind="attr: {src: image}">
+                                <div class="card-title">
+                                    <h5 data-bind="text: trackName"></h5>
+                                    <h6 data-bind="text: artistName"></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -203,12 +151,10 @@
                 </div>
                 <div class="row" data-bind="foreach: topAlbums">
                     <div class="col s12 m4">
-                        <div class="card horizontal transparent white-text">
+                        <div class="card transparent white-text">
                             <div class="card-image">
-                                <img data-bind="attr: {src: image}" style="height: 150px; width: auto; max-width: 200000px">
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
+                                <img data-bind="attr: {src: image}">
+                                <div class="card-title">
                                     <h5 data-bind="text: albumName"></h5>
                                     <h6 data-bind="text: artistName"></h6>
                                 </div>
@@ -299,12 +245,6 @@
         $('.dropdown-button').dropdown({
             hover: true,
             belowOrigin: true
-        });
-        $('.flowy').slick({
-            infinite: true,
-            sildesToShow: 3,
-            slidesToScroll: 1,
-            variableWidth: true
         });
     </script>
 

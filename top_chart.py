@@ -31,7 +31,8 @@ def emerge_chart():
     for i in range(len(res_page)):
         data_set = {
             'track_name': res_page[i]['track_name'],
-            'artist_name': res_page[i]['artist_name']
+            'artist_name': res_page[i]['artist_name'],
+            'image': res_page[i]['artist_image']
         }
         results.append(data_set)
     return results
@@ -46,7 +47,8 @@ def trending_chart():
     for i in range(len(res_page)):
         data_set = {
             'track_name': res_page[i]['track_name'],
-            'artist_name': res_page[i]['artist_name']
+            'artist_name': res_page[i]['artist_name'],
+            'image': res_page[i]['artist_image']
         }
         results.append(data_set)
     return results
