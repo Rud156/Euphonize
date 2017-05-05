@@ -67,7 +67,7 @@ def itunes_album_art(search_term):
     artist = artist.replace(" ", "+")
 
     try:
-        response = requests.get("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term="+track+"+"+artist)
+        response = requests.get("http://itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term="+track+"+"+artist)
         response = json.loads(response.content)
     except Exception as e:
         print "Error Occurred " + str(e)
