@@ -83,8 +83,11 @@
                 <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image">
-                                <img data-bind="attr: {src: image}">
+                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                                <img data-bind="attr: {src: image}" />
+                                <div class="overlay">
+                                    <i class="material-icons">play_circle_filled</i>
+                                </div>
                                 <div class="card-title">
                                     <h5 data-bind="text: trackName"></h5>
                                     <h6 data-bind="text: artistName"></h6>
@@ -128,8 +131,11 @@
                 <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image">
-                                <img data-bind="attr: {src: image}">
+                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                                <img data-bind="attr: {src: image}" />
+                                <div class="overlay">
+                                    <i class="material-icons">play_circle_filled</i>
+                                </div>
                                 <div class="card-title">
                                     <h5 data-bind="text: trackName"></h5>
                                     <h6 data-bind="text: artistName"></h6>

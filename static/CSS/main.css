@@ -16,6 +16,38 @@ h4{
 }
 /* End Typography*/
 
+.image-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    z-index: 999999;
+}
+
+.overlay i {
+    font-size: 40px;
+}
+
+.image-container:hover {
+    background: darkorange;
+}
+
+.image-container:hover img {
+    opacity: 0.3;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+}
+
 .container{
     padding-top: 50px;
 }
@@ -82,6 +114,7 @@ nav{
 .contol-buttons i {
     cursor: pointer;
 }
+/* End of media player CSS */
 
 
 

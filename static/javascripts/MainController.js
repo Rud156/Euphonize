@@ -149,6 +149,11 @@ function mainController() {
         self.getTopTrendingTracks();
     };
 
+    self.playSong = function (songData) {
+        document.getElementById('searchInput').value = songData.trackName + ' - ' + songData.artistName;
+        sendData();
+    };
+
     self.initialCalls();
 }
 

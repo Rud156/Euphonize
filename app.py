@@ -50,7 +50,6 @@ def get_video():
         'name': title,
         'image': image_url
     }
-    print data_set
     return jsonify({'success': True, 'music': data_set})
 
 
