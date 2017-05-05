@@ -57,8 +57,9 @@ def last_fm_cover_art(search_term):
         return None, False
     return image, True
 
+
 def itunes_album_art(search_term):
-    print "Getting cover art for "+ search_term
+    print "Getting cover art for " + search_term
     track_parts = search_term.split(" - ")
 
     track = track_parts[0]
@@ -79,6 +80,7 @@ def itunes_album_art(search_term):
         print "Error Occurred: " + str(e)
         return None, False
     return image, True
+
 
 if __name__ == '__main__':
     query = raw_input('Enter a search term: ')

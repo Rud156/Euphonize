@@ -21,6 +21,19 @@ function init(trending) {
         });
 }
 
+// Utitlity Functions
+function UtitlityFunctions() {
+    this.stringToTitleCase = function (inputString) {
+        inputString = inputString.toLowerCase().split(' ');
+        for (var i = 0; i < inputString.length; i++) {
+            inputString[i] = inputString[i].charAt(0).toUpperCase() + inputString[i].slice(1);
+        }
+        return inputString.join(' ');
+    };
+}
+var utitlity = new UtitlityFunctions();
+
+
 // Generic Holder Class for Album and Artist and Track
 function AlbumArtistHolder(dataObject) {
     this.image = dataObject.image;
@@ -28,6 +41,10 @@ function AlbumArtistHolder(dataObject) {
     this.artistName = dataObject.artist_name;
     this.albumName = dataObject.album_name ? dataObject.album_name : null;
     this.trackName = dataObject.track_name ? dataObject.track_name : null;
+}
+
+function LoggedUser(userObject) {
+    this.userName = utitlity.stringToTitleCase(userObject.user_name);
 }
 
 
@@ -38,6 +55,8 @@ function mainController() {
     self.topAlbums = ko.observableArray();
     self.topTrendingTracks = ko.observableArray();
     self.topEmergingTracks = ko.observableArray();
+
+    self.currentUser = ko.observable();
 
     self.getTopArtists = function () {
         var randomNumber = Math.round(Math.random());
@@ -147,6 +166,11 @@ function mainController() {
         self.getTopAlbums();
         self.getTopEmergingTracks();
         self.getTopTrendingTracks();
+    };
+
+    self.playSong = function (songData) {
+        document.getElementById('searchInput').value = songData.trackName + ' - ' + songData.artistName;
+        sendData();
     };
 
     self.initialCalls();

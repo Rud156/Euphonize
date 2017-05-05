@@ -46,13 +46,16 @@
                     </div>
 
                     <!-- Start of User Dropdown -->
-                    <div class="col m2 l2 center hide-on-med-and-down">
+                    <div class="col m2 l2 center hide-on-med-and-down" data-bind="if: currentUser">
                         <a href="#" class="dropdown-button btn grad-color base-style" data-activates="userDropdown" style="font-weight: bold">User</a>
                         <ul id='userDropdown' class='dropdown-content grad-color'>
                             <li><a href="#!" class="white-text base-style">one</a></li>
                             <li><a href="#!" class="white-text base-style">two</a></li>
                             <li><a href="#!" class="white-text base-style">three</a></li>
                         </ul>
+                    </div>
+                    <div class="col m2 l2 center hide-on-med-and-down" data-bind="ifnot: currentUser">
+                        <a href="#" class="btn grad-color base-style" style="font-weight: bold">SignUp</a>
                     </div>
                     <!-- End of User Dropdown -->
 
@@ -63,12 +66,12 @@
     </div>
 
     <!-- Start of side nav -->
-    <ul id="slide-out" class="side-nav fixed" style="background: linear-gradient(red, rgb(254, 161, 125))">
+    <!--<ul id="slide-out" class="side-nav fixed" style="background: linear-gradient(red, rgb(254, 161, 125))">
         <li><a href="#!" class="white-text base-style">What's New</a></li>
-        <li><a href="#!" class="white-text base-style">Playlists</a></li>
-        <li><a href="#!" class="white-text base-style">Library</a></li>
+        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Playlists</a></li>
+        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Library</a></li>
         <li><a href="#!" class="white-text base-style">Discover</a></li>
-    </ul>
+    </ul>-->
     <!-- End of side nav -->
 
     <div class="add-margin">
@@ -85,8 +88,11 @@
                 <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image">
-                                <img data-bind="attr: {src: image}">
+                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                                <img data-bind="attr: {src: image}" />
+                                <div class="overlay">
+                                    <i class="material-icons">play_circle_filled</i>
+                                </div>
                                 <div class="card-title">
                                     <h5 data-bind="text: trackName"></h5>
                                     <h6 data-bind="text: artistName"></h6>
@@ -130,8 +136,11 @@
                 <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image">
-                                <img data-bind="attr: {src: image}">
+                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                                <img data-bind="attr: {src: image}" />
+                                <div class="overlay">
+                                    <i class="material-icons">play_circle_filled</i>
+                                </div>
                                 <div class="card-title">
                                     <h5 data-bind="text: trackName"></h5>
                                     <h6 data-bind="text: artistName"></h6>
