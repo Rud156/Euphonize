@@ -1,6 +1,6 @@
-/// <reference path="./jquery.d.ts" />
-/// <reference path="./underscore.d.ts" />
-/// <reference path="./jqueryUI.d.ts" />
+/// <reference path="./../JS/jquery.d.ts" />
+/// <reference path="./../JS/underscore.d.ts" />
+/// <reference path="./../JS/jqueryUI.d.ts" />
 
 // Main Audio Element
 var audio = document.getElementById('audioElement');
@@ -145,16 +145,16 @@ function sendData() {
         url: '/get_video',
         success: function (data) {
             if (data.success) {
-                audio.src = data.url;
+                audio.src = data.music.url;
                 audio.play();
                 isPlaying = true;
-                audioImage.src = data.image;
+                audioImage.src = data.music.image;
                 audioImage.style.display = 'block';
 
                 for (var i = 0; i < audioName.length; i++)
-                    audioName[i].innerHTML = data.name;
+                    audioName[i].innerHTML = data.music.name;
 
-                playPauseBtn.innerHTML = 'play';
+                playPauseBtn.innerHTML = 'pause';
             }
             else {
                 console.log("Error Occurred");
