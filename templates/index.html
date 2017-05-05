@@ -44,13 +44,16 @@
                     </div>
 
                     <!-- Start of User Dropdown -->
-                    <div class="col m2 l2 center hide-on-med-and-down">
+                    <div class="col m2 l2 center hide-on-med-and-down" data-bind="if: currentUser">
                         <a href="#" class="dropdown-button btn grad-color base-style" data-activates="userDropdown" style="font-weight: bold">User</a>
                         <ul id='userDropdown' class='dropdown-content grad-color'>
                             <li><a href="#!" class="white-text base-style">one</a></li>
                             <li><a href="#!" class="white-text base-style">two</a></li>
                             <li><a href="#!" class="white-text base-style">three</a></li>
                         </ul>
+                    </div>
+                    <div class="col m2 l2 center hide-on-med-and-down" data-bind="ifnot: currentUser">
+                        <a href="#" class="btn grad-color base-style" style="font-weight: bold">SignUp</a>
                     </div>
                     <!-- End of User Dropdown -->
 
@@ -61,12 +64,12 @@
     </div>
 
     <!-- Start of side nav -->
-    <ul id="slide-out" class="side-nav fixed" style="background: linear-gradient(red, rgb(254, 161, 125))">
+    <!--<ul id="slide-out" class="side-nav fixed" style="background: linear-gradient(red, rgb(254, 161, 125))">
         <li><a href="#!" class="white-text base-style">What's New</a></li>
-        <li><a href="#!" class="white-text base-style">Playlists</a></li>
-        <li><a href="#!" class="white-text base-style">Library</a></li>
+        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Playlists</a></li>
+        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Library</a></li>
         <li><a href="#!" class="white-text base-style">Discover</a></li>
-    </ul>
+    </ul>-->
     <!-- End of side nav -->
 
     <div class="add-margin">
