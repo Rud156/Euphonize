@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e15a51d0-a7bc-474c-9422-bd58c5940c6f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LastFM_Top.py" afterPath="$PROJECT_DIR$/LastFM_Top.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/MainController.js" afterPath="$PROJECT_DIR$/static/javascripts/MainController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/Models.js" afterPath="$PROJECT_DIR$/static/javascripts/Models.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/javascripts/Uitlities.js" afterPath="$PROJECT_DIR$/static/javascripts/Uitlities.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
@@ -23,11 +23,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2155">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="174">
+              <caret line="101" column="24" lean-forward="true" selection-start-line="101" selection-start-column="24" selection-end-line="101" selection-end-column="24" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -71,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LastFM_Top.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LastFM_Top.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LastFM_Top.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2958">
-              <caret line="175" column="19" lean-forward="false" selection-start-line="175" selection-start-column="19" selection-end-line="175" selection-end-column="19" />
+            <state relative-caret-position="191">
+              <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -134,10 +134,10 @@
         <option value="C:/Python27/Projects/Jagran Spider.py" />
         <option value="$PROJECT_DIR$/LastFM_Top_Tracks.py" />
         <option value="$PROJECT_DIR$/static/javascripts/Script.js" />
-        <option value="$PROJECT_DIR$/LastFM_Top.py" />
         <option value="$PROJECT_DIR$/top_chart.py" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/cover_art_getter.py" />
+        <option value="$PROJECT_DIR$/LastFM_Top.py" />
       </list>
     </option>
   </component>
@@ -204,7 +204,7 @@
       <recent name="C:\Users\Rudrangshu Nandi\Documents\WebApps\kihon\static" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.LastFM_Top">
     <configuration default="false" name="app" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -433,10 +433,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.app" />
-        <item index="1" class="java.lang.String" itemvalue="Python.cover_art_getter" />
-        <item index="2" class="java.lang.String" itemvalue="Python.top_chart" />
-        <item index="3" class="java.lang.String" itemvalue="Python.LastFM_Top" />
+        <item index="0" class="java.lang.String" itemvalue="Python.LastFM_Top" />
+        <item index="1" class="java.lang.String" itemvalue="Python.app" />
+        <item index="2" class="java.lang.String" itemvalue="Python.cover_art_getter" />
+        <item index="3" class="java.lang.String" itemvalue="Python.top_chart" />
         <item index="4" class="java.lang.String" itemvalue="Python.LastFM_Top_Tracks" />
       </list>
     </recent_temporary>
@@ -805,16 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LastFM_Top.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2958">
-          <caret line="175" column="19" lean-forward="false" selection-start-line="175" selection-start-column="19" selection-end-line="175" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/getmeta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -861,10 +851,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2155">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="174">
+          <caret line="101" column="24" lean-forward="true" selection-start-line="101" selection-start-column="24" selection-end-line="101" selection-end-column="24" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LastFM_Top.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -48,6 +48,7 @@ def top_tags():
 
 def top_albums():
     all_tags = top_tags()
+    all_tags = all_tags[:10]
     albums = []
     temp_albums = []
 
@@ -145,6 +146,9 @@ def get_album_info(album_name, artist_name):
         tracks = []
         for track in data['album']['tracks']['track']:
             tracks.append(track['name'])
+        if len(tracks) == 0:
+            return None
+
         data_set['tracks'] = tracks
         return data_set
     except KeyError:
@@ -170,6 +174,10 @@ def get_artist_info(artist_name):
                 'image': similar['image'][3]['#text']
             }
             similar_artists.append(current_artist)
+
+        if len(similar_artists) == 0:
+            return None
+
         data_set['similar_artists'] = similar_artists
         return data_set
     except KeyError:
@@ -177,5 +185,5 @@ def get_artist_info(artist_name):
 
 
 if __name__ == '__main__':
-    info = top_albums()
+    info = top_tags()
     print info

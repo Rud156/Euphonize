@@ -11,18 +11,18 @@ function UtilityFunctions() {
     this.displayError = function (error) {
         console.log(error);
         document.getElementById('alertModalContent').innerText = 'Error Occurred';
-        $('alertModal').modal('open');
+        $('#alertModal').modal('open');
     };
 
     this.showMessages = function (message) {
         document.getElementById('alertModalContent').innerText = 'Error Occurred';
-        $('alertModal').modal('open');
+        $('#alertModal').modal('open');
     };
 }
 
 
 // Initializations
-function init(trending) {
+function initFlowySpecific(trending) {
     if (trending)
         $('.flowy_trending').slick({
             infinite: true,
@@ -37,4 +37,13 @@ function init(trending) {
             slidesToScroll: 1,
             variableWidth: true
         });
+}
+
+function initFlowy() {
+    $('.flowy').slick({
+        infinite: true,
+        sildesToShow: 3,
+        slidesToScroll: 1,
+        variableWidth: true
+    });
 }

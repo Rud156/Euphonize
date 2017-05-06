@@ -82,7 +82,7 @@ function mainController() {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
                     self.topEmergingTracks(trackArray);
-                    init(false);
+                    initFlowySpecific(false);
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -108,7 +108,7 @@ function mainController() {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
                     self.topTrendingTracks(trackArray);
-                    init(true);
+                    initFlowySpecific(true);
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -127,19 +127,55 @@ function mainController() {
         self.getTopTrendingTracks();
     };
 
-    self.playSong = function (songData) {
+    self.playSong = function (songData, artistName) {
+
+        if (typeof (songData) != 'object')
+            songData = { trackName: songData, artistName: artistName };
+
         document.getElementById('searchInput').value = songData.trackName + ' - ' + songData.artistName;
         sendData();
     };
 
-    self.getArtistInfo = function (artistName) {
-        artistName = artistName.replace(/ /g, '%20');
+    self.getArtistInfo = function (artistObject) {
+        console.log(artistObject);
+        if (typeof (artistObject) === 'object')
+            artistObject = artistObject.artistName ? artistObject.artistName : artistObject.artist_name;
+        var artistName = artistObject.replace(/ /g, '%20');
+
         $.ajax({
             dataType: 'json',
             url: '/artist?artist_name=' + artistName,
             success: function (data) {
                 if (data.success) {
                     self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.artist_data));
+                    initFlowy();
+                }
+                else
+                    utitlity.showMessages(data.message);
+            },
+            error: function (error) {
+                utitlity.displayError(error);
+            }
+        });
+    };
+
+    self.getAlbumInfo = function (albumObject, artistName) {
+
+        if (typeof (albumObject) === 'object') {
+            artistName = albumObject.artistName;
+            albumObject = albumObject.albumName;
+        }
+
+        var albumName = albumObject.replace(/ /g, '%20');
+        artistName = artistName.replace(/ /g, '%20');
+
+        $.ajax({
+            dataType: 'json',
+            url: '/album_info?album_name=' + albumName + '&artist_name=' + artistName,
+            success: function (data) {
+                if (data.success) {
+                    self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.album_data));
+                    initFlowy();
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -151,7 +187,6 @@ function mainController() {
     };
 
     self.initialCalls();
-    // self.getArtistInfo('Taylor Swift');
 }
 
 ko.applyBindings(new mainController());
