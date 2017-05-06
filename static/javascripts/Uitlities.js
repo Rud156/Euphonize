@@ -1,5 +1,5 @@
 // Utitlity Functions
-function UtitlityFunctions() {
+function UtilityFunctions() {
     this.stringToTitleCase = function (inputString) {
         inputString = inputString.toLowerCase().split(' ');
         for (var i = 0; i < inputString.length; i++) {
@@ -18,4 +18,23 @@ function UtitlityFunctions() {
         document.getElementById('alertModalContent').innerText = 'Error Occurred';
         $('alertModal').modal('open');
     };
+}
+
+
+// Initializations
+function init(trending) {
+    if (trending)
+        $('.flowy_trending').slick({
+            infinite: true,
+            sildesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true
+        });
+    else
+        $('.flowy_emerging').slick({
+            infinite: true,
+            sildesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true
+        });
 }

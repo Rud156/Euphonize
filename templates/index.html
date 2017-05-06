@@ -25,15 +25,13 @@
 
 <body>
 
-<<<<<<< HEAD
     <!-- Start of Alert Modal -->
     <div id="alertModal" class="modal">
         <div class="modal-content center" id="alertModalContent"></div>
     </div>
     <!-- End of Alert Modal -->
-=======
-<h1><a href="">Download</a></h1>
->>>>>>> cd2e4e7c9262cb616c2279fa95a4e8e843eba8e7
+
+    <!--<h1><a href="">Download</a></h1>-->
 
     <div class="add-margin">
         <!-- Start of main top nav -->
@@ -89,7 +87,7 @@
     <!-- Start of Main Homepage -->
     <div class="add-margin">
         <!-- Start of Main Recomendation Part -->
-        <div class="container">
+        <div class="container" data-bind="ifnot: currentPageArtistAlbum">
             <!-- Start of Trending Artists -->
             <div>
                 <div class="white-text base-style">
@@ -191,6 +189,38 @@
         </div>
         <!-- End of Main Recomendation Part -->
 
+        <!-- Start of page for displaying full page artist and album info -->
+        <div class="container" data-bind="with: currentPageArtistAlbum" style="padding: 0">
+            <h3 data-bind="text: albumName ? artistName + ' - ' + albumName : artistName" class="base-style white-text"></h3>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <img alt="Artist Image" data-bind="attr: {src: image}" class="z-depth-5" />
+                </div>
+                <div data-bind="html: summary" class="col s12 m6 l6 white-text base-style" style="font-size: 1.1em"></div>
+            </div>
+
+            <!--<div>
+
+            </div>-->
+            <!--<div class="flowy" data-bind="foreach: topEmergingTracks">
+                <div class="fixed-width">
+                    <div class="card">
+                        <div class="card-image image-container" data-bind="click: $root.playSong">
+                            <img data-bind="attr: {src: image}" />
+                            <div class="overlay">
+                                <i class="material-icons">play_circle_filled</i>
+                            </div>
+                            <div class="card-title">
+                                <h5 data-bind="text: trackName"></h5>
+                                <h6 data-bind="text: artistName"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <!-- End of page for displaying full page artist and album info -->
+
         <!-- Start of Media Player -->
         <div id="playerHolder">
             <audio id="audioElement"></audio>
@@ -285,8 +315,8 @@
     </script>
 
     <script src="./../static/javascripts/Script.js"></script>
-    <script src="./../static/javascripts/Models.js.js"></script>
-    <script src="./../static/javascripts/Uitlities.js.js"></script>
+    <script src="./../static/javascripts/Uitlities.js"></script>
+    <script src="./../static/javascripts/Models.js"></script>
     <script src="./../static/javascripts/MainController.js"></script>
 </body>
 

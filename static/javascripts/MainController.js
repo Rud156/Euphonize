@@ -2,25 +2,7 @@
 /// <reference path='./../JS/jquery.d.ts' />
 /// <reference path='./../JS/SammyJS.d.ts' />
 
-
-// Initializations
-function init(trending) {
-    if (trending)
-        $('.flowy_trending').slick({
-            infinite: true,
-            sildesToShow: 3,
-            slidesToScroll: 1,
-            variableWidth: true
-        });
-    else
-        $('.flowy_emerging').slick({
-            infinite: true,
-            sildesToShow: 3,
-            slidesToScroll: 1,
-            variableWidth: true
-        });
-}
-var utitlity = new UtitlityFunctions();
+var utitlity = new UtilityFunctions();
 
 
 function mainController() {
@@ -31,7 +13,7 @@ function mainController() {
     self.topTrendingTracks = ko.observableArray();
     self.topEmergingTracks = ko.observableArray();
 
-    // self.currentArtistAlbum = 
+    self.currentPageArtistAlbum = ko.observable();
 
     self.currentUser = ko.observable();
 
@@ -150,7 +132,26 @@ function mainController() {
         sendData();
     };
 
+    self.getArtistInfo = function (artistName) {
+        artistName = artistName.replace(/ /g, '%20');
+        $.ajax({
+            dataType: 'json',
+            url: '/artist?artist_name=' + artistName,
+            success: function (data) {
+                if (data.success) {
+                    self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.artist_data));
+                }
+                else
+                    utitlity.showMessages(data.message);
+            },
+            error: function (error) {
+                utitlity.displayError(error);
+            }
+        });
+    };
+
     self.initialCalls();
+    // self.getArtistInfo('Taylor Swift');
 }
 
 ko.applyBindings(new mainController());
