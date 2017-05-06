@@ -25,6 +25,12 @@
 
 <body>
 
+    <!-- Start of Alert Modal -->
+    <div id="alertModal" class="modal">
+        <div class="modal-content center" id="alertModalContent"></div>
+    </div>
+    <!-- End of Alert Modal -->
+
     <div class="add-margin">
         <!-- Start of main top nav -->
         <nav class="transparent" style="box-shadow: none">
@@ -32,7 +38,7 @@
                 <div class="row">
                     <div class="col s3 m2 l2 center">
                         <a href="#" data-activates="slide-out" class="brand-logo black-text left hide-on-size" style="display: block; margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>
-                        <a class="black-text left show-on-size" style="font-size: 2.1rem; display: none; margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>
+                        <!--<a class="black-text left show-on-size" style="font-size: 2.1rem; display: none; margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>-->
                     </div>
                     <div class="col s8 m8 l8 center">
                         <div id="searchForm" class="z-depth-1">
@@ -64,14 +70,19 @@
     </div>
 
     <!-- Start of side nav -->
-    <!--<ul id="slide-out" class="side-nav fixed" style="background: linear-gradient(red, rgb(254, 161, 125))">
-        <li><a href="#!" class="white-text base-style">What's New</a></li>
-        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Playlists</a></li>
-        <li data-bind="if: currentUser"><a href="#!" class="white-text base-style">Library</a></li>
-        <li><a href="#!" class="white-text base-style">Discover</a></li>
-    </ul>-->
+    <div id="slide-out" class="side-nav fixed grad-color">
+        <div class="center"><a href="#" class="black-text show-on-size" style="display: none; font-family: 'Great Vibes', cursive; font-weight: bolder; font-size: 3em">FU</a></div>
+        <br />
+        <ul>
+            <li><a href="#!" class="white-text center base-style" style="font-size: 1.5em">What's New</a></li>
+            <li data-bind="if: currentUser"><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Playlists</a></li>
+            <li data-bind="if: currentUser"><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Library</a></li>
+            <li><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Discover</a></li>
+        </ul>
+    </div>
     <!-- End of side nav -->
 
+    <!-- Start of Main Homepage -->
     <div class="add-margin">
         <!-- Start of Main Recomendation Part -->
         <div class="container">
@@ -245,6 +256,7 @@
         </div>
         <!-- End of Media Player -->
     </div>
+    <!-- End of Main Homepage -->
 
 
     <script>
@@ -268,8 +280,10 @@
         });
     </script>
 
-    <script src="./../static/javascripts/MainController.js"></script>
     <script src="./../static/javascripts/Script.js"></script>
+    <script src="./../static/javascripts/Models.js.js"></script>
+    <script src="./../static/javascripts/Uitlities.js.js"></script>
+    <script src="./../static/javascripts/MainController.js"></script>
 </body>
 
 </html>

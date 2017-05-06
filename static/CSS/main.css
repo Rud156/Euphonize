@@ -126,12 +126,11 @@ nav{
 
 @media only screen and (min-width: 993px){
     .add-margin {
-        /*margin-left: 300px;*/
+        margin-left: 300px;
     }
 
     #playerHolder {
-        /*width: calc(100% - 300px);*/
-        width: 100%;
+        width: calc(100% - 300px);
     }
 
     .hide-on-size {

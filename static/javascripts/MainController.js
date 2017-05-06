@@ -20,32 +20,7 @@ function init(trending) {
             variableWidth: true
         });
 }
-
-// Utitlity Functions
-function UtitlityFunctions() {
-    this.stringToTitleCase = function (inputString) {
-        inputString = inputString.toLowerCase().split(' ');
-        for (var i = 0; i < inputString.length; i++) {
-            inputString[i] = inputString[i].charAt(0).toUpperCase() + inputString[i].slice(1);
-        }
-        return inputString.join(' ');
-    };
-}
 var utitlity = new UtitlityFunctions();
-
-
-// Generic Holder Class for Album and Artist and Track
-function AlbumArtistHolder(dataObject) {
-    this.image = dataObject.image;
-
-    this.artistName = dataObject.artist_name;
-    this.albumName = dataObject.album_name ? dataObject.album_name : null;
-    this.trackName = dataObject.track_name ? dataObject.track_name : null;
-}
-
-function LoggedUser(userObject) {
-    this.userName = utitlity.stringToTitleCase(userObject.user_name);
-}
 
 
 function mainController() {
@@ -55,6 +30,8 @@ function mainController() {
     self.topAlbums = ko.observableArray();
     self.topTrendingTracks = ko.observableArray();
     self.topEmergingTracks = ko.observableArray();
+
+    // self.currentArtistAlbum = 
 
     self.currentUser = ko.observable();
 
@@ -75,11 +52,11 @@ function mainController() {
                     self.topArtists(artistArray);
                 }
                 else
-                    window.alert(data.message);
+                    utitlity.showMessages(data.message);
             },
             error: function (error) {
                 console.log(error);
-                window.alert('Error Occurred');
+                utitlity.displayError('Error Occurred');
             }
         });
     };
@@ -100,11 +77,11 @@ function mainController() {
                     self.topAlbums(albumArray);
                 }
                 else
-                    window.alert(data.message);
+                    utitlity.showMessages(data.message);
             },
             error: function (error) {
                 console.log(error);
-                window.alert('Error Occurred');
+                utitlity.displayError('Error Occurred');
             }
         });
     };
@@ -126,11 +103,11 @@ function mainController() {
                     init(false);
                 }
                 else
-                    window.alert(data.message);
+                    utitlity.showMessages(data.message);
             },
             error: function (error) {
                 console.log(error);
-                window.alert('Error Occurred');
+                utitlity.displayError('Error Occurred');
             }
         });
     };
@@ -152,11 +129,11 @@ function mainController() {
                     init(true);
                 }
                 else
-                    window.alert(data.message);
+                    utitlity.showMessages(data.message);
             },
             error: function (error) {
                 console.log(error);
-                window.alert('Error Occurred');
+                utitlity.displayError('Error Occurred');
             }
         });
     };
