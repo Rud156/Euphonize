@@ -1,6 +1,5 @@
 # Config file for Google APp Engine
 
-application: Fumen
 version: 1
 runtime: python27
 api_version: 1
@@ -15,5 +14,7 @@ libraries:
   version: latest
     
 handlers:
-- url: .*
+- url: /static
+  static_dir: static
+- url: /.*
   script: app.py
