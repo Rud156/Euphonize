@@ -1,8 +1,6 @@
 import requests
 import pafy
-import requests
 import json
-import ffmpy
 from cover_art_getter import itunes_album_art
 import os
 import urllib

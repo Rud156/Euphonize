@@ -1,0 +1,19 @@
+# Config file for Google APp Engine
+
+application: Fumen
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+libraries:
+- name: flask
+  version: latest
+- name: youtube-dl
+  version: latest
+- name: pafy
+  version: latest
+    
+handlers:
+- url: .*
+  script: app.py
