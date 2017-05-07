@@ -15,32 +15,15 @@ function UtilityFunctions() {
     };
 
     this.showMessages = function (message) {
-        document.getElementById('alertModalContent').innerText = 'Error Occurred';
+        document.getElementById('alertModalContent').innerText = message;
         $('#alertModal').modal('open');
     };
 }
 
 
 // Initializations
-function initFlowySpecific(trending) {
-    if (trending)
-        $('.flowy_trending').slick({
-            infinite: true,
-            sildesToShow: 3,
-            slidesToScroll: 1,
-            variableWidth: true
-        });
-    else
-        $('.flowy_emerging').slick({
-            infinite: true,
-            sildesToShow: 3,
-            slidesToScroll: 1,
-            variableWidth: true
-        });
-}
-
-function initFlowy() {
-    $('.flowy').slick({
+function initFlowy(className) {
+    $('.' + className).slick({
         infinite: true,
         sildesToShow: 3,
         slidesToScroll: 1,

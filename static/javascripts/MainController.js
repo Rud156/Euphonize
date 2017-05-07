@@ -82,7 +82,7 @@ function mainController() {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
                     self.topEmergingTracks(trackArray);
-                    initFlowySpecific(false);
+                    initFlowy('flowy_emerging');
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -108,7 +108,7 @@ function mainController() {
                         trackArray.push(new AlbumArtistHolder(element));
                     });
                     self.topTrendingTracks(trackArray);
-                    initFlowySpecific(true);
+                    initFlowy('flowy_trending');
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -140,7 +140,7 @@ function mainController() {
         console.log(artistObject);
         if (typeof (artistObject) === 'object')
             artistObject = artistObject.artistName ? artistObject.artistName : artistObject.artist_name;
-        var artistName = artistObject.replace(/ /g, '%20');
+        var artistName = encodeURI(artistObject);
 
         $.ajax({
             dataType: 'json',
@@ -148,7 +148,7 @@ function mainController() {
             success: function (data) {
                 if (data.success) {
                     self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.artist_data));
-                    initFlowy();
+                    initFlowy('flowy');
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -166,8 +166,8 @@ function mainController() {
             albumObject = albumObject.albumName;
         }
 
-        var albumName = albumObject.replace(/ /g, '%20');
-        artistName = artistName.replace(/ /g, '%20');
+        var albumName = encodeURI(albumObject);
+        artistName = encodeURI(artistName);
 
         $.ajax({
             dataType: 'json',
@@ -175,7 +175,7 @@ function mainController() {
             success: function (data) {
                 if (data.success) {
                     self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.album_data));
-                    initFlowy();
+                    initFlowy('flowy');
                 }
                 else
                     utitlity.showMessages(data.message);

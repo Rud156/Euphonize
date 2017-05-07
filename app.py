@@ -39,7 +39,7 @@ def get_video():
             image_url = image
         else:
             image_url = video.thumb
-            
+
     title = audio_title.split(' - ')
     title[0], title[1] = title[1], title[0]
     title = "<br />".join(title)
@@ -154,7 +154,8 @@ def get_artist():
 
     data = LastFM_Top.get_artist_info(artist_name)
     if data is None:
-        return jsonify({'success': False, 'message': 'Incorrect artist name'})
+        return jsonify({'success': False,
+                        'message': 'I\'m sorry but we do not have enough information about the artist you requested'})
     else:
         return jsonify({'success': True, 'artist_data': data})
 
@@ -170,7 +171,8 @@ def get_album_info():
 
     data = LastFM_Top.get_album_info(album_name, artist_name)
     if data is None:
-        return jsonify({'success': False, 'message': 'Incorrect artist name or album name'})
+        return jsonify({'success': False,
+                        'message': 'I\'m sorry but we do not have enough information about the album you requested'})
     else:
         return jsonify({'success': True, 'album_data': data})
 

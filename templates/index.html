@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./../static/CSS/materialize.css" />
     <link rel="stylesheet" href="./../static/CSS/slick.css" />
     <link rel="stylesheet" href="./../static/CSS/slick-theme.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="./../static/Images/Fu.png" />
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -20,6 +19,7 @@
     <script src="./../static/JS/jquery-ui.min.js"></script>
     <script src="./../static/JS/underscore-min.js"></script>
     <script src="./../static/JS/knockout-3.4.2.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="./../static/Images/Fu.png" />
     <title>Fumen</title>
 </head>
 
@@ -177,8 +177,8 @@
                             <div class="card-image" data-bind="click: $root.getAlbumInfo" style="cursor: pointer">
                                 <img data-bind="attr: {src: image}">
                                 <div class="card-title">
-                                    <h5 data-bind="text: albumName"></h5>
-                                    <h6 data-bind="text: artistName"></h6>
+                                    <h5 data-bind="text: albumName" class="base-style"></h5>
+                                    <h6 data-bind="text: artistName" class="base-style"></h6>
                                 </div>
                             </div>
                         </div>
@@ -255,12 +255,12 @@
             <div class="row">
 
                 <div class="col m2 l1 hide-on-small-only">
-                    <img src="./../static/Images/TS.png" alt="Track Image" style="max-width: 100%" id="songImage">
+                    <img src="./../static/Images/brokenalbumart.png" alt="Track Image" style="max-width: 100%" id="songImage">
                 </div>
 
                 <div class="col m3 l3 base-style white-text hide-on-small-only songName" style="font-weight: bolder; font-size: 20px;">
-                    Taylor Swift
-                    <br /> WonderLand
+                    Nothing Playing
+                    <br /> Yet
                 </div>
 
                 <div class="col s12 m7 l8">

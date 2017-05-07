@@ -185,5 +185,5 @@ def get_artist_info(artist_name):
 
 
 if __name__ == '__main__':
-    info = top_tags()
+    info = get_artist_info('Florence%20+%20The%20Machine')
     print info
