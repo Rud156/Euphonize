@@ -1,5 +1,6 @@
 import requests
 import json
+import urllib
 
 API_KEY = '7ede02c397c8cf99bf26e1f8cb9681fa'
 
@@ -62,7 +63,8 @@ def top_albums():
 
 
 def get_artist_top_tracks(artist_name):
-    artist_name = artist_name.replace(" ", "%20")
+    artist_name = urllib.quote_plus(artist_name)
+
     data = requests.get('http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=' + artist_name +
                         '&api_key=' + API_KEY + '&format=json&limit=100')
     data = json.loads(data.content)
@@ -74,7 +76,8 @@ def get_artist_top_tracks(artist_name):
 
 
 def get_artist_top_albums(artist_name):
-    artist_name = artist_name.replace(" ", "%20")
+    artist_name = urllib.quote_plus(artist_name)
+
     data = requests.get('http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + artist_name +
                         '&api_key=' + API_KEY + '&format=json&limit=100')
     data = json.loads(data.content)
@@ -88,6 +91,28 @@ def get_artist_top_albums(artist_name):
         }
         albums.append(data_set)
     return albums
+
+
+def get_artist_similar_artists(artist_name):
+    artist_name = urllib.quote_plus(artist_name)
+
+    data = requests.get('http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=' + artist_name +
+                        '&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json')
+    data = json.loads(data.content)
+    artists = []
+    try:
+        all_artists = data['similarartists']['artist']
+        for artist in all_artists:
+            data_set = {
+                'artist_name': artist['name'],
+                'image': artist['image'][3]['#text']
+            }
+            artists.append(data_set)
+        return artists
+
+    except KeyError:
+        return None
+
 
 
 def get_albums_for_tags(tag_name, limit):
@@ -123,8 +148,9 @@ def get_tracks_for_tags(tag_name):
 
 
 def get_album_info(album_name, artist_name):
-    album_name = album_name.replace(' ', '%20')
-    artist_name = artist_name.replace(' ', '%20')
+    album_name = urllib.quote_plus(album_name)
+    artist_name = urllib.quote_plus(artist_name)
+
     data = requests.get('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=' + API_KEY + '&artist='
                         + artist_name + '&album=' + album_name + '&format=json')
     data = json.loads(data.content)
@@ -150,7 +176,8 @@ def get_album_info(album_name, artist_name):
 
 
 def get_artist_info(artist_name):
-    artist_name = artist_name.replace(' ', '%20')
+    artist_name = urllib.quote_plus(artist_name)
+
     data = requests.get('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + artist_name +
                         '&api_key=' + API_KEY + '&format=json')
     data = json.loads(data.content)
@@ -179,5 +206,5 @@ def get_artist_info(artist_name):
 
 
 if __name__ == '__main__':
-    info = get_artist_top_tracks('Taylor Swift')
+    info = get_artist_similar_artists('Taylor Swift')
     print info

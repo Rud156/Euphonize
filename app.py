@@ -149,17 +149,25 @@ def popular_genre():
 @app.route('/artist', methods=['GET'])
 def get_artist():
     artist_name = request.args.get('artist_name')
+    content = request.args.get('data_type')
 
     # Check validity of incoming data
-    if artist_name is None:
+    if artist_name is None or content is None:
         return jsonify({'success':  False, 'message': 'Invalid parameters supplied'})
 
-    data = LastFM_Top.get_artist_info(artist_name)
-    if data is None:
-        return jsonify({'success': False,
-                        'message': 'I\'m sorry but we do not have enough information about the artist you requested'})
+    if content == 'info':
+        data = LastFM_Top.get_artist_info(artist_name)
+        if data is None:
+            return jsonify({'success': False,
+                            'message': 'I\'m sorry but we do not have enough information about the artist you requested'})
+        else:
+            return jsonify({'success': True, 'artist_data': data})
     else:
-        return jsonify({'success': True, 'artist_data': data})
+        similar_artists = LastFM_Top.get_artist_similar_artists(artist_name)
+        if similar_artists is None:
+            return jsonify({'success': False, 'message': 'Incorrect or invalid artist name supplied'})
+        else:
+            return jsonify({'success': True, 'similar_artists': similar_artists})
 
 
 @app.route('/album_info', methods=['GET'])

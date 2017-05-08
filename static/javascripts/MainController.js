@@ -140,7 +140,7 @@ function mainController() {
 
         $.ajax({
             dataType: 'json',
-            url: '/artist?artist_name=' + artistName,
+            url: '/artist?artist_name=' + artistName + '&data_type=info',
             success: function (data) {
                 if (data.success) {
                     var artistData = new PageAlbumArtistHolder(data.artist_data);
@@ -178,12 +178,10 @@ function mainController() {
     };
 
     self.getAlbumInfo = function (albumObject, artistName) {
-
         if (typeof (albumObject) === 'object') {
             artistName = albumObject.artistName;
             albumObject = albumObject.albumName;
         }
-
         var albumName = encodeURI(albumObject);
         artistName = encodeURI(artistName);
 
@@ -195,6 +193,26 @@ function mainController() {
                     var pageAlbum = new PageAlbumArtistHolder(data.album_data);
                     self.currentPageArtistAlbum(pageAlbum);
                     initFlowy('flowy_tracks');
+
+                    $.ajax({
+                        dataType: 'json',
+                        url: '/artist?artist_name=' + artistName + '&data_type=similar',
+                        success: function (data) {
+                            if (data.success) {
+                                data.similar_artists = data.similar_artists.splice(0, 20);
+                                pageAlbum.similarArtists = data.similar_artists;
+                                self.currentPageArtistAlbum(pageAlbum);
+
+                                initFlowy('flowy_tracks');
+                                initFlowy('flowy_artists');
+                            }
+                            else
+                                utitlity.showMessages(data.message);
+                        },
+                        error: function (error) {
+                            utitlity.displayError(error);
+                        }
+                    });
                 }
                 else
                     utitlity.showMessages(data.message);
