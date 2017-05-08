@@ -26,9 +26,9 @@ def pirate_music(music_id , title , artist):
 	audio = pafy.new(music_id)
 	audio_a = audio.getbestaudio()
 	itunes_search = title+" - "+artist
-
-	file_off ="./tmp/FeelingGood.mp3"
-	#file_off = audio_a.download("./tmp/"+title+".mp3")
+	title_n = title.replace(" " , "_")
+	#file_off ="./tmp/FeelingGood.mp3"
+	file_off = audio_a.download("./tmp/"+title_n+".mp3")
 	try:
 		album_art = itunes_album_art(itunes_search)
 		album_art = urllib.urlretrieve(album_art[0] , "./tmp/artwork/"+title+".jpg")
@@ -68,9 +68,9 @@ def pirate_music(music_id , title , artist):
 	print(title , album_art[0])
 	print(artist , genre[0])	
 
-	new_file = "./tmp/"+title+".mp3"
+	new_file = "./tmp/fumen_"+title_n+".mp3"
 	# Script using id3 tag
-	exe = "ffmpeg -i " + file_off+ " -i '"+album_art+"' -map 0 -map 1 -c copy -id3v2_version 3 -write_id3v1 1 -metadata title='"+ title +"' -metadata TPE1='"+artist+"' -metadata TPE2='"+artist+"' -metadata album='"+album+"' -metadata genre='"+genre[0]+"' "+new_file
+	exe = "ffmpeg -i " + file_off+ " -i '"+album_art+"' -map 0 -map 1 -c copy -codec -id3v2_version 3 -metadata title='"+ title +"' -metadata TPE1='"+artist+"' -metadata TPE2='"+artist+"' -metadata album='"+album+"' -metadata genre='"+genre[0]+"' "+new_file
 	
 	# Super Script **
 	# exe = "ffmpeg -i " + file_off+ " -i '"+album_art[0]+"' -codec copy -metadata title='"+ title +"' -metadata TPE1='"+artist+"' -metadata TPE2='"+artist+"' -metadata album='"+album+"' -metadata genre='"+genre[0]+"' "+new_file
@@ -81,4 +81,4 @@ def pirate_music(music_id , title , artist):
 	print(new_file)	
 
 # Uncomment to Run for test
-#pirate_music("https://www.youtube.com/watch?v=gBkWR-WfEeU" , "Feeling Good" , "Gryffin")
+pirate_music("https://www.youtube.com/watch?v=gBkWR-WfEeU" , "Feeling Good" , "Gryffin")
