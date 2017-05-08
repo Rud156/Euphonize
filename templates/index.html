@@ -96,7 +96,9 @@
                         Trending Tracks:
                     </h4>
                 </div>
-                <div data-bind="if: topTrendingTracks().length === 0"><spinfuck></spinfuck></div>
+                <div data-bind="if: topTrendingTracks().length === 0">
+                    <spinfuck></spinfuck>
+                </div>
                 <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
                     <div class="fixed-width">
                         <div class="card">
@@ -124,7 +126,9 @@
                         Top Artists:
                     </h4>
                 </div>
-                <div data-bind="if: topArtists().length === 0"><spinfuck></spinfuck></div>
+                <div data-bind="if: topArtists().length === 0">
+                    <spinfuck></spinfuck>
+                </div>
                 <div class="row" data-bind="foreach: topArtists">
                     <div class="col s12 m3">
                         <div class="card transparent white-text">
@@ -145,7 +149,9 @@
                         Top Emerging Tracks:
                     </h4>
                 </div>
-                <div data-bind="if: topEmergingTracks().length === 0"><spinfuck></spinfuck></div>
+                <div data-bind="if: topEmergingTracks().length === 0">
+                    <spinfuck></spinfuck>
+                </div>
                 <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
                     <div class="fixed-width">
                         <div class="card">
@@ -173,7 +179,9 @@
                         Top Albums:
                     </h4>
                 </div>
-                <div data-bind="if: topAlbums().length === 0"><spinfuck></spinfuck></div>
+                <div data-bind="if: topAlbums().length === 0">
+                    <spinfuck></spinfuck>
+                </div>
                 <div class="row" data-bind="foreach: topAlbums">
                     <div class="col s12 m3">
                         <div class="card transparent white-text">
@@ -253,6 +261,9 @@
                     00:00
                 </div>
                 <div class="col s8 range-field">
+                    <div class="progress loading-progress" style="display: none">
+                        <div class="indeterminate orange"></div>
+                    </div>
                     <input type="range" class="seekSlider" value="0" />
                 </div>
                 <div class="col s2 leftTime">
@@ -297,6 +308,9 @@
                             00:00
                         </div>
                         <div class="col m8 l8 range-field">
+                            <div class="progress loading-progress" style="display: none">
+                                <div class="indeterminate orange"></div>
+                            </div>
                             <input type="range" class="seekSlider" value="0" />
                         </div>
                         <div class="col m2 l2 leftTime">

@@ -17,6 +17,9 @@ var curTime = document.getElementsByClassName('currentTime');
 var lefTime = document.getElementsByClassName('leftTime');
 var prevVolume;
 
+// Loaders
+var loaders = document.getElementsByClassName('loading-progress');
+
 // Search Elements
 var searchBox = document.getElementById('searchInput');
 searchBox.addEventListener('keydown', function (keyDownValue) {
@@ -138,6 +141,12 @@ prevAudio.addEventListener('click', function () {
 
 function sendData() {
     var data = { 'title': searchBox.value };
+    var i;
+    for (i = 0; i < loaders.length; i++)
+        loaders[i].style.display = 'block';
+    for (i = 0; i < audioSlider.length; i++)
+        audioSlider[i].style.display = 'none';
+
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -145,6 +154,11 @@ function sendData() {
         url: '/get_video',
         success: function (data) {
             if (data.success) {
+                for (i = 0; i < loaders.length; i++)
+                    loaders[i].style.display = 'none';
+                for (i = 0; i < audioSlider.length; i++)
+                    audioSlider[i].style.display = 'block';
+
                 audio.src = data.music.url;
                 audio.play();
                 isPlaying = true;
