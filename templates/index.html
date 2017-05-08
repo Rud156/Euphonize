@@ -126,17 +126,13 @@
                         Top Artists:
                     </h4>
                 </div>
-<<<<<<< HEAD
+
                 <div data-bind="if: topArtists().length === 0">
                     <spinfuck></spinfuck>
                 </div>
                 <div class="row" data-bind="foreach: topArtists">
-=======
-                <div data-bind="if: topArtists().length === 0"><spinfuck></spinfuck></div>
-                <div class="row big_card" data-bind="foreach: topArtists">
->>>>>>> 90f0dcdee1f8c9710bd145cb0c447f6d4f427ae4
                     <div class="col s12 m3">
-                        <div class="card transparent white-text">
+                        <div class="card transparent white-text big_card">
                             <div class="card-image" data-bind="click: $root.getArtistInfo.bind(artistName)" style="cursor: pointer">
                                 <img data-bind="attr: {src: image}">
                                 <span data-bind="text: artistName" class="base-style card-title"></span>
@@ -184,17 +180,13 @@
                         Top Albums:
                     </h4>
                 </div>
-<<<<<<< HEAD
+
                 <div data-bind="if: topAlbums().length === 0">
                     <spinfuck></spinfuck>
                 </div>
                 <div class="row" data-bind="foreach: topAlbums">
-=======
-                <div data-bind="if: topAlbums().length === 0"><spinfuck></spinfuck></div>
-                <div class="row big_card" data-bind="foreach: topAlbums">
->>>>>>> 90f0dcdee1f8c9710bd145cb0c447f6d4f427ae4
                     <div class="col s12 m3">
-                        <div class="card transparent white-text">
+                        <div class="card transparent white-text big_card">
                             <div class="card-image" data-bind="click: $root.getAlbumInfo" style="cursor: pointer">
                                 <img data-bind="attr: {src: image}">
                                 <div class="card-title">
