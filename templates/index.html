@@ -126,10 +126,15 @@
                         Top Artists:
                     </h4>
                 </div>
+<<<<<<< HEAD
                 <div data-bind="if: topArtists().length === 0">
                     <spinfuck></spinfuck>
                 </div>
                 <div class="row" data-bind="foreach: topArtists">
+=======
+                <div data-bind="if: topArtists().length === 0"><spinfuck></spinfuck></div>
+                <div class="row big_card" data-bind="foreach: topArtists">
+>>>>>>> 90f0dcdee1f8c9710bd145cb0c447f6d4f427ae4
                     <div class="col s12 m3">
                         <div class="card transparent white-text">
                             <div class="card-image" data-bind="click: $root.getArtistInfo.bind(artistName)" style="cursor: pointer">
@@ -179,10 +184,15 @@
                         Top Albums:
                     </h4>
                 </div>
+<<<<<<< HEAD
                 <div data-bind="if: topAlbums().length === 0">
                     <spinfuck></spinfuck>
                 </div>
                 <div class="row" data-bind="foreach: topAlbums">
+=======
+                <div data-bind="if: topAlbums().length === 0"><spinfuck></spinfuck></div>
+                <div class="row big_card" data-bind="foreach: topAlbums">
+>>>>>>> 90f0dcdee1f8c9710bd145cb0c447f6d4f427ae4
                     <div class="col s12 m3">
                         <div class="card transparent white-text">
                             <div class="card-image" data-bind="click: $root.getAlbumInfo" style="cursor: pointer">
@@ -201,7 +211,7 @@
         <!-- End of Main Recomendation Part -->
 
         <!-- Start of page for displaying full page artist and album info -->
-        <div class="container" data-bind="with: currentPageArtistAlbum" style="padding: 0; margin-bottom: 150px">
+        <div class="over_container" data-bind="with: currentPageArtistAlbum" style="padding: 0; margin-bottom: 150px">
             <h3 data-bind="text: albumName ? artistName + ' - ' + albumName : artistName" class="base-style white-text"></h3>
             <div class="row">
                 <div class="col s12 m6 l6 center">
