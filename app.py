@@ -113,7 +113,9 @@ def artist_top():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data == 'tracks':
-        return jsonify({'success': True, 'artist_tracks': LastFM_Top.get_artist_top_albums(artist)})
+        return jsonify({'success': True, 'artist_tracks': LastFM_Top.get_artist_top_tracks(artist)})
+    else:
+        return jsonify({'success': True, 'artist_albums': LastFM_Top.get_artist_top_albums(artist)})
 
 
 @app.route('/popular_genre', methods=['GET'])

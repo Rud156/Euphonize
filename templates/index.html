@@ -99,7 +99,7 @@
                 <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                            <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
                                 <img data-bind="attr: {src: image}" />
                                 <div class="overlay">
                                     <i class="material-icons">play_circle_filled</i>
@@ -147,7 +147,7 @@
                 <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
                     <div class="fixed-width">
                         <div class="card">
-                            <div class="card-image image-container" data-bind="click: $root.playSong">
+                            <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
                                 <img data-bind="attr: {src: image}" />
                                 <div class="overlay">
                                     <i class="material-icons">play_circle_filled</i>
@@ -199,12 +199,12 @@
                 <div data-bind="html: summary" class="col s12 m6 l6 white-text base-style center" style="font-size: 1.1em"></div>
             </div>
 
-            <div>
+            <div data-bind="if: tracks">
                 <div class="white-text base-style">
-                    <h4 data-bind="text: albumName ? 'Top Tracks' : 'Similar Artists'"></h4>
+                    <h4>Top Tracks</h4>
                 </div>
 
-                <div class="flowy" data-bind="foreach: tracks">
+                <div class="flowy_tracks" data-bind="foreach: tracks">
                     <div class="fixed-width">
                         <div class="card">
                             <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $parent.artistName)">
@@ -219,8 +219,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div data-bind="if: similarArtists">
+                <div class="white-text base-style">
+                    <h4>Similar Artists</h4>
+                </div>
 
-                <div class="flowy" data-bind="foreach: similarArtists">
+                <div class="flowy_artists" data-bind="foreach: similarArtists">
                     <div class="fixed-width">
                         <div class="card" style="cursor: pointer">
                             <div class="card-image" data-bind="click: $root.getArtistInfo.bind($data)">
@@ -298,8 +303,8 @@
                     <!-- End of timer and scrobbler -->
 
                     <div class="row base-style show-on-small hide-on-med-and-up white-text songName" style="font-weight: bolder; font-size: 20px; text-align: center">
-                        Taylor Swift
-                        <br /> WonderLand
+                        Nothing Playing
+                        <br /> Yet
                     </div>
                 </div>
             </div>

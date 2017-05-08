@@ -1,6 +1,6 @@
 /// <reference path='./../JS/knockoutJS.d.ts' />
 /// <reference path='./../JS/jquery.d.ts' />
-/// <reference path='./../JS/SammyJS.d.ts' />
+/// <reference path="./Script.js" />
 
 var utitlity = new UtilityFunctions();
 
@@ -127,12 +127,8 @@ function mainController() {
         self.getTopTrendingTracks();
     };
 
-    self.playSong = function (songData, artistName) {
-
-        if (typeof (songData) != 'object')
-            songData = { trackName: songData, artistName: artistName };
-
-        document.getElementById('searchInput').value = songData.trackName + ' - ' + songData.artistName;
+    self.playSong = function (artistName, songName) {
+        document.getElementById('searchInput').value = songName + ' - ' + artistName;
         sendData();
     };
 
@@ -147,8 +143,30 @@ function mainController() {
             url: '/artist?artist_name=' + artistName,
             success: function (data) {
                 if (data.success) {
-                    self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.artist_data));
-                    initFlowy('flowy');
+                    var artistData = new PageAlbumArtistHolder(data.artist_data);
+                    self.currentPageArtistAlbum(artistData);
+                    initFlowy('flowy_artists');
+
+                    $.ajax({
+                        dataType: 'json',
+                        url: '/artist_top?name=' + artistData.artistName + '&type=tracks',
+                        success: function (data) {
+                            if (data.success) {
+                                data.artist_tracks = data.artist_tracks.splice(0, 20);
+                                artistData.tracks = data.artist_tracks;
+                                self.currentPageArtistAlbum(artistData);
+
+                                initFlowy('flowy_tracks');
+                                initFlowy('flowy_artists');
+                            }
+                            else
+                                utitlity.showMessages(data.message);
+                        },
+                        error: function (error) {
+                            utitlity.displayError(error);
+                        }
+                    });
+
                 }
                 else
                     utitlity.showMessages(data.message);
@@ -174,8 +192,9 @@ function mainController() {
             url: '/album_info?album_name=' + albumName + '&artist_name=' + artistName,
             success: function (data) {
                 if (data.success) {
-                    self.currentPageArtistAlbum(new PageAlbumArtistHolder(data.album_data));
-                    initFlowy('flowy');
+                    var pageAlbum = new PageAlbumArtistHolder(data.album_data);
+                    self.currentPageArtistAlbum(pageAlbum);
+                    initFlowy('flowy_tracks');
                 }
                 else
                     utitlity.showMessages(data.message);

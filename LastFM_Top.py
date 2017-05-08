@@ -69,13 +69,7 @@ def get_artist_top_tracks(artist_name):
     all_tracks = data['toptracks']['track']
     tracks = []
     for i in xrange(0, len(all_tracks)):
-        data_set = {
-            'track_name': all_tracks[i]['name'],
-            'artist_name': all_tracks[i]['artist']['name'],
-            'image': all_tracks[i]['image'][3]['#text']
-        }
-        print data_set
-        tracks.append(data_set)
+        tracks.append(all_tracks[i]['name'])
     return tracks
 
 
@@ -185,5 +179,5 @@ def get_artist_info(artist_name):
 
 
 if __name__ == '__main__':
-    info = get_artist_info('Florence%20+%20The%20Machine')
+    info = get_artist_top_tracks('Taylor Swift')
     print info
