@@ -4,8 +4,8 @@
 
 var utitlity = new UtilityFunctions();
 
-ko.components.register('spinfuck',{
-template: '<div class="spinner">\
+ko.components.register('spinfuck', {
+    template: '<div class="spinner">\
     <div class="rect1"></div>\
     <div class="rect2"></div>\
     <div class="rect3"></div>\
@@ -164,7 +164,7 @@ function mainController() {
                             if (data.success) {
                                 data.artist_tracks = data.artist_tracks.splice(0, 20);
                                 artistData.tracks = data.artist_tracks;
-                                self.currentPageArtistAlbum(artistData);
+                                self.currentPageArtistAlbum(artistData)
 
                                 initFlowy('flowy_tracks');
                                 initFlowy('flowy_artists');

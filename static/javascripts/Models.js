@@ -20,7 +20,7 @@ function PageAlbumArtistHolder(dataObject) {
     this.albumName = dataObject.album_name ? dataObject.album_name : null;
     this.artistName = dataObject.artist_name;
 
-    this.tracks = dataObject.tracks ? dataObject.tracks : null;
-    this.similarArtists = dataObject.similar_artists ? dataObject.similar_artists : null;
+    this.tracks = dataObject.tracks ? dataObject.tracks : [];
+    this.similarArtists = dataObject.similar_artists ? dataObject.similar_artists : [];
 
 }

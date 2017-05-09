@@ -212,7 +212,7 @@
                 <div data-bind="html: summary" class="col s12 m6 l6 white-text base-style center" style="font-size: 1.1em"></div>
             </div>
 
-            <div data-bind="if: tracks">
+            <div data-bind="if: tracks.length !== 0">
                 <div class="white-text base-style">
                     <h4>Top Tracks</h4>
                 </div>
@@ -233,7 +233,7 @@
                     </div>
                 </div>
             </div>
-            <div data-bind="if: similarArtists">
+            <div data-bind="if: similarArtists.length !== 0">
                 <div class="white-text base-style">
                     <h4>Similar Artists</h4>
                 </div>
