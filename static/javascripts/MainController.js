@@ -147,7 +147,7 @@ function MainController() {
         console.log(artistObject);
         if (typeof (artistObject) === 'object')
             artistObject = artistObject.artistName ? artistObject.artistName : artistObject.artist_name;
-        var artistName = encodeURI(artistObject);
+        var artistName = encodeURIComponent(artistObject);
         console.log(artistName);
 
         location.hash = '/artists/' + artistName;
@@ -158,8 +158,8 @@ function MainController() {
             artistName = albumObject.artistName;
             albumObject = albumObject.albumName;
         }
-        var albumName = encodeURI(albumObject);
-        artistName = encodeURI(artistName);
+        var albumName = encodeURIComponent(albumObject);
+        artistName = encodeURIComponent(artistName);
 
         location.hash = '/albums/' + artistName + '/' + albumName;
     };
