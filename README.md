@@ -7,5 +7,5 @@ ROADMAP for v0.1 :
 - [x] Youtube Results
 - [x] Media Player
 - [ ] Dynamic Audio Switching
-- [ ] Meta Data extracter - lastfm/itunes
+- [x] Meta Data extracter - lastfm/itunes
 - [x] Basic Flask site with Search and play functionality
