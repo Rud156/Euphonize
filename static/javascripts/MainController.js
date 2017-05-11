@@ -15,7 +15,7 @@ ko.components.register('spinfuck', {
 });
 
 
-function mainController() {
+function MainController() {
     var self = this;
 
     self.topArtists = ko.observableArray();
@@ -131,6 +131,7 @@ function mainController() {
     };
 
     self.initialCalls = function () {
+        self.currentPageArtistAlbum(null);
         self.getTopArtists();
         self.getTopAlbums();
         self.getTopEmergingTracks();
@@ -147,44 +148,9 @@ function mainController() {
         if (typeof (artistObject) === 'object')
             artistObject = artistObject.artistName ? artistObject.artistName : artistObject.artist_name;
         var artistName = encodeURI(artistObject);
+        console.log(artistName);
 
-        $.ajax({
-            dataType: 'json',
-            url: '/artist?artist_name=' + artistName + '&data_type=info',
-            success: function (data) {
-                if (data.success) {
-                    var artistData = new PageAlbumArtistHolder(data.artist_data);
-                    self.currentPageArtistAlbum(artistData);
-                    initFlowy('flowy_artists');
-
-                    $.ajax({
-                        dataType: 'json',
-                        url: '/artist_top?name=' + artistData.artistName + '&type=tracks',
-                        success: function (data) {
-                            if (data.success) {
-                                data.artist_tracks = data.artist_tracks.splice(0, 20);
-                                artistData.tracks = data.artist_tracks;
-                                self.currentPageArtistAlbum(artistData)
-
-                                initFlowy('flowy_tracks');
-                                initFlowy('flowy_artists');
-                            }
-                            else
-                                utitlity.showMessages(data.message);
-                        },
-                        error: function (error) {
-                            utitlity.displayError(error);
-                        }
-                    });
-
-                }
-                else
-                    utitlity.showMessages(data.message);
-            },
-            error: function (error) {
-                utitlity.displayError(error);
-            }
-        });
+        location.hash = '/artists/' + artistName;
     };
 
     self.getAlbumInfo = function (albumObject, artistName) {
@@ -195,13 +161,63 @@ function mainController() {
         var albumName = encodeURI(albumObject);
         artistName = encodeURI(artistName);
 
+        location.hash = '/albums/' + artistName + '/' + albumName;
+    };
+}
+
+var mainController = new MainController();
+ko.applyBindings(mainController);
+
+
+var routes = {
+    '/artists/:artistName': function (artistName) {
+        $.ajax({
+            dataType: 'json',
+            url: '/artist?artist_name=' + artistName + '&data_type=info',
+            success: function (data) {
+                if (data.success) {
+                    var artistData = new PageAlbumArtistHolder(data.artist_data);
+                    mainController.currentPageArtistAlbum(artistData);
+                    initFlowy('flowy_artists');
+
+                    $.ajax({
+                        dataType: 'json',
+                        url: '/artist_top?name=' + artistData.artistName + '&type=tracks',
+                        success: function (data) {
+                            if (data.success) {
+                                data.artist_tracks = data.artist_tracks.splice(0, 20);
+                                artistData.tracks = data.artist_tracks;
+                                mainController.currentPageArtistAlbum(artistData)
+
+                                initFlowy('flowy_tracks');
+                                initFlowy('flowy_artists');
+                            }
+                            else
+                                utitlity.showMessages(data.message);
+                        },
+                        error: function (error) {
+                            utitlity.displayError(error);
+                        }
+                    });
+
+                }
+                else
+                    utitlity.showMessages(data.message);
+            },
+            error: function (error) {
+                utitlity.displayError(error);
+            }
+        });
+    },
+
+    '/albums/:artistName/:albumName': function (artistName, albumName) {
         $.ajax({
             dataType: 'json',
             url: '/album_info?album_name=' + albumName + '&artist_name=' + artistName,
             success: function (data) {
                 if (data.success) {
                     var pageAlbum = new PageAlbumArtistHolder(data.album_data);
-                    self.currentPageArtistAlbum(pageAlbum);
+                    mainController.currentPageArtistAlbum(pageAlbum);
                     initFlowy('flowy_tracks');
 
                     $.ajax({
@@ -211,7 +227,7 @@ function mainController() {
                             if (data.success) {
                                 data.similar_artists = data.similar_artists.splice(0, 20);
                                 pageAlbum.similarArtists = data.similar_artists;
-                                self.currentPageArtistAlbum(pageAlbum);
+                                mainController.currentPageArtistAlbum(pageAlbum);
 
                                 initFlowy('flowy_tracks');
                                 initFlowy('flowy_artists');
@@ -231,9 +247,15 @@ function mainController() {
                 utitlity.displayError(error);
             }
         });
-    };
+    },
 
-    self.initialCalls();
-}
+    '/': function () {
+        mainController.initialCalls();
+    }
+};
 
-ko.applyBindings(new mainController());
+var router = Router(routes);
+router.init();
+
+if (location.hash === '')
+    location.hash = '#/';
