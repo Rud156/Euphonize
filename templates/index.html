@@ -28,21 +28,24 @@
 <body>
 
     <!-- Start of Alert Modal -->
+    
     <div id="alertModal" class="modal">
         <div class="modal-content center" id="alertModalContent"></div>
     </div>
+    
     <!-- End of Alert Modal -->
 
     <!--<h1><a href="">Download</a></h1>-->
 
     <div class="">
+        
         <!-- Start of main top nav -->
+        
         <nav class="transparent" style="box-shadow: none">
             <div class="nav-wrapper">
                 <div class="row">
-                    <div class="col s3 m2 l2 ">
-                        <a href="#" data-activates="slide-out" class="brand-logo black-text left hide-on-size" style="display: block; margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>
-                        <!--<a class="black-text left show-on-size" style="font-size: 2.1rem; display: none; margin-left: 10px; font-family: 'Great Vibes', cursive; font-weight: bolder">FU</a>-->
+                    <div class="col s3 m2 l2 home">
+                        <a href="#" data-activates="slide-out" class="brand-logo black-text left hide-on-size"><img src="./../static/Images/Fu.png" /></a>
                     </div>
                     <div class="col s8 m8 l8 ">
                         <div id="searchForm" class="z-depth-1">
@@ -54,6 +57,7 @@
                     </div>
 
                     <!-- Start of User Dropdown -->
+                    
                     <div class="col m2 l2 center hide-on-med-and-down" data-bind="if: currentUser">
                         <a href="#" class="dropdown-button btn grad-color base-style" data-activates="userDropdown" style="font-weight: bold">User</a>
                         <ul id='userDropdown' class='dropdown-content grad-color'>
@@ -62,35 +66,44 @@
                             <li><a href="#!" class="white-text base-style">three</a></li>
                         </ul>
                     </div>
-                    <div class="col m2 l2 center hide-on-med-and-down" data-bind="ifnot: currentUser">
-                        <a href="#" class="btn grad-color base-style" style="font-weight: bold">SignUp</a>
-                    </div>
+
                     <!-- End of User Dropdown -->
 
                 </div>
             </div>
         </nav>
+    
         <!-- End of main top nav -->
+    
     </div>
 
-    <!-- Start of side nav->
-    <div id="slide-out" class="side-nav fixed grad-color">
-        <div class="center"><a href="#" class="black-text show-on-size" style="display: none; font-family: 'Great Vibes', cursive; font-weight: bolder; font-size: 3em">FU</a></div>
-        <br />
-        <ul>
-            <li><a href="#!" class="white-text center base-style" style="font-size: 1.5em">What's New</a></li>
-            <li data-bind="if: currentUser"><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Playlists</a></li>
-            <li data-bind="if: currentUser"><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Library</a></li>
-            <li><a href="#!" class="white-text center base-style" style="font-size: 1.5em">Discover</a></li>
-        </ul>
-    </div>
-     -->
+    <!-- Start of side nav-->
+    
+    <ul id="slide-out" class="side-nav fixed transparent z-depth-0">
+      <li style="margin-bottom: 20px;"><a href="#!" class="logo-home"><img style="max-width:100%; width: 70px; filter: brightness(0) invert(1);" src="./../static/Images/Fu.png"><br>Fumen</a></li>
+      
+      <br>
+      <li><a href="#!" class="home"><i class="material-icons opt white-text">stars</i><br>Home</a></li>
+      <br>
+      <li><a href="#!"><i class="material-icons opt white-text">language</i><br>Discover</a></li>
+      <br>
+      <li><a href="#!"><i class="material-icons opt white-text">video_library</i><br>Library</a></li>
+      
+    </ul>
+    <a href="#" data-activates="slide-out" class="button-collapse left"><i class="material-icons">menu</i></a>
+          
+    <!-- End side nav -->
 
     <!-- Start of Main Homepage -->
+    
     <div class="add-margin">
+        
         <!-- Start of Main Recomendation Part -->
+        
         <div class="over_container" data-bind="ifnot: currentPageArtistAlbum">
+           
             <!-- Start of Trending Artists -->
+           
             <div>
                 <div class="white-text base-style">
                     <h4>
@@ -118,9 +131,11 @@
                 </div>
 
             </div>
+            
             <!-- End of Trending Artists -->
 
             <!-- Start of Top Artists -->
+
             <div style="padding-top: 50px">
                 <div class="white-text base-style">
                     <h4>
@@ -142,9 +157,11 @@
                     </div>
                 </div>
             </div>
+
             <!-- End of Top Artists -->
 
             <!-- Start of Top Emerging Artists -->
+            
             <div style="padding-top: 14px;">
                 <div class="white-text base-style">
                     <h4>
@@ -170,8 +187,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <!-- End of Top Emerging Artists -->
 
             <!-- Start of Top Albums -->
@@ -199,12 +216,13 @@
                     </div>
                 </div>
             </div>
+
             <!-- End of Top Albums -->
         </div>
         <!-- End of Main Recomendation Part -->
 
         <!-- Start of page for displaying full page artist and album info -->
-        <div class="over_container" data-bind="with: currentPageArtistAlbum" style="padding: 0; margin-bottom: 150px">
+        <div class="over_container" data-bind="with: currentPageArtistAlbum" style="margin-bottom: 150px">
             <h3 data-bind="text: albumName ? artistName + ' - ' + albumName : artistName" class="base-style white-text"></h3>
             <div class="row">
                 <div class="col s12 m6 l6 center">
@@ -257,6 +275,26 @@
         <!-- End of page for displaying full page artist and album info -->
 
         <!-- Start of Media Player -->
+
+        <!-- Start Mssg
+
+
+        Dude  , I cant fix this player . You need to do it.
+        
+        Thumbnail is fuckd up , time slider is a bit off ( lower )
+
+        Shorter player buttons, see Google play music
+
+        Add download button -> ( play_for_work )
+        
+        And we'll add the music queue at bottom with the player
+
+        Plus  we can move the shuffle and repeat buttons in the queue.
+
+        And for smaller width , the queue btn adn download button can take their place ?
+
+
+        End Mssg -->
         <div id="playerHolder">
             <audio id="audioElement"></audio>
             <div class="row base-style white-text show-on-small hide-on-med-and-up" style="font-weight: bolder; font-size: 20px; text-align: center">
@@ -276,8 +314,8 @@
 
             <div class="row">
 
-                <div class="col m2 l1 hide-on-small-only">
-                    <img src="./../static/Images/brokenalbumart.png" alt="Track Image" style="max-width: 100%" id="songImage">
+                <div class="col m1 l1 hide-on-small-only">
+                    <img src="./../static/Images/brokenalbumart.png" alt="Track Image" style="width: 100%" id="songImage">
                 </div>
 
                 <div class="col m3 l3 base-style white-text hide-on-small-only songName" style="font-weight: bolder; font-size: 20px;">
@@ -343,6 +381,13 @@
             hover: true,
             belowOrigin: true
         });
+        $('.button-collapse').sideNav({
+            menuWidth: 200, 
+            edge: 'left', 
+            closeOnClick: true, 
+            draggable: true
+                }
+        );
     </script>
 
     <script>

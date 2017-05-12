@@ -16,6 +16,17 @@ h4{
 }
 /* End Typography*/
 
+.home img{
+    width: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-left: 20px;
+    opacity: 0.5;
+}
+.home img:hover{
+    opacity: 1;
+}
 .image-container {
     position: relative;
     cursor: pointer;
@@ -37,20 +48,23 @@ h4{
 }
 
 .image-container:hover {
-    background: darkorange;
+    background: rgba(0,0,0,0.5);
 }
 
 .image-container:hover img {
     opacity: 0.3;
+    transition: all 0.2s;
+    
 }
 
 .image-container:hover .overlay {
+    transition: all 0.2s;
     opacity: 1;
 }
 
 .over_container{
-    width:95%; 
-    padding: 0 20px;
+    width:100%; 
+    padding: 0 30px;
     margin-top: 100px;
 
 }
@@ -81,6 +95,37 @@ nav{
     height: 200px;
     margin: 0 7px;
 }
+
+/* Side nav */
+.side-nav{
+        padding-top: 20px;
+        }   
+.side-nav li{
+        display: inline-block;
+        padding: 10px;
+        }
+.side-nav .material-icons{
+    font-size: 60px;
+    text-align: center;
+}
+
+.side-nav li a{
+    font-size: 30px;
+    font-weight: 400;
+    padding-bottom:10px;
+    padding-left: 10px;
+    padding-top: 0;
+    padding-right:0; 
+    margin-top: 20px;
+    color:white;
+    text-align: center;
+
+
+}
+.side-nav .opt{
+    text-align: center;
+}
+
 /* Start of media player CSS */
 
 #playerHolder {
@@ -136,7 +181,7 @@ nav{
 
 @media only screen and (min-width: 993px){
     .add-margin {
-        margin-left: 300px;
+        margin-left: 200px;
     }
 
     #playerHolder {
