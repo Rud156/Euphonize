@@ -2,6 +2,23 @@ from lxml import html
 import requests
 import json
 
+'''
+
+**Broken Pipe error when refreshed continuosly**
+
+Error due to Unix SIGPIPE signal , happens when utilites receive enough
+data , so the head blocks further connections
+
+Can be seen using 
+import sys
+using sys.stdout.write instead of print statement
+
+Fix : Switch from flask server ,to production ready server
+OR : Temp fix - flush the sigpipe repeatedly
+
+But shouldn't be an issue when hosted on cloud engines. 
+
+'''
 header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0'}
 
 
