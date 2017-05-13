@@ -29,6 +29,12 @@ searchBox.addEventListener('keydown', function (keyDownValue) {
 var submitBtn = document.getElementById('submitBtn');
 submitBtn.addEventListener('click', sendData);
 
+// Define Playlist Array. Placed inside window object for global avaliability
+window.playlist = [];
+
+// Download Button
+var downloadBtn = document.getElementById('downloadBtn');
+
 // Delayed function for Last.Fm request
 var getTracksFromLastFm = _.debounce(function () {
     var data = searchBox.value;

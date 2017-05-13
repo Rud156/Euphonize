@@ -14,6 +14,10 @@ body {
 h4{
     font-weight: 700;
 }
+
+a {
+    text-decoration: none;
+}
 /* End Typography*/
 
 .home img{
