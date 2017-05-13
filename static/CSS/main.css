@@ -102,10 +102,10 @@ nav{
 
 /* Side nav */
 .side-nav{
+        margin-top: 30px;
         padding-top: 20px;
-        }   
+}   
 .side-nav li{
-        display: inline-block;
         padding: 10px;
         }
 .side-nav .material-icons{
@@ -127,8 +127,13 @@ nav{
 
 }
 .side-nav .opt{
-    text-align: center;
+    opacity: 0.7;
+    transition: 0.2s all;
 }
+.side-nav .opt:hover , side-nav .opt:focus{
+    opacity: 1;
+}
+
 
 /* Start of media player CSS */
 

@@ -38,8 +38,6 @@
 
     <!-- End of Alert Modal -->
 
-    <!--<h1><a href="">Download</a></h1>-->
-
     <div class="">
 
         <!-- Start of main top nav -->
@@ -83,13 +81,13 @@
     <!-- Start of side nav-->
 
     <div id="slide-out" class="side-nav fixed transparent z-depth-0">
-        <div style="margin-bottom: 20px;" class="center"><a href="/#/" class="logo-home white-text"><img style="max-width:100%; width: 70px; filter: brightness(0) invert(1);" src="./../static/Images/Fu.png"><br />Fumen</a></div>
+        <div style="margin-bottom: 20px;" class="center  opt" ><a href="/#/" class="logo-home white-text"><img style="max-width:100%; width: 70px; filter: brightness(0) invert(1);" src="./../static/Images/Fu.png"><br />Fumen</a></div>
         <br />
-        <div class="center"><a href="#!" class="home center white-text"><i class="material-icons opt white-text">stars</i><br />Home</a></div>
+        <div class="center  opt"><a href="#!" class="home center white-text"><i class="material-icons white-text">stars</i><br />Home</a></div>
         <br />
-        <div class="center"><a href="#!" class="white-text"><i class="material-icons opt white-text">language</i><br />Discover</a></div>
+        <div class="center  opt"><a href="#!" class="white-text"><i class="material-icons white-text">language</i><br />Discover</a></div>
         <br />
-        <div class="center"><a href="#!" class="white-text"><i class="material-icons opt white-text">video_library</i><br />Library</a></div>
+        <div class="center  opt"><a href="#!" class="white-text"><i class="material-icons white-text">video_library</i><br />Library</a></div>
     </div>
     <!--<a href="#" data-activates="slide-out" class="button-collapse left"><i class="material-icons">menu</i></a>-->
 
@@ -355,7 +353,9 @@
     <script>
         $('.modal').modal();
         $(".brand-logo.left").sideNav({
-            draggable: true
+            draggable: true,
+            menuWidth: 200,
+
         });
         $('.dropdown-button').dropdown({
             hover: true,
@@ -386,4 +386,4 @@
     <script src="./../static/javascripts/MainController.js"></script>
 </body>
 
-</html>
+</html>3
