@@ -166,7 +166,7 @@ function MainController() {
 }
 
 var mainController = new MainController();
-ko.applyBindings(mainController);
+ko.applyBindings(mainController, document.getElementById("contentHolder"));
 
 
 var routes = {

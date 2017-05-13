@@ -100,180 +100,181 @@
     <div class="add-margin">
 
         <!-- Start of Main Recomendation Part -->
+        <div id="contentHolder">
+            <div class="over_container" data-bind="ifnot: currentPageArtistAlbum">
 
-        <div class="over_container" data-bind="ifnot: currentPageArtistAlbum">
+                <!-- Start of Trending Artists -->
 
-            <!-- Start of Trending Artists -->
-
-            <div>
-                <div class="white-text base-style">
-                    <h4>
-                        Trending Tracks:
-                    </h4>
-                </div>
-                <div data-bind="if: topTrendingTracks().length === 0">
-                    <spinfuck></spinfuck>
-                </div>
-                <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
-                                <img data-bind="attr: {src: image}" />
-                                <div class="overlay">
-                                    <i class="material-icons">play_circle_filled</i>
+                <div>
+                    <div class="white-text base-style">
+                        <h4>
+                            Trending Tracks:
+                        </h4>
+                    </div>
+                    <div data-bind="if: topTrendingTracks().length === 0">
+                        <spinfuck></spinfuck>
+                    </div>
+                    <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
+                        <div class="fixed-width">
+                            <div class="card">
+                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
+                                    <img data-bind="attr: {src: image}" />
+                                    <div class="overlay">
+                                        <i class="material-icons">play_circle_filled</i>
+                                    </div>
+                                    <div class="card-title">
+                                        <h5 data-bind="text: trackName"></h5>
+                                        <h6 data-bind="text: artistName"></h6>
+                                    </div>
                                 </div>
-                                <div class="card-title">
-                                    <h5 data-bind="text: trackName"></h5>
-                                    <h6 data-bind="text: artistName"></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- End of Trending Artists -->
+
+                <!-- Start of Top Artists -->
+
+                <div style="padding-top: 50px">
+                    <div class="white-text base-style">
+                        <h4>
+                            Top Artists:
+                        </h4>
+                    </div>
+
+                    <div data-bind="if: topArtists().length === 0">
+                        <spinfuck></spinfuck>
+                    </div>
+                    <div class="row" data-bind="foreach: topArtists">
+                        <div class="col s12 m3">
+                            <div class="card transparent white-text big_card">
+                                <div class="card-image" data-bind="click: $root.getArtistInfo.bind(artistName)" style="cursor: pointer">
+                                    <img data-bind="attr: {src: image}">
+                                    <span data-bind="text: artistName" class="base-style card-title"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+                <!-- End of Top Artists -->
 
-            <!-- End of Trending Artists -->
+                <!-- Start of Top Emerging Artists -->
 
-            <!-- Start of Top Artists -->
-
-            <div style="padding-top: 50px">
-                <div class="white-text base-style">
-                    <h4>
-                        Top Artists:
-                    </h4>
-                </div>
-
-                <div data-bind="if: topArtists().length === 0">
-                    <spinfuck></spinfuck>
-                </div>
-                <div class="row" data-bind="foreach: topArtists">
-                    <div class="col s12 m3">
-                        <div class="card transparent white-text big_card">
-                            <div class="card-image" data-bind="click: $root.getArtistInfo.bind(artistName)" style="cursor: pointer">
-                                <img data-bind="attr: {src: image}">
-                                <span data-bind="text: artistName" class="base-style card-title"></span>
-                            </div>
-                        </div>
+                <div style="padding-top: 14px;">
+                    <div class="white-text base-style">
+                        <h4>
+                            Top Emerging Tracks:
+                        </h4>
                     </div>
-                </div>
-            </div>
-
-            <!-- End of Top Artists -->
-
-            <!-- Start of Top Emerging Artists -->
-
-            <div style="padding-top: 14px;">
-                <div class="white-text base-style">
-                    <h4>
-                        Top Emerging Tracks:
-                    </h4>
-                </div>
-                <div data-bind="if: topEmergingTracks().length === 0">
-                    <spinfuck></spinfuck>
-                </div>
-                <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
-                                <img data-bind="attr: {src: image}" />
-                                <div class="overlay">
-                                    <i class="material-icons">play_circle_filled</i>
-                                </div>
-                                <div class="card-title">
-                                    <h5 data-bind="text: trackName"></h5>
-                                    <h6 data-bind="text: artistName"></h6>
+                    <div data-bind="if: topEmergingTracks().length === 0">
+                        <spinfuck></spinfuck>
+                    </div>
+                    <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
+                        <div class="fixed-width">
+                            <div class="card">
+                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
+                                    <img data-bind="attr: {src: image}" />
+                                    <div class="overlay">
+                                        <i class="material-icons">play_circle_filled</i>
+                                    </div>
+                                    <div class="card-title">
+                                        <h5 data-bind="text: trackName"></h5>
+                                        <h6 data-bind="text: artistName"></h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- End of Top Emerging Artists -->
+                <!-- End of Top Emerging Artists -->
 
-            <!-- Start of Top Albums -->
-            <div style="padding-top: 50px">
-                <div class="white-text base-style">
-                    <h4>
-                        Top Albums:
-                    </h4>
-                </div>
+                <!-- Start of Top Albums -->
+                <div style="padding-top: 50px">
+                    <div class="white-text base-style">
+                        <h4>
+                            Top Albums:
+                        </h4>
+                    </div>
 
-                <div data-bind="if: topAlbums().length === 0">
-                    <spinfuck></spinfuck>
-                </div>
-                <div class="row" data-bind="foreach: topAlbums">
-                    <div class="col s12 m3">
-                        <div class="card transparent white-text big_card">
-                            <div class="card-image" data-bind="click: $root.getAlbumInfo" style="cursor: pointer">
-                                <img data-bind="attr: {src: image}">
-                                <div class="card-title">
-                                    <h5 data-bind="text: albumName" class="base-style"></h5>
-                                    <h6 data-bind="text: artistName" class="base-style"></h6>
+                    <div data-bind="if: topAlbums().length === 0">
+                        <spinfuck></spinfuck>
+                    </div>
+                    <div class="row" data-bind="foreach: topAlbums">
+                        <div class="col s12 m3">
+                            <div class="card transparent white-text big_card">
+                                <div class="card-image" data-bind="click: $root.getAlbumInfo" style="cursor: pointer">
+                                    <img data-bind="attr: {src: image}">
+                                    <div class="card-title">
+                                        <h5 data-bind="text: albumName" class="base-style"></h5>
+                                        <h6 data-bind="text: artistName" class="base-style"></h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- End of Top Albums -->
+                <!-- End of Top Albums -->
+            </div>
+            <!-- End of Main Recomendation Part -->
+
+            <!-- Start of page for displaying full page artist and album info -->
+            <div class="over_container" data-bind="with: currentPageArtistAlbum" style="margin-bottom: 150px">
+                <h3 data-bind="text: albumName ? artistName + ' - ' + albumName : artistName" class="base-style white-text"></h3>
+                <div class="row">
+                    <div class="col s12 m6 l6 center">
+                        <img alt="Artist Image" data-bind="attr: {src: image}" class="z-depth-5" />
+                    </div>
+                    <div data-bind="html: summary" class="col s12 m6 l6 white-text base-style center" style="font-size: 1.1em"></div>
+                </div>
+
+                <div data-bind="if: tracks.length !== 0">
+                    <div class="white-text base-style">
+                        <h4>Top Tracks</h4>
+                    </div>
+
+                    <div class="flowy_tracks" data-bind="foreach: tracks">
+                        <div class="fixed-width">
+                            <div class="card">
+                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $parent.artistName)">
+                                    <img data-bind="attr: {src: $parent.image}" />
+                                    <div class="overlay">
+                                        <i class="material-icons">play_circle_filled</i>
+                                    </div>
+                                    <div class="card-title">
+                                        <h5 data-bind="text: $data"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-bind="if: similarArtists.length !== 0">
+                    <div class="white-text base-style">
+                        <h4>Similar Artists</h4>
+                    </div>
+
+                    <div class="flowy_artists" data-bind="foreach: similarArtists">
+                        <div class="fixed-width">
+                            <div class="card" style="cursor: pointer">
+                                <div class="card-image" data-bind="click: $root.getArtistInfo.bind($data)">
+                                    <img data-bind="attr: {src: image}" />
+                                    <div class="card-title">
+                                        <h5 data-bind="text: artist_name"></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End of page for displaying full page artist and album info -->
         </div>
-        <!-- End of Main Recomendation Part -->
-
-        <!-- Start of page for displaying full page artist and album info -->
-        <div class="over_container" data-bind="with: currentPageArtistAlbum" style="margin-bottom: 150px">
-            <h3 data-bind="text: albumName ? artistName + ' - ' + albumName : artistName" class="base-style white-text"></h3>
-            <div class="row">
-                <div class="col s12 m6 l6 center">
-                    <img alt="Artist Image" data-bind="attr: {src: image}" class="z-depth-5" />
-                </div>
-                <div data-bind="html: summary" class="col s12 m6 l6 white-text base-style center" style="font-size: 1.1em"></div>
-            </div>
-
-            <div data-bind="if: tracks.length !== 0">
-                <div class="white-text base-style">
-                    <h4>Top Tracks</h4>
-                </div>
-
-                <div class="flowy_tracks" data-bind="foreach: tracks">
-                    <div class="fixed-width">
-                        <div class="card">
-                            <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $parent.artistName)">
-                                <img data-bind="attr: {src: $parent.image}" />
-                                <div class="overlay">
-                                    <i class="material-icons">play_circle_filled</i>
-                                </div>
-                                <div class="card-title">
-                                    <h5 data-bind="text: $data"></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div data-bind="if: similarArtists.length !== 0">
-                <div class="white-text base-style">
-                    <h4>Similar Artists</h4>
-                </div>
-
-                <div class="flowy_artists" data-bind="foreach: similarArtists">
-                    <div class="fixed-width">
-                        <div class="card" style="cursor: pointer">
-                            <div class="card-image" data-bind="click: $root.getArtistInfo.bind($data)">
-                                <img data-bind="attr: {src: image}" />
-                                <div class="card-title">
-                                    <h5 data-bind="text: artist_name"></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- End of page for displaying full page artist and album info -->
 
         <!-- Start of Media Player -->
         <div id="playerHolder">
@@ -365,20 +366,6 @@
             edge: 'left',
             closeOnClick: true,
             draggable: true
-        });
-        var dropDownString = '<ul class="center white" style="padding: 7px 15px">' +
-            '<li><a href="#!">one</a></li>' +
-            '<li><a href="#!">two</a></li>' +
-            '<li><a href="#!">three</a></li>' +
-            '<li><a href="#!">four</a></li>' +
-            '<li><a href="#!">five</a></li>' +
-            '</ul>';
-        var drop = new Drop({
-            target: document.querySelector('#playListOpener'),
-            content: dropDownString,
-            position: 'top center',
-            openOn: 'hover',
-            classes: 'drop-theme-arrows'
         });
     </script>
 
