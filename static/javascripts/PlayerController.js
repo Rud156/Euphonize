@@ -7,7 +7,19 @@ function PlayerController() {
     };
 
     self.returnPlayListString = function () {
-        // var start = "<ul class="ce">"
+        var completeString = '<ul class="center white white-text" data-bind="foreach: playList">';
+        // for (var i = 0; i < playList().length; i++) {
+        //     var liElement = '<li class="center" data-bind="">' + playList()[i].trackName + ' - ' + playList()[i].artistName + '</li>';
+        //     completeString += liElement;
+        // }
+        completeString += '<li data-bind="text: trackName + \' - \' + artistName, click: playSongFromPlaylist"></li>';
+        completeString += '</ul>';
+        return completeString;
+    };
+
+    self.playSongFromPlaylist = function (songObject) {
+        document.getElementById('searchInput').value = songObject.trackName + ' - ' + songObject.artistName;
+        sendData();
     };
 }
 
