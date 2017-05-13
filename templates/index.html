@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="./../static/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="./../static/CSS/drop-custom.css">
     <script src="./../static/JS/jquery-3.1.1.js"></script>
     <script src="./../static/JS/materialize.min.js"></script>
     <script src="./../static/JS/tether.min.js"></script>
@@ -115,11 +116,11 @@
                     <div class="flowy_trending" data-bind="foreach: topTrendingTracks">
                         <div class="fixed-width">
                             <div class="card">
-                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
+                                <div class="card-image image-container">
                                     <img data-bind="attr: {src: image}" />
-                                    <div class="overlay">
-                                        <i class="material-icons">play_circle_filled</i>
-                                    </div>
+                                     <div class="overlay center"> 
+                                        <i class="material-icons" style="padding:  20px;" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">play_circle_filled</i>
+                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i></div>
                                     <div class="card-title">
                                         <h5 data-bind="text: trackName"></h5>
                                         <h6 data-bind="text: artistName"></h6>
@@ -173,11 +174,11 @@
                     <div class="flowy_emerging" data-bind="foreach: topEmergingTracks">
                         <div class="fixed-width">
                             <div class="card">
-                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">
+                                <div class="card-image image-container">
                                     <img data-bind="attr: {src: image}" />
-                                    <div class="overlay">
-                                        <i class="material-icons">play_circle_filled</i>
-                                    </div>
+                                    <div class="overlay center">
+                                        <i class="material-icons" style="padding:  20px;" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">play_circle_filled</i>
+                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i></div>
                                     <div class="card-title">
                                         <h5 data-bind="text: trackName"></h5>
                                         <h6 data-bind="text: artistName"></h6>

@@ -143,6 +143,13 @@ function MainController() {
         sendData();
     };
 
+    self.addQueue = function(artistName , songName){
+                console.log(artistName ,songName);
+
+        playerController.addToPlaylist(artistName ,songName);
+        console.log(artistName ,songName);
+    }
+
     self.getArtistInfo = function (artistObject) {
         console.log(artistObject);
         if (typeof (artistObject) === 'object')

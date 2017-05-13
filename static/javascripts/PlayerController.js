@@ -2,18 +2,32 @@ function PlayerController() {
     var self = this;
     var playList = ko.observableArray();
 
-    self.addToPlaylist = function () {
+    self.addToPlaylist = function (artistName ,songName) {
+        var queueElement  = {trackName : songName , artistName : artistName };
+        playList.push(queueElement);
+        console.log('boobb', playList);
+
 
     };
 
     self.returnPlayListString = function () {
-        var completeString = '<ul class="center white white-text" data-bind="foreach: playList">';
-        // for (var i = 0; i < playList().length; i++) {
-        //     var liElement = '<li class="center" data-bind="">' + playList()[i].trackName + ' - ' + playList()[i].artistName + '</li>';
-        //     completeString += liElement;
-        // }
-        completeString += '<li data-bind="text: trackName + \' - \' + artistName, click: playSongFromPlaylist"></li>';
-        completeString += '</ul>';
+
+        var completeString = '<div class="center  now-text">Now Playing</div>' +
+        '<div class="tab" >' +
+            '<div class="left">      ' +
+            '<i class="material-icons queue-icon" style="cursor:pointer">shuffle</i>' +
+            '<i class="material-icons queue-icon" style="cursor:pointer">repeat</i>' +
+            '</div>' +
+            '<div class="clear right">' +
+            '<i class="material-icons queue-icon" style="cursor:pointer">clear_all</i>' +
+            '</div>' +
+        '</div>' +
+        '<ul class="center">';
+        for (var i = 0; i < playList().length; i++) {
+            var liElement = '<li style="cursor:pointer" onclick="playQueue(this)" >' + playList()[i].trackName + ' - ' + playList()[i].artistName + '</li>';
+            completeString += liElement;
+        }
+        completeString += '</ul> ';
         return completeString;
     };
 
@@ -22,6 +36,13 @@ function PlayerController() {
         sendData();
     };
 }
+
+function playQueue(element) {
+    console.log(element.innerHTML);
+     document.getElementById('searchInput').value = element.innerHTML;
+        sendData();
+}
+
 
 var playerController = new PlayerController();
 ko.applyBindings(playerController, document.getElementById('playerHolder'));

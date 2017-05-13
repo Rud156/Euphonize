@@ -1,0 +1,41 @@
+.drop-element{
+	width: 20%;
+	border-color: 3px;
+
+}
+.drop-content .tab{
+	display: inline-block;
+	width:100%;
+	padding: 10px;
+}
+
+.drop-content ul{
+	list-style: none;
+}
+.drop-content li{
+	font-size: 20px;
+	padding: 10px 0 ;
+	margin: 0;
+	border-top: 1px solid lightgrey;
+
+}
+.drop-content li:hover{
+	background-color: rgb(245, 245, 245);
+}
+.queue-icon{
+
+
+	padding: 7px;
+	border-radius: 50%;
+}
+.queue-icon:hover{
+	background-color: #eee;
+	transition: 0.2s all;
+}
+.now-text{
+	font-size: 25px;
+	font-weight: 700;
+	padding: 15px;
+
+
+}
