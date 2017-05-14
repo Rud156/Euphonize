@@ -82,7 +82,7 @@
     <!-- Start of side nav-->
 
     <div id="slide-out" class="side-nav fixed transparent z-depth-0">
-        <div style="margin-bottom: 20px;" class="center  opt" ><a href="/#/" class="logo-home white-text"><img style="max-width:100%; width: 70px; filter: brightness(0) invert(1);" src="./../static/Images/Fu.png"><br />Fumen</a></div>
+        <div style="margin-bottom: 20px;" class="center  opt"><a href="/#/" class="logo-home white-text"><img style="max-width:100%; width: 70px; filter: brightness(0) invert(1);" src="./../static/Images/Fu.png"><br />Fumen</a></div>
         <br />
         <div class="center  opt"><a href="#!" class="home center white-text"><i class="material-icons white-text">stars</i><br />Home</a></div>
         <br />
@@ -118,9 +118,10 @@
                             <div class="card">
                                 <div class="card-image image-container">
                                     <img data-bind="attr: {src: image}" />
-                                     <div class="overlay center"> 
+                                    <div class="overlay center">
                                         <i class="material-icons" style="padding:  20px;" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">play_circle_filled</i>
-                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i></div>
+                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i>
+                                    </div>
                                     <div class="card-title">
                                         <h5 data-bind="text: trackName"></h5>
                                         <h6 data-bind="text: artistName"></h6>
@@ -178,7 +179,8 @@
                                     <img data-bind="attr: {src: image}" />
                                     <div class="overlay center">
                                         <i class="material-icons" style="padding:  20px;" data-bind="click: $root.playSong.bind($data, $data.artistName, $data.trackName)">play_circle_filled</i>
-                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i></div>
+                                        <i class="material-icons" style="padding: 20px;" data-bind="click: $root.addQueue.bind($data, $data.artistName, $data.trackName)">add_circle</i>
+                                    </div>
                                     <div class="card-title">
                                         <h5 data-bind="text: trackName"></h5>
                                         <h6 data-bind="text: artistName"></h6>
@@ -239,10 +241,11 @@
                     <div class="flowy_tracks" data-bind="foreach: tracks">
                         <div class="fixed-width">
                             <div class="card">
-                                <div class="card-image image-container" data-bind="click: $root.playSong.bind($data, $parent.artistName)">
+                                <div class="card-image image-container">
                                     <img data-bind="attr: {src: $parent.image}" />
-                                    <div class="overlay">
-                                        <i class="material-icons">play_circle_filled</i>
+                                    <div class="overlay center">
+                                        <i class="material-icons" style="padding: 20px" data-bind="click: $root.playSong.bind($data, $parent.artistName)">play_circle_filled</i>
+                                        <i class="material-icons" style="padding: 20px" data-bind="click: $root.addQueue.bind($data, $parent.artistName)">add_circle></i>
                                     </div>
                                     <div class="card-title">
                                         <h5 data-bind="text: $data"></h5>

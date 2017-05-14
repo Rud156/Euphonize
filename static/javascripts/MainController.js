@@ -47,8 +47,7 @@ function MainController() {
                     utitlity.showMessages(data.message);
             },
             error: function (error) {
-                console.log(error);
-                utitlity.displayError('Error Occurred');
+                utitlity.displayError(error);
             }
         });
     };
@@ -72,8 +71,7 @@ function MainController() {
                     utitlity.showMessages(data.message);
             },
             error: function (error) {
-                console.log(error);
-                utitlity.displayError('Error Occurred');
+                utitlity.displayError(error);
             }
         });
     };
@@ -98,8 +96,7 @@ function MainController() {
                     utitlity.showMessages(data.message);
             },
             error: function (error) {
-                console.log(error);
-                utitlity.displayError('Error Occurred');
+                utitlity.displayError(error);
             }
         });
     };
@@ -124,8 +121,7 @@ function MainController() {
                     utitlity.showMessages(data.message);
             },
             error: function (error) {
-                console.log(error);
-                utitlity.displayError('Error Occurred');
+                utitlity.displayError(error);
             }
         });
     };
@@ -143,19 +139,14 @@ function MainController() {
         sendData();
     };
 
-    self.addQueue = function(artistName , songName){
-                console.log(artistName ,songName);
-
-        playerController.addToPlaylist(artistName ,songName);
-        console.log(artistName ,songName);
+    self.addQueue = function (artistName, songName) {
+        playerController.addToPlaylist(artistName, songName);
     }
 
     self.getArtistInfo = function (artistObject) {
-        console.log(artistObject);
         if (typeof (artistObject) === 'object')
             artistObject = artistObject.artistName ? artistObject.artistName : artistObject.artist_name;
         var artistName = encodeURIComponent(artistObject);
-        console.log(artistName);
 
         location.hash = '/artists/' + artistName;
     };
