@@ -23,12 +23,13 @@ def pirate_music(music_id , title , artist):
     audio_a = audio.getbestaudio()
     itunes_search = title+" - "+artist
     title_n = title.replace(" " , "_")
-    # file_off = audio_a.download("./tmp/"+title_n)
-    file_off = ("./tmp/Unsteady")
+    file_off = audio_a.download("./tmp/"+title_n)
+    # file_off = ("./tmp/Want_You_Back")
+    
     try:
         album_art = itunes_album_art(itunes_search)
-        album_art = urllib.urlretrieve(album_art[0] , "./tmp/artwork/"+title+".jpg")
-        album_art = str(album_art)
+        album_art = urllib.urlretrieve(album_art[0] , "./tmp/artwork/"+title_n+".jpg")
+        print(album_art)
     except Exception as e:
         print("Unable to find artwork , setting default artwork. Error : " + str(e))
         album_art = "./tmp/artwork/default.png"
@@ -59,7 +60,8 @@ def pirate_music(music_id , title , artist):
     print("---------------------------------")
     print(album , genre)
     print(file_off)
-    print(title , album_art)
+    print(title)
+    print(album_art)
     print(artist , genre)    
     print("---------------------------------")
     new_file = "./tmp/fumen_" + title_n + ".mp3"
@@ -71,12 +73,13 @@ def pirate_music(music_id , title , artist):
     # Adding metadata to mp3 file
     # CLI for ref:
     # ffmpeg -i in.mp3 -i test.png -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title="Album cover" -metadata:s:v comment="Cover (Front)" out.mp3
-    cov = str("Cover (Front)")
-    update_exe = "ffmpeg -i "+ new_file+" -i "+album_art+" -map 0:0 -map 1:0 -c copy -id3v2_version 3 \
-                -metadata:s:v title='"+title+"' -metadata:s:v artist='"+artist+"' -metadata:s:v genre='"+genre+"' \
-                -metadata:s:v comment='"+cov+"' "+new_file
+    
+    update_exe = "ffmpeg -i " + new_file + " -i " + album_art[0] + " -map 0:0 -map 1:0 -c copy -id3v2_version 3 \
+                -metadata:s:v title='" + title + "' -metadata:s:v artist='" + artist + "' -metadata:s:v genre='" + genre + "' \
+                -metadata:s:v comment='Cover (Front)' " + new_file
+    print(update_exe)
     os.system(update_exe)
     print(new_file+" updated added metadata , converted to mp3")
   
 # Uncomment to Run for test
-# pirate_music("https://www.youtube.com/watch?v=FGdaSDwKPG8" , "Unsteady" , "X Ambassadors") 
+pirate_music("https://www.youtube.com/watch?v=D7krrRoJpT0" , "Want You Back" , "Haim") 
