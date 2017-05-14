@@ -28,10 +28,9 @@ function MainController() {
     self.currentUser = ko.observable();
 
     self.getTopArtists = function () {
-        var randomNumber = Math.round(Math.random());
         $.ajax({
             dataType: 'json',
-            url: url,
+            url: '/top_artists?type=user_cu',
             success: function (data) {
                 if (data.success) {
                     self.topArtists.removeAll();
@@ -140,7 +139,7 @@ function MainController() {
 
     self.addQueue = function (artistName, songName) {
         playerController.addToPlaylist(artistName, songName);
-    }
+    };
 
     self.getArtistInfo = function (artistObject) {
         if (typeof (artistObject) === 'object')

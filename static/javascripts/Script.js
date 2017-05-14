@@ -15,10 +15,14 @@ var audioSlider = document.getElementsByClassName('seekSlider');
 // Time Display
 var curTime = document.getElementsByClassName('currentTime');
 var lefTime = document.getElementsByClassName('leftTime');
-var prevVolume;
 
 // Loaders
 var loaders = document.getElementsByClassName('loading-progress');
+
+// Variables for queue playing
+window.currentPlayingIndex = 0;
+window.playList = [];
+window.repeat = false;
 
 // Search Elements
 var searchBox = document.getElementById('searchInput');
@@ -28,9 +32,6 @@ searchBox.addEventListener('keydown', function (keyDownValue) {
 });
 var submitBtn = document.getElementById('submitBtn');
 submitBtn.addEventListener('click', sendData);
-
-// Define Playlist Array. Placed inside window object for global avaliability
-window.playlist = [];
 
 // Download Button
 var downloadBtn = document.getElementById('downloadBtn');
@@ -95,7 +96,32 @@ audio.addEventListener('timeupdate', function () {
         curTime[i].innerHTML = formatTime(audio.currentTime);
         lefTime[i].innerHTML = formatTime(audio.duration - audio.currentTime);
     }
+
+    if (parseInt(audio.currentTime) === parseInt(audio.duration))
+        playNextSong();
 });
+
+function playNextSong() {
+    var endingPlayIndex = window.playList.length;
+
+    if (window.repeat) {
+        if (window.currentPlayingIndex < endingPlayIndex - 1)
+            window.currentPlayingIndex++;
+        else
+            window.currentPlayingIndex = 0;
+        document.getElementById('searchInput').value = window.playList[window.currentPlayingIndex].trackName + ' - ' + window.playList[window.currentPlayingIndex].artistName;
+        sendData();
+    }
+    else {
+        if (window.currentPlayingIndex < endingPlayIndex - 1) {
+            window.currentPlayingIndex++;
+            document.getElementById('searchInput').value = window.playList[window.currentPlayingIndex].trackName + ' - ' + window.playList[window.currentPlayingIndex].artistName;
+            sendData();
+        }
+        else
+            window.currentPlayingIndex = 0;
+    }
+}
 
 playPauseBtn.addEventListener('click', function () {
     if (isPlaying) {
@@ -138,11 +164,27 @@ audioSlider[1].addEventListener('mouseup', function () {
 });
 
 nextAudio.addEventListener('click', function () {
-    // TODO: Change Audio
+    var endingPlayIndex = window.playList.length;
+
+    if (window.currentPlayingIndex < endingPlayIndex - 1)
+        window.currentPlayingIndex++;
+    else
+        window.currentPlayingIndex = 0;
+
+    console.log(window.currentPlayingIndex);
+    document.getElementById('searchInput').value = window.playList[window.currentPlayingIndex].trackName + ' - ' + window.playList[window.currentPlayingIndex].artistName;
+    sendData();
 });
 
 prevAudio.addEventListener('click', function () {
-    // TODO: Change Audio
+    var endingPlayIndex = window.playList.length;
+
+    if (window.currentPlayingIndex > 0)
+        window.currentPlayingIndex--;
+    else
+        window.currentPlayingIndex = endingPlayIndex - 1;
+    document.getElementById('searchInput').value = window.playList[window.currentPlayingIndex].trackName + ' - ' + window.playList[window.currentPlayingIndex].artistName;
+    sendData();
 });
 
 function sendData() {
