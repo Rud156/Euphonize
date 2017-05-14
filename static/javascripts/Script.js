@@ -97,8 +97,13 @@ audio.addEventListener('timeupdate', function () {
         lefTime[i].innerHTML = formatTime(audio.duration - audio.currentTime);
     }
 
-    if (parseInt(audio.currentTime) === parseInt(audio.duration))
+    if (parseInt(audio.currentTime) === parseInt(audio.duration)) {
+        playPauseBtn.innerHTML = 'play_arrow';
+        audio.pause();
+        isPlaying = false;
+        audio.currentTime = 0;
         playNextSong();
+    }
 });
 
 function playNextSong() {
@@ -121,6 +126,9 @@ function playNextSong() {
         else
             window.currentPlayingIndex = 0;
     }
+    playPauseBtn.innerHTML = 'play_arrow';
+    audio.pause();
+    isPlaying = false;
 }
 
 playPauseBtn.addEventListener('click', function () {
