@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Fumen
+Comment=Stream Music
+Exec=/home/padam/Documents/git/kihon/app
+Icon=/home/padam/Documents/git/kihon/static/Images/Fu.png
+Path=/home/padam/Documents/git/kihon/
+Terminal=false
+Type=Application
+Categories=Utility;Application;
+
+# Replace Exec , Path with localtion of fumen

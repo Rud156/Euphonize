@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import pafy
 from flask import Flask, render_template, jsonify, request
 from youtube_list import youtube_search
