@@ -29,7 +29,6 @@ function MainController() {
 
     self.getTopArtists = function () {
         var randomNumber = Math.round(Math.random());
-        var url = randomNumber === 0 ? '/top_artists?type=user_cu' : '/top_artists?type=chart';
         $.ajax({
             dataType: 'json',
             url: url,
