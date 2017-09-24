@@ -1,21 +1,22 @@
-#!/usr/bin/env python
 import pafy
 from flask import Flask, render_template, jsonify, request
+from flask_cors import CORS
 from youtube_list import youtube_search
 from cover_art_getter import itunes_album_art, last_fm_cover_art
 import LastFM_Top
 import top_chart
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
-app = Flask(__name__)
+APP = Flask(__name__)
+CORS(APP)
 
 
-@app.route('/')
+@APP.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/get_video', methods=['POST'])
+@APP.route('/get_video', methods=['POST'])
 def get_video():
     json_value = request.json
 
@@ -26,8 +27,8 @@ def get_video():
     if len(check_title) is not 2:
         return jsonify({'success': False, 'message': 'Incorrect input string'})
 
-    request_youtube = audio_title + " lyrics"
-    videos = youtube_search(request_youtube)
+    request_youtube = audio_title + ' lyrics'
+    videos = youtube_search({'q': request_youtube, 'max_results': 20})
     image, success = itunes_album_art(audio_title)
 
     video = pafy.new(videos[0])
@@ -43,7 +44,7 @@ def get_video():
 
     title = audio_title.split(' - ')
     title[0], title[1] = title[1], title[0]
-    title = "<br />".join(title)
+    title = '<br />'.join(title)
 
     data_set = {
         'success': True,
@@ -54,7 +55,7 @@ def get_video():
     return jsonify({'success': True, 'music': data_set})
 
 
-@app.route('/top_artists', methods=['GET'])
+@APP.route('/top_artists', methods=['GET'])
 def get_top_artists():
     data = request.args.get('type')
 
@@ -70,7 +71,7 @@ def get_top_artists():
         return jsonify({'success': True, 'artists': artists})
 
 
-@app.route('/top_tracks', methods=['GET'])
+@APP.route('/top_tracks', methods=['GET'])
 def get_top_tracks():
     data = request.args.get('type')
 
@@ -86,25 +87,19 @@ def get_top_tracks():
         return jsonify({'success': True, 'tracks': tracks})
 
 
-@app.route('/top_emerging_tracks', methods=['GET'])
-def top_emerging_tracks():
-    data = top_chart.emerge_chart()
-    return jsonify({'success': True, 'emerge_chart': data})
-
-
-@app.route('/top_trending', methods=['GET'])
+@APP.route('/top_trending', methods=['GET'])
 def top_trending():
     data = top_chart.trending_chart()
     return jsonify({'success': True, 'trending': data})
 
 
-@app.route('/top_albums', methods=['GET'])
+@APP.route('/top_albums', methods=['GET'])
 def get_top_albums():
     albums = LastFM_Top.top_albums()
     return jsonify({'success': True, 'albums': albums})
 
 
-@app.route('/artist_top', methods=['GET'])
+@APP.route('/artist_top', methods=['GET'])
 def artist_top():
     artist = request.args.get('name')
     data = request.args.get('type')
@@ -119,7 +114,7 @@ def artist_top():
         return jsonify({'success': True, 'artist_albums': LastFM_Top.get_artist_top_albums(artist)})
 
 
-@app.route('/popular_genre', methods=['GET'])
+@APP.route('/popular_genre', methods=['GET'])
 def popular_genre():
     data = request.args.get('type')
 
@@ -147,7 +142,7 @@ def popular_genre():
         return jsonify({'success': True, 'tracks': LastFM_Top.get_tracks_for_tags(tag_name)})
 
 
-@app.route('/artist', methods=['GET'])
+@APP.route('/artist', methods=['GET'])
 def get_artist():
     artist_name = request.args.get('artist_name')
     content = request.args.get('data_type')
@@ -160,7 +155,8 @@ def get_artist():
         data = LastFM_Top.get_artist_info(artist_name)
         if data is None:
             return jsonify({'success': False,
-                            'message': 'I\'m sorry but we do not have enough information about the artist you requested'})
+                            'message': 'I\'m sorry but \
+                            we do not have enough information about the artist you requested'})
         else:
             return jsonify({'success': True, 'artist_data': data})
     else:
@@ -171,7 +167,7 @@ def get_artist():
             return jsonify({'success': True, 'similar_artists': similar_artists})
 
 
-@app.route('/album_info', methods=['GET'])
+@APP.route('/album_info', methods=['GET'])
 def get_album_info():
     album_name = request.args.get('album_name')
     artist_name = request.args.get('artist_name')
@@ -189,5 +185,5 @@ def get_album_info():
 
 
 if __name__ == '__main__':
-    app.secret_key = 'someSecret'
-    app.run(debug=True, threaded=True)
+    APP.secret_key = 'someSecret'
+    APP.run(debug=True, threaded=True)
