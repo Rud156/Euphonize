@@ -56,11 +56,20 @@ def top_albums():
     temp_albums = []
 
     for i in range(0, len(all_tags)):
-        temp_albums.append(get_albums_for_tags(all_tags[i], 5))
+        tag_albums = get_albums_for_tags(all_tags[i], 5)
+        for j in range(0, len(tag_albums)):
+            temp_albums.append({
+                'score': i + j,
+                'album': tag_albums[j]
+            })
 
-    for i in range(0, len(temp_albums[0])):
-        for j in range(0, len(temp_albums)):
-            albums.append(temp_albums[j][i])
+    temp_albums.sort(key = lambda a: a['score'])
+    for i in range(0, len(temp_albums)):
+        if i >= 20:
+            break
+
+        albums.append(temp_albums[i]['album'])
+
     return albums
 
 

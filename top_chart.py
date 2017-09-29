@@ -29,7 +29,7 @@ def top_chart():
     page = ''
     while page == '':
         try:
-            print('Getting top songs....')
+            print('Getting emerging artists....')
             page = requests.get('http://www.billboard.com/charts/hot-100')
             tree = html.fromstring(page.text)
 
@@ -76,6 +76,39 @@ def trending_chart():
             for i in range(len(song_artist)):
                 data_set = {
                     'track_name': song_title[i].strip().title(),
+                    'artist_name': song_artist[i].strip().title(),
+                    'artist_image':  artist_image[i].strip().replace(')', '')
+                    .replace('background-image: url(', '') if i < len(artist_image) else None
+                }
+                results.append(data_set)
+            return results
+
+        except requests.exceptions.ConnectionError:
+            print('Connection refused by website , sleeping for 5 secs..')
+            for i in range(5):
+                print('zzz zz z... .. .')
+                time.sleep(1)
+            print('Enough sleep, resending request')
+            continue
+
+
+def emerging_artist():
+    page = ''
+    while page == '':
+        try:
+            print('Getting trending songs...')
+            page = requests.get(
+                'http://www.billboard.com/charts/emerging-artists')
+            tree = html.fromstring(page.text)
+
+            song_artist = tree.xpath(
+                '//div/a[@class="chart-row__artist"]/text()')
+            artist_image = tree.xpath(
+                '//div[@class="chart-row__image"]/@style')
+
+            results = []
+            for i in range(len(song_artist)):
+                data_set = {
                     'artist_name': song_artist[i].strip().title(),
                     'artist_image':  artist_image[i].strip().replace(')', '')
                     .replace('background-image: url(', '') if i < len(artist_image) else None
