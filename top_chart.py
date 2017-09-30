@@ -20,13 +20,15 @@ OR : Temp fix - flush the sigpipe repeatedly
 But shouldn't be an issue when hosted on cloud engines.
 
 '''
-header = {
+HEADER = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0'
 }
+MAX_RETRIES = 5
 
 
 def top_chart():
     page = ''
+    counter = 0
     while page == '':
         try:
             print('Getting emerging artists....')
@@ -48,6 +50,9 @@ def top_chart():
             return results
 
         except requests.exceptions.ConnectionError:
+            if counter > MAX_RETRIES:
+                return None
+            counter += 1
             print('Connection refused by website , sleeping for 5 secs..')
             for i in range(5):
                 print('zzz zz z... .. .')
@@ -58,6 +63,7 @@ def top_chart():
 
 def trending_chart():
     page = ''
+    counter = 0
     while page == '':
         try:
             print('Getting trending songs...')
@@ -84,6 +90,9 @@ def trending_chart():
             return results
 
         except requests.exceptions.ConnectionError:
+            if counter > MAX_RETRIES:
+                return None
+            counter += 1
             print('Connection refused by website , sleeping for 5 secs..')
             for i in range(5):
                 print('zzz zz z... .. .')
@@ -94,6 +103,7 @@ def trending_chart():
 
 def emerging_artist():
     page = ''
+    counter = 0
     while page == '':
         try:
             print('Getting trending songs...')
@@ -117,6 +127,9 @@ def emerging_artist():
             return results
 
         except requests.exceptions.ConnectionError:
+            if counter > MAX_RETRIES:
+                return None
+            counter += 1
             print('Connection refused by website , sleeping for 5 secs..')
             for i in range(5):
                 print('zzz zz z... .. .')
@@ -127,6 +140,7 @@ def emerging_artist():
 
 def top_artist():
     page = ''
+    counter = 0
     while page == '':
         try:
             print('Getting top artist... ')
@@ -150,6 +164,9 @@ def top_artist():
             return top
 
         except requests.exceptions.ConnectionError:
+            if counter > MAX_RETRIES:
+                return None
+            counter += 1
             print('Connection refused by website , sleeping for 5 secs..')
             print('zzz zz z... .. .')
             time.sleep(5)

@@ -80,6 +80,8 @@ def get_top_artists():
         return jsonify({'success': True, 'artists': artists})
     else:
         artists = top_chart.top_artist()
+        if artists is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'artists': artists})
 
 
@@ -101,6 +103,8 @@ def get_top_tracks():
         return jsonify({'success': True, 'tracks': tracks})
     else:
         tracks = top_chart.top_chart()
+        if tracks is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'tracks': tracks})
 
 
@@ -110,6 +114,8 @@ def top_trending():
     Get Top Trending Tracks
     """
     data = top_chart.trending_chart()
+    if data is None:
+        return jsonify({'success': False, 'message': 'Unable to fetch the data'})
     return jsonify({'success': True, 'trending': data})
 
 
@@ -128,6 +134,8 @@ def get_emerging_artists():
     Get Emerging Artists
     """
     data = top_chart.emerging_artist()
+    if data is None:
+        return jsonify({'success': False, 'message': 'Unable to fetch the data'})
     return jsonify({'success': True, 'artists': data})
 
 
