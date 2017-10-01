@@ -1,5 +1,5 @@
 import pafy
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from youtube_list import youtube_search
 from cover_art_getter import itunes_album_art, last_fm_cover_art
