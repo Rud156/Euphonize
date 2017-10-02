@@ -1,11 +1,12 @@
 import pafy
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from youtube_list import youtube_search
-from cover_art_getter import itunes_album_art, last_fm_cover_art
+
+import constants
 import last_fm_top
 import top_chart
-import constants
+from cover_art_getter import itunes_album_art, last_fm_cover_art
+from youtube_list import youtube_search
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 APP = Flask(__name__)
@@ -206,7 +207,7 @@ def get_artist():
     if artist_name is None or content is None:
         return jsonify({'success': False, 'message': 'No parameters supplied'})
     if not constants.ARTIST_NAME.match(artist_name) or not constants.ARTIST_INFO.match(content):
-        return jsonify({'success':  False, 'message': 'Invalid parameters supplied'})
+        return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if content is 'info':
         data = last_fm_top.get_artist_info(artist_name)

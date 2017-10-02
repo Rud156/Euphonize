@@ -1,7 +1,7 @@
-import json
 import time
-from lxml import html
+
 import requests
+from lxml import html
 
 '''
 
@@ -26,32 +26,25 @@ HEADER = {
 MAX_RETRIES = 5
 
 
-def top_chart():
+def get_page(url, message, xpaths):
     page = ''
     counter = 0
     while page == '':
         try:
-            print('Getting emerging artists....')
-            page = requests.get('http://www.billboard.com/charts/hot-100')
+            print(message)
+            page = requests.get(url)
             tree = html.fromstring(page.text)
 
-            song_title = tree.xpath(
-                '//div/h2[@class="chart-row__song"]/text()')
-            song_artist = tree.xpath(
-                '//div/a[@class="chart-row__artist"]/text()')
+            result_array = []
+            for path in xpaths:
+                result_array.append(tree.xpath(path))
 
-            results = []
-            for i in range(len(song_artist)):
-                data_set = {
-                    'track_name': song_title[i].strip().title(),
-                    'artist_name': song_artist[i].strip().title()
-                }
-                results.append(data_set)
-            return results
+            return result_array
 
-        except requests.exceptions.ConnectionError:
+        except (requests.ConnectionError, requests.ConnectTimeout) as error_message:
+            print(error_message)
             if counter > MAX_RETRIES:
-                return None
+                return []
             counter += 1
             print('Connection refused by website , sleeping for 5 secs..')
             for i in range(5):
@@ -59,119 +52,105 @@ def top_chart():
                 time.sleep(1)
             print('Enough sleep, resending request')
             continue
+
+
+def top_chart():
+    url = 'http://www.billboard.com/charts/hot-100'
+    xpaths = ['//div/h2[@class="chart-row__song"]/text()',
+              '//div/a[@class="chart-row__artist"]/text()']
+    xpath_content = get_page(url, 'Getting Top 100 Artists', xpaths)
+
+    try:
+        results = []
+        song_title = xpath_content[0]
+        song_artist = xpath_content[1]
+
+        for i in range(len(song_artist)):
+            data_set = {
+                'track_name': song_title[i].strip().title(),
+                'artist_name': song_artist[i].strip().title()
+            }
+            results.append(data_set)
+        return results
+
+    except IndexError:
+        return None
 
 
 def trending_chart():
-    page = ''
-    counter = 0
-    while page == '':
-        try:
-            print('Getting trending songs...')
-            page = requests.get(
-                'http://www.billboard.com/charts/radio-songs')
-            tree = html.fromstring(page.text)
+    url = 'http://www.billboard.com/charts/radio-songs'
+    xpaths = ['//div/h2[@class="chart-row__song"]/text()', '//div/a[@class="chart-row__artist"]/text()',
+              '//div[@class="chart-row__image"]/@style']
+    xpath_content = get_page(url, 'Getting Trending Songs', xpaths)
 
-            song_title = tree.xpath(
-                '//div/h2[@class="chart-row__song"]/text()')
-            song_artist = tree.xpath(
-                '//div/a[@class="chart-row__artist"]/text()')
-            artist_image = tree.xpath(
-                '//div[@class="chart-row__image"]/@style')
+    try:
+        song_title = xpath_content[0]
+        song_artist = xpath_content[1]
+        artist_image = xpath_content[1]
 
-            results = []
-            for i in range(len(song_artist)):
-                data_set = {
-                    'track_name': song_title[i].strip().title(),
-                    'artist_name': song_artist[i].strip().title(),
-                    'artist_image':  artist_image[i].strip().replace(')', '')
-                    .replace('background-image: url(', '') if i < len(artist_image) else None
-                }
-                results.append(data_set)
-            return results
+        results = []
+        for i in range(len(song_artist)):
+            data_set = {
+                'track_name': song_title[i].strip().title(),
+                'artist_name': song_artist[i].strip().title(),
+                'artist_image': artist_image[i].strip().replace(')', '')
+                .replace('background-image: url(', '') if i < len(artist_image) else None
+            }
+            results.append(data_set)
+        return results
 
-        except requests.exceptions.ConnectionError:
-            if counter > MAX_RETRIES:
-                return None
-            counter += 1
-            print('Connection refused by website , sleeping for 5 secs..')
-            for i in range(5):
-                print('zzz zz z... .. .')
-                time.sleep(1)
-            print('Enough sleep, resending request')
-            continue
+    except IndexError:
+        return None
 
 
 def emerging_artist():
-    page = ''
-    counter = 0
-    while page == '':
-        try:
-            print('Getting trending songs...')
-            page = requests.get(
-                'http://www.billboard.com/charts/emerging-artists')
-            tree = html.fromstring(page.text)
+    url = 'http://www.billboard.com/charts/emerging-artists'
+    xpaths = ['//div/a[@class="chart-row__artist"]/text()',
+              '//div[@class="chart-row__image"]/@style']
+    xpath_content = get_page(url, 'Getting Emerging Artists', xpaths)
 
-            song_artist = tree.xpath(
-                '//div/a[@class="chart-row__artist"]/text()')
-            artist_image = tree.xpath(
-                '//div[@class="chart-row__image"]/@style')
+    try:
+        song_artist = xpath_content[0]
+        artist_image = xpath_content[1]
 
-            results = []
-            for i in range(len(song_artist)):
-                data_set = {
-                    'artist_name': song_artist[i].strip().title(),
-                    'artist_image':  artist_image[i].strip().replace(')', '')
-                    .replace('background-image: url(', '') if i < len(artist_image) else None
-                }
-                results.append(data_set)
-            return results
+        results = []
+        for i in range(len(song_artist)):
+            data_set = {
+                'artist_name': song_artist[i].strip().title(),
+                'artist_image': artist_image[i].strip().replace(')', '')
+                .replace('background-image: url(', '') if i < len(artist_image) else None
+            }
+            results.append(data_set)
+        return results
 
-        except requests.exceptions.ConnectionError:
-            if counter > MAX_RETRIES:
-                return None
-            counter += 1
-            print('Connection refused by website , sleeping for 5 secs..')
-            for i in range(5):
-                print('zzz zz z... .. .')
-                time.sleep(1)
-            print('Enough sleep, resending request')
-            continue
+    except IndexError:
+        return None
 
 
 def top_artist():
-    page = ''
-    counter = 0
-    while page == '':
-        try:
-            print('Getting top artist... ')
-            page = requests.get('http://www.billboard.com/charts/artist-100')
-            tree = html.fromstring(page.text)
-            artist_name = tree.xpath(
-                '//div[@class="chart-row__title"]/a/text()')
-            artist_image = tree.xpath(
-                '//div[@class="chart-row__image"]/@style')
+    url = 'http://www.billboard.com/charts/artist-100'
+    xpaths = ['//div[@class="chart-row__title"]/a/text()',
+              '//div[@class="chart-row__image"]/@style']
+    xpath_content = get_page(url, 'Getting Top Artists', xpaths)
 
-            top = []
-            for i in range(0, len(artist_image)):
-                current_image = artist_image[i][artist_image[i].find(
-                    'http://'): artist_image[i].find(')')]
-                current_name = artist_name[i].strip()
-                data_set = {
-                    'artist_name': current_name,
-                    'image': current_image
-                }
-                top.append(data_set)
-            return top
+    try:
+        artist_name = xpath_content[0]
+        artist_image = xpath_content[1]
 
-        except requests.exceptions.ConnectionError:
-            if counter > MAX_RETRIES:
-                return None
-            counter += 1
-            print('Connection refused by website , sleeping for 5 secs..')
-            print('zzz zz z... .. .')
-            time.sleep(5)
-            print('Enough sleep, resending request')
-            continue
+        results = []
+        for i in range(0, len(artist_image)):
+            current_image = artist_image[i][artist_image[i].find(
+                'http://'): artist_image[i].find(')')]
+            current_name = artist_name[i].strip()
+            data_set = {
+                'artist_name': current_name,
+                'image': current_image
+            }
+            results.append(data_set)
+        return results
+
+    except IndexError:
+        return None
 
 
 if __name__ == '__main__':

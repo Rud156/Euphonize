@@ -1,7 +1,8 @@
-import re
 import json
-from lxml import html
+import re
+
 import requests
+from lxml import html
 
 HEADER = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0'

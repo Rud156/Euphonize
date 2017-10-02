@@ -1,5 +1,6 @@
 from re import finditer
 from urllib.parse import unquote
+
 import requests
 from lxml import html
 

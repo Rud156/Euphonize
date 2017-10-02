@@ -1,11 +1,13 @@
-import requests
-import pafy
 import json
-from cover_art_getter import itunes_album_art
 import os
-import urllib.request
-import urllib.parse
 import urllib.error
+import urllib.parse
+import urllib.request
+
+import pafy
+import requests
+
+from cover_art_getter import itunes_album_art
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 API_KEY = '7ede02c397c8cf99bf26e1f8cb9681fa'
@@ -22,7 +24,6 @@ Get Music title
 
 
 def pirate_music(music_id, title, artist):
-
     audio = pafy.new(music_id)
     audio_a = audio.getbestaudio()
     itunes_search = title + ' - ' + artist

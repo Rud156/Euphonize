@@ -1,7 +1,8 @@
 import json
-import urllib.request
-import urllib.parse
 import urllib.error
+import urllib.parse
+import urllib.request
+
 import requests
 
 API_KEY = '7ede02c397c8cf99bf26e1f8cb9681fa'
@@ -63,7 +64,7 @@ def top_albums():
                 'album': tag_albums[j]
             })
 
-    temp_albums.sort(key = lambda a: a['score'])
+    temp_albums.sort(key=lambda a: a['score'])
     for i in range(0, len(temp_albums)):
         if i >= 20:
             break
