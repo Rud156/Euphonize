@@ -78,6 +78,8 @@ def get_top_artists():
 
     if data is 'user_cu':
         artists = last_fm_top.top_artists()
+        if artists is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'artists': artists})
     else:
         artists = top_chart.top_artist()
@@ -101,6 +103,8 @@ def get_top_tracks():
 
     if data is 'user_cu':
         tracks = last_fm_top.top_tracks()
+        if tracks is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'tracks': tracks})
     else:
         tracks = top_chart.top_chart()
@@ -126,6 +130,8 @@ def get_top_albums():
     Get Top Albums
     """
     albums = last_fm_top.top_albums()
+    if albums is None:
+        return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
     return jsonify({'success': True, 'albums': albums})
 
 
@@ -174,15 +180,22 @@ def popular_genre():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data is 'tags':
-        return jsonify({'success': True, 'popular_genre': last_fm_top.top_tags()})
+        pop_genre = last_fm_top.top_tags()
+        if pop_genre is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+        return jsonify({'success': True, 'popular_genre': pop_genre})
+
     elif data is 'albums':
         tag_name = request.args.get('tag_name')
 
         # Check validity of incoming data
         if not constants.TAG_NAME.match(tag_name):
             return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
+        albums = last_fm_top.get_albums_for_tags(tag_name, 100)
+        if albums is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+        return jsonify({'success': True, 'albums': albums})
 
-        return jsonify({'success': True, 'albums': last_fm_top.get_albums_for_tags(tag_name, 100)})
     else:
         tag_name = request.args.get('tag_name')
 
@@ -191,8 +204,10 @@ def popular_genre():
             return jsonify({'success': False, 'message': 'No parameters supplied'})
         if not constants.TAG_NAME.match(tag_name):
             return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
-
-        return jsonify({'success': True, 'tracks': last_fm_top.get_tracks_for_tags(tag_name)})
+        tracks = last_fm_top.get_tracks_for_tags(tag_name)
+        if tracks is None:
+            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+        return jsonify({'success': True, 'tracks': tracks})
 
 
 @APP.route('/artist', methods=['GET'])
