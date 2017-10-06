@@ -13,7 +13,7 @@ def get_api_contents(url):
         data = requests.get(url)
         return json.loads(data.text)
     except (requests.ConnectTimeout, requests.ConnectionError) as error_message:
-        print(error_message.message)
+        print(error_message)
         return None
 
 
