@@ -21,7 +21,7 @@ def index():
     return jsonify({'success': True, 'message': 'Hello World'})
 
 
-@APP.route('/get_audio', methods=['GET'])
+@APP.route('/audio', methods=['GET'])
 def get_video():
     """
     Get MP3 link from track and artist names
@@ -76,7 +76,7 @@ def get_top_artists():
     if not constants.MEDIA_DATA_TYPE.match(data):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    if data is 'user_cu':
+    if data == 'user_cu':
         artists = last_fm_top.top_artists()
         if artists is None:
             return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
@@ -84,7 +84,7 @@ def get_top_artists():
     else:
         artists = top_chart.top_artist()
         if artists is None:
-            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+            return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'artists': artists})
 
 
@@ -101,7 +101,7 @@ def get_top_tracks():
     if not constants.MEDIA_DATA_TYPE.match(data):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    if data is 'user_cu':
+    if data == 'user_cu':
         tracks = last_fm_top.top_tracks()
         if tracks is None:
             return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
@@ -109,7 +109,7 @@ def get_top_tracks():
     else:
         tracks = top_chart.top_chart()
         if tracks is None:
-            return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+            return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'tracks': tracks})
 
 
@@ -120,7 +120,7 @@ def top_trending():
     """
     data = top_chart.trending_chart()
     if data is None:
-        return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+        return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
     return jsonify({'success': True, 'trending': data})
 
 
@@ -142,7 +142,7 @@ def get_emerging_artists():
     """
     data = top_chart.emerging_artist()
     if data is None:
-        return jsonify({'success': False, 'message': 'Unable to fetch the data'})
+        return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
     return jsonify({'success': True, 'artists': data})
 
 
@@ -160,7 +160,7 @@ def artist_top():
     if not constants.ARTIST_NAME.match(artist) or not constants.ARTIST_DATA_TYPE.match(data):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    if data is 'tracks':
+    if data == 'tracks':
         return jsonify({'success': True, 'artist_tracks': last_fm_top.get_artist_top_tracks(artist)})
     else:
         return jsonify({'success': True, 'artist_albums': last_fm_top.get_artist_top_albums(artist)})
@@ -179,7 +179,7 @@ def popular_genre():
     if not constants.POPULAR_DATA_TYPE.match(data):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    if data is 'tags':
+    if data == 'tags':
         pop_genre = last_fm_top.top_tags()
         if pop_genre is None:
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
@@ -224,7 +224,7 @@ def get_artist():
     if not constants.ARTIST_NAME.match(artist_name) or not constants.ARTIST_INFO.match(content):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    if content is 'info':
+    if content == 'info':
         data = last_fm_top.get_artist_info(artist_name)
         if data is None:
             return jsonify({'success': False,

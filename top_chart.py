@@ -3,6 +3,8 @@ import time
 import requests
 from lxml import html
 
+from constants import TRACK_IMAGE_PLACEHOLDER, ARTIST_IMAGE_PLACEHOLDER
+
 '''
 
 **Broken Pipe error when refreshed continuosly**
@@ -68,7 +70,8 @@ def top_chart():
         for i in range(len(song_artist)):
             data_set = {
                 'track_name': song_title[i].strip().title(),
-                'artist_name': song_artist[i].strip().title()
+                'artist_name': song_artist[i].strip().title(),
+                'image': TRACK_IMAGE_PLACEHOLDER
             }
             results.append(data_set)
         return results
@@ -86,15 +89,15 @@ def trending_chart():
     try:
         song_title = xpath_content[0]
         song_artist = xpath_content[1]
-        artist_image = xpath_content[1]
+        artist_image = xpath_content[2]
 
         results = []
         for i in range(len(song_artist)):
             data_set = {
                 'track_name': song_title[i].strip().title(),
                 'artist_name': song_artist[i].strip().title(),
-                'artist_image': artist_image[i].strip().replace(')', '')
-                .replace('background-image: url(', '') if i < len(artist_image) else None
+                'artist_image': artist_image[i].strip()[22: artist_image[i].find(')')] if i < len(
+                    artist_image) else ARTIST_IMAGE_PLACEHOLDER
             }
             results.append(data_set)
         return results
@@ -117,8 +120,8 @@ def emerging_artist():
         for i in range(len(song_artist)):
             data_set = {
                 'artist_name': song_artist[i].strip().title(),
-                'artist_image': artist_image[i].strip().replace(')', '')
-                .replace('background-image: url(', '') if i < len(artist_image) else None
+                'artist_image': artist_image[i].strip()[22: artist_image[i].find(')')] if i < len(
+                    artist_image) else ARTIST_IMAGE_PLACEHOLDER
             }
             results.append(data_set)
         return results
@@ -139,8 +142,7 @@ def top_artist():
 
         results = []
         for i in range(0, len(artist_image)):
-            current_image = artist_image[i][artist_image[i].find(
-                'http://'): artist_image[i].find(')')]
+            current_image = artist_image[i][22: artist_image[i].find(')')]
             current_name = artist_name[i].strip()
             data_set = {
                 'artist_name': current_name,
