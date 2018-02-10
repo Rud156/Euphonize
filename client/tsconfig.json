@@ -1,18 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "sourceMap": true,
     "target": "es5",
-    "module": "esnext",
+    "module": "amd",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "sourceRoot": "src",
     "allowJs": true,
-    "baseUrl": "src",
-    "skipLibCheck": true,
-    "lib": [
-      "es2017", "dom"
-    ]
+    "moduleResolution": "node",
+    "lib": ["es2017", "dom"]
   },
   "exclude": [
     "node_modules",
