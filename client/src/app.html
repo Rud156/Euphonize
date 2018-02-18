@@ -1,10 +1,55 @@
 <template>
   <require from="fontawesome/css/fa-svg-with-js.css"></require>
   <require from="uikit/css/uikit.min.css"></require>
+  <require from="./resources/css/index.css"></require>
 
-  <div class="uk-alert-primary" uk-alert>
-    <a class="uk-alert-close" uk-close></a>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+  <div>
+    <div class="uk-offcanvas-content">
+      <nav class="uk-navbar uk-navbar-container uk-margin navbar">
+
+        <div class="uk-navbar-left">
+          <div class="uk-button uk-margin-small-right uk-margin-small-top" type="button" click.delegate="toggleSidebar()">
+            <i class="fas fa-bars fa-2x" style="color: ghostwhite"></i>
+          </div>
+        </div>
+
+        <div class="uk-navbar-item uk-logo">
+          <img src="static/images/Fu.png" style="height: 50px" />
+        </div>
+
+
+        <div class="uk-navbar-center">
+          <form submit.delegate="searchSubmitted()">
+            <div class="uk-inline">
+              <span class="uk-form-icon">
+                <i class="fab fa-sistrix"></i>
+              </span>
+              <input type="text" class="uk-input" value.bind="searchString" style="width: 40vw">
+            </div>
+          </form>
+        </div>
+
+      </nav>
+
+      <div ref="sidebarRef">
+        <div class="uk-offcanvas-bar">
+
+          <div class="uk-offcanvas-close" type="button" style="cursor: pointer">
+            <i class="fas fa-times-circle black-text"></i>
+          </div>
+
+          <ul class="uk-list uk-list-large uk-list-divider">
+            <li class="black-text">My Library</li>
+            <li class="black-text">Now Playing</li>
+            <li class="black-text">Tracks</li>
+            <li class="black-text">Artists</li>
+            <li class="black-text">Albums</li>
+            <li class="black-text">Genre</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
