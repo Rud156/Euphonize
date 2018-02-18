@@ -6,6 +6,7 @@ export class App {
   sidebarRef: HTMLElement;
   sidebarShowing: boolean = false;
   searchString: string = '';
+  styleString: string = 'color: white';
 
   attached() {
     UIkit.offcanvas(this.sidebarRef).hide();
@@ -27,6 +28,14 @@ export class App {
   searchSubmitted() {
     console.log(this.searchString);
     this.searchString = '';
+  }
+
+  inputFocused() {
+    this.styleString = 'color: #666';
+  }
+
+  inputBlurred() {
+    this.styleString = 'color: white';
   }
 
   toggleSidebar() {

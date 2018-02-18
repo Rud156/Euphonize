@@ -1,7 +1,7 @@
 <template>
   <require from="fontawesome/css/fa-svg-with-js.css"></require>
   <require from="uikit/css/uikit.min.css"></require>
-  <require from="./resources/css/index.css"></require>
+  <require from="./resources/css/app.css"></require>
 
   <div>
     <div class="uk-offcanvas-content">
@@ -21,10 +21,11 @@
         <div class="uk-navbar-center">
           <form submit.delegate="searchSubmitted()">
             <div class="uk-inline">
-              <span class="uk-form-icon">
+              <span class="uk-form-icon" style.bind="styleString">
                 <i class="fab fa-sistrix"></i>
               </span>
-              <input type="text" class="uk-input" value.bind="searchString" style="width: 40vw">
+              <input focus.trigger="inputFocused()" blur.trigger="inputBlurred()" type="text" class="uk-input animated-input" value.bind="searchString"
+                style="width: 40vw">
             </div>
           </form>
         </div>

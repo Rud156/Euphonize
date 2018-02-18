@@ -143,7 +143,7 @@
     "id": "stylus",
     "displayName": "Stylus",
     "fileExtension": ".styl",
-    "source": "src/**/*.styl"
+    "source": ["src/**/*.styl", "src/**/*.css"]
   },
   "editor": {
     "id": "vscode",
