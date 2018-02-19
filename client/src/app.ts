@@ -73,6 +73,7 @@ export class App {
   }
 
   attached() {
+    UIkit.offcanvas(this.sidebarRef);
     UIkit.offcanvas(this.sidebarRef).hide();
 
     UIkit.util.on(this.sidebarRef, 'hidden', () => {

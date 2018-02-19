@@ -1,5 +1,12 @@
+// @ts-ignore
+import * as UIkit from 'uikit';
+
 export class Tracks {
-  constructor() {
-    console.log('Hello World');
+  sliderTracks: HTMLElement;
+
+  constructor() {}
+
+  attached() {
+    UIkit.slider(this.sliderTracks);
   }
 }

@@ -1,0 +1,23 @@
+.card-overlay-container {
+  height: 200px;
+  width: 200px;
+  background-size: cover !important;
+  transition-duration: 0.7s;
+}
+
+.card-panel-content {
+  transition-duration: 0.7s;
+}
+
+.card-overlay-container .card-panel-content {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  display: none;
+}
+
+.card-overlay-container:hover .card-panel-content {
+  display: block;
+  background: rgba(0, 0, 0, 0.7);
+  transition-duration: 0.7s;
+}
