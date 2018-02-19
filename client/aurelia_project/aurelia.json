@@ -108,7 +108,10 @@
           {
             "name": "redux-promise-middleware",
             "path": "../node_modules/redux-promise-middleware/dist",
-            "main": "index"
+            "main": "index",
+            "resources": [
+              "isPromise.js"
+            ]
           }
         ]
       }
