@@ -2,7 +2,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { BASE_URL, SELECTION_TYPE } from '../utils/constants';
 
 class TrackService {
-  httpClient: HttpClient;
+  private httpClient: HttpClient;
 
   constructor() {
     this.httpClient = new HttpClient();

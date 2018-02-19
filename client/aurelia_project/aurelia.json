@@ -99,6 +99,16 @@
             "resources": [
               "css/fa-svg-with-js.css"
             ]
+          },
+          {
+            "name": "redux",
+            "path": "../node_modules/redux/dist",
+            "main": "redux.min"
+          },
+          {
+            "name": "redux-promise-middleware",
+            "path": "../node_modules/redux-promise-middleware/dist",
+            "main": "index"
           }
         ]
       }

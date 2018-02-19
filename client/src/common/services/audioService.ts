@@ -2,7 +2,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { BASE_URL } from '../utils/constants';
 
 class AudioService {
-  httpClient: HttpClient;
+  private httpClient: HttpClient;
 
   constructor() {
     this.httpClient = new HttpClient();

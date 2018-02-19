@@ -32,6 +32,8 @@
 
       </nav>
 
+      <router-view></router-view>
+
       <div ref="sidebarRef">
         <div class="uk-offcanvas-bar">
 
@@ -40,12 +42,9 @@
           </div>
 
           <ul class="uk-list uk-list-large uk-list-divider">
-            <li class="black-text">My Library</li>
-            <li class="black-text">Now Playing</li>
-            <li class="black-text">Tracks</li>
-            <li class="black-text">Artists</li>
-            <li class="black-text">Albums</li>
-            <li class="black-text">Genre</li>
+            <li repeat.for="nav of router.navigation">
+              <a class="${nav.isActive ? 'active-link' : 'black-text'}" href.bind="nav.href">${nav.title}</a>
+            </li>
           </ul>
 
         </div>

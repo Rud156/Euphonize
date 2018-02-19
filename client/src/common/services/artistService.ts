@@ -2,7 +2,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { BASE_URL, ARTIST_DATA } from '../utils/constants';
 
 class ArtistService {
-  httpClient: HttpClient;
+  private httpClient: HttpClient;
 
   constructor() {
     this.httpClient = new HttpClient();
