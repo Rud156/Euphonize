@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/node": "^6.0.45",
     "@types/redux-promise-middleware": "^0.0.9",
+    "@types/uikit": "^2.27.6",
     "aurelia-cli": "^0.32.0",
     "aurelia-testing": "^1.0.0-beta.3.0.1",
     "aurelia-tools": "^1.0.0",

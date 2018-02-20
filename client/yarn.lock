@@ -19,6 +19,10 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
+"@types/jquery@*":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.0.tgz#6316ac20a1a13c5d521a2dc661befc7184f73f5b"
+
 "@types/node@^6.0.45":
   version "6.0.100"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.100.tgz#26e5599c65f96efa0f100915144eb92cddaa95df"
@@ -28,6 +32,12 @@
   resolved "https://registry.yarnpkg.com/@types/redux-promise-middleware/-/redux-promise-middleware-0.0.9.tgz#b39f8c9bf3ae125a9a9b701b6365e9dee3a46004"
   dependencies:
     redux "^3.6.0"
+
+"@types/uikit@^2.27.6":
+  version "2.27.6"
+  resolved "https://registry.yarnpkg.com/@types/uikit/-/uikit-2.27.6.tgz#6cc5e9e2d7336103eb52de8ab0c801e4ccfeaa9c"
+  dependencies:
+    "@types/jquery" "*"
 
 abbrev@1:
   version "1.1.1"

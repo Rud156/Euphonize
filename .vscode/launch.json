@@ -19,6 +19,27 @@
             ]
         },
         {
+            "name": "Python: Flask (0.11.x or later)",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "flask",
+            "pythonPath": "${config:python.pythonPath}",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                     "FLASK_APP": "${workspaceFolder}/app.py"
+            },
+            "args": [
+                    "run",
+                    "--no-debugger",
+                    "--no-reload"
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "debugOptions": [
+                     "RedirectOutput"
+            ]
+        },
+        {
             "name": "Python: Attach",
             "type": "python",
             "request": "attach",
