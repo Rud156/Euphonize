@@ -1,8 +1,18 @@
-<template>
+<template bindable="trackImage, trackName, artistName">
   <div>
-    <div class="uk-card uk-card-default uk-card-hover">
-      <div class="uk-card-media-top">
-        <img src="static/images/TS.png" />
+    <img src="${trackImage}" alt="${trackName}">
+    <div class="uk-position-center uk-panel overlay-content">
+      <div style="padding: 7px; padding-left: 14px">
+        <h3 class="text-shadow">${trackName}</h3>
+        <h4 class="text-shadow">- ${artistName}</h4>
+      </div>
+      <div>
+        <div>
+          <i class="fas fa-play-circle fa-3x cursor-pointer color-hover"></i>
+        </div>
+        <div>
+          <i class="fas fa-plus-circle fa-3x cursor-pointer color-hover"></i>
+        </div>
       </div>
     </div>
   </div>
