@@ -107,11 +107,9 @@
           },
           {
             "name": "redux-promise-middleware",
-            "path": "../node_modules/redux-promise-middleware/dist",
-            "main": "index",
-            "resources": [
-              "isPromise.js"
-            ]
+            "main": "dist/index.js",
+            "path": "../node_modules/redux-promise-middleware",
+            "resources": []
           }
         ]
       }
@@ -158,7 +156,10 @@
     "id": "stylus",
     "displayName": "Stylus",
     "fileExtension": ".styl",
-    "source": ["src/**/*.styl", "src/**/*.css"]
+    "source": [
+      "src/**/*.styl",
+      "src/**/*.css"
+    ]
   },
   "editor": {
     "id": "vscode",
@@ -175,5 +176,6 @@
     "attributes": "resources/attributes",
     "valueConverters": "resources/value-converters",
     "bindingBehaviors": "resources/binding-behaviors"
-  }
+  },
+  "packageManager": "yarn"
 }

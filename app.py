@@ -121,7 +121,7 @@ def top_trending():
     data = top_chart.trending_chart()
     if data is None:
         return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
-    return jsonify({'success': True, 'trending': data})
+    return jsonify({'success': True, 'tracks': data})
 
 
 @APP.route('/top_albums', methods=['GET'])

@@ -60,7 +60,7 @@ def top_chart():
     url = 'http://www.billboard.com/charts/hot-100'
     xpaths = ['//div/h2[@class="chart-row__song"]/text()',
               '//div/a[@class="chart-row__artist"]/text()']
-    xpath_content = get_page(url, 'Getting Top 100 Artists', xpaths)
+    xpath_content = get_page(url, 'Getting Top 100 Tracks', xpaths)
 
     try:
         results = []

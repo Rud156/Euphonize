@@ -3,21 +3,21 @@ import { inject } from 'aurelia-framework';
 // @ts-ignore
 import * as UIkit from 'uikit';
 
-
 import TrackService from '../../common/services/trackService';
 import { CONTENT_TYPES } from '../../common/utils/constants';
 
 @inject(TrackService)
 export class Tracks {
   sliderTracks: HTMLElement;
-  topTracksGrid: HTMLElement;
 
   topTracks = [];
+  trendingTracks = [];
 
   constructor(private trackService: TrackService) {}
 
   attached() {
     this.initializeElements();
+    this.fetchTrendingTracks();
     this.fetchTopTracks();
   }
 
@@ -34,10 +34,22 @@ export class Tracks {
       });
   }
 
+  fetchTrendingTracks() {
+    this.trackService
+      .getTopTrendingTracks()
+      .then(data => {
+        if (data.success) {
+          this.trendingTracks = data.tracks;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   initializeElements() {
     UIkit.slider(this.sliderTracks, {
       finite: true,
     });
-    UIkit.grid(this.topTracksGrid);
   }
 }

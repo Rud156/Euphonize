@@ -8,32 +8,52 @@
     <div class="uk-position-relative uk-visible-toggle uk-light">
 
       <!-- Top Tracks -->
-      <div ref="topTracksGrid" class="uk-grid-match">
-
-        <div class="white-text uk-width-1-1 uk-width-1-5@s" style="margin-bottom: 21px">
-          <div class="uk-position-relative">
-            <h3 class="sub-category-headers uk-position-center text-shadow">Top Tracks</h3>
-          </div>
+      <div class="white-text">
+        <div class="uk-position-relative">
+          <h2 class="sub-category-headers text-shadow">Top</h2>
         </div>
+      </div>
 
-        <div class="uk-width-1-1 uk-width-4-5@s">
-          <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px">
-            <ul class="uk-slider-items">
-              <li repeat.for="track of topTracks" style="height: 200px; width: 200px">
-                <track-card track-image.bind="track.image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"></track-card>
-              </li>
-            </ul>
-            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
-              <i class="fas fa-chevron-left fa-2x text-shadow"></i>
-            </a>
-            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
-              <i class="fas fa-chevron-right fa-2x text-shadow"></i>
-            </a>
-          </div>
+      <div>
+        <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px">
+          <ul class="uk-slider-items">
+            <li repeat.for="track of topTracks" style="height: 200px; width: 200px">
+              <track-card track-image.bind="track.image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"></track-card>
+            </li>
+          </ul>
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
+            <i class="fas fa-chevron-left fa-2x text-shadow"></i>
+          </a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
+            <i class="fas fa-chevron-right fa-2x text-shadow"></i>
+          </a>
         </div>
-
       </div>
       <!-- Top Tracks End -->
+
+      <!-- Top Trending Tracks -->
+      <div class="white-text">
+        <div class="uk-position-relative">
+          <h2 class="sub-category-headers text-shadow">Trending</h2>
+        </div>
+      </div>
+
+      <div>
+        <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px">
+          <ul class="uk-slider-items">
+            <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
+              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"></track-card>
+            </li>
+          </ul>
+          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
+            <i class="fas fa-chevron-left fa-2x text-shadow"></i>
+          </a>
+          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
+            <i class="fas fa-chevron-right fa-2x text-shadow"></i>
+          </a>
+        </div>
+      </div>
+      <!-- Top Trending Tracks End -->
 
     </div>
   </div>
