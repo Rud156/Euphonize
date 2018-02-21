@@ -15,18 +15,43 @@
       </div>
 
       <div>
-        <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px">
-          <ul class="uk-slider-items">
-            <li repeat.for="track of topTracks" style="height: 200px; width: 200px">
-              <track-card track-image.bind="track.image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"></track-card>
-            </li>
-          </ul>
-          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
-            <i class="fas fa-chevron-left fa-2x text-shadow"></i>
-          </a>
-          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
-            <i class="fas fa-chevron-right fa-2x text-shadow"></i>
-          </a>
+        <div class="uk-overflow-auto" style="padding: 0 21px">
+          <table class="uk-table uk-table-small uk-table-divider">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr repeat.for="track of topTracks">
+                <td>
+                  <div style="padding-top: 14px">
+                    ${$index + 1}
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <img src="${track.image}" alt="${track.name}" class="track-image">
+                    <div class="track-name">${track.track_name}</div>
+                  </div>
+                </td>
+                <td>
+                  <div style="padding-top: 14px">
+                    ${track.artist_name}
+                  </div>
+                </td>
+                <td>
+                  <div style="padding-top: 7px">
+                    <i class="fas fa-play-circle fa-2x cursor-pointer padding-5" style="font-size: 1.5em"></i>
+                    <i class="fas fa-plus-circle fa-2x cursor-pointer padding-5" style="font-size: 1.5em"></i>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <!-- Top Tracks End -->
