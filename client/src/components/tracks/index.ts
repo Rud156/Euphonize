@@ -19,8 +19,9 @@ export class Tracks {
 
   attached() {
     this.initializeElements();
-    this.fetchTrendingTracks();
-    this.fetchTopTracks();
+    // TODO: UnComment This
+    // this.fetchTrendingTracks();
+    // this.fetchTopTracks();
   }
 
   fetchTopTracks() {

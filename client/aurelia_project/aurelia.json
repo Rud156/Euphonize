@@ -106,10 +106,9 @@
             "main": "redux.min"
           },
           {
-            "name": "redux-promise-middleware",
-            "main": "dist/index.js",
-            "path": "../node_modules/redux-promise-middleware",
-            "resources": []
+            "name": "lodash",
+            "path": "../node_modules/lodash",
+            "main": "lodash.min"
           }
         ]
       }

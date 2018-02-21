@@ -13,6 +13,7 @@
     "aurelia-bootstrapper": "^2.1.1",
     "aurelia-fetch-client": "^1.3.1",
     "bluebird": "^3.4.1",
+    "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "redux": "^3.7.2",
     "requirejs": "^2.3.2",
@@ -22,6 +23,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@types/lodash": "^4.14.104",
     "@types/node": "^6.0.45",
     "@types/redux-promise-middleware": "^0.0.9",
     "@types/uikit": "^2.27.6",

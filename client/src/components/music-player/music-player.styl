@@ -1,0 +1,59 @@
+.player-main-grid {
+  height: 100px;
+  background-color: rgba(41, 0, 58, 0.5);
+}
+
+.player-left-content {
+  & .player-track-image {
+    height: 100px;
+    float: left;
+    margin-right: 14px;
+  }
+
+  & .player-track-name {
+    font-size: 20px;
+    margin-top: 21px;
+  }
+
+  & .player-artist-name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+.player-center-content {
+  padding-top: 21px;
+  text-align: center;
+
+  & .player-icons {
+    & > * {
+      margin: 0 14px;
+    }
+
+    text-align: center;
+  }
+
+  & .player-time-slider {
+    width: 70%;
+  }
+
+  & .player-left-time, .player-right-time {
+    width: 10%;
+    display: inline-block;
+    font-size: 18px;
+  }
+}
+
+.player-right-content {
+  text-align: center;
+  padding-top: 40px;
+
+  & .player-volume-slider {
+    max-width: 50%;
+  }
+
+  & .fa-volume-up {
+    padding-right: 21px;
+    font-size: 25px;
+  }
+}
