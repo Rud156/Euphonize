@@ -11,7 +11,9 @@ export class Tracks {
   sliderTracks: HTMLElement;
 
   topTracks = [];
+  topTracksLoading: boolean = false;
   trendingTracks = [];
+  trendingTracksLoading: boolean = false;
 
   constructor(private trackService: TrackService) {}
 
@@ -22,28 +24,36 @@ export class Tracks {
   }
 
   fetchTopTracks() {
+    this.topTracksLoading = true;
+
     this.trackService
       .getTopTracks(CONTENT_TYPES.USER_CU)
       .then(data => {
         if (data.success) {
           this.topTracks = data.tracks;
         }
+        this.topTracksLoading = false;
       })
       .catch(error => {
         console.log(error);
+        this.topTracksLoading = false;
       });
   }
 
   fetchTrendingTracks() {
+    this.trendingTracksLoading = true;
+
     this.trackService
       .getTopTrendingTracks()
       .then(data => {
         if (data.success) {
           this.trendingTracks = data.tracks;
         }
+        this.trendingTracksLoading = false;
       })
       .catch(error => {
         console.log(error);
+        this.trendingTracksLoading = false;
       });
   }
 

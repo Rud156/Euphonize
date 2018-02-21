@@ -1,5 +1,7 @@
 <template>
   <require from="./components/track-card.html"></require>
+  <require from="./components/track-table.html"></require>
+  <require from="./../loader/loader.html"></require>
   <require from="./index.css"></require>
 
   <h2 class="category-header">Tracks</h2>
@@ -14,7 +16,10 @@
         </div>
       </div>
 
-      <div>
+      <div if.bind="topTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
+        <loader></loader>
+      </div>
+      <div else>
         <div class="uk-overflow-auto" style="padding: 0 21px">
           <table class="uk-table uk-table-small uk-table-divider">
             <thead>
@@ -26,30 +31,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr repeat.for="track of topTracks">
-                <td>
-                  <div style="padding-top: 14px">
-                    ${$index + 1}
-                  </div>
-                </td>
-                <td>
-                  <div>
-                    <img src="${track.image}" alt="${track.name}" class="track-image">
-                    <div class="track-name">${track.track_name}</div>
-                  </div>
-                </td>
-                <td>
-                  <div style="padding-top: 14px">
-                    ${track.artist_name}
-                  </div>
-                </td>
-                <td>
-                  <div style="padding-top: 7px">
-                    <i class="fas fa-play-circle fa-2x cursor-pointer padding-5" style="font-size: 1.5em"></i>
-                    <i class="fas fa-plus-circle fa-2x cursor-pointer padding-5" style="font-size: 1.5em"></i>
-                  </div>
-                </td>
-              </tr>
+              <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name"
+                artist-name.bind="track.artist_name" index.bind="$index"></tr>
             </tbody>
           </table>
         </div>
@@ -63,7 +46,10 @@
         </div>
       </div>
 
-      <div>
+      <div if.bind="trendingTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
+        <loader></loader>
+      </div>
+      <div else>
         <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px">
           <ul class="uk-slider-items">
             <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
