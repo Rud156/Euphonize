@@ -1,11 +1,16 @@
-## kihon
-Boilerplate and Basic Functioning for webapp
+# Kihon
+> Boilerplate and Basic Functioning for webapp
 
-ROADMAP for v0.1 :
+### Work In Progress
 
-- [x] Search Bar for Music Search
-- [x] Youtube Results
-- [x] Media Player
+### Screenshots:
+![Landing Page](./ScreenShots/LandingPage.png)
+
+### Road Map for `v0.1`:
+- [ ] Search Bar for Music Search
+- [ ] Youtube Results
+- [ ] Media Player
 - [ ] Dynamic Audio Switching
-- [x] Meta Data extracter - lastfm/itunes
-- [x] Basic Flask site with Search and play functionality
+- [ ] Meta Data Extractor - Last.FM / Itunes
+- [ ] Flask API with Search and Play Functionality
+- [ ] Convert to PWA
