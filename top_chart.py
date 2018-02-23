@@ -29,31 +29,20 @@ MAX_RETRIES = 5
 
 
 def get_page(url, message, xpaths):
-    page = ''
-    counter = 0
-    while page == '':
-        try:
-            print(message)
-            page = requests.get(url)
-            tree = html.fromstring(page.text)
+    try:
+        print(message)
+        page = requests.get(url)
+        tree = html.fromstring(page.text)
 
-            result_array = []
-            for path in xpaths:
-                result_array.append(tree.xpath(path))
+        result_array = []
+        for path in xpaths:
+            result_array.append(tree.xpath(path))
+        return result_array
 
-            return result_array
+    except (requests.ConnectionError, requests.ConnectTimeout) as error_message:
+        print(error_message)
+        return []
 
-        except (requests.ConnectionError, requests.ConnectTimeout) as error_message:
-            print(error_message)
-            if counter > MAX_RETRIES:
-                return []
-            counter += 1
-            print('Connection refused by website , sleeping for 5 secs..')
-            for i in range(5):
-                print('zzz zz z... .. .')
-                time.sleep(1)
-            print('Enough sleep, resending request')
-            continue
 
 
 def top_chart():

@@ -5,10 +5,8 @@ import { RouterConfiguration, Router } from 'aurelia-router';
 import * as UIkit from 'uikit';
 import 'fontawesome';
 
-import AudioService from './common/services/audioService';
 import { CONTENT_TYPES } from './common/utils/constants';
 
-@inject(AudioService)
 export class App {
   router: Router;
 
@@ -17,7 +15,7 @@ export class App {
   searchString: string = '';
   styleString: string = 'color: white';
 
-  constructor(private audioService: AudioService) {}
+  constructor() {}
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
@@ -88,10 +86,6 @@ export class App {
 
   closeSidebar() {
     this.sidebarShowing = false;
-  }
-
-  searchSubmitted() {
-    // this.audioService.getAudioURL()
   }
 
   inputFocused() {

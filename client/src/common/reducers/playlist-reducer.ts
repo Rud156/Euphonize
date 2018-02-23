@@ -5,12 +5,23 @@ import {
   SHUFFLE_PLAYLIST,
 } from '../actions/playlist-action';
 
-const defaultState = {
+interface ITracks {
+  trackName: string;
+  artistName: string;
+  id: number;
+}
+
+export interface IPlaylistReducer {
+  tracks: ITracks[];
+  id: number;
+}
+
+const defaultState: IPlaylistReducer = {
   tracks: [],
   id: 0,
 };
 
-export default (state = defaultState, action) => {
+export const playlistReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ADD_TO_PLAYLIST:
       let currentPlaylist = { ...state };
