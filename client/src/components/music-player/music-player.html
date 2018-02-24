@@ -1,7 +1,8 @@
 <template>
   <require from="./music-player.css"></require>
+  <require from="./../../resources/value-converters/player-time-format"></require>
 
-  <audio ref="playerAudio" src="static/Fearless.mp3"></audio>
+  <audio ref="audioElement"></audio>
 
   <div class="uk-grid-collapse uk-position-bottom uk-position-fixed player-main-grid" ref="playerGrid">
     <div class="player-left-content uk-width-1-4">
@@ -12,25 +13,43 @@
 
     <div class="player-center-content uk-width-1-2">
       <div class="player-icons">
-        <i class="fas fa-random" ref="randomButton"></i>
-        <i class="fas fa-chevron-left" ref="prevTrackButton"></i>
-        <i class="fas fa-play-circle" ref="playButton"></i>
-        <i class="fas fa-chevron-right" ref="nextTrackButton"></i>
-        <i class="fas fa-redo-alt" ref="replayButton"></i>
-        <i class="far fa-heart" ref="favouriteButton"></i>
+        <span ref="randomButton">
+          <i class="fas fa-random"></i>
+        </span>
+        <span ref="prevTrackButton">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+
+        <span ref="playButton" show.bind="!audioIsPlaying">
+          <i class="fas fa-play-circle"></i>
+        </span>
+        <span ref="pauseButton" show.bind="audioIsPlaying">
+          <i class="fas fa-pause-circle"></i>
+        </span>
+
+        <span ref="nextTrackButton">
+          <i class="fas fa-chevron-right"></i>
+        </span>
+        <span ref="replayButton">
+          <i class="fas fa-redo-alt"></i>
+        </span>
+        <span ref="favouriteButton">
+          <i class="far fa-heart"></i>
+        </span>
       </div>
 
       <div class="player-slider">
-        <span class="player-left-time">00:00</span>
-        <input class="uk-range player-time-slider" type="range" min="0" max="10000" ref="seekSlider">
-        <span class="player-right-time">00:00</span>
+        <span class="player-left-time">${playingTrack.currentTime | playerTime}</span>
+        <input class="uk-range player-time-slider" type="range" min="0" max="10000" ref="seekSlider" value.bind="playingTrack.currentTime"
+          max.bind="playingTrack.maxTime">
+        <span class="player-right-time">${playingTrack.maxTime | playerTime}</span>
       </div>
     </div>
 
 
     <div class="player-right-content uk-width-1-4">
       <i class="fas fa-volume-up"></i>
-      <input class="uk-range player-volume-slider" type="range" min="0" max="10000" ref="volumeSlider">
+      <input class="uk-range player-volume-slider" type="range" min="0" max="1" step="0.1" ref="volumeSlider" value.bind="playingTrack.volume">
     </div>
   </div>
 </template>
