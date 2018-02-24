@@ -4,9 +4,11 @@ import { inject } from 'aurelia-framework';
 import * as UIkit from 'uikit';
 
 import TrackService from '../../common/services/trackService';
+import Store from '../../common/utils/store';
 import { CONTENT_TYPES } from '../../common/utils/constants';
+import { playSelectedTrack } from '../../common/actions/player-actions';
 
-@inject(TrackService)
+@inject(TrackService, Store)
 export class Tracks {
   sliderTracks: HTMLElement;
 
@@ -15,14 +17,20 @@ export class Tracks {
   trendingTracks = [];
   trendingTracksLoading: boolean = false;
 
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TrackService, private store: Store) {}
 
-  handleTopTracksSelect() {
-
+  handleTopTracksSelect(selectedTrack) {
+    const trackName = selectedTrack['track_name'];
+    const artistName = selectedTrack['artist_name'];
+    const image = selectedTrack['image'];
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
-  handleTrendingTracksSelect() {
-    
+  handleTrendingTracksSelect(selectedTrack) {
+    const trackName = selectedTrack['track_name'];
+    const artistName = selectedTrack['artist_name'];
+    const image = selectedTrack['artist_image'];
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
   attached() {

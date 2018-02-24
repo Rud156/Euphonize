@@ -32,7 +32,7 @@
             </thead>
             <tbody>
               <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name"
-                artist-name.bind="track.artist_name" index.bind="$index"></tr>
+                artist-name.bind="track.artist_name" index.bind="$index" track.bind="track" play-track.call="handleTopTracksSelect(selectedTrack)"></tr>
             </tbody>
           </table>
         </div>
@@ -53,7 +53,8 @@
         <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px; margin-bottom: 121px">
           <ul class="uk-slider-items">
             <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
-              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"></track-card>
+              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"
+                track.bind="track" play-track.call="handleTrendingTracksSelect(selectedTrack)"></track-card>
             </li>
           </ul>
           <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
