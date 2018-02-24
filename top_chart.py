@@ -7,9 +7,9 @@ from constants import TRACK_IMAGE_PLACEHOLDER, ARTIST_IMAGE_PLACEHOLDER
 
 '''
 
-**Broken Pipe error when refreshed continuosly**
+**Broken Pipe error when refreshed continuously**
 
-Error due to Unix SIGPIPE signal , happens when utilites receive enough
+Error due to Unix SIGPIPE signal , happens when utilities receive enough
 data , so the head blocks further connections
 
 Can be seen using
@@ -42,7 +42,6 @@ def get_page(url, message, xpaths):
     except (requests.ConnectionError, requests.ConnectTimeout) as error_message:
         print(error_message)
         return []
-
 
 
 def top_chart():

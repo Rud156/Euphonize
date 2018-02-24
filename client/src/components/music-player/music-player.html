@@ -1,7 +1,7 @@
 <template>
   <require from="./music-player.css"></require>
 
-  <audio ref="playerAudio"></audio>
+  <audio ref="playerAudio" src="static/Fearless.mp3"></audio>
 
   <div class="uk-grid-collapse uk-position-bottom uk-position-fixed player-main-grid" ref="playerGrid">
     <div class="player-left-content uk-width-1-4">
@@ -12,17 +12,17 @@
 
     <div class="player-center-content uk-width-1-2">
       <div class="player-icons">
-        <i class="fas fa-random"></i>
-        <i class="fas fa-chevron-left"></i>
-        <i class="fas fa-play-circle"></i>
-        <i class="fas fa-chevron-right"></i>
-        <i class="fas fa-redo-alt"></i>
-        <i class="far fa-heart"></i>
+        <i class="fas fa-random" ref="randomButton"></i>
+        <i class="fas fa-chevron-left" ref="prevTrackButton"></i>
+        <i class="fas fa-play-circle" ref="playButton"></i>
+        <i class="fas fa-chevron-right" ref="nextTrackButton"></i>
+        <i class="fas fa-redo-alt" ref="replayButton"></i>
+        <i class="far fa-heart" ref="favouriteButton"></i>
       </div>
 
       <div class="player-slider">
         <span class="player-left-time">00:00</span>
-        <input class="uk-range player-time-slider" type="range" value="2" min="0" max="10" step="0.1">
+        <input class="uk-range player-time-slider" type="range" min="0" max="10000" ref="seekSlider">
         <span class="player-right-time">00:00</span>
       </div>
     </div>
@@ -30,7 +30,7 @@
 
     <div class="player-right-content uk-width-1-4">
       <i class="fas fa-volume-up"></i>
-      <input class="uk-range player-volume-slider" type="range" value="2" min="0" max="10" step="0.1">
+      <input class="uk-range player-volume-slider" type="range" min="0" max="10000" ref="volumeSlider">
     </div>
   </div>
 </template>

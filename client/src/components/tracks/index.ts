@@ -17,6 +17,14 @@ export class Tracks {
 
   constructor(private trackService: TrackService) {}
 
+  handleTopTracksSelect() {
+
+  }
+
+  handleTrendingTracksSelect() {
+    
+  }
+
   attached() {
     this.initializeElements();
     this.fetchTrendingTracks();

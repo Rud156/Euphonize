@@ -1,12 +1,14 @@
 import { PLAY_SELECTED_TRACK } from '../actions/player-actions';
 import { TRACK_IMAGE_PLACEHOLDER } from '../utils/constants';
 
+export interface ITrackInterface {
+  trackName: string;
+  artistName: string;
+  image: string;
+}
+
 export interface IPlayerReducer {
-  currentTrack: {
-    trackName: string;
-    artistName: string;
-    image: string;
-  };
+  currentTrack: ITrackInterface;
 }
 
 const defaultState: IPlayerReducer = {

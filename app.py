@@ -56,8 +56,8 @@ def get_video():
     data_set = {
         'success': True,
         'url': audio_stream.url,
-        'track': track_name,
-        'artist': artist_name,
+        'track_name': track_name,
+        'artist_name': artist_name,
         'image': image_url
     }
     return jsonify({'success': True, 'music': data_set})
