@@ -21,7 +21,7 @@ const defaultState: IPlaylistReducer = {
   id: 0,
 };
 
-export const playlistReducer = (state = defaultState, action) => {
+export const playlistReducer = (state = defaultState, action): IPlaylistReducer => {
   switch (action.type) {
     case ADD_TO_PLAYLIST:
       let currentPlaylist = { ...state };
@@ -31,6 +31,7 @@ export const playlistReducer = (state = defaultState, action) => {
         artistName: action.payload.artistName,
         id: state.id + 1,
       });
+      // TODO: Add To LocalStorage
       return currentPlaylist;
 
     case REMOVE_FROM_PLAYLIST:

@@ -21,7 +21,8 @@ export class MusicPlayer {
   playerGrid: HTMLElement;
 
   audioElement: HTMLAudioElement;
-  audioIsPlaying: boolean;
+  audioIsPlaying: boolean = false;
+  audioIsLoading: boolean = false;
 
   randomButton: HTMLElement;
   prevTrackButton: HTMLElement;
@@ -60,6 +61,8 @@ export class MusicPlayer {
       this.audioElement.pause();
       this.audioIsPlaying = false;
     }
+
+    this.audioIsLoading = true;
 
     this.audioService
       .getAudioURL(currentTrack.trackName, currentTrack.artistName)
@@ -159,6 +162,7 @@ export class MusicPlayer {
     this.playingTrack = modifiedTrackData;
     this.audioElement.play();
     this.audioIsPlaying = true;
+    this.audioIsLoading = false;
   }
 
   attached() {

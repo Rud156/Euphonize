@@ -1,6 +1,7 @@
 <template>
   <require from="./music-player.css"></require>
   <require from="./../../resources/value-converters/player-time-format"></require>
+  <require from="./../../resources/css/progress.css"></require>
 
   <audio ref="audioElement"></audio>
 
@@ -38,7 +39,12 @@
         </span>
       </div>
 
-      <div class="player-slider">
+      <div class="player-silder" show.bind="audioIsLoading">
+        <div class="progress">
+          <div class="indeterminate"></div>
+        </div>
+      </div>
+      <div class="player-slider" show.bind="!audioIsLoading">
         <span class="player-left-time">${playingTrack.currentTime | playerTime}</span>
         <input class="uk-range player-time-slider" type="range" min="0" max="10000" ref="seekSlider" value.bind="playingTrack.currentTime"
           max.bind="playingTrack.maxTime">

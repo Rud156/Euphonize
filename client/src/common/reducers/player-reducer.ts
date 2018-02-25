@@ -19,7 +19,7 @@ const defaultState: IPlayerReducer = {
   },
 };
 
-export const playerReducer = (state = defaultState, action) => {
+export const playerReducer = (state = defaultState, action): IPlayerReducer => {
   switch (action.type) {
     case PLAY_SELECTED_TRACK:
       const currentTrack = state.currentTrack;
