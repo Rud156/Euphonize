@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, artistName, index, playTrack, track">
+<template bindable="trackImage, trackName, artistName, index, playTrack">
   <td>
     <div style="padding-top: 14px">
       ${index + 1}
@@ -17,7 +17,7 @@
   </td>
   <td>
     <div style="padding-top: 7px">
-      <span click.delegate="playTrack({selectedTrack: track})">
+      <span click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage})">
         <i class="fas fa-play-circle fa-2x cursor-pointer padding-5" style="font-size: 1.5em"></i>
       </span>
       <span>

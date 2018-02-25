@@ -60,7 +60,7 @@ def get_video():
         'artist_name': artist_name,
         'image': image_url
     }
-    return jsonify({'success': True, 'music': data_set})
+    return jsonify({'success': True, 'track': data_set})
 
 
 @APP.route('/top_artists', methods=['GET'])

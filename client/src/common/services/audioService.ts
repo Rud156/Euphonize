@@ -10,7 +10,7 @@ class AudioService {
 
   getAudioURL = (trackName: string, artistName: string) => {
     return this.httpClient
-      .fetch(`${BASE_URL}/audio?track${trackName}&artist=${artistName}`)
+      .fetch(`${BASE_URL}/audio?track=${trackName}&artist=${artistName}`)
       .then(response => response.json());
   };
 }

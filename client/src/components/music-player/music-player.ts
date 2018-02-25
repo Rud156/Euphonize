@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import * as UIkit from 'uikit';
 
 import { ITrackInterface } from '../../common/reducers/player-reducer';
+import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 import Store from '../../common/utils/store';
 import AudioService from '../../common/services/audioService';
 
@@ -33,7 +34,15 @@ export class MusicPlayer {
   volumeSlider: HTMLInputElement;
 
   currentTrack: ITrackInterface;
-  playingTrack: IPlayerTrackInterface;
+  playingTrack: IPlayerTrackInterface = {
+    currentTime: 0,
+    maxTime: 0,
+    audioURL: '',
+    volume: 1,
+    trackName: '--',
+    artistName: '--',
+    image: TRACK_IMAGE_PLACEHOLDER,
+  };
 
   constructor(private store: Store, private audioService: AudioService) {
     this.store.dataStore.subscribe(this.handleStoreStateUpdate.bind(this));
@@ -41,7 +50,7 @@ export class MusicPlayer {
 
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
-    if (currentTrack.trackName != this.playingTrack.trackName) {
+    if (currentTrack.trackName !== this.playingTrack.trackName) {
       this.getSongData(currentTrack);
     }
   }
@@ -57,16 +66,16 @@ export class MusicPlayer {
       .then(data => {
         if (data.success) {
           const trackData = {
-            trackName: data.track_name,
-            artistName: data.artist_name,
-            image: data.image,
+            trackName: data.track['track_name'],
+            artistName: data.track['artist_name'],
+            image: data.track['image'],
             currentTime: 0,
-            audioURL: data.url,
+            audioURL: data.track['url'],
             maxTime: 0,
             volume: 1,
           };
           this.playingTrack = trackData;
-          this.audioElement.src = this.playingTrack.audioURL;
+          this.audioElement.src = data.track['url'];
           this.audioElement.volume = 1;
         }
       })
@@ -148,6 +157,8 @@ export class MusicPlayer {
       volume: 1,
     };
     this.playingTrack = modifiedTrackData;
+    this.audioElement.play();
+    this.audioIsPlaying = true;
   }
 
   attached() {

@@ -19,17 +19,11 @@ export class Tracks {
 
   constructor(private trackService: TrackService, private store: Store) {}
 
-  handleTopTracksSelect(selectedTrack) {
-    const trackName = selectedTrack['track_name'];
-    const artistName = selectedTrack['artist_name'];
-    const image = selectedTrack['image'];
+  handleTopTracksSelect(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
-  handleTrendingTracksSelect(selectedTrack) {
-    const trackName = selectedTrack['track_name'];
-    const artistName = selectedTrack['artist_name'];
-    const image = selectedTrack['artist_image'];
+  handleTrendingTracksSelect(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
