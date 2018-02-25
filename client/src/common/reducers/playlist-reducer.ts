@@ -7,6 +7,8 @@ import {
   SHUFFLE_PLAYLIST,
 } from '../actions/playlist-action';
 
+import { writeToLocalStorage } from '../utils/utils';
+
 interface ITracks {
   trackName: string;
   artistName: string;
@@ -23,10 +25,6 @@ const defaultState: IPlaylistReducer = {
   id: 0,
 };
 
-const writeStateToLocalStorage = (playlist: IPlaylistReducer) => {
-  window.localStorage.setItem('playlist', JSON.stringify(playlist));
-};
-
 export const playlistReducer = (state = defaultState, action): IPlaylistReducer => {
   switch (action.type) {
     case ADD_TO_PLAYLIST:
@@ -37,7 +35,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         artistName: action.payload.artistName,
         id: state.id + 1,
       });
-      writeStateToLocalStorage(currentPlaylist);
+      writeToLocalStorage('playlist', currentPlaylist);
       return currentPlaylist;
 
     case PLAY_NEXT_TRACK:
@@ -53,7 +51,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         id: state.id,
         tracks: filteredTracks,
       };
-      writeStateToLocalStorage(filteredPlaylist);
+      writeToLocalStorage('playlist', filteredPlaylist);
       return filteredPlaylist;
 
     case CLEAR_PLAYLIST:
@@ -61,7 +59,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         id: 0,
         tracks: [],
       };
-      writeStateToLocalStorage(clearedPlaylist);
+      writeToLocalStorage('playlist', clearedPlaylist);
       return clearedPlaylist;
 
     case SHUFFLE_PLAYLIST:
@@ -83,7 +81,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         id: state.id,
         tracks: currentTracks,
       };
-      writeStateToLocalStorage(shuffledPlaylist);
+      writeToLocalStorage('playlist', shuffledPlaylist);
       return shuffledPlaylist;
 
     default:

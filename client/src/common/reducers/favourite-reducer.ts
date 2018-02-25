@@ -4,6 +4,8 @@ import {
   CLEAR_FAVOURITES,
 } from '../actions/favourite-actions';
 
+import { writeToLocalStorage } from '../utils/utils';
+
 interface IFavourite {
   trackName: string;
   artistName: string;
@@ -35,7 +37,7 @@ export const favouritesReducer = (state = defaultState, action): IFavouritesRedu
         id: state.id + 1,
         favourites: currentFavourites,
       };
-      window.localStorage.setItem('favourites', JSON.stringify(addFavouritesStateObject));
+      writeToLocalStorage('favourites', addFavouritesStateObject);
       return addFavouritesStateObject;
 
     case REMOVE_FROM_FAVOURITES:
@@ -47,7 +49,7 @@ export const favouritesReducer = (state = defaultState, action): IFavouritesRedu
         id: state.id,
         favourites: filteredFavourites,
       };
-      window.localStorage.setItem('favourites', JSON.stringify(removeFavouritesStateObject));
+      writeToLocalStorage('favourites', removeFavouritesStateObject);
       return removeFavouritesStateObject;
 
     case CLEAR_FAVOURITES:
@@ -55,7 +57,7 @@ export const favouritesReducer = (state = defaultState, action): IFavouritesRedu
         id: 0,
         favourites: [],
       };
-      window.localStorage.setItem('favourites', JSON.stringify(clearFavouritesStateObject));
+      writeToLocalStorage('favourites', clearFavouritesStateObject);
       return clearFavouritesStateObject;
 
     default:
