@@ -1,5 +1,7 @@
 import {
   ADD_TO_PLAYLIST,
+  PLAY_NEXT_TRACK,
+  PLAY_PREV_TRACK,
   REMOVE_FROM_PLAYLIST,
   CLEAR_PLAYLIST,
   SHUFFLE_PLAYLIST,
@@ -21,18 +23,28 @@ const defaultState: IPlaylistReducer = {
   id: 0,
 };
 
+const writeStateToLocalStorage = (playlist: IPlaylistReducer) => {
+  window.localStorage.setItem('playlist', JSON.stringify(playlist));
+};
+
 export const playlistReducer = (state = defaultState, action): IPlaylistReducer => {
   switch (action.type) {
     case ADD_TO_PLAYLIST:
-      let currentPlaylist = { ...state };
+      const currentPlaylist = { ...state };
       currentPlaylist.id += 1;
       currentPlaylist.tracks.push({
         trackName: action.payload.trackName,
         artistName: action.payload.artistName,
         id: state.id + 1,
       });
-      // TODO: Add To LocalStorage
+      writeStateToLocalStorage(currentPlaylist);
       return currentPlaylist;
+
+    case PLAY_NEXT_TRACK:
+      break;
+
+    case PLAY_PREV_TRACK:
+      break;
 
     case REMOVE_FROM_PLAYLIST:
       let trackId = action.payload.id;
@@ -41,13 +53,16 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         id: state.id,
         tracks: filteredTracks,
       };
+      writeStateToLocalStorage(filteredPlaylist);
       return filteredPlaylist;
 
     case CLEAR_PLAYLIST:
-      return {
+      const clearedPlaylist = {
         id: 0,
         tracks: [],
       };
+      writeStateToLocalStorage(clearedPlaylist);
+      return clearedPlaylist;
 
     case SHUFFLE_PLAYLIST:
       let currentTracks = state.tracks;
@@ -64,10 +79,12 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         currentTracks[currentIndex] = currentTracks[randomIndex];
         currentTracks[randomIndex] = tempVal;
       }
-      return {
+      const shuffledPlaylist = {
         id: state.id,
         tracks: currentTracks,
       };
+      writeStateToLocalStorage(shuffledPlaylist);
+      return shuffledPlaylist;
 
     default:
       return state;

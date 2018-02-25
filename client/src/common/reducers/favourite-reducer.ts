@@ -31,27 +31,32 @@ export const favouritesReducer = (state = defaultState, action): IFavouritesRedu
         ...action.payload,
       };
       currentFavourites.push(newFavourite);
-      // TODO: Add To LocalStorage
-      return {
+      const addFavouritesStateObject = {
         id: state.id + 1,
         favourites: currentFavourites,
       };
+      window.localStorage.setItem('favourites', JSON.stringify(addFavouritesStateObject));
+      return addFavouritesStateObject;
 
     case REMOVE_FROM_FAVOURITES:
       const trackId = action.payload.id;
       const filteredFavourites = state.favourites.filter(element => {
         return element.id !== trackId;
       });
-      return {
+      const removeFavouritesStateObject = {
         id: state.id,
         favourites: filteredFavourites,
       };
+      window.localStorage.setItem('favourites', JSON.stringify(removeFavouritesStateObject));
+      return removeFavouritesStateObject;
 
     case CLEAR_FAVOURITES:
-      return {
+      const clearFavouritesStateObject = {
         id: 0,
         favourites: [],
       };
+      window.localStorage.setItem('favourites', JSON.stringify(clearFavouritesStateObject));
+      return clearFavouritesStateObject;
 
     default:
       return state;

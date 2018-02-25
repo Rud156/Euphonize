@@ -5,7 +5,12 @@ import * as _ from 'lodash';
 import * as UIkit from 'uikit';
 
 import { ITrackInterface } from '../../common/reducers/player-reducer';
+
+import { addToFavourites } from '../../common/actions/favourite-actions';
+import { shufflePlaylist } from '../../common/actions/playlist-action';
+
 import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
+
 import Store from '../../common/utils/store';
 import AudioService from '../../common/services/audioService';
 
@@ -57,18 +62,15 @@ export class MusicPlayer {
   }
 
   getSongData(currentTrack: ITrackInterface) {
-    if (this.audioIsPlaying) {
-      this.audioElement.pause();
-      this.audioIsPlaying = false;
-    }
-
     this.audioIsLoading = true;
 
     this.audioService
       .getAudioURL(currentTrack.trackName, currentTrack.artistName)
       .then(data => {
+        this.pauseAudio();
+
         if (data.success) {
-          const trackData = {
+          const trackData: IPlayerTrackInterface = {
             trackName: data.track['track_name'],
             artistName: data.track['artist_name'],
             image: data.track['image'],
@@ -77,6 +79,7 @@ export class MusicPlayer {
             maxTime: 0,
             volume: 1,
           };
+          this.audioIsLoading = false;
           this.playingTrack = trackData;
           this.audioElement.src = data.track['url'];
           this.audioElement.volume = 1;
@@ -117,7 +120,10 @@ export class MusicPlayer {
 
   handleReplayButtonClick(event: MouseEvent) {}
 
-  handleFavouriteButtonClick(event: MouseEvent) {}
+  handleFavouriteButtonClick(event: MouseEvent) {
+    const { trackName, artistName, image } = this.playingTrack;
+    this.store.dataStore.dispatch(addToFavourites(trackName, artistName, image));
+  }
 
   handleSeekSliderChange(event: Event) {
     const currentTime = parseInt(this.seekSlider.value);
@@ -160,9 +166,7 @@ export class MusicPlayer {
       volume: 1,
     };
     this.playingTrack = modifiedTrackData;
-    this.audioElement.play();
-    this.audioIsPlaying = true;
-    this.audioIsLoading = false;
+    this.playAudio();
   }
 
   attached() {
