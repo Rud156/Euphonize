@@ -5,8 +5,11 @@ import * as UIkit from 'uikit';
 
 import TrackService from '../../common/services/trackService';
 import Store from '../../common/utils/store';
+
 import { CONTENT_TYPES } from '../../common/utils/constants';
+
 import { playSelectedTrack } from '../../common/actions/player-actions';
+import { addToNowPlaying } from '../../common/actions/now-playing-actions';
 
 @inject(TrackService, Store)
 export class Tracks {
@@ -19,18 +22,19 @@ export class Tracks {
 
   constructor(private trackService: TrackService, private store: Store) {}
 
-  handleTopTracksPlay(trackName: string, artistName: string, image: string) {
-    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
-  }
-
-  handleTrendingTracksPlay(trackName: string, artistName: string, image: string) {
-    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
+  handleTracksPlay(trackName: string, artistName: string, image: string) {
+    this.addToNowPlayingAndPlay(trackName, artistName, image);
   }
 
   attached() {
     this.initializeElements();
     this.fetchTrendingTracks();
     this.fetchTopTracks();
+  }
+
+  addToNowPlayingAndPlay(trackName: string, artistName: string, image: string) {
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
+    this.store.dataStore.dispatch(addToNowPlaying(trackName, artistName, image));
   }
 
   fetchTopTracks() {

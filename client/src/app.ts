@@ -5,8 +5,14 @@ import { RouterConfiguration, Router } from 'aurelia-router';
 import * as UIkit from 'uikit';
 import 'fontawesome';
 
-import { CONTENT_TYPES } from './common/utils/constants';
+import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
+import Store from './common/utils/store';
+import { readFromLocalStorage } from './common/utils/utils';
 
+import { IPlaylist } from './common/interfaces/playlist-interface';
+import { deployPlaylists } from './common/actions/playlist-actions';
+
+@inject(Store)
 export class App {
   router: Router;
 
@@ -15,7 +21,7 @@ export class App {
   searchString: string = '';
   styleString: string = 'color: white';
 
-  constructor() {}
+  constructor(private store: Store) {}
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
@@ -71,12 +77,8 @@ export class App {
   }
 
   attached() {
-    UIkit.offcanvas(this.sidebarRef);
-    UIkit.offcanvas(this.sidebarRef).hide();
-
-    UIkit.util.on(this.sidebarRef, 'hidden', () => {
-      this.closeSidebar();
-    });
+    this.initializeElements();
+    this.readPlaylistsFromLocalStorage();
   }
 
   detached() {
@@ -104,5 +106,19 @@ export class App {
       UIkit.offcanvas(this.sidebarRef).show();
       this.sidebarShowing = true;
     }
+  }
+
+  readPlaylistsFromLocalStorage() {
+    const playlists: IPlaylist[] = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
+    this.store.dataStore.dispatch(deployPlaylists(playlists));
+  }
+
+  initializeElements() {
+    UIkit.offcanvas(this.sidebarRef);
+    UIkit.offcanvas(this.sidebarRef).hide();
+
+    UIkit.util.on(this.sidebarRef, 'hidden', () => {
+      this.closeSidebar();
+    });
   }
 }

@@ -6,7 +6,7 @@ import {
 } from '../actions/now-playing-actions';
 import { ITrack, ITrackBasic } from '../interfaces/track-interface';
 
-interface INowPlayingReducer {
+export interface INowPlayingReducer {
   tracks: ITrack[];
   id: number;
 }

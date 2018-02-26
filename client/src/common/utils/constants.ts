@@ -6,6 +6,8 @@ export const SEARCH_ENDING_STRING = '7ede02c397c8cf99bf26e1f8cb9681fa';
 export const TRACK_IMAGE_PLACEHOLDER =
   'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png';
 
+export const PLAYLIST_LOCAL_STORAGE = 'playlists';
+
 export const CONTENT_TYPES = {
   USER_CU: 'user_cu',
   BILLBOARD: 'billboard',

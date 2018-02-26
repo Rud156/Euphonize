@@ -9,6 +9,7 @@ import { writeToLocalStorage } from '../utils/utils';
 
 import { IPlaylist } from '../interfaces/playlist-interface';
 import { ITrackBasic } from '../interfaces/track-interface';
+import { PLAYLIST_LOCAL_STORAGE } from '../utils/constants';
 
 export interface IPlaylistReducer {
   playlists: IPlaylist[];
@@ -31,6 +32,8 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
           name: playlistName,
           tracks: [],
         });
+
+        writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
@@ -44,6 +47,8 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const filteredPlaylists = currentPlaylists.filter(element => {
         element.name !== playlistToRemoveName;
       });
+
+      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, filteredPlaylists);
       return {
         playlists: filteredPlaylists,
       };
@@ -57,6 +62,8 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       if (playlistIndex === -1) return state;
       else {
         currentPlaylists[playlistIndex].tracks.push(action.payload.track);
+
+        writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
@@ -82,6 +89,8 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
         );
 
         currentPlaylists[playlistIndex].tracks = filteredTracks;
+
+        writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
