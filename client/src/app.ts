@@ -3,6 +3,8 @@ import { RouterConfiguration, Router } from 'aurelia-router';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
+// @ts-ignore
+import * as Noty from 'noty';
 import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
@@ -109,7 +111,8 @@ export class App {
   }
 
   readPlaylistsFromLocalStorage() {
-    const playlists: IPlaylist[] = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
+    let playlists: IPlaylist[] = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
+    if (!playlists) playlists = [];
     this.store.dataStore.dispatch(deployPlaylists(playlists));
   }
 

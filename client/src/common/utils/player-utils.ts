@@ -1,20 +1,19 @@
 import * as _ from 'lodash';
 
-import { ITrack } from '../interfaces/track-interface';
+import { ITrack, ITrackBasic } from '../interfaces/track-interface';
+import { IReturn } from '../interfaces/player-util-interface';
 
-interface IReturn {
-  success: boolean;
-  track: ITrack;
-}
-
-export const getNextTrack = (trackArray: ITrack[], currentTrackId: number): IReturn => {
+export const getNextTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn => {
   if (trackArray.length <= 1)
     return {
       success: false,
       track: null,
     };
 
-  const currentTrackIndex = _.findIndex(trackArray, x => x.id === currentTrackId);
+  const currentTrackIndex = _.findIndex(
+    trackArray,
+    x => x.trackName === track.trackName && x.artistName === track.artistName
+  );
   if (currentTrackIndex === -1)
     return {
       success: false,
@@ -32,14 +31,17 @@ export const getNextTrack = (trackArray: ITrack[], currentTrackId: number): IRet
     };
 };
 
-export const getPrevTrack = (trackArray: ITrack[], currentTrackId: number): IReturn => {
+export const getPrevTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn => {
   if (trackArray.length <= 1)
     return {
       success: false,
       track: null,
     };
 
-  const currentTrackIndex = _.findIndex(trackArray, x => x.id === currentTrackId);
+  const currentTrackIndex = _.findIndex(
+    trackArray,
+    x => x.trackName === track.trackName && x.artistName === track.artistName
+  );
   if (currentTrackIndex === -1)
     return {
       success: false,

@@ -33,8 +33,8 @@ export class Tracks {
   }
 
   addToNowPlayingAndPlay(trackName: string, artistName: string, image: string) {
-    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
     this.store.dataStore.dispatch(addToNowPlaying(trackName, artistName, image));
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
   fetchTopTracks() {

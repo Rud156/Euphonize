@@ -11,6 +11,8 @@ import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 
 import Store from '../../common/utils/store';
 import AudioService from '../../common/services/audioService';
+import { shuffleNowPlaying } from '../../common/actions/now-playing-actions';
+import { IReturn } from '../../common/interfaces/player-util-interface';
 
 interface IPlayerTrackInterface extends ITrackBasic {
   currentTime: number;
@@ -37,7 +39,11 @@ export class MusicPlayer {
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
 
-  currentTrack: ITrackBasic;
+  currentTrack: ITrackBasic = {
+    trackName: '',
+    artistName: '',
+    image: '',
+  };
   playingTrack: IPlayerTrackInterface = {
     currentTime: 0,
     maxTime: 0,
@@ -47,6 +53,7 @@ export class MusicPlayer {
     artistName: '--',
     image: TRACK_IMAGE_PLACEHOLDER,
   };
+  replay: boolean = false;
 
   constructor(private store: Store, private audioService: AudioService) {
     this.store.dataStore.subscribe(this.handleStoreStateUpdate.bind(this));
@@ -54,12 +61,15 @@ export class MusicPlayer {
 
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
-    if (currentTrack.trackName !== this.currentTrack.trackName) {
-      this.getSongData(currentTrack);
+    if (
+      currentTrack.trackName !== this.currentTrack.trackName &&
+      currentTrack.artistName !== this.currentTrack.artistName
+    ) {
+      this.fetchAndPlayTrack(currentTrack);
     }
   }
 
-  getSongData(currentTrack: ITrackBasic) {
+  fetchAndPlayTrack(currentTrack: ITrackBasic) {
     this.audioIsLoading = true;
 
     this.audioService
@@ -84,7 +94,10 @@ export class MusicPlayer {
         }
       })
       .catch(error => {
-        console.log(error);
+        this.dispatchNotification(
+          'danger',
+          'Yikes! We were unable to load track. Please try again'
+        );
       });
   }
 
@@ -110,13 +123,37 @@ export class MusicPlayer {
     this.pauseAudio();
   }
 
-  handleRandomButtonClick(event: MouseEvent) {}
+  handleRandomButtonClick(event: MouseEvent) {
+    this.store.dataStore.dispatch(shuffleNowPlaying());
+  }
 
-  handlePrevTrackButtonClick(event: MouseEvent) {}
+  handlePrevTrackButtonClick(event: MouseEvent) {
+    const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
+    const result: IReturn = getPrevTrack(currentTracks, this.currentTrack);
 
-  handleNextButtonClick(event: MouseEvent) {}
+    if (result.success) {
+      const track = result.track;
+      this.fetchAndPlayTrack(track);
+    } else {
+      this.dispatchNotification('warning', 'No previous track to play');
+    }
+  }
 
-  handleReplayButtonClick(event: MouseEvent) {}
+  handleNextButtonClick(event: MouseEvent) {
+    const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
+    const result: IReturn = getNextTrack(currentTracks, this.currentTrack);
+
+    if (result.success) {
+      const track = result.track;
+      this.fetchAndPlayTrack(track);
+    } else {
+      this.dispatchNotification('warning', 'No next track to play');
+    }
+  }
+
+  handleReplayButtonClick(event: MouseEvent) {
+    this.replay = !this.replay;
+  }
 
   handleFavouriteButtonClick(event: MouseEvent) {}
 
@@ -162,6 +199,15 @@ export class MusicPlayer {
     };
     this.playingTrack = modifiedTrackData;
     this.playAudio();
+  }
+
+  dispatchNotification(notificationType: string, message: string) {
+    UIkit.notification({
+      message: message,
+      status: notificationType,
+      pos: 'top-right',
+      timeout: 5000,
+    });
   }
 
   attached() {

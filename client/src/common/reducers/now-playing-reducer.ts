@@ -3,6 +3,8 @@ import {
   REMOVE_FROM_NOW_PLAYING,
   SHUFFLE_NOW_PLAYING,
   ADD_PLAYLIST_TO_NOW_PLAYING,
+  PLAY_NEXT_TRACK_FROM_NOW_PLAYING,
+  PLAY_PREV_TRACK_FROM_NOW_PLAYING,
 } from '../actions/now-playing-actions';
 import { ITrack, ITrackBasic } from '../interfaces/track-interface';
 
@@ -77,7 +79,7 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
         };
       });
       const totalTracks = tracks.length;
-      
+
       return {
         tracks: modifiedTracks,
         id: modifiedTracks.length,

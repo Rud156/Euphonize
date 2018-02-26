@@ -105,15 +105,7 @@
             "path": "../node_modules/redux/dist",
             "main": "redux.min"
           },
-          "lodash",
-          {
-            "name": "noty",
-            "main": "lib/noty.min",
-            "path": "../node_modules/noty",
-            "resources": [
-              "lib/noty.css"
-            ]
-          }
+          "lodash"
         ]
       }
     ],
