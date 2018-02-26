@@ -19,11 +19,11 @@ export class Tracks {
 
   constructor(private trackService: TrackService, private store: Store) {}
 
-  handleTopTracksSelect(trackName: string, artistName: string, image: string) {
+  handleTopTracksPlay(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
-  handleTrendingTracksSelect(trackName: string, artistName: string, image: string) {
+  handleTrendingTracksPlay(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 

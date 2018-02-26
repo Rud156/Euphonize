@@ -1,20 +1,18 @@
 import { inject } from 'aurelia-framework';
-import * as _ from 'lodash';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
 
-import { ITrackInterface } from '../../common/reducers/player-reducer';
+import { ITrackBasic } from '../../common/interfaces/track-interface';
 
-import { addToFavourites } from '../../common/actions/favourite-actions';
-import { shufflePlaylist } from '../../common/actions/playlist-action';
+import { getNextTrack, getPrevTrack } from '../../common/utils/player-utils';
 
 import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 
 import Store from '../../common/utils/store';
 import AudioService from '../../common/services/audioService';
 
-interface IPlayerTrackInterface extends ITrackInterface {
+interface IPlayerTrackInterface extends ITrackBasic {
   currentTime: number;
   maxTime: number;
   audioURL: string;
@@ -39,7 +37,7 @@ export class MusicPlayer {
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
 
-  currentTrack: ITrackInterface;
+  currentTrack: ITrackBasic;
   playingTrack: IPlayerTrackInterface = {
     currentTime: 0,
     maxTime: 0,
@@ -56,12 +54,12 @@ export class MusicPlayer {
 
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
-    if (currentTrack.trackName !== this.playingTrack.trackName) {
+    if (currentTrack.trackName !== this.currentTrack.trackName) {
       this.getSongData(currentTrack);
     }
   }
 
-  getSongData(currentTrack: ITrackInterface) {
+  getSongData(currentTrack: ITrackBasic) {
     this.audioIsLoading = true;
 
     this.audioService
@@ -120,10 +118,7 @@ export class MusicPlayer {
 
   handleReplayButtonClick(event: MouseEvent) {}
 
-  handleFavouriteButtonClick(event: MouseEvent) {
-    const { trackName, artistName, image } = this.playingTrack;
-    this.store.dataStore.dispatch(addToFavourites(trackName, artistName, image));
-  }
+  handleFavouriteButtonClick(event: MouseEvent) {}
 
   handleSeekSliderChange(event: Event) {
     const currentTime = parseInt(this.seekSlider.value);
