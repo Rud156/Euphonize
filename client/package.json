@@ -15,6 +15,7 @@
     "bluebird": "^3.4.1",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
+    "popper.js": "^1.12.9",
     "redux": "^3.7.2",
     "requirejs": "^2.3.2",
     "text": "github:requirejs/text#latest",
