@@ -1,4 +1,5 @@
 import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -12,7 +13,7 @@ import { playSelectedTrack } from '../../common/actions/player-actions';
 import { addToNowPlaying } from '../../common/actions/now-playing-actions';
 import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
 
-@inject(TrackService, Store)
+@inject(TrackService, Store, EventAggregator)
 export class Tracks {
   sliderTracks: HTMLElement;
 
@@ -21,7 +22,11 @@ export class Tracks {
   trendingTracks = [];
   trendingTracksLoading: boolean = false;
 
-  constructor(private trackService: TrackService, private store: Store) {}
+  constructor(
+    private trackService: TrackService,
+    private store: Store,
+    private ea: EventAggregator
+  ) {}
 
   handleTracksPlay(trackName: string, artistName: string, image: string) {
     this.addToNowPlayingAndPlay(trackName, artistName, image);
@@ -60,7 +65,11 @@ export class Tracks {
         this.topTracksLoading = false;
       })
       .catch(error => {
-        console.log(error);
+        this.ea.publish('notification', {
+          type: 'danger',
+          message: 'Yikes! We were unable to load the data. Could you try again',
+          data: error,
+        });
         this.topTracksLoading = false;
       });
   }
@@ -77,7 +86,11 @@ export class Tracks {
         this.trendingTracksLoading = false;
       })
       .catch(error => {
-        console.log(error);
+        this.ea.publish('notification', {
+          type: 'danger',
+          message: 'Yikes! We were unable to load the data. Could you try again',
+          data: error,
+        });
         this.trendingTracksLoading = false;
       });
   }

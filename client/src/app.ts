@@ -1,4 +1,5 @@
 import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import { RouterConfiguration, Router } from 'aurelia-router';
 
 // @ts-ignore
@@ -15,7 +16,7 @@ import { IPlaylist, ISelectablePlaylist } from './common/interfaces/playlist-int
 import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { ITrackBasic } from './common/interfaces/track-interface';
 
-@inject(Store)
+@inject(Store, EventAggregator)
 export class App {
   router: Router;
 
@@ -32,8 +33,9 @@ export class App {
     image: '',
   };
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private ea: EventAggregator) {
     this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+    this.ea.subscribe('notification', this.handleDisplayNotification.bind(this));
   }
 
   handleStoreUpdate() {
@@ -44,6 +46,21 @@ export class App {
     ) {
       this.createPlaylistAndShowModal();
     }
+  }
+
+  handleDisplayNotification(notification) {
+    const message: string = notification.message;
+    const notificationType: string = notification.type;
+    
+    UIkit.notification({
+      message: message,
+      status: notificationType,
+      pos: 'top-right',
+      timeout: 5000,
+    });
+
+    const data: object = notification.data;
+    console.log(data);
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {

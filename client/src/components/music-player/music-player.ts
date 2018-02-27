@@ -1,4 +1,5 @@
 import { inject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -21,7 +22,7 @@ interface IPlayerTrackInterface extends ITrackBasic {
   volume: number;
 }
 
-@inject(Store, AudioService)
+@inject(Store, AudioService, EventAggregator)
 export class MusicPlayer {
   playerGrid: HTMLElement;
 
@@ -55,7 +56,11 @@ export class MusicPlayer {
   };
   replay: boolean = false;
 
-  constructor(private store: Store, private audioService: AudioService) {
+  constructor(
+    private store: Store,
+    private audioService: AudioService,
+    private ea: EventAggregator
+  ) {
     this.store.dataStore.subscribe(this.handleStoreStateUpdate.bind(this));
   }
 
@@ -94,10 +99,11 @@ export class MusicPlayer {
         }
       })
       .catch(error => {
-        this.dispatchNotification(
-          'danger',
-          'Yikes! We were unable to load track. Please try again'
-        );
+        this.ea.publish('notification', {
+          type: 'danger',
+          message: 'Yikes! We were unable to load track. Please try again',
+          data: error,
+        });
       });
   }
 
@@ -135,7 +141,11 @@ export class MusicPlayer {
       const track = result.track;
       this.fetchAndPlayTrack(track);
     } else {
-      this.dispatchNotification('warning', 'No previous track to play');
+      this.ea.publish('notification', {
+        type: 'warning',
+        message: 'No previous track to play',
+        data: {},
+      });
     }
   }
 
@@ -147,7 +157,11 @@ export class MusicPlayer {
       const track = result.track;
       this.fetchAndPlayTrack(track);
     } else {
-      this.dispatchNotification('warning', 'No next track to play');
+      this.ea.publish('notification', {
+        type: 'warning',
+        message: 'No next track to play',
+        data: {},
+      });
     }
   }
 
@@ -199,15 +213,6 @@ export class MusicPlayer {
     };
     this.playingTrack = modifiedTrackData;
     this.playAudio();
-  }
-
-  dispatchNotification(notificationType: string, message: string) {
-    UIkit.notification({
-      message: message,
-      status: notificationType,
-      pos: 'top-right',
-      timeout: 5000,
-    });
   }
 
   attached() {

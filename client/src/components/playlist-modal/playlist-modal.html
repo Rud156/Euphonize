@@ -1,7 +1,9 @@
 <template bindable="playlists, track, checkboxSelect, saveData">
   <div class="uk-modal-dialog">
     <div class="uk-modal-header">
-      <button class="uk-modal-close-default" type="button" uk-close></button>
+      <div class="uk-modal-close-default" type="button" style="cursor: pointer">
+        <i class="fas fa-times-circle black-text"></i>
+      </div>
       <h2 class="uk-modal-title">
         Add
         <span style="font-weight: bold">${track.trackName} - ${track.artistName}</span> To...
