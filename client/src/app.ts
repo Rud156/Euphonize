@@ -11,19 +11,32 @@ import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants'
 import Store from './common/utils/store';
 import { readFromLocalStorage } from './common/utils/utils';
 
-import { IPlaylist } from './common/interfaces/playlist-interface';
+import { IPlaylist, ISelectablePlaylist } from './common/interfaces/playlist-interface';
 import { deployPlaylists } from './common/actions/playlist-actions';
+import { ITrackBasic } from './common/interfaces/track-interface';
 
 @inject(Store)
 export class App {
   router: Router;
 
   sidebarRef: HTMLElement;
+  playlistModal: HTMLElement;
   sidebarShowing: boolean = false;
   searchString: string = '';
   styleString: string = 'color: white';
 
-  constructor(private store: Store) {}
+  playlists: ISelectablePlaylist[] = [];
+  selectedTrack: ITrackBasic = {
+    artistName: '',
+    trackName: '',
+    image: '',
+  };
+
+  constructor(private store: Store) {
+    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+  }
+
+  handleStoreUpdate() {}
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
@@ -78,6 +91,15 @@ export class App {
     ]);
   }
 
+  handleCheckboxSelect(index: number, state: boolean) {
+    // TODO: Complete This
+  }
+
+  handleSaveData() {
+    // TODO: Complete This
+    UIkit.modal(this.playlistModal).hide();
+  }
+
   attached() {
     this.initializeElements();
     this.readPlaylistsFromLocalStorage();
@@ -123,5 +145,7 @@ export class App {
     UIkit.util.on(this.sidebarRef, 'hidden', () => {
       this.closeSidebar();
     });
+
+    UIkit.modal(this.playlistModal);
   }
 }

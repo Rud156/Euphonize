@@ -2,6 +2,7 @@ import {
   CREATE_PLAYLIST,
   REMOVE_PLAYLIST,
   ADD_TRACK_TO_PLAYLIST,
+  ADD_TRACK_TO_MULTIPLE_PLAYLISTS,
   REMOVE_TRACK_FROM_PLAYLIST,
   DEPLOY_PLAYLISTS,
 } from '../actions/playlist-actions';
@@ -68,6 +69,26 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
           playlists: currentPlaylists,
         };
       }
+    }
+
+    case ADD_TRACK_TO_MULTIPLE_PLAYLISTS: {
+      const playlists: string[] = action.payload.playlists;
+      const playlistSet: Set<string> = new Set(playlists);
+      const track: ITrackBasic = action.payload.track;
+      const currentPlaylists = state.playlists;
+
+      const updatedPlaylists = currentPlaylists.map(element => {
+        if (playlistSet.has(element.name)) {
+          element.tracks.push(track);
+        }
+
+        return element;
+      });
+
+      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, updatedPlaylists);
+      return {
+        playlists: updatedPlaylists,
+      };
     }
 
     case REMOVE_TRACK_FROM_PLAYLIST: {

@@ -4,3 +4,8 @@ export interface IPlaylist {
   name: string;
   tracks: ITrackBasic[];
 }
+
+export interface ISelectablePlaylist {
+  selected: boolean;
+  name: string;
+}

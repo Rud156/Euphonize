@@ -4,6 +4,7 @@ import { IPlaylist } from '../interfaces/playlist-interface';
 export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
 export const ADD_TRACK_TO_PLAYLIST = 'ADD_TRACK_TO_PLAYLIST';
+export const ADD_TRACK_TO_MULTIPLE_PLAYLISTS = 'ADD_TRACK_TO_MULTIPLE_PLAYLISTS';
 export const REMOVE_TRACK_FROM_PLAYLIST = 'REMOVE_TRACK_FROM_PLAYLIST';
 export const DEPLOY_PLAYLISTS = 'DEPLOY_PLAYLISTS';
 
@@ -31,6 +32,16 @@ export const addTrackToPlaylist = (track: ITrackBasic, playlistName: string) => 
     payload: {
       track,
       name: playlistName,
+    },
+  };
+};
+
+export const addTrackToMultiplePlaylists = (track: ITrackBasic, playlists: string[]) => {
+  return {
+    type: ADD_TRACK_TO_MULTIPLE_PLAYLISTS,
+    payload: {
+      track,
+      playlists,
     },
   };
 };

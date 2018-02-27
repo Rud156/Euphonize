@@ -4,6 +4,7 @@
   <require from="./resources/css/app.css"></require>
 
   <require from="./components/music-player/music-player"></require>
+  <require from="./components/playlist-modal/playlist-modal.html"></require>
 
   <div style="margin-bottom: 21px;">
     <div class="uk-offcanvas-content">
@@ -33,6 +34,9 @@
         </div>
 
       </nav>
+
+      <playlist-modal ref="playlistModal" playlists.bind="playlists" checkbox-select.call="handleCheckboxSelect(index, state)"
+        save-data.call="handleSaveData()" track.bind="selectedTrack"></playlist-modal>
 
       <music-player></music-player>
 

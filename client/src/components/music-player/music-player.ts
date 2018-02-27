@@ -35,7 +35,7 @@ export class MusicPlayer {
   pauseButton: HTMLElement;
   nextTrackButton: HTMLElement;
   replayButton: HTMLElement;
-  favouriteButton: HTMLElement;
+  playlistButton: HTMLElement;
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
 
@@ -155,7 +155,7 @@ export class MusicPlayer {
     this.replay = !this.replay;
   }
 
-  handleFavouriteButtonClick(event: MouseEvent) {}
+  handlePlaylistButtonClick(event: MouseEvent) {}
 
   handleSeekSliderChange(event: Event) {
     const currentTime = parseInt(this.seekSlider.value);
@@ -226,7 +226,7 @@ export class MusicPlayer {
     this.pauseButton.addEventListener('click', this.handlePauseButtonClick.bind(this));
     this.nextTrackButton.addEventListener('click', this.handleNextButtonClick.bind(this));
     this.prevTrackButton.addEventListener('click', this.handlePrevTrackButtonClick.bind(this));
-    this.favouriteButton.addEventListener('click', this.handleFavouriteButtonClick.bind(this));
+    this.playlistButton.addEventListener('click', this.handlePlaylistButtonClick.bind(this));
     this.replayButton.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.randomButton.addEventListener('click', this.handleRandomButtonClick.bind(this));
     this.volumeSlider.addEventListener('input', this.handleVolumeSliderChange.bind(this));
@@ -243,7 +243,7 @@ export class MusicPlayer {
     this.pauseButton.removeEventListener('click', this.handlePauseButtonClick);
     this.nextTrackButton.removeEventListener('click', this.handleNextButtonClick);
     this.prevTrackButton.removeEventListener('click', this.handlePrevTrackButtonClick);
-    this.favouriteButton.removeEventListener('click', this.handleFavouriteButtonClick);
+    this.playlistButton.removeEventListener('click', this.handlePlaylistButtonClick);
     this.replayButton.removeEventListener('click', this.handleReplayButtonClick);
     this.randomButton.removeEventListener('click', this.handleRandomButtonClick);
     this.volumeSlider.removeEventListener('input', this.handleVolumeSliderChange);
