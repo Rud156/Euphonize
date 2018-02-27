@@ -12,7 +12,7 @@ import Store from './common/utils/store';
 import { readFromLocalStorage } from './common/utils/utils';
 
 import { IPlaylist, ISelectablePlaylist } from './common/interfaces/playlist-interface';
-import { deployPlaylists } from './common/actions/playlist-actions';
+import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { ITrackBasic } from './common/interfaces/track-interface';
 
 @inject(Store)
@@ -36,7 +36,15 @@ export class App {
     this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
   }
 
-  handleStoreUpdate() {}
+  handleStoreUpdate() {
+    const selectedTrack = this.store.dataStore.getState().trackPlaylist.selectedTrack;
+    if (
+      selectedTrack.artistName !== this.selectedTrack.artistName &&
+      selectedTrack.trackName !== this.selectedTrack.trackName
+    ) {
+      this.createPlaylistAndShowModal();
+    }
+  }
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
@@ -91,12 +99,34 @@ export class App {
     ]);
   }
 
+  createPlaylistAndShowModal() {
+    const playlists = this.store.dataStore.getState().playlist.playlists;
+    this.playlists = playlists.map(element => {
+      return {
+        selected: false,
+        name: element.name,
+      };
+    });
+    UIkit.modal(this.playlistModal).show();
+  }
+
   handleCheckboxSelect(index: number, state: boolean) {
-    // TODO: Complete This
+    this.playlists[index].selected = state;
   }
 
   handleSaveData() {
-    // TODO: Complete This
+    const selectedPlaylists = this.playlists
+      .filter(element => {
+        return element.selected;
+      })
+      .map(element => {
+        return element.name;
+      });
+
+    this.store.dataStore.dispatch(
+      addTrackToMultiplePlaylists(this.selectedTrack, selectedPlaylists)
+    );
+    
     UIkit.modal(this.playlistModal).hide();
   }
 

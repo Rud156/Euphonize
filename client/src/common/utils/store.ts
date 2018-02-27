@@ -1,17 +1,19 @@
-import { createStore, combineReducers, Store } from 'redux';
+import { createStore, combineReducers, Store, Reducer } from 'redux';
 
 import { nowPlayingReducer, INowPlayingReducer } from '../reducers/now-playing-reducer';
 import { playerReducer, IPlayerReducer } from '../reducers/player-reducer';
 import { playlistReducer, IPlaylistReducer } from '../reducers/playlist-reducer';
+import { trackPlaylistReducer, ITrackPlaylistReducer } from '../reducers/track-playlist-reducer';
 
 interface IStore {
   playlist: IPlaylistReducer;
   player: IPlayerReducer;
   nowPlaying: INowPlayingReducer;
+  trackPlaylist: ITrackPlaylistReducer;
 }
 
 class StoreClass {
-  private combinedReducers;
+  private combinedReducers: Reducer<IStore>;
   public dataStore: Store<IStore>;
 
   constructor() {
@@ -19,6 +21,7 @@ class StoreClass {
       playlist: playlistReducer,
       player: playerReducer,
       nowPlaying: nowPlayingReducer,
+      trackPlaylist: trackPlaylistReducer,
     });
 
     this.dataStore = createStore(
