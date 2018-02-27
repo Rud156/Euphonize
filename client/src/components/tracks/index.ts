@@ -10,6 +10,7 @@ import { CONTENT_TYPES } from '../../common/utils/constants';
 
 import { playSelectedTrack } from '../../common/actions/player-actions';
 import { addToNowPlaying } from '../../common/actions/now-playing-actions';
+import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
 
 @inject(TrackService, Store)
 export class Tracks {
@@ -24,6 +25,16 @@ export class Tracks {
 
   handleTracksPlay(trackName: string, artistName: string, image: string) {
     this.addToNowPlayingAndPlay(trackName, artistName, image);
+  }
+
+  handleTracksAddToPlaylist(trackName: string, artistName: string, image: string) {
+    this.store.dataStore.dispatch(
+      selectTrackForPlaylist({
+        trackName,
+        artistName,
+        image,
+      })
+    );
   }
 
   attached() {

@@ -32,7 +32,8 @@
             </thead>
             <tbody>
               <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name"
-                artist-name.bind="track.artist_name" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"></tr>
+                artist-name.bind="track.artist_name" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+                add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>
         </div>
@@ -54,7 +55,7 @@
           <ul class="uk-slider-items">
             <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
               <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"
-                play-track.call="handleTracksPlay(trackName, artistName, image)"></track-card>
+                play-track.call="handleTracksPlay(trackName, artistName, image)" add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></track-card>
             </li>
           </ul>
           <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">

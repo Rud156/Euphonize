@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, artistName, playTrack">
+<template bindable="trackImage, trackName, artistName, playTrack, addTrack">
   <div>
     <img src="${trackImage}" alt="${trackName}" style="width: 100%; height: 100%">
     <div class="uk-position-center uk-panel overlay-content">
@@ -10,7 +10,7 @@
         <div click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage})">
           <i class="fas fa-play-circle fa-3x cursor-pointer color-hover padding-21"></i>
         </div>
-        <div>
+        <div click.delegate="addTrack({trackName: trackName, artistName: artistName, image: trackImage})">
           <i class="fas fa-plus-circle fa-3x cursor-pointer color-hover padding-21"></i>
         </div>
       </div>
