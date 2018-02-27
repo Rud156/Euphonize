@@ -49,6 +49,8 @@ export class App {
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
     config.title = 'Fumen';
+    config.options.pushState = true;
+    config.options.root = '/';
     config.map([
       {
         route: '',
@@ -126,7 +128,7 @@ export class App {
     this.store.dataStore.dispatch(
       addTrackToMultiplePlaylists(this.selectedTrack, selectedPlaylists)
     );
-    
+
     UIkit.modal(this.playlistModal).hide();
   }
 
