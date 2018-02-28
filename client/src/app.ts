@@ -51,7 +51,7 @@ export class App {
   handleDisplayNotification(notification) {
     const message: string = notification.message;
     const notificationType: string = notification.type;
-    
+
     UIkit.notification({
       message: message,
       status: notificationType,
@@ -120,6 +120,7 @@ export class App {
 
   createPlaylistAndShowModal() {
     const playlists = this.store.dataStore.getState().playlist.playlists;
+    this.selectedTrack = this.store.dataStore.getState().trackPlaylist.selectedTrack;
     this.playlists = playlists.map(element => {
       return {
         selected: false,
@@ -147,6 +148,15 @@ export class App {
     );
 
     UIkit.modal(this.playlistModal).hide();
+    this.closePlaylistModal();
+  }
+
+  closePlaylistModal() {
+    this.selectedTrack = {
+      trackName: '',
+      artistName: '',
+      image: '',
+    };
   }
 
   attached() {
@@ -196,5 +206,8 @@ export class App {
     });
 
     UIkit.modal(this.playlistModal);
+    UIkit.util.on(this.playlistModal, 'hidden', () => {
+      this.closePlaylistModal();
+    });
   }
 }

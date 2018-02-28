@@ -5,6 +5,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import * as UIkit from 'uikit';
 
 import { ITrackBasic } from '../../common/interfaces/track-interface';
+import { IReturn } from '../../common/interfaces/player-util-interface';
 
 import { getNextTrack, getPrevTrack } from '../../common/utils/player-utils';
 
@@ -12,8 +13,9 @@ import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 
 import Store from '../../common/utils/store';
 import AudioService from '../../common/services/audioService';
+
 import { shuffleNowPlaying } from '../../common/actions/now-playing-actions';
-import { IReturn } from '../../common/interfaces/player-util-interface';
+import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
 
 interface IPlayerTrackInterface extends ITrackBasic {
   currentTime: number;
@@ -169,7 +171,9 @@ export class MusicPlayer {
     this.replay = !this.replay;
   }
 
-  handlePlaylistButtonClick(event: MouseEvent) {}
+  handlePlaylistButtonClick(event: MouseEvent) {
+    this.store.dataStore.dispatch(selectTrackForPlaylist(this.currentTrack));
+  }
 
   handleSeekSliderChange(event: Event) {
     const currentTime = parseInt(this.seekSlider.value);
