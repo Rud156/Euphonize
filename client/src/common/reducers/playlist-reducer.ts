@@ -5,20 +5,19 @@ import {
   ADD_TRACK_TO_MULTIPLE_PLAYLISTS,
   REMOVE_TRACK_FROM_PLAYLIST,
   DEPLOY_PLAYLISTS,
-  IMPORT_PLAYLISTS,
 } from '../actions/playlist-actions';
 import { writeToLocalStorage } from '../utils/utils';
 
-import { IPlaylist } from '../interfaces/playlist-interface';
+import { IPlaylist, IPlaylistDictionary } from '../interfaces/playlist-interface';
 import { ITrackBasic } from '../interfaces/track-interface';
 import { PLAYLIST_LOCAL_STORAGE } from '../utils/constants';
 
 export interface IPlaylistReducer {
-  playlists: IPlaylist[];
+  playlists: IPlaylistDictionary;
 }
 
 const defaultState: IPlaylistReducer = {
-  playlists: [],
+  playlists: {},
 };
 
 export const playlistReducer = (state = defaultState, action): IPlaylistReducer => {
@@ -26,19 +25,15 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
     case CREATE_PLAYLIST: {
       const currentPlaylists = state.playlists;
       const playlistName: string = action.payload.name;
-      const playlistIndex = currentPlaylists.findIndex(_ => _.name === playlistName);
 
-      if (playlistIndex !== -1) return state;
-      else {
-        currentPlaylists.push({
-          name: playlistName,
-          tracks: [],
-        });
-
+      if (playlistName in currentPlaylists) {
+        currentPlaylists[playlistName] = [];
         writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
+      } else {
+        return state;
       }
     }
 
@@ -46,49 +41,41 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const playlistToRemoveName: string = action.payload.name;
       const currentPlaylists = state.playlists;
 
-      const filteredPlaylists = currentPlaylists.filter(element => {
-        element.name !== playlistToRemoveName;
-      });
+      delete currentPlaylists[playlistToRemoveName];
 
-      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, filteredPlaylists);
+      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
       return {
-        playlists: filteredPlaylists,
+        playlists: currentPlaylists,
       };
     }
 
     case ADD_TRACK_TO_PLAYLIST: {
       const playlistName: string = action.payload.name;
       const currentPlaylists = state.playlists;
-      const playlistIndex = currentPlaylists.findIndex(_ => _.name === playlistName);
 
-      if (playlistIndex === -1) return state;
-      else {
-        currentPlaylists[playlistIndex].tracks.push(action.payload.track);
-
+      if (playlistName in currentPlaylists) {
+        currentPlaylists[playlistName].push(action.payload.track);
         writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
+      } else {
+        return state;
       }
     }
 
     case ADD_TRACK_TO_MULTIPLE_PLAYLISTS: {
       const playlists: string[] = action.payload.playlists;
-      const playlistSet: Set<string> = new Set(playlists);
       const track: ITrackBasic = action.payload.track;
       const currentPlaylists = state.playlists;
 
-      const updatedPlaylists = currentPlaylists.map(element => {
-        if (playlistSet.has(element.name)) {
-          element.tracks.push(track);
-        }
-
-        return element;
+      playlists.forEach(element => {
+        if (element in currentPlaylists) currentPlaylists[element].push(track);
       });
 
-      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, updatedPlaylists);
+      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
       return {
-        playlists: updatedPlaylists,
+        playlists: currentPlaylists,
       };
     }
 
@@ -96,39 +83,36 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const playlistName: string = action.payload.name;
       const currentPlaylists = state.playlists;
       const trackToRemove: ITrackBasic = action.payload.track;
-      const playlistIndex = currentPlaylists.findIndex(_ => _.name === playlistName);
 
-      if (playlistIndex === -1) return state;
-      else {
-        const filteredTracks: ITrackBasic[] = currentPlaylists[playlistIndex].tracks.filter(
-          element => {
-            return (
-              element.trackName !== trackToRemove.trackName &&
-              element.image !== trackToRemove.image &&
-              element.artistName !== trackToRemove.artistName
-            );
-          }
-        );
+      if (playlistName in currentPlaylists) {
+        const filteredTracks: ITrackBasic[] = currentPlaylists[playlistName].filter(element => {
+          return (
+            element.trackName !== trackToRemove.trackName &&
+            element.image !== trackToRemove.image &&
+            element.artistName !== trackToRemove.artistName
+          );
+        });
 
-        currentPlaylists[playlistIndex].tracks = filteredTracks;
-
+        currentPlaylists[playlistName] = filteredTracks;
         writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
+      } else {
+        return state;
       }
     }
 
     case DEPLOY_PLAYLISTS: {
-      return {
-        playlists: action.payload.playlists,
-      };
-    }
-
-    case IMPORT_PLAYLISTS: {
       const playlists: IPlaylist[] = action.payload.playlists;
+      const createdPlaylists = {};
+
+      playlists.forEach(element => {
+        createdPlaylists[element.name] = element.tracks;
+      });
+
       return {
-        playlists,
+        playlists: createdPlaylists,
       };
     }
 

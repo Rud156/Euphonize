@@ -4,7 +4,8 @@ import { inject } from 'aurelia-framework';
 import * as UIkit from 'uikit';
 
 import Store from '../../common/utils/store';
-import { IPlaylist } from '../../common/interfaces/playlist-interface';
+import { IPlaylist, IPlaylistDictionary } from '../../common/interfaces/playlist-interface';
+import { deployPlaylists } from '../../common/actions/playlist-actions';
 
 @inject(Store)
 export class MyLibrary {
@@ -14,8 +15,16 @@ export class MyLibrary {
   playlistName: string = '';
   playlistFile: File[] = [];
   fileContents: string;
+  savingPlaylist: boolean = false;
 
-  constructor(private store: Store) {}
+  fileReader: FileReader = new FileReader();
+
+  constructor(private store: Store) {
+    this.fileReader.onload = (event: Event) => {
+      // @ts-ignore
+      this.fileContents = event.target.result;
+    };
+  }
 
   addNewPlaylist() {
     if (this.playlistName) {
@@ -23,10 +32,47 @@ export class MyLibrary {
       this.playlistName = '';
       UIkit.modal(this.newPlaylistModal).hide();
     } else {
-      const currentPlaylists: IPlaylist[] = this.store.dataStore.getState().playlist.playlists;
-      const uploadedPlaylists: IPlaylist[] = JSON.parse(this.fileContents);
+      this.savingPlaylist = true;
+      Promise.resolve(this.handleFilePlaylistSave()).then(() => {
+        this.savingPlaylist = false;
+      });
     }
-    // TODO: Implement Logic to Handle File Upload
+  }
+
+  handleFilePlaylistSave() {
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    const uploadedPlaylists: IPlaylist[] = JSON.parse(this.fileContents);
+
+    uploadedPlaylists.forEach(element => {
+      if (element.name in currentPlaylists) {
+        const currentTracks = currentPlaylists[element.name];
+        const newTracks = element.tracks;
+
+        for (let i = 0; i < newTracks.length; i++) {
+          let found = false;
+
+          for (let j = 0; j < currentTracks.length; j++) {
+            if (
+              currentTracks[j].trackName === newTracks[i].trackName &&
+              currentTracks[j].artistName === newTracks[i].artistName
+            ) {
+              found = true;
+              break;
+            }
+          }
+
+          if (!found) {
+            currentTracks.push(newTracks[i]);
+          }
+        }
+
+        currentPlaylists[element.name] = currentTracks;
+      } else {
+        currentPlaylists[element.name] = element.tracks;
+      }
+    });
+
+    this.store.dataStore.dispatch(deployPlaylists(currentPlaylists));
   }
 
   openNewPlaylistModal() {

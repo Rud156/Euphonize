@@ -10,7 +10,7 @@ import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants'
 import Store from './common/utils/store';
 import { readFromLocalStorage } from './common/utils/utils';
 
-import { IPlaylist, ISelectablePlaylist } from './common/interfaces/playlist-interface';
+import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/playlist-interface';
 import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { ITrackBasic } from './common/interfaces/track-interface';
 
@@ -124,10 +124,12 @@ export class App {
   createPlaylistAndShowModal() {
     const playlists = this.store.dataStore.getState().playlist.playlists;
     this.selectedTrack = this.store.dataStore.getState().trackPlaylist.selectedTrack;
-    this.playlists = playlists.map(element => {
+    const keys = Object.keys(playlists);
+
+    this.playlists = keys.map(element => {
       return {
         selected: false,
-        name: element.name,
+        name: element,
       };
     });
     UIkit.modal(this.playlistModal).show();
@@ -196,8 +198,8 @@ export class App {
   }
 
   readPlaylistsFromLocalStorage() {
-    let playlists: IPlaylist[] = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
-    if (!playlists) playlists = [];
+    let playlists: IPlaylistDictionary = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
+    if (!playlists) playlists = {};
     this.store.dataStore.dispatch(deployPlaylists(playlists));
   }
 

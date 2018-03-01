@@ -1,5 +1,5 @@
 import { ITrackBasic } from '../interfaces/track-interface';
-import { IPlaylist } from '../interfaces/playlist-interface';
+import { IPlaylist, IPlaylistDictionary } from '../interfaces/playlist-interface';
 
 export const CREATE_PLAYLIST = 'CREATE_PLAYLIST';
 export const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
@@ -7,7 +7,6 @@ export const ADD_TRACK_TO_PLAYLIST = 'ADD_TRACK_TO_PLAYLIST';
 export const ADD_TRACK_TO_MULTIPLE_PLAYLISTS = 'ADD_TRACK_TO_MULTIPLE_PLAYLISTS';
 export const REMOVE_TRACK_FROM_PLAYLIST = 'REMOVE_TRACK_FROM_PLAYLIST';
 export const DEPLOY_PLAYLISTS = 'DEPLOY_PLAYLISTS';
-export const IMPORT_PLAYLISTS = 'IMPORT_PLAYLISTS';
 
 export const createPlaylist = (playlistName: string) => {
   return {
@@ -57,18 +56,9 @@ export const removeTrackFromPlaylist = (track: ITrackBasic, playlistName: string
   };
 };
 
-export const deployPlaylists = (playlists: IPlaylist[]) => {
+export const deployPlaylists = (playlists: IPlaylistDictionary) => {
   return {
     type: DEPLOY_PLAYLISTS,
-    payload: {
-      playlists,
-    },
-  };
-};
-
-export const importPlaylists = (playlists: IPlaylist[]) => {
-  return {
-    type: IMPORT_PLAYLISTS,
     payload: {
       playlists,
     },

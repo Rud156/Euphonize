@@ -9,3 +9,7 @@ export interface ISelectablePlaylist {
   selected: boolean;
   name: string;
 }
+
+export interface IPlaylistDictionary {
+  [name: string]: ITrackBasic[];
+}
