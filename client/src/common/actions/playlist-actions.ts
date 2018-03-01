@@ -7,6 +7,7 @@ export const ADD_TRACK_TO_PLAYLIST = 'ADD_TRACK_TO_PLAYLIST';
 export const ADD_TRACK_TO_MULTIPLE_PLAYLISTS = 'ADD_TRACK_TO_MULTIPLE_PLAYLISTS';
 export const REMOVE_TRACK_FROM_PLAYLIST = 'REMOVE_TRACK_FROM_PLAYLIST';
 export const DEPLOY_PLAYLISTS = 'DEPLOY_PLAYLISTS';
+export const IMPORT_PLAYLISTS = 'IMPORT_PLAYLISTS';
 
 export const createPlaylist = (playlistName: string) => {
   return {
@@ -59,6 +60,15 @@ export const removeTrackFromPlaylist = (track: ITrackBasic, playlistName: string
 export const deployPlaylists = (playlists: IPlaylist[]) => {
   return {
     type: DEPLOY_PLAYLISTS,
+    payload: {
+      playlists,
+    },
+  };
+};
+
+export const importPlaylists = (playlists: IPlaylist[]) => {
+  return {
+    type: IMPORT_PLAYLISTS,
     payload: {
       playlists,
     },

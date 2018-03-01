@@ -30,7 +30,7 @@
         </form>
         <hr class="uk-divider-icon">
         <div ref="playlistImportForm" style="text-align: center; width: 100%">
-          <input type="file">
+          <input type="file" change.delegate="handleFileUpload($event)" files.bind="playlistFile">
           <button type="button" class="uk-button uk-button-default" tabindex="-1" style="margin: 0 auto;">Import Playlist</button>
         </div>
       </div>

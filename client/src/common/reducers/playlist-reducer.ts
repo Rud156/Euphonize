@@ -5,6 +5,7 @@ import {
   ADD_TRACK_TO_MULTIPLE_PLAYLISTS,
   REMOVE_TRACK_FROM_PLAYLIST,
   DEPLOY_PLAYLISTS,
+  IMPORT_PLAYLISTS,
 } from '../actions/playlist-actions';
 import { writeToLocalStorage } from '../utils/utils';
 
@@ -121,6 +122,13 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
     case DEPLOY_PLAYLISTS: {
       return {
         playlists: action.payload.playlists,
+      };
+    }
+
+    case IMPORT_PLAYLISTS: {
+      const playlists: IPlaylist[] = action.payload.playlists;
+      return {
+        playlists,
       };
     }
 
