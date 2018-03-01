@@ -9,6 +9,7 @@ import Store from '../../common/utils/store';
 export class MyLibrary {
   playlistName: string = '';
   newPlaylistModal: HTMLElement;
+  playlistImportForm: HTMLElement;
 
   constructor(private store: Store) {}
 
@@ -26,5 +27,6 @@ export class MyLibrary {
     UIkit.modal(this.newPlaylistModal, {
       bgClose: false,
     });
+    UIkit.formCustom(this.playlistImportForm);
   }
 }

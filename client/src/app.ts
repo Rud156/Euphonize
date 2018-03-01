@@ -1,11 +1,9 @@
 import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 import { RouterConfiguration, Router } from 'aurelia-router';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
-// @ts-ignore
-import * as Noty from 'noty';
 import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
@@ -33,9 +31,14 @@ export class App {
     image: '',
   };
 
+  notificationSubs: Subscription;
+
   constructor(private store: Store, private ea: EventAggregator) {
     this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
-    this.ea.subscribe('notification', this.handleDisplayNotification.bind(this));
+    this.notificationSubs = this.ea.subscribe(
+      'notification',
+      this.handleDisplayNotification.bind(this)
+    );
   }
 
   handleStoreUpdate() {
@@ -165,6 +168,7 @@ export class App {
   }
 
   detached() {
+    this.notificationSubs.dispose();
     // @ts-ignore
     this.sidebarRef.$destroy();
   }

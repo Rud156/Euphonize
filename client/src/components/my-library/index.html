@@ -28,6 +28,11 @@
             <input type="text" class="uk-input" value.bind="playlistName" placeholder="Enter Playlist Name..." style="width: 100%">
           </div>
         </form>
+        <hr class="uk-divider-icon">
+        <div ref="playlistImportForm" style="text-align: center; width: 100%">
+          <input type="file">
+          <button type="button" class="uk-button uk-button-default" tabindex="-1" style="margin: 0 auto;">Import Playlist</button>
+        </div>
       </div>
       <div class="uk-modal-footer uk-text-right">
         <button class="uk-button uk-button-default" type="button" click.delegate="addNewPlaylist()">Save</button>

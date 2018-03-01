@@ -6,6 +6,9 @@
     "type": "???",
     "url": "???"
   },
+  "scripts": {
+    "serve": "serve /"
+  },
   "license": "MIT",
   "dependencies": {
     "add": "^2.0.6",
@@ -15,7 +18,6 @@
     "bluebird": "^3.4.1",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
-    "popper.js": "^1.12.9",
     "redux": "^3.7.2",
     "requirejs": "^2.3.2",
     "text": "github:requirejs/text#latest",
@@ -46,6 +48,7 @@
     "gulp-typescript": "^3.1.4",
     "gulp-watch": "^4.3.11",
     "minimatch": "^3.0.2",
+    "serve": "^6.5.0",
     "through2": "^2.0.1",
     "tslint": "^3.11.0",
     "typescript": ">=1.9.0-dev || ^2.0.0",
