@@ -4,14 +4,15 @@ import { inject } from 'aurelia-framework';
 import * as UIkit from 'uikit';
 
 import Store from '../../common/utils/store';
-import { IPlaylist, IPlaylistDictionary } from '../../common/interfaces/playlist-interface';
-import { deployPlaylists } from '../../common/actions/playlist-actions';
-import { convertDictToList } from '../../common/utils/player-utils';
+import { IPlaylist, IPlaylistView } from '../../common/interfaces/playlist-interface';
+import { deployPlaylists, createPlaylist } from '../../common/actions/playlist-actions';
+import { convertDictToList, convertDictToPlaylistView } from '../../common/utils/player-utils';
 
 @inject(Store)
 export class MyLibrary {
   newPlaylistModal: HTMLElement;
   playlistImportForm: HTMLElement;
+  playlistGrid: HTMLElement;
 
   playlistName: string = '';
   playlistFile: File[] = [];
@@ -20,7 +21,7 @@ export class MyLibrary {
 
   fileReader: FileReader = new FileReader();
 
-  playlists: IPlaylist[] = [];
+  playlists: IPlaylistView[] = [];
 
   constructor(private store: Store) {
     this.fileReader.onload = (event: Event) => {
@@ -33,13 +34,13 @@ export class MyLibrary {
 
   handleStoreUpdate() {
     const playlist = this.store.dataStore.getState().playlist.playlists;
-    const modifiedPlaylist = convertDictToList(playlist);
-    this.playlists = modifiedPlaylist;
+    const modifiedPlaylists: IPlaylistView[] = convertDictToPlaylistView(playlist);
+    this.playlists = modifiedPlaylists;
   }
 
   addNewPlaylist() {
     if (this.playlistName) {
-      console.log(this.playlistName);
+      this.store.dataStore.dispatch(createPlaylist(this.playlistName));
       this.playlistName = '';
       UIkit.modal(this.newPlaylistModal).hide();
     } else {
@@ -111,9 +112,15 @@ export class MyLibrary {
   }
 
   attached() {
+    this.handleStoreUpdate();
+    this.initializeElements();
+  }
+
+  initializeElements() {
     UIkit.modal(this.newPlaylistModal, {
       bgClose: false,
     });
     UIkit.formCustom(this.playlistImportForm);
+    UIkit.grid(this.playlistGrid);
   }
 }

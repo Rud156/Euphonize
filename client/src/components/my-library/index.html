@@ -2,8 +2,6 @@
   <require from="./index.css"></require>
   <require from="./../loader/loader.html"></require>
 
-  <h2 class="category-header">My Library</h2>
-
   <!-- Add Playlist Modal -->
   <div class="uk-position-absolute uk-box-shadow-hover-large library-absolute-buttons library-add-playlist" style="cursor: pointer"
     click.delegate="openNewPlaylistModal()">
@@ -48,4 +46,12 @@
     <i class="fas fa-upload"></i>
   </div>
   <!-- End of Export Playlist Button -->
+
+  <h2 class="category-header">My Library</h2>
+
+  <div class="uk-grid-medium uk-child-width-expand@s uk-text-center" ref="playlistGrid">
+    <div repeat.for="playlist of playlists">
+      <div class="uk-card uk-card-default uk-card-body">${playlist.name}</div>
+    </div>
+  </div>
 </template>

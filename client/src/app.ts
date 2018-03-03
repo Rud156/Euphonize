@@ -165,6 +165,7 @@ export class App {
   }
 
   attached() {
+    this.handleStoreUpdate();
     this.initializeElements();
     this.readPlaylistsFromLocalStorage();
   }

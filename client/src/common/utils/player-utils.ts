@@ -2,7 +2,8 @@ import * as _ from 'lodash';
 
 import { ITrack, ITrackBasic } from '../interfaces/track-interface';
 import { IReturn } from '../interfaces/player-util-interface';
-import { IPlaylistDictionary, IPlaylist } from '../interfaces/playlist-interface';
+import { IPlaylistDictionary, IPlaylist, IPlaylistView } from '../interfaces/playlist-interface';
+import { TRACK_IMAGE_PLACEHOLDER } from './constants';
 
 export const getNextTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn => {
   if (trackArray.length <= 1)
@@ -83,4 +84,21 @@ export const convertListToDict = (playlist: IPlaylist[]): IPlaylistDictionary =>
   });
 
   return playlistDict;
+};
+
+export const convertDictToPlaylistView = (playlist: IPlaylistDictionary): IPlaylistView[] => {
+  const keys = Object.keys(playlist);
+  const playlistView: IPlaylistView[] = [];
+
+  keys.forEach(element => {
+    const tempObject: IPlaylistView = {
+      name: element,
+      image: playlist[element].length > 0 ? playlist[element][0].image : TRACK_IMAGE_PLACEHOLDER,
+      totalTracks: playlist[element].length,
+    };
+
+    playlistView.push(tempObject);
+  });
+
+  return playlistView;
 };

@@ -13,3 +13,9 @@ export interface ISelectablePlaylist {
 export interface IPlaylistDictionary {
   [name: string]: ITrackBasic[];
 }
+
+export interface IPlaylistView {
+  name: string;
+  totalTracks: number;
+  image: string;
+}

@@ -27,13 +27,13 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const playlistName: string = action.payload.name;
 
       if (playlistName in currentPlaylists) {
+        return state;
+      } else {
         currentPlaylists[playlistName] = [];
         writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
         return {
           playlists: currentPlaylists,
         };
-      } else {
-        return state;
       }
     }
 
