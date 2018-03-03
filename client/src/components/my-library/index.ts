@@ -6,6 +6,7 @@ import * as UIkit from 'uikit';
 import Store from '../../common/utils/store';
 import { IPlaylist, IPlaylistDictionary } from '../../common/interfaces/playlist-interface';
 import { deployPlaylists } from '../../common/actions/playlist-actions';
+import { convertDictToList } from '../../common/utils/player-utils';
 
 @inject(Store)
 export class MyLibrary {
@@ -19,11 +20,21 @@ export class MyLibrary {
 
   fileReader: FileReader = new FileReader();
 
+  playlists: IPlaylist[] = [];
+
   constructor(private store: Store) {
     this.fileReader.onload = (event: Event) => {
       // @ts-ignore
       this.fileContents = event.target.result;
     };
+
+    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+  }
+
+  handleStoreUpdate() {
+    const playlist = this.store.dataStore.getState().playlist.playlists;
+    const modifiedPlaylist = convertDictToList(playlist);
+    this.playlists = modifiedPlaylist;
   }
 
   addNewPlaylist() {
@@ -79,9 +90,23 @@ export class MyLibrary {
     UIkit.modal(this.newPlaylistModal).show();
   }
 
+  exportPlaylistModal() {
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    const dataString: string = `data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify(currentPlaylists)
+    )}`;
+
+    const anchorElement = document.createElement('a');
+    anchorElement.setAttribute('href', dataString);
+    anchorElement.setAttribute('download', 'playlist.json');
+    anchorElement.click();
+    anchorElement.remove();
+  }
+
   handleFileUpload(event: Event) {
     if (this.playlistFile.length >= 1) {
-      console.log(this.playlistFile[0].name);
+      const file: File = this.playlistFile[0];
+      this.fileReader.readAsText(file);
     }
   }
 

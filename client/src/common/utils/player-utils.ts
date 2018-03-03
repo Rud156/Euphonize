@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { ITrack, ITrackBasic } from '../interfaces/track-interface';
 import { IReturn } from '../interfaces/player-util-interface';
+import { IPlaylistDictionary, IPlaylist } from '../interfaces/playlist-interface';
 
 export const getNextTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn => {
   if (trackArray.length <= 1)
@@ -57,4 +58,29 @@ export const getPrevTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn 
       success: true,
       track: trackArray[currentTrackIndex - 1],
     };
+};
+
+export const convertDictToList = (playlist: IPlaylistDictionary): IPlaylist[] => {
+  const keys = Object.keys(playlist);
+  const playlistList: IPlaylist[] = [];
+
+  keys.forEach(element => {
+    const tempObject: IPlaylist = {
+      name: element,
+      tracks: playlist[element],
+    };
+    playlistList.push(tempObject);
+  });
+
+  return playlistList;
+};
+
+export const convertListToDict = (playlist: IPlaylist[]): IPlaylistDictionary => {
+  const playlistDict: IPlaylistDictionary = {};
+
+  playlist.forEach(element => {
+    playlistDict[element.name] = element.tracks;
+  });
+
+  return playlistDict;
 };

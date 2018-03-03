@@ -104,15 +104,10 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
     }
 
     case DEPLOY_PLAYLISTS: {
-      const playlists: IPlaylist[] = action.payload.playlists;
-      const createdPlaylists = {};
-
-      playlists.forEach(element => {
-        createdPlaylists[element.name] = element.tracks;
-      });
+      const playlists: IPlaylistDictionary = action.payload.playlists;
 
       return {
-        playlists: createdPlaylists,
+        playlists,
       };
     }
 
