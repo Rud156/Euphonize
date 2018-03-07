@@ -105,7 +105,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
 
     case DEPLOY_PLAYLISTS: {
       const playlists: IPlaylistDictionary = action.payload.playlists;
-
+      writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, playlists);
       return {
         playlists,
       };

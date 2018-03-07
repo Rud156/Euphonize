@@ -4,9 +4,14 @@ import { inject } from 'aurelia-framework';
 import * as UIkit from 'uikit';
 
 import Store from '../../common/utils/store';
-import { IPlaylist, IPlaylistView } from '../../common/interfaces/playlist-interface';
+import {
+  IPlaylist,
+  IPlaylistView,
+  IPlaylistDictionary,
+} from '../../common/interfaces/playlist-interface';
 import { deployPlaylists, createPlaylist } from '../../common/actions/playlist-actions';
 import { convertDictToList, convertDictToPlaylistView } from '../../common/utils/player-utils';
+import { ITrackBasic } from '../../common/interfaces/track-interface';
 
 @inject(Store)
 export class MyLibrary {
@@ -47,40 +52,33 @@ export class MyLibrary {
       this.savingPlaylist = true;
       Promise.resolve(this.handleFilePlaylistSave()).then(() => {
         this.savingPlaylist = false;
+        UIkit.modal(this.newPlaylistModal).hide();
       });
     }
   }
 
   handleFilePlaylistSave() {
     const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
-    const uploadedPlaylists: IPlaylist[] = JSON.parse(this.fileContents);
+    const uploadedPlaylists: IPlaylistDictionary[] = JSON.parse(this.fileContents);
 
-    uploadedPlaylists.forEach(element => {
-      if (element.name in currentPlaylists) {
-        const currentTracks = currentPlaylists[element.name];
-        const newTracks = element.tracks;
+    const keys = Object.keys(uploadedPlaylists);
+    keys.forEach(key => {
+      if (key in currentPlaylists) {
+        const currentTracks: ITrackBasic[] = currentPlaylists[key];
+        const uploadedTracks: ITrackBasic[] = uploadedPlaylists[key];
 
-        for (let i = 0; i < newTracks.length; i++) {
-          let found = false;
-
-          for (let j = 0; j < currentTracks.length; j++) {
-            if (
-              currentTracks[j].trackName === newTracks[i].trackName &&
-              currentTracks[j].artistName === newTracks[i].artistName
-            ) {
-              found = true;
-              break;
-            }
+        uploadedTracks.forEach(track => {
+          const index = currentTracks.findIndex(
+            _ => _.trackName === track.trackName && _.artistName === track.artistName
+          );
+          if (index === -1) {
+            currentTracks.push(track);
           }
+        });
 
-          if (!found) {
-            currentTracks.push(newTracks[i]);
-          }
-        }
-
-        currentPlaylists[element.name] = currentTracks;
+        currentPlaylists[key] = currentTracks;
       } else {
-        currentPlaylists[element.name] = element.tracks;
+        currentPlaylists[key] = uploadedPlaylists[key];
       }
     });
 

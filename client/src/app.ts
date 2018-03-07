@@ -199,7 +199,7 @@ export class App {
   }
 
   readPlaylistsFromLocalStorage() {
-    let playlists: IPlaylistDictionary = JSON.parse(readFromLocalStorage(PLAYLIST_LOCAL_STORAGE));
+    let playlists: IPlaylistDictionary = readFromLocalStorage(PLAYLIST_LOCAL_STORAGE);
     if (!playlists) playlists = {};
     this.store.dataStore.dispatch(deployPlaylists(playlists));
   }

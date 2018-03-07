@@ -1,6 +1,7 @@
 <template>
   <require from="./index.css"></require>
   <require from="./../loader/loader.html"></require>
+  <require from="./components/playlist-card.html"></require>
 
   <!-- Add Playlist Modal -->
   <div class="uk-position-absolute uk-box-shadow-hover-large library-absolute-buttons library-add-playlist" style="cursor: pointer"
@@ -49,9 +50,12 @@
 
   <h2 class="category-header">My Library</h2>
 
-  <div class="uk-grid-medium uk-child-width-expand@s uk-text-center" ref="playlistGrid">
-    <div repeat.for="playlist of playlists">
-      <div class="uk-card uk-card-default uk-card-body">${playlist.name}</div>
+  <div class="uk-padding-large">
+    <div class="uk-grid-medium uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-text-center" ref="playlistGrid">
+      <div repeat.for="playlist of playlists">
+        <playlist-card playlist.bind="playlist"></playlist-card>
+      </div>
     </div>
   </div>
+
 </template>
