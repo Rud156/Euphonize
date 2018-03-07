@@ -51,9 +51,9 @@
   <h2 class="category-header">My Library</h2>
 
   <div class="uk-padding-large">
-    <div class="uk-grid-medium uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-4@l uk-text-center" ref="playlistGrid">
+    <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" ref="playlistGrid">
       <div repeat.for="playlist of playlists">
-        <playlist-card playlist.bind="playlist"></playlist-card>
+        <playlist-card playlist.bind="playlist" open-playlist.call="openPlaylist(playlist)"></playlist-card>
       </div>
     </div>
   </div>

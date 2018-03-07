@@ -109,6 +109,10 @@ export class MyLibrary {
     }
   }
 
+  openPlaylist(playlist) {
+    console.log(playlist)
+  }
+
   attached() {
     this.handleStoreUpdate();
     this.initializeElements();
