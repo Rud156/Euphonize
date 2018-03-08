@@ -1,4 +1,4 @@
-<template bindable="playlist, openPlaylist">
+<template bindable="playlist">
   <div class="uk-card uk-card-default cursor-pointer white-text-hover" style="box-shadow: none; background-color: transparent">
     <div class="uk-card-media-top uk-position-relative">
       <img src="${playlist.image}" alt="${playlist.name}" style="height: 100%; width: 100%">
@@ -9,10 +9,11 @@
         <i class="fas fa-play-circle fa-3x"></i>
       </div>
     </div>
-    <div class="uk-card-body library-normalize-card-padding cursor-pointer" style="background-color: transparent; text-align: left; padding: 2px"
-      click.delegate="openPlaylist({playlist: playlist})">
+    <div class="uk-card-body library-normalize-card-padding cursor-pointer" style="background-color: transparent; text-align: left; padding: 2px">
       <h5 class="white-text">
-        ${playlist.totalTracks} ${playlist.totalTracks > 1 ? 'Tracks' : 'Track'}
+        <a href.bind="'library/' + playlist.name" class="white-text white-text-hover">
+          ${playlist.totalTracks} ${playlist.totalTracks > 1 ? 'Tracks' : 'Track'}
+        </a>
       </h5>
     </div>
   </div>

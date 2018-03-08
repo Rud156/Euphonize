@@ -1,4 +1,5 @@
 import { inject } from 'aurelia-framework';
+import { RouterConfiguration, Router } from 'aurelia-router';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -15,6 +16,8 @@ import { ITrackBasic } from '../../common/interfaces/track-interface';
 
 @inject(Store)
 export class MyLibrary {
+  router: Router;
+
   newPlaylistModal: HTMLElement;
   playlistImportForm: HTMLElement;
   playlistGrid: HTMLElement;
@@ -107,10 +110,6 @@ export class MyLibrary {
       const file: File = this.playlistFile[0];
       this.fileReader.readAsText(file);
     }
-  }
-
-  openPlaylist(playlist) {
-    console.log(playlist)
   }
 
   attached() {
