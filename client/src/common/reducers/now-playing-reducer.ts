@@ -11,11 +11,13 @@ import { ITrack, ITrackBasic } from '../interfaces/track-interface';
 export interface INowPlayingReducer {
   tracks: ITrack[];
   id: number;
+  name: string;
 }
 
 const defaultState: INowPlayingReducer = {
   tracks: [],
   id: 0,
+  name: '',
 };
 
 export const nowPlayingReducer = (state = defaultState, action): INowPlayingReducer => {
@@ -43,6 +45,7 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
       const filteredNowPlaying = {
         id: state.id,
         tracks: filteredTracks,
+        name: '',
       };
 
       return filteredNowPlaying;
@@ -66,12 +69,14 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
       const shuffledNowPlaying = {
         id: state.id,
         tracks: currentTracks,
+        name: state.name,
       };
       return shuffledNowPlaying;
     }
 
     case ADD_PLAYLIST_TO_NOW_PLAYING: {
       const tracks: ITrackBasic[] = action.payload.tracks;
+      const playlistName: string = action.payload.name;
       const modifiedTracks: ITrack[] = tracks.map((element, index) => {
         return {
           ...element,
@@ -83,6 +88,7 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
       return {
         tracks: modifiedTracks,
         id: modifiedTracks.length,
+        name: playlistName,
       };
     }
 

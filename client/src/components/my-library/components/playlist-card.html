@@ -1,6 +1,6 @@
-<template bindable="playlist">
+<template bindable="playlist, playPlaylist">
   <div class="uk-card uk-card-default cursor-pointer white-text-hover" style="box-shadow: none; background-color: transparent">
-    <div class="uk-card-media-top uk-position-relative">
+    <div class="uk-card-media-top uk-position-relative" click.delegate="playPlaylist({playlist: playlist})">
       <img src="${playlist.image}" alt="${playlist.name}" style="height: 100%; width: 100%">
       <div class="uk-overlay uk-light uk-position-top" style="padding: 14px 7px">
         <h3 class="text-shadow white-text">${playlist.name}</h3>
@@ -12,7 +12,7 @@
     <div class="uk-card-body library-normalize-card-padding cursor-pointer" style="background-color: transparent; text-align: left; padding: 2px">
       <h5 class="white-text">
         <a href.bind="'library/' + playlist.name" class="white-text white-text-hover">
-          ${playlist.totalTracks} ${playlist.totalTracks === 1 ? 'Track' : 'Tracks'}
+          View Full Playlist (${playlist.totalTracks} ${playlist.totalTracks === 1 ? 'Track' : 'Tracks'})
         </a>
       </h5>
     </div>

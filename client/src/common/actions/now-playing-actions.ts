@@ -35,11 +35,12 @@ export const shuffleNowPlaying = () => {
   };
 };
 
-export const addPlayListToNowPlaying = (tracks: ITrack[]) => {
+export const addPlayListToNowPlaying = (tracks: ITrackBasic[], name: string) => {
   return {
     type: ADD_PLAYLIST_TO_NOW_PLAYING,
     payload: {
       tracks,
+      name,
     },
   };
 };

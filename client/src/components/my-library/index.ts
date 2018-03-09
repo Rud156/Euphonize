@@ -10,9 +10,11 @@ import {
   IPlaylistView,
   IPlaylistDictionary,
 } from '../../common/interfaces/playlist-interface';
+import { ITrackBasic } from '../../common/interfaces/track-interface';
 import { deployPlaylists, createPlaylist } from '../../common/actions/playlist-actions';
 import { convertDictToList, convertDictToPlaylistView } from '../../common/utils/player-utils';
-import { ITrackBasic } from '../../common/interfaces/track-interface';
+import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
+import { playSelectedTrack } from '../../common/actions/player-actions';
 
 @inject(Store)
 export class MyLibrary {
@@ -25,7 +27,6 @@ export class MyLibrary {
   playlistName: string = '';
   playlistFile: File[] = [];
   fileContents: string;
-  savingPlaylist: boolean = false;
 
   fileReader: FileReader = new FileReader();
 
@@ -41,8 +42,8 @@ export class MyLibrary {
   }
 
   handleStoreUpdate() {
-    const playlist = this.store.dataStore.getState().playlist.playlists;
-    const modifiedPlaylists: IPlaylistView[] = convertDictToPlaylistView(playlist);
+    const playlists = this.store.dataStore.getState().playlist.playlists;
+    const modifiedPlaylists: IPlaylistView[] = convertDictToPlaylistView(playlists);
     this.playlists = modifiedPlaylists;
   }
 
@@ -52,12 +53,18 @@ export class MyLibrary {
       this.playlistName = '';
       UIkit.modal(this.newPlaylistModal).hide();
     } else {
-      this.savingPlaylist = true;
-      Promise.resolve(this.handleFilePlaylistSave()).then(() => {
-        this.savingPlaylist = false;
-        UIkit.modal(this.newPlaylistModal).hide();
-      });
+      this.handleFilePlaylistSave();
+      UIkit.modal(this.newPlaylistModal).hide();
     }
+  }
+
+  playPlaylist(playlist: IPlaylistView) {
+    const playlists: IPlaylistDictionary = this.store.dataStore.getState().playlist.playlists;
+    const selectedPlaylistTracks: ITrackBasic[] = playlists[playlist.name];
+    this.store.dataStore.dispatch(addPlayListToNowPlaying(selectedPlaylistTracks, playlist.name));
+
+    const { trackName, artistName, image } = selectedPlaylistTracks[0];
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
   handleFilePlaylistSave() {

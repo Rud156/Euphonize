@@ -53,7 +53,7 @@
   <div class="uk-padding-large fixed-padding">
     <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" ref="playlistGrid">
       <div repeat.for="playlist of playlists">
-        <playlist-card playlist.bind="playlist"></playlist-card>
+        <playlist-card playlist.bind="playlist" play-playlist.call="playPlaylist(playlist)"></playlist-card>
       </div>
     </div>
   </div>

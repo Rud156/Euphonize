@@ -42,18 +42,13 @@ export class MusicPlayer {
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
 
-  currentTrack: ITrackBasic = {
-    trackName: '',
-    artistName: '',
-    image: '',
-  };
   playingTrack: IPlayerTrackInterface = {
     currentTime: 0,
     maxTime: 0,
     audioURL: '',
     volume: 1,
-    trackName: '--',
-    artistName: '--',
+    trackName: '',
+    artistName: '',
     image: TRACK_IMAGE_PLACEHOLDER,
   };
   replay: boolean = false;
@@ -69,8 +64,8 @@ export class MusicPlayer {
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
     if (
-      currentTrack.trackName !== this.currentTrack.trackName &&
-      currentTrack.artistName !== this.currentTrack.artistName
+      currentTrack.trackName !== this.playingTrack.trackName &&
+      currentTrack.artistName !== this.playingTrack.artistName
     ) {
       this.fetchAndPlayTrack(currentTrack);
     }
@@ -137,7 +132,7 @@ export class MusicPlayer {
 
   handlePrevTrackButtonClick(event: MouseEvent) {
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
-    const result: IReturn = getPrevTrack(currentTracks, this.currentTrack);
+    const result: IReturn = getPrevTrack(currentTracks, this.playingTrack);
 
     if (result.success) {
       const track = result.track;
@@ -153,7 +148,7 @@ export class MusicPlayer {
 
   handleNextButtonClick(event: MouseEvent) {
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
-    const result: IReturn = getNextTrack(currentTracks, this.currentTrack);
+    const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
 
     if (result.success) {
       const track = result.track;
@@ -172,7 +167,7 @@ export class MusicPlayer {
   }
 
   handlePlaylistButtonClick(event: MouseEvent) {
-    this.store.dataStore.dispatch(selectTrackForPlaylist(this.currentTrack));
+    this.store.dataStore.dispatch(selectTrackForPlaylist(this.playingTrack));
   }
 
   handleSeekSliderChange(event: Event) {
