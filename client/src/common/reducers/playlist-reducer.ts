@@ -54,11 +54,21 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const currentPlaylists = state.playlists;
 
       if (playlistName in currentPlaylists) {
-        currentPlaylists[playlistName].push(action.payload.track);
-        writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
-        return {
-          playlists: currentPlaylists,
-        };
+        const track: ITrackBasic = action.payload.track;
+        const currentTracks = currentPlaylists[playlistName];
+        const index = currentTracks.findIndex(
+          _ => _.trackName === track.trackName && _.artistName === track.artistName
+        );
+
+        if (index === -1) {
+          currentPlaylists[playlistName].push(action.payload.track);
+          writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
+          return {
+            playlists: currentPlaylists,
+          };
+        } else {
+          return state;
+        }
       } else {
         return state;
       }
@@ -70,7 +80,12 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       const currentPlaylists = state.playlists;
 
       playlists.forEach(element => {
-        if (element in currentPlaylists) currentPlaylists[element].push(track);
+        if (element in currentPlaylists) {
+          const index = currentPlaylists[element].findIndex(
+            _ => _.trackName === track.trackName && _.artistName === track.artistName
+          );
+          if (index === -1) currentPlaylists[element].push(track);
+        }
       });
 
       writeToLocalStorage(PLAYLIST_LOCAL_STORAGE, currentPlaylists);
