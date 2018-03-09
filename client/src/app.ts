@@ -13,6 +13,7 @@ import { readFromLocalStorage } from './common/utils/utils';
 import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/playlist-interface';
 import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { ITrackBasic } from './common/interfaces/track-interface';
+import { removeSelectedTrack } from './common/actions/track-playlist-action';
 
 @inject(Store, EventAggregator)
 export class App {
@@ -163,11 +164,18 @@ export class App {
   }
 
   closePlaylistModal() {
+    this.playlists = this.playlists.map((playlist: ISelectablePlaylist) => {
+      return {
+        name: playlist.name,
+        selected: false,
+      };
+    });
     this.selectedTrack = {
       trackName: '',
       artistName: '',
       image: '',
     };
+    this.store.dataStore.dispatch(removeSelectedTrack());
   }
 
   attached() {

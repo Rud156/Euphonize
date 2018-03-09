@@ -1,4 +1,4 @@
-import { SELECT_TRACK_FOR_PLAYLIST } from '../actions/track-playlist-action';
+import { SELECT_TRACK_FOR_PLAYLIST, REMOVE_SELECTED_TRACK } from '../actions/track-playlist-action';
 import { ITrackBasic } from '../interfaces/track-interface';
 
 export interface ITrackPlaylistReducer {
@@ -18,6 +18,16 @@ export const trackPlaylistReducer = (state = defaultState, action): ITrackPlayli
     case SELECT_TRACK_FOR_PLAYLIST: {
       return {
         selectedTrack: action.payload.track,
+      };
+    }
+
+    case REMOVE_SELECTED_TRACK: {
+      return {
+        selectedTrack: {
+          artistName: '',
+          trackName: '',
+          image: '',
+        },
       };
     }
 

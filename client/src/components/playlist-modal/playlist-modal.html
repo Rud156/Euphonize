@@ -13,7 +13,7 @@
       <ul class="uk-list uk-list-divider">
         <li class="black-text" repeat.for="playlist of playlists">
           <span>
-            <input type="checkbox" class="uk-checkbox margin-left-right" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})">
+            <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})">
           </span>
           <span>
             ${playlist.name}

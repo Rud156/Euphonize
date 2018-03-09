@@ -87,8 +87,7 @@ export const playlistReducer = (state = defaultState, action): IPlaylistReducer 
       if (playlistName in currentPlaylists) {
         const filteredTracks: ITrackBasic[] = currentPlaylists[playlistName].filter(element => {
           return (
-            element.trackName !== trackToRemove.trackName &&
-            element.image !== trackToRemove.image &&
+            element.trackName !== trackToRemove.trackName ||
             element.artistName !== trackToRemove.artistName
           );
         });

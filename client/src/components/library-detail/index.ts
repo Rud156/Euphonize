@@ -6,6 +6,7 @@ import * as UIkit from 'uikit';
 
 import Store from '../../common/utils/store';
 import { IPlaylist } from '../../common/interfaces/playlist-interface';
+import { removeTrackFromPlaylist } from '../../common/actions/playlist-actions';
 
 interface IParams {
   id: string;
@@ -21,7 +22,17 @@ export class LibraryDetail {
     tracks: [],
   };
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store, private router: Router) {
+    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+  }
+
+  handleStoreUpdate() {
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    this.currentPlaylist = {
+      name: this.playlistName,
+      tracks: currentPlaylists[this.playlistName],
+    };
+  }
 
   handleRouteAttachment() {
     const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
@@ -36,7 +47,16 @@ export class LibraryDetail {
   }
 
   removeTrackFromPlaylist(trackName, artistName, image) {
-    console.log(arguments);
+    this.store.dataStore.dispatch(
+      removeTrackFromPlaylist(
+        {
+          trackName,
+          artistName,
+          image,
+        },
+        this.playlistName
+      )
+    );
   }
 
   activate(params: IParams, routeConfig: RouteConfig) {
