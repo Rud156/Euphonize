@@ -35,11 +35,19 @@ export class LibraryDetail {
     };
   }
 
+  removeTrackFromPlaylist(trackName, artistName, image) {
+    console.log(arguments);
+  }
+
   activate(params: IParams, routeConfig: RouteConfig) {
     routeConfig.navModel.setTitle(params.id);
     this.playlistName = params.id;
 
     this.handleRouteAttachment();
+  }
+
+  attached() {
+    this.initializeElements();
   }
 
   initializeElements() {

@@ -90,11 +90,16 @@ export const convertDictToPlaylistView = (playlist: IPlaylistDictionary): IPlayl
   const keys = Object.keys(playlist);
   const playlistView: IPlaylistView[] = [];
 
-  keys.forEach(element => {
+  keys.forEach(key => {
+    const image =
+      playlist[key].length > 0
+        ? playlist[key][playlist[key].length - 1].image
+        : TRACK_IMAGE_PLACEHOLDER;
+
     const tempObject: IPlaylistView = {
-      name: element,
-      image: playlist[element].length > 0 ? playlist[element][0].image : TRACK_IMAGE_PLACEHOLDER,
-      totalTracks: playlist[element].length,
+      name: key,
+      image,
+      totalTracks: playlist[key].length,
     };
 
     playlistView.push(tempObject);

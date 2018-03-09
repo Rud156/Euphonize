@@ -1,0 +1,31 @@
+<template bindable="trackImage, trackName, artistName, index, playTrack, addTrack, removeTrack">
+  <td style="text-align: left">
+    <div style="padding-top: 14px">
+      ${index + 1}
+    </div>
+  </td>
+  <td style="text-align: left">
+    <div>
+      <img src="${trackImage}" alt="${trackName}" class="table-track-image">
+      <div class="table-track-name">${trackName}</div>
+    </div>
+  </td>
+  <td style="text-align: left">
+    <div style="padding-top: 14px">
+      ${artistName}
+    </div>
+  </td>
+  <td style="text-align: left">
+    <div style="padding-top: 7px">
+      <span click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage})" if.bind="playTrack">
+        <i class="fas fa-play-circle fa-2x cursor-pointer table-padding-5" style="font-size: 1.5em"></i>
+      </span>
+      <span click.delegate="addTrack({trackName: trackName, artistName: artistName, image: trackImage})" if.bind="addTrack">
+        <i class="fas fa-plus-circle fa-2x cursor-pointer table-padding-5 " style="font-size: 1.5em "></i>
+      </span>
+      <span click.delegate="removeTrack({trackName: trackName, artistName: artistName, image: trackImage})" if.bind="removeTrack">
+        <i class="fas fa-trash-alt fa-2x cursor-pointer table-padding-5 " style="font-size: 1.5em "></i>
+      </span>
+    </div>
+  </td>
+</template>

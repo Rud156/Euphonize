@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, artistName, index, playTrack, addTrack">
+<template bindable="track, index">
   <td>
     <div style="padding-top: 14px">
       ${index + 1}
@@ -6,13 +6,13 @@
   </td>
   <td>
     <div>
-      <img src="${trackImage}" alt="${trackName}" class="track-image">
-      <div class="track-name">${trackName}</div>
+      <img src="${track.image}" alt="${track.trackName}" class="track-image">
+      <div class="track-name">${track.trackName}</div>
     </div>
   </td>
   <td>
     <div style="padding-top: 14px">
-      ${artistName}
+      ${track.artistName}
     </div>
   </td>
   <td>

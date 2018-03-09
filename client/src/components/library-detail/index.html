@@ -1,15 +1,40 @@
 <template>
+  <require from="../track-table/track-table.html"></require>
+
   <h2 class="category-header">${playlistName}</h2>
 
-  <div class="uk-grid-medium uk-child-width-expand@s uk-text-center" ref="detailGrid">
-    <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <img src.bind="currentPlaylist.tracks.length > 0 ? currentPlaylist.tracks[0].image : 'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png'"
-          style="height: 100%; width: 100%" />
+
+  <div class="uk-container uk-container-expand fixed-padding">
+    <div class="uk-grid-medium uk-text-center" ref="detailGrid">
+
+      <div class="uk-width-1-4@m uk-width-1-2@s">
+        <div class="uk-card uk-card-default">
+          <div class="uk-card-media-top">
+            <img src.bind="currentPlaylist.tracks.length > 0 ? currentPlaylist.tracks[currentPlaylist.tracks.length - 1].image : 'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png'"
+              style="height: 100%; width: 100%" />
+          </div>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="uk-card uk-card-default uk-card-body">Item</div>
+
+      <div class="uk-width-3-4@m uk-width-1-2@s">
+        <div class="uk-overflow-auto">
+          <table class="uk-table uk-table-small uk-table-divider">
+            <thead>
+              <tr>
+                <th class="white-text">#</th>
+                <th class="white-text">Name</th>
+                <th class="white-text">Artist</th>
+                <th class="white-text">Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr as-element="track-table" repeat.for="track of currentPlaylist.tracks" index.bind="$index" track-image.bind="track.image"
+                track-name.bind="track.trackName" artist-name.bind="track.artistName" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
