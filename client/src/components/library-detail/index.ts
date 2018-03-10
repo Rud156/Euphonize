@@ -7,6 +7,8 @@ import * as UIkit from 'uikit';
 import Store from '../../common/utils/store';
 import { IPlaylist } from '../../common/interfaces/playlist-interface';
 import { removeTrackFromPlaylist } from '../../common/actions/playlist-actions';
+import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
+import { playSelectedTrack } from '../../common/actions/player-actions';
 
 interface IParams {
   id: string;
@@ -44,6 +46,12 @@ export class LibraryDetail {
       name: this.playlistName,
       tracks: currentPlaylists[this.playlistName],
     };
+  }
+
+  playTrackFromPlaylist(trackName, artistName, image) {
+    const { tracks, name } = this.currentPlaylist;
+    this.store.dataStore.dispatch(addPlayListToNowPlaying(tracks, name));
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
   removeTrackFromPlaylist(trackName, artistName, image) {

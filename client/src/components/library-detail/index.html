@@ -29,7 +29,8 @@
             </thead>
             <tbody>
               <tr as-element="track-table" repeat.for="track of currentPlaylist.tracks" index.bind="$index" track-image.bind="track.image"
-                track-name.bind="track.trackName" artist-name.bind="track.artistName" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"></tr>
+                track-name.bind="track.trackName" artist-name.bind="track.artistName" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"
+                play-track.call="playTrackFromPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>
         </div>
