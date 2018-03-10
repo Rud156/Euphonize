@@ -144,7 +144,8 @@ export class App {
 
   handleDebouncedSearch() {
     this.searchService.getSearchResults(this.searchString).then((data: ISearchResults) => {
-      
+      console.log(data);
+      // TODO: Complete This Function
     });
   }
 
