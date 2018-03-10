@@ -14,6 +14,7 @@ import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/pl
 import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { ITrackBasic } from './common/interfaces/track-interface';
 import { removeSelectedTrack } from './common/actions/track-playlist-action';
+import { addToNowPlaying } from './common/actions/now-playing-actions';
 
 @inject(Store, EventAggregator)
 export class App {
@@ -154,6 +155,12 @@ export class App {
       .map(element => {
         return element.name;
       });
+
+    const currentPlayingPlaylistName: string = this.store.dataStore.getState().nowPlaying.name;
+    if (selectedPlaylists.findIndex(_ => _ === currentPlayingPlaylistName) !== -1) {
+      const { trackName, artistName, image } = this.selectedTrack;
+      this.store.dataStore.dispatch(addToNowPlaying(trackName, artistName, image));
+    }
 
     this.store.dataStore.dispatch(
       addTrackToMultiplePlaylists(this.selectedTrack, selectedPlaylists)

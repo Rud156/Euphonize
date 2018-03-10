@@ -16,6 +16,7 @@ import AudioService from '../../common/services/audioService';
 
 import { shuffleNowPlaying } from '../../common/actions/now-playing-actions';
 import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
+import { playSelectedTrack } from '../../common/actions/player-actions';
 
 interface IPlayerTrackInterface extends ITrackBasic {
   currentTime: number;
@@ -136,7 +137,9 @@ export class MusicPlayer {
 
     if (result.success) {
       const track = result.track;
-      this.fetchAndPlayTrack(track);
+      this.store.dataStore.dispatch(
+        playSelectedTrack(track.trackName, track.artistName, track.image)
+      );
     } else {
       this.ea.publish('notification', {
         type: 'warning',
@@ -152,7 +155,9 @@ export class MusicPlayer {
 
     if (result.success) {
       const track = result.track;
-      this.fetchAndPlayTrack(track);
+      this.store.dataStore.dispatch(
+        playSelectedTrack(track.trackName, track.artistName, track.image)
+      );
     } else {
       this.ea.publish('notification', {
         type: 'warning',
@@ -200,6 +205,27 @@ export class MusicPlayer {
       currentTime: this.audioElement.currentTime,
     };
     this.playingTrack = modifiedTrackData;
+
+    this.checkAndSwitchToNextTrack();
+  }
+
+  checkAndSwitchToNextTrack() {
+    if (this.audioElement.currentTime >= this.audioElement.duration) {
+      this.pauseAudio();
+      const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
+      const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
+
+      if (result.success) {
+        if ((result.repeat && this.replay) || !result.repeat) {
+          const track = result.track;
+          this.store.dataStore.dispatch(
+            playSelectedTrack(track.trackName, track.artistName, track.image)
+          );
+        } else if (result.repeat && !this.replay) {
+          this.audioElement.currentTime = 0;
+        }
+      }
+    }
   }
 
   handleCanPlay(event: Event) {

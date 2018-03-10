@@ -25,6 +25,7 @@ export const getNextTrack = (trackArray: ITrack[], track: ITrackBasic): IReturn 
     return {
       success: true,
       track: trackArray[0],
+      repeat: true,
     };
   else
     return {
