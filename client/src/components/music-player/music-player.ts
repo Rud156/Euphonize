@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 import { Unsubscribe } from 'redux';
 
 // @ts-ignore
@@ -30,6 +30,10 @@ interface IPlayerTrackInterface extends ITrackBasic {
 export class MusicPlayer {
   playerGrid: HTMLElement;
   reduxSubscription: Unsubscribe;
+
+  disablePreventDefault: Subscription;
+  enablePreventDefault: Subscription;
+  preventDefaultEnabled: boolean = true;
 
   audioElement: HTMLAudioElement;
   audioIsPlaying: boolean = false;
@@ -66,7 +70,16 @@ export class MusicPlayer {
     private store: Store,
     private audioService: AudioService,
     private ea: EventAggregator
-  ) {}
+  ) {
+    this.disablePreventDefault = this.ea.subscribe(
+      'disablePreventDefault',
+      this.handleDisablePreventDefault.bind(this)
+    );
+    this.enablePreventDefault = this.ea.subscribe(
+      'enablePreventDefault',
+      this.handleEnablePreventDefault.bind(this)
+    );
+  }
 
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
@@ -82,6 +95,14 @@ export class MusicPlayer {
         this.fetchAndPlayTrack(currentTrack);
       }
     }
+  }
+
+  handleEnablePreventDefault() {
+    this.preventDefaultEnabled = true;
+  }
+
+  handleDisablePreventDefault() {
+    this.preventDefaultEnabled = false;
   }
 
   fetchAndPlayTrack(currentTrack: ITrackBasic) {
@@ -112,6 +133,14 @@ export class MusicPlayer {
             artistName: '',
             image: '',
           };
+        } else {
+          const { message } = data;
+          this.audioIsLoading = false;
+          this.ea.publish('notification', {
+            type: 'danger',
+            message: message,
+            data: null,
+          });
         }
       })
       .catch(error => {
@@ -142,19 +171,27 @@ export class MusicPlayer {
     }
   }
 
-  handlePlayButtonClick(event: MouseEvent) {
+  handlePlayButtonClick() {
     this.playAudio();
   }
 
-  handlePauseButtonClick(event: MouseEvent) {
+  handlePauseButtonClick() {
     this.pauseAudio();
   }
 
-  handleRandomButtonClick(event: MouseEvent) {
+  togglePlayPause() {
+    if (this.audioIsPlaying) {
+      this.handlePauseButtonClick();
+    } else {
+      this.handlePlayButtonClick();
+    }
+  }
+
+  handleRandomButtonClick() {
     this.store.dataStore.dispatch(shuffleNowPlaying());
   }
 
-  handlePrevTrackButtonClick(event: MouseEvent) {
+  handlePrevTrackButtonClick() {
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
     const result: IReturn = getPrevTrack(currentTracks, this.playingTrack);
 
@@ -172,7 +209,7 @@ export class MusicPlayer {
     }
   }
 
-  handleNextButtonClick(event: MouseEvent) {
+  handleNextButtonClick() {
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
     const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
 
@@ -190,15 +227,15 @@ export class MusicPlayer {
     }
   }
 
-  handleReplayButtonClick(event: MouseEvent) {
+  handleReplayButtonClick() {
     this.replay = !this.replay;
   }
 
-  handlePlaylistButtonClick(event: MouseEvent) {
+  handlePlaylistButtonClick() {
     this.store.dataStore.dispatch(selectTrackForPlaylist(this.playingTrack));
   }
 
-  handleSeekSliderChange(event: Event) {
+  handleSeekSliderChange() {
     const currentTime = parseInt(this.seekSlider.value);
     const { playingTrack } = this;
     const modifiedTrackData = {
@@ -210,7 +247,7 @@ export class MusicPlayer {
     this.playingTrack = modifiedTrackData;
   }
 
-  handleVolumeSliderChange(event: Event) {
+  handleVolumeSliderChange() {
     const volume = parseFloat(this.volumeSlider.value);
     this.audioElement.volume = volume;
     const { playingTrack } = this;
@@ -221,7 +258,7 @@ export class MusicPlayer {
     this.playingTrack = modifiedTrackData;
   }
 
-  handleTimeUpdate(event: Event) {
+  handleTimeUpdate() {
     const { playingTrack } = this;
     const modifiedTrackData = {
       ...playingTrack,
@@ -230,6 +267,38 @@ export class MusicPlayer {
     this.playingTrack = modifiedTrackData;
 
     this.checkAndSwitchToNextTrack();
+  }
+
+  handleKeyInputs(event: KeyboardEvent) {
+    if (!this.preventDefaultEnabled) return;
+
+    event.preventDefault();
+    const { keyCode } = event;
+
+    switch (keyCode) {
+      case 32:
+        this.togglePlayPause();
+        break;
+
+      case 65:
+        this.handlePrevTrackButtonClick();
+        break;
+
+      case 68:
+        this.handleNextButtonClick();
+        break;
+
+      case 83:
+        this.handleRandomButtonClick();
+        break;
+
+      case 82:
+        this.handleReplayButtonClick();
+        break;
+
+      default:
+        break;
+    }
   }
 
   checkAndSwitchToNextTrack() {
@@ -272,6 +341,9 @@ export class MusicPlayer {
   detached() {
     this.removeAllEventListeners();
     this.reduxSubscription();
+
+    this.disablePreventDefault.dispose();
+    this.enablePreventDefault.dispose();
   }
 
   addAllEventListeners() {
@@ -289,6 +361,8 @@ export class MusicPlayer {
     this.seekSlider.addEventListener('change', this.handleSeekSliderChange.bind(this));
     this.seekSlider.addEventListener('mousedown', this.pauseAudio.bind(this));
     this.seekSlider.addEventListener('mouseup', this.playAudio.bind(this));
+
+    window.addEventListener('keypress', this.handleKeyInputs.bind(this));
   }
 
   removeAllEventListeners() {
@@ -304,8 +378,10 @@ export class MusicPlayer {
     this.volumeSlider.removeEventListener('input', this.handleVolumeSliderChange);
 
     this.seekSlider.removeEventListener('change', this.handleSeekSliderChange);
-    this.seekSlider.removeEventListener('mousedown', this.pauseAudio.bind(this));
-    this.seekSlider.removeEventListener('mouseup', this.playAudio.bind(this));
+    this.seekSlider.removeEventListener('mousedown', this.pauseAudio);
+    this.seekSlider.removeEventListener('mouseup', this.playAudio);
+
+    window.removeEventListener('keypress', this.handleKeyInputs);
   }
 
   initializeElements() {

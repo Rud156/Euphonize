@@ -39,6 +39,7 @@ def get_video():
         return jsonify({'success': False, 'message': 'Incorrect input string'})
 
     request_youtube = audio_title + ' lyrics'
+    print('Request String Created: ' + request_youtube)
     videos = youtube_search({'q': request_youtube, 'max_results': 20})
     image, success = itunes_album_art(audio_title)
 

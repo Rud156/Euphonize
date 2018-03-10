@@ -232,10 +232,12 @@ export class App {
   }
 
   inputFocused() {
+    this.ea.publish('disablePreventDefault');
     this.styleString = 'color: #666';
   }
 
   inputBlurred() {
+    this.ea.publish('enablePreventDefault');
     this.styleString = 'color: white';
   }
 
@@ -256,7 +258,9 @@ export class App {
   }
 
   initializeElements() {
-    UIkit.offcanvas(this.sidebarRef);
+    UIkit.offcanvas(this.sidebarRef, {
+      overlay: true,
+    });
     UIkit.offcanvas(this.sidebarRef).hide();
 
     UIkit.util.on(this.sidebarRef, 'hidden', () => {
