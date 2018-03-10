@@ -45,6 +45,12 @@ export class MusicPlayer {
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
 
+  currentTrack: ITrackBasic = {
+    trackName: '',
+    artistName: '',
+    image: '',
+  };
+
   playingTrack: IPlayerTrackInterface = {
     currentTime: 0,
     maxTime: 0,
@@ -68,7 +74,13 @@ export class MusicPlayer {
       currentTrack.trackName !== this.playingTrack.trackName &&
       currentTrack.artistName !== this.playingTrack.artistName
     ) {
-      this.fetchAndPlayTrack(currentTrack);
+      if (
+        this.currentTrack.trackName !== currentTrack.trackName &&
+        this.currentTrack.artistName !== currentTrack.artistName
+      ) {
+        this.currentTrack = currentTrack;
+        this.fetchAndPlayTrack(currentTrack);
+      }
     }
   }
 
@@ -94,6 +106,12 @@ export class MusicPlayer {
           this.playingTrack = trackData;
           this.audioElement.src = data.track['url'];
           this.audioElement.volume = 1;
+
+          this.currentTrack = {
+            trackName: '',
+            artistName: '',
+            image: '',
+          };
         }
       })
       .catch(error => {
@@ -102,6 +120,11 @@ export class MusicPlayer {
           message: 'Yikes! We were unable to load track. Please try again',
           data: error,
         });
+        this.currentTrack = {
+          trackName: '',
+          artistName: '',
+          image: '',
+        };
       });
   }
 

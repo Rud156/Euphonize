@@ -10,7 +10,6 @@ import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
 import Store from './common/utils/store';
-import SearchService from './common/services/searchService';
 import { readFromLocalStorage } from './common/utils/utils';
 
 import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/playlist-interface';
@@ -21,7 +20,7 @@ import { removeSelectedTrack } from './common/actions/track-playlist-action';
 import { addToNowPlaying } from './common/actions/now-playing-actions';
 import { updateSearchResults } from './common/actions/search-actions';
 
-@inject(Store, EventAggregator, SearchService)
+@inject(Store, EventAggregator)
 export class App {
   router: Router;
   reduxSubscription: Unsubscribe;
@@ -40,16 +39,14 @@ export class App {
   };
 
   notificationSubs: Subscription;
+  searchSubs: Subscription;
 
-  constructor(
-    private store: Store,
-    private ea: EventAggregator,
-    private searchService: SearchService
-  ) {
+  constructor(private store: Store, private ea: EventAggregator) {
     this.notificationSubs = this.ea.subscribe(
       'notification',
       this.handleDisplayNotification.bind(this)
     );
+    this.searchSubs = this.ea.subscribe('search', this.handleSearchQuery.bind(this));
 
     this.handleDebouncedSearch = _.debounce(this.handleDebouncedSearch, 250);
   }
@@ -77,6 +74,10 @@ export class App {
 
     const data: object = notification.data;
     console.log(data);
+  }
+
+  handleSearchQuery(searchQuery) {
+    this.searchString = searchQuery;
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -137,6 +138,12 @@ export class App {
         nav: true,
         title: 'Genre',
       },
+      {
+        route: ['search', 'search/:query'],
+        name: 'search',
+        moduleId: './components/search-tracks/index',
+        nav: false,
+      },
     ]);
   }
 
@@ -145,18 +152,7 @@ export class App {
   }
 
   handleDebouncedSearch() {
-    this.searchService.getSearchResults(this.searchString).then((data: ISearchResults) => {
-      const tracks = data.results.trackmatches.track;
-      const mappedTracks: ITrackBasic[] = tracks.map(track => {
-        return {
-          trackName: track.name,
-          artistName: track.artist,
-          image: track.image[2]['#text'],
-        };
-      });
-
-      this.store.dataStore.dispatch(updateSearchResults(mappedTracks, this.searchString));
-    });
+    this.router.navigateToRoute('search', { query: this.searchString });
   }
 
   createPlaylistAndShowModal() {
@@ -217,6 +213,7 @@ export class App {
 
   attached() {
     this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+
     this.handleStoreUpdate();
     this.initializeElements();
     this.readPlaylistsFromLocalStorage();
@@ -225,6 +222,7 @@ export class App {
   detached() {
     this.reduxSubscription();
     this.notificationSubs.dispose();
+    this.searchSubs.dispose();
     // @ts-ignore
     this.sidebarRef.$destroy();
   }

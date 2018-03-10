@@ -1,5 +1,28 @@
 <template>
+  <require from="../track-table/track-table.html"></require>
+  <require from="../loader/loader.html"></require>
+
   <h2 class="category-header">Searching For: ${searchQuery}...</h2>
 
-  
+  <div class="uk-overflow-auto" style="padding: 21px">
+    <table class="uk-table uk-table-small uk-table-divider">
+      <thead>
+        <tr>
+          <th class="white-text">#</th>
+          <th class="white-text">Name</th>
+          <th class="white-text">Artist</th>
+          <th class="white-text">Control</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.trackName"
+          artist-name.bind="track.artistName" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+          add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div if.bind="searchLoading" style="width: 100%; margin: 0 auto; text-align: center">
+    <loader></loader>
+  </div>
 </template>
