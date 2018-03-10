@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 import { RouterConfiguration, Router } from 'aurelia-router';
+import * as _ from 'lodash';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -8,15 +9,17 @@ import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
 import Store from './common/utils/store';
+import SearchService from './common/services/searchService';
 import { readFromLocalStorage } from './common/utils/utils';
 
 import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/playlist-interface';
-import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
+import { ISearchResults } from './common/interfaces/search-result-interface';
 import { ITrackBasic } from './common/interfaces/track-interface';
+import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { removeSelectedTrack } from './common/actions/track-playlist-action';
 import { addToNowPlaying } from './common/actions/now-playing-actions';
 
-@inject(Store, EventAggregator)
+@inject(Store, EventAggregator, SearchService)
 export class App {
   router: Router;
 
@@ -35,12 +38,18 @@ export class App {
 
   notificationSubs: Subscription;
 
-  constructor(private store: Store, private ea: EventAggregator) {
+  constructor(
+    private store: Store,
+    private ea: EventAggregator,
+    private searchService: SearchService
+  ) {
     this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.notificationSubs = this.ea.subscribe(
       'notification',
       this.handleDisplayNotification.bind(this)
     );
+
+    this.handleDebouncedSearch = _.debounce(this.handleDebouncedSearch, 250);
   }
 
   handleStoreUpdate() {
@@ -127,6 +136,16 @@ export class App {
         title: 'Genre',
       },
     ]);
+  }
+
+  handleSearchInput() {
+    this.handleDebouncedSearch();
+  }
+
+  handleDebouncedSearch() {
+    this.searchService.getSearchResults(this.searchString).then((data: ISearchResults) => {
+      
+    });
   }
 
   createPlaylistAndShowModal() {

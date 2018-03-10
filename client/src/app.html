@@ -27,7 +27,8 @@
               <span class="uk-form-icon" style.bind="styleString">
                 <i class="fab fa-sistrix"></i>
               </span>
-              <input focus.trigger="inputFocused()" blur.trigger="inputBlurred()" type="text" class="uk-input animated-input" value.bind="searchString"
+              <input focus.trigger="inputFocused()" blur.trigger="inputBlurred()" type="text" class="uk-input animated-input" 
+              value.bind="searchString" input.delegate="handleSearchInput()"
                 style="width: 40vw">
             </div>
           </form>

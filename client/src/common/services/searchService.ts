@@ -9,11 +9,11 @@ class SearchService {
     this.httpClient = new HttpClient();
   }
 
-  getSearchResults = _.debounce(searchQuery => {
-    this.httpClient
+  getSearchResults = (searchQuery: string) => {
+    return this.httpClient
       .fetch(`${SEARCH_BASE_STRING}${searchQuery}${SEARCH_ENDING_STRING}`)
       .then(response => response.json());
-  }, 250);
+  };
 }
 
 export default SearchService;
