@@ -1,5 +1,6 @@
 <template>
   <require from="../track-table/track-table.html"></require>
+  <require from="../../resources/value-converters/trim-string-format"></require>
 
   <h2 class="category-header">${playlistName}</h2>
 
@@ -38,7 +39,7 @@
             </thead>
             <tbody>
               <tr as-element="track-table" repeat.for="track of currentPlaylist.tracks" index.bind="$index" track-image.bind="track.image"
-                track-name.bind="track.trackName" artist-name.bind="track.artistName" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"
+                track-name.bind="track.trackName | trimString:30" artist-name.bind="track.artistName | trimString:20" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"
                 play-track.call="playTrackFromPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>

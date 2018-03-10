@@ -1,10 +1,11 @@
 <template>
   <require from="../track-table/track-table.html"></require>
   <require from="../loader/loader.html"></require>
+  <require from="../../resources/value-converters/trim-string-format"></require>
 
   <h2 class="category-header">Searching For: ${searchQuery}...</h2>
 
-  <div class="uk-overflow-auto uk-padding-large" if.bind="tracks.length > 0">
+  <div class="uk-overflow-auto uk-padding-large" style="padding-top: 0" if.bind="tracks.length > 0">
     <table class="uk-table uk-table-small uk-table-divider">
       <thead>
         <tr>
@@ -15,8 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.trackName"
-          artist-name.bind="track.artistName" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+        <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.trackName | trimString:40"
+          artist-name.bind="track.artistName | trimString:30" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
           add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
       </tbody>
     </table>

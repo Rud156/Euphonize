@@ -66,7 +66,7 @@ export class Tracks {
       })
       .catch(error => {
         this.ea.publish('notification', {
-          type: 'danger',
+          type: 'error',
           message: 'Yikes! We were unable to load the data. Could you try again',
           data: error,
         });
@@ -87,7 +87,7 @@ export class Tracks {
       })
       .catch(error => {
         this.ea.publish('notification', {
-          type: 'danger',
+          type: 'error',
           message: 'Yikes! We were unable to load the data. Could you try again',
           data: error,
         });

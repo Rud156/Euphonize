@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
+// @ts-ignore
+import * as Noty from 'Noty';
 import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
@@ -65,12 +67,13 @@ export class App {
     const message: string = notification.message;
     const notificationType: string = notification.type;
 
-    UIkit.notification({
-      message: message,
-      status: notificationType,
-      pos: 'top-right',
+    new Noty({
+      theme: 'metroui',
+      type: notificationType,
+      layout: 'topRight',
+      text: message,
       timeout: 5000,
-    });
+    }).show();
 
     const data: object = notification.data;
     console.log(data);

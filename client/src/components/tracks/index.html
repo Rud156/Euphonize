@@ -3,6 +3,7 @@
   <require from="../track-table/track-table.html"></require>
   <require from="./../loader/loader.html"></require>
   <require from="./index.css"></require>
+  <require from="../../resources/value-converters/trim-string-format"></require>
 
   <h2 class="category-header">Tracks</h2>
   <div>
@@ -31,8 +32,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name"
-                artist-name.bind="track.artist_name" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+              <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name | trimString:40"
+                artist-name.bind="track.artist_name | trimString:30" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
                 add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>
@@ -54,7 +55,7 @@
         <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px; margin-bottom: 121px">
           <ul class="uk-slider-items">
             <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
-              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name" artist-name.bind="track.artist_name"
+              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name | trimString:20" artist-name.bind="track.artist_name  | trimString:20"
                 play-track.call="handleTracksPlay(trackName, artistName, image)" add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></track-card>
             </li>
           </ul>

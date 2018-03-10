@@ -137,7 +137,7 @@ export class MusicPlayer {
           const { message } = data;
           this.audioIsLoading = false;
           this.ea.publish('notification', {
-            type: 'danger',
+            type: 'error',
             message: message,
             data: null,
           });
@@ -145,7 +145,7 @@ export class MusicPlayer {
       })
       .catch(error => {
         this.ea.publish('notification', {
-          type: 'danger',
+          type: 'error',
           message: 'Yikes! We were unable to load track. Please try again',
           data: error,
         });
