@@ -4,7 +4,7 @@
 
   <h2 class="category-header">Searching For: ${searchQuery}...</h2>
 
-  <div class="uk-overflow-auto uk-padding-large">
+  <div class="uk-overflow-auto uk-padding-large" if.bind="tracks.length > 0">
     <table class="uk-table uk-table-small uk-table-divider">
       <thead>
         <tr>

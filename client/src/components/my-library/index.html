@@ -25,7 +25,8 @@
             <span class="uk-form-icon">
               <i class="fas fa-music"></i>
             </span>
-            <input type="text" class="uk-input" value.bind="playlistName" placeholder="Enter Playlist Name..." style="width: 100%">
+            <input type="text" class="uk-input" value.bind="playlistName" placeholder="Enter Playlist Name..." style="width: 100%" focus.trigger="inputFocused()"
+              blur.trigger="inputBlurred()">
           </div>
         </form>
         <hr class="uk-divider-icon">

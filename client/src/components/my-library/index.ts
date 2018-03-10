@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { Unsubscribe } from 'redux';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -17,7 +18,7 @@ import { convertDictToList, convertDictToPlaylistView } from '../../common/utils
 import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
 import { playSelectedTrack } from '../../common/actions/player-actions';
 
-@inject(Store)
+@inject(Store, EventAggregator)
 export class MyLibrary {
   router: Router;
   reduxSubscription: Unsubscribe;
@@ -34,7 +35,7 @@ export class MyLibrary {
 
   playlists: IPlaylistView[] = [];
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private ea: EventAggregator) {
     this.fileReader.onload = (event: Event) => {
       // @ts-ignore
       this.fileContents = event.target.result;
@@ -117,6 +118,14 @@ export class MyLibrary {
       const file: File = this.playlistFile[0];
       this.fileReader.readAsText(file);
     }
+  }
+
+  inputFocused() {
+    this.ea.publish('disablePreventDefault');
+  }
+
+  inputBlurred() {
+    this.ea.publish('enablePreventDefault');
   }
 
   attached() {
