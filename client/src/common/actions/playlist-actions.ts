@@ -17,7 +17,7 @@ export const createPlaylist = (playlistName: string) => {
   };
 };
 
-const removePlaylist = (playlistName: string) => {
+export const removePlaylist = (playlistName: string) => {
   return {
     type: REMOVE_PLAYLIST,
     payload: {

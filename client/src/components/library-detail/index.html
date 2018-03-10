@@ -14,6 +14,15 @@
               style="height: 100%; width: 100%" />
           </div>
         </div>
+
+        <div style="width: 100%; display: flex; justify-content: space-around">
+          <span click.delegate="playPlaylist()" style="display: inline-block; margin-top: 14px">
+            <i class="fas fa-play-circle fa-2x cursor-pointer table-padding-5"></i>
+          </span>
+          <span click.delegate="removePlaylist()" style="display: inline-block; margin-top: 14px">
+            <i class="fas fa-trash-alt fa-2x cursor-pointer table-padding-5"></i>
+          </span>
+        </div>
       </div>
 
       <div class="uk-width-3-4@m uk-width-1-2@s">

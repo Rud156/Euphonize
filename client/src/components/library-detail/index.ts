@@ -6,7 +6,7 @@ import * as UIkit from 'uikit';
 
 import Store from '../../common/utils/store';
 import { IPlaylist } from '../../common/interfaces/playlist-interface';
-import { removeTrackFromPlaylist } from '../../common/actions/playlist-actions';
+import { removeTrackFromPlaylist, removePlaylist } from '../../common/actions/playlist-actions';
 import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
 import { playSelectedTrack } from '../../common/actions/player-actions';
 
@@ -67,14 +67,26 @@ export class LibraryDetail {
     );
   }
 
+  removePlaylist() {
+    this.store.dataStore.dispatch(removePlaylist(this.currentPlaylist.name));
+    this.router.navigateToRoute('library');
+  }
+
+  playPlaylist() {
+    const { name, tracks } = this.currentPlaylist;
+    this.store.dataStore.dispatch(addPlayListToNowPlaying(tracks, name));
+
+    const { trackName, artistName, image } = tracks[0];
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
+  }
+
   activate(params: IParams, routeConfig: RouteConfig) {
     routeConfig.navModel.setTitle(params.id);
     this.playlistName = params.id;
-
-    this.handleRouteAttachment();
   }
 
   attached() {
+    this.handleRouteAttachment();
     this.initializeElements();
   }
 

@@ -25,14 +25,25 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
     case ADD_TO_NOW_PLAYING: {
       const currentNowPlayingList = { ...state };
 
-      currentNowPlayingList.id += 1;
+      const {
+        trackName,
+        artistName,
+        image,
+      }: { trackName: string; artistName: string; image: string } = action.payload;
 
-      currentNowPlayingList.tracks.push({
-        trackName: action.payload.trackName,
-        artistName: action.payload.artistName,
-        image: action.payload.image,
-        id: state.id + 1,
-      });
+      const index = state.tracks.findIndex(
+        _ => _.trackName === trackName && _.artistName === artistName
+      );
+      if (index === -1) {
+        currentNowPlayingList.id += 1;
+
+        currentNowPlayingList.tracks.push({
+          trackName: action.payload.trackName,
+          artistName: action.payload.artistName,
+          image: action.payload.image,
+          id: state.id + 1,
+        });
+      }
 
       return currentNowPlayingList;
     }
