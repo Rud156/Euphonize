@@ -1,5 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
+import { Unsubscribe } from 'redux';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -19,6 +20,7 @@ import { playSelectedTrack } from '../../common/actions/player-actions';
 @inject(Store)
 export class MyLibrary {
   router: Router;
+  reduxSubscription: Unsubscribe;
 
   newPlaylistModal: HTMLElement;
   playlistImportForm: HTMLElement;
@@ -37,8 +39,6 @@ export class MyLibrary {
       // @ts-ignore
       this.fileContents = event.target.result;
     };
-
-    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
   }
 
   handleStoreUpdate() {
@@ -120,8 +120,13 @@ export class MyLibrary {
   }
 
   attached() {
+    this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.handleStoreUpdate();
     this.initializeElements();
+  }
+
+  detached() {
+    this.reduxSubscription();
   }
 
   initializeElements() {

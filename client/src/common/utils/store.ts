@@ -4,12 +4,14 @@ import { nowPlayingReducer, INowPlayingReducer } from '../reducers/now-playing-r
 import { playerReducer, IPlayerReducer } from '../reducers/player-reducer';
 import { playlistReducer, IPlaylistReducer } from '../reducers/playlist-reducer';
 import { trackPlaylistReducer, ITrackPlaylistReducer } from '../reducers/track-playlist-reducer';
+import { searchReducer, ISearchReducer } from '../reducers/search-reducer';
 
 interface IStore {
   playlist: IPlaylistReducer;
   player: IPlayerReducer;
   nowPlaying: INowPlayingReducer;
   trackPlaylist: ITrackPlaylistReducer;
+  search: ISearchReducer;
 }
 
 class StoreClass {
@@ -22,6 +24,7 @@ class StoreClass {
       player: playerReducer,
       nowPlaying: nowPlayingReducer,
       trackPlaylist: trackPlaylistReducer,
+      search: searchReducer,
     });
 
     this.dataStore = createStore(

@@ -1,6 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
 import { RouterConfiguration, Router } from 'aurelia-router';
+import { Unsubscribe } from 'redux';
 import * as _ from 'lodash';
 
 // @ts-ignore
@@ -18,10 +19,12 @@ import { ITrackBasic } from './common/interfaces/track-interface';
 import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
 import { removeSelectedTrack } from './common/actions/track-playlist-action';
 import { addToNowPlaying } from './common/actions/now-playing-actions';
+import { updateSearchResults } from './common/actions/search-actions';
 
 @inject(Store, EventAggregator, SearchService)
 export class App {
   router: Router;
+  reduxSubscription: Unsubscribe;
 
   sidebarRef: HTMLElement;
   playlistModal: HTMLElement;
@@ -43,7 +46,6 @@ export class App {
     private ea: EventAggregator,
     private searchService: SearchService
   ) {
-    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.notificationSubs = this.ea.subscribe(
       'notification',
       this.handleDisplayNotification.bind(this)
@@ -144,8 +146,16 @@ export class App {
 
   handleDebouncedSearch() {
     this.searchService.getSearchResults(this.searchString).then((data: ISearchResults) => {
-      console.log(data);
-      // TODO: Complete This Function
+      const tracks = data.results.trackmatches.track;
+      const mappedTracks: ITrackBasic[] = tracks.map(track => {
+        return {
+          trackName: track.name,
+          artistName: track.artist,
+          image: track.image[2]['#text'],
+        };
+      });
+
+      this.store.dataStore.dispatch(updateSearchResults(mappedTracks, this.searchString));
     });
   }
 
@@ -206,12 +216,14 @@ export class App {
   }
 
   attached() {
+    this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.handleStoreUpdate();
     this.initializeElements();
     this.readPlaylistsFromLocalStorage();
   }
 
   detached() {
+    this.reduxSubscription();
     this.notificationSubs.dispose();
     // @ts-ignore
     this.sidebarRef.$destroy();

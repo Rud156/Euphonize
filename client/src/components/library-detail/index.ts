@@ -1,5 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { RouteConfig, Router } from 'aurelia-router';
+import { Unsubscribe } from 'redux';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -17,6 +18,7 @@ interface IParams {
 @inject(Store, Router)
 export class LibraryDetail {
   detailGrid: HTMLElement;
+  reduxSubscription: Unsubscribe;
 
   playlistName: string = '';
   currentPlaylist: IPlaylist = {
@@ -24,9 +26,7 @@ export class LibraryDetail {
     tracks: [],
   };
 
-  constructor(private store: Store, private router: Router) {
-    this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
-  }
+  constructor(private store: Store, private router: Router) {}
 
   handleStoreUpdate() {
     const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
@@ -86,8 +86,13 @@ export class LibraryDetail {
   }
 
   attached() {
+    this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.handleRouteAttachment();
     this.initializeElements();
+  }
+
+  detached() {
+    this.reduxSubscription();
   }
 
   initializeElements() {

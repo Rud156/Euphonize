@@ -1,5 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { Unsubscribe } from 'redux';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -28,6 +29,7 @@ interface IPlayerTrackInterface extends ITrackBasic {
 @inject(Store, AudioService, EventAggregator)
 export class MusicPlayer {
   playerGrid: HTMLElement;
+  reduxSubscription: Unsubscribe;
 
   audioElement: HTMLAudioElement;
   audioIsPlaying: boolean = false;
@@ -58,9 +60,7 @@ export class MusicPlayer {
     private store: Store,
     private audioService: AudioService,
     private ea: EventAggregator
-  ) {
-    this.store.dataStore.subscribe(this.handleStoreStateUpdate.bind(this));
-  }
+  ) {}
 
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
@@ -241,12 +241,14 @@ export class MusicPlayer {
   }
 
   attached() {
+    this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreStateUpdate.bind(this));
     this.initializeElements();
     this.addAllEventListeners();
   }
 
   detached() {
     this.removeAllEventListeners();
+    this.reduxSubscription();
   }
 
   addAllEventListeners() {
