@@ -4,7 +4,7 @@ import { RouteConfig } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { ITrackBasic } from '../../common/interfaces/track-interface';
-import { ISearchResults } from '../../common/interfaces/search-result-interface';
+import { ISearchResults, IImage } from '../../common/interfaces/search-result-interface';
 
 import Store from '../../common/utils/store';
 import SearchService from '../../common/services/searchService';
@@ -12,6 +12,7 @@ import SearchService from '../../common/services/searchService';
 import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
 import { playSelectedTrack } from '../../common/actions/player-actions';
 import { addToNowPlaying } from '../../common/actions/now-playing-actions';
+import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 
 interface IParams {
   query: string;
@@ -52,11 +53,15 @@ export class Search {
         return {
           trackName: track.name,
           artistName: track.artist,
-          image: track.image[2]['#text'],
+          image: this.getTrackImage(track.image),
         };
       });
       this.tracks = mappedTracks;
     });
+  }
+
+  getTrackImage(images: IImage[]) {
+    return images[2]['#text'] ? images[2]['#text'] : TRACK_IMAGE_PLACEHOLDER;
   }
 
   activate(params: IParams, routeConfig: RouteConfig) {

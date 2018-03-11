@@ -23,11 +23,11 @@ interface Track {
   url: string;
   streamable: string;
   listeners: string;
-  image: Image[];
+  image: IImage[];
   mbid: string;
 }
 
-interface Image {
+export interface IImage {
   '#text': string;
   size: string;
 }

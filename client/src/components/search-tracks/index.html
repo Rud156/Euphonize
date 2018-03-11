@@ -16,8 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.trackName | trimString:40"
-          artist-name.bind="track.artistName | trimString:30" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+        <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.trackName | trimString:30"
+          artist-name.bind="track.artistName | trimString:20" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
           add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
       </tbody>
     </table>
