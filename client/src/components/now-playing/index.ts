@@ -4,9 +4,12 @@ import { Unsubscribe } from 'redux';
 // @ts-ignore
 import * as UIkit from 'uikit';
 
-import { ITrackBasic } from '../../common/interfaces/track-interface';
+import { ITrackBasic, ITrack } from '../../common/interfaces/track-interface';
 import Store from '../../common/utils/store';
 import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
+import { removeFromNowPlaying } from '../../common/actions/now-playing-actions';
+import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
+import { playSelectedTrack } from '../../common/actions/player-actions';
 
 @inject(Store)
 export class NowPlaying {
@@ -18,6 +21,7 @@ export class NowPlaying {
     artistName: '',
     image: '',
   };
+  tracks: ITrack[] = [];
 
   constructor(private store: Store) {}
 
@@ -28,6 +32,27 @@ export class NowPlaying {
       artistName,
       image: image ? image : TRACK_IMAGE_PLACEHOLDER,
     };
+
+    const tracks = this.store.dataStore.getState().nowPlaying.tracks;
+    this.tracks = tracks.slice();
+  }
+
+  handleTracksPlay(trackName: string, artistName: string, image: string, index: number) {
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
+  }
+
+  handleTracksAddToPlaylist(trackName: string, artistName: string, image: string, index: number) {
+    this.store.dataStore.dispatch(
+      selectTrackForPlaylist({
+        trackName,
+        artistName,
+        image,
+      })
+    );
+  }
+
+  handleTracksRemove(trackName: string, artistName: string, image: string, index: number) {
+    this.store.dataStore.dispatch(removeFromNowPlaying(index));
   }
 
   attached() {

@@ -313,8 +313,6 @@ export class MusicPlayer {
           this.store.dataStore.dispatch(
             playSelectedTrack(track.trackName, track.artistName, track.image)
           );
-        } else if (result.repeat && !this.replay) {
-          this.audioElement.currentTime = 0;
         }
       }
     }
