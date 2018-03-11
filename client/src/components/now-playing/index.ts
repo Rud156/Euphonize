@@ -41,6 +41,6 @@ export class NowPlaying {
   }
 
   initializeElements() {
-    UIkit.grid();
+    UIkit.grid(this.nowPlayingGrid);
   }
 }
