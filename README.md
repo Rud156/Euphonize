@@ -1,5 +1,5 @@
-# Kihon
-> Boilerplate and Basic Functioning for webapp
+# Euphonize
+> Boilerplate and Basic Functioning for WebApp
 
 ### Work In Progress
 
