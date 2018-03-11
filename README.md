@@ -9,10 +9,10 @@
 ![Playlist Detail Page](./ScreenShots/PlaylistDetailPage.png)
 
 ### Road Map for `v0.1`:
-- [ ] Search Bar for Music Search
+- [x] Search Bar for Music Search
 - [ ] Youtube Results
 - [ ] Media Player
 - [ ] Dynamic Audio Switching
 - [ ] Meta Data Extractor - Last.FM / Itunes
-- [ ] Flask API with Search and Play Functionality
+- [x] Flask API with Search and Play Functionality
 - [ ] Convert to PWA
