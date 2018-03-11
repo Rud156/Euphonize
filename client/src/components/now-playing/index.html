@@ -1,7 +1,23 @@
 <template>
+  <require from="./index.css"></require>
 
   <h2 class="category-header">Now Playing</h2>
 
-  
+  <div class="uk-grid-medium uk-text-center uk-padding-large uk-padding-remove-vertical" ref="nowPlayingGrid">
+
+    <div class="uk-width-1-4@m uk-width-1-2@s">
+      <div class="uk-card uk-card-default">
+        <div class="uk-card-media-top">
+          <img src.bind="currentTrack.image" style="height: 100%; width: 100%" />
+        </div>
+      </div>
+
+      <div class="now-playing-flex">
+        <div class="white-text now-playing-track-name">${currentTrack.trackName}</div>
+        <div class="white-text now-playing-artist-name">${currentTrack.artistName}</div>
+      </div>
+    </div>
+  </div>
+
 
 </template>

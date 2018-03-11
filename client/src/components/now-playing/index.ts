@@ -6,9 +6,11 @@ import * as UIkit from 'uikit';
 
 import { ITrackBasic } from '../../common/interfaces/track-interface';
 import Store from '../../common/utils/store';
+import { TRACK_IMAGE_PLACEHOLDER } from '../../common/utils/constants';
 
 @inject(Store)
 export class NowPlaying {
+  nowPlayingGrid: HTMLElement;
   reduxSubscription: Unsubscribe;
 
   currentTrack: ITrackBasic = {
@@ -20,15 +22,25 @@ export class NowPlaying {
   constructor(private store: Store) {}
 
   handleStoreUpdate() {
-    const currentTrack = this.store.dataStore.getState().player.currentTrack;
-    this.currentTrack = currentTrack;
+    const { trackName, artistName, image } = this.store.dataStore.getState().player.currentTrack;
+    this.currentTrack = {
+      trackName,
+      artistName,
+      image: image ? image : TRACK_IMAGE_PLACEHOLDER,
+    };
   }
 
   attached() {
     this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+    this.handleStoreUpdate();
+    this.initializeElements();
   }
 
   detached() {
     this.reduxSubscription();
+  }
+
+  initializeElements() {
+    UIkit.grid();
   }
 }
