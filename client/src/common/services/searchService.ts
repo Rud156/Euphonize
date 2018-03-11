@@ -1,6 +1,5 @@
 import { HttpClient } from 'aurelia-fetch-client';
-import * as _ from 'lodash';
-import { SEARCH_BASE_STRING, SEARCH_ENDING_STRING } from '../utils/constants';
+import { BASE_URL } from '../utils/constants';
 
 class SearchService {
   private httpClient: HttpClient;
@@ -11,7 +10,7 @@ class SearchService {
 
   getSearchResults = (searchQuery: string) => {
     return this.httpClient
-      .fetch(`${SEARCH_BASE_STRING}${searchQuery}${SEARCH_ENDING_STRING}`)
+      .fetch(`${BASE_URL}/search?search_query=${searchQuery}`)
       .then(response => response.json());
   };
 }

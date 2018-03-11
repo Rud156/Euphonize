@@ -6,6 +6,7 @@ import constants
 import last_fm_top
 import top_chart
 from cover_art_getter import itunes_album_art, last_fm_cover_art
+from search import get_search_result
 from youtube_list import youtube_search
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
@@ -19,6 +20,19 @@ def index():
     Index Route
     """
     return jsonify({'success': True, 'message': 'Hello World'})
+
+
+@APP.route('/search', methods=['GET'])
+def search():
+    """
+    Get track search results
+    """
+    search_query = request.args.get('search_query')
+    result = get_search_result(search_query)
+    if result is None:
+        return jsonify({'success': False, 'message': 'Unable to get the data'})
+    else:
+        return jsonify({'success': True, 'result': result})
 
 
 @APP.route('/audio', methods=['GET'])

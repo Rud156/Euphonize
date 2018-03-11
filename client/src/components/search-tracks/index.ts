@@ -48,15 +48,18 @@ export class Search {
 
     this.searchService.getSearchResults(this.searchQuery).then((data: ISearchResults) => {
       this.searchLoading = false;
-      const tracks = data.results.trackmatches.track;
-      const mappedTracks: ITrackBasic[] = tracks.map(track => {
-        return {
-          trackName: track.name,
-          artistName: track.artist,
-          image: this.getTrackImage(track.image),
-        };
-      });
-      this.tracks = mappedTracks;
+
+      if (data.success) {
+        const tracks = data.result.results.trackmatches.track;
+        const mappedTracks: ITrackBasic[] = tracks.map(track => {
+          return {
+            trackName: track.name,
+            artistName: track.artist,
+            image: this.getTrackImage(track.image),
+          };
+        });
+        this.tracks = mappedTracks;
+      }
     });
   }
 

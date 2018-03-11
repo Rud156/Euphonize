@@ -1,8 +1,5 @@
 export const BASE_URL: string = 'http://localhost:5000';
 
-export const SEARCH_BASE_STRING = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=';
-export const SEARCH_ENDING_STRING = '&api_key=7ede02c397c8cf99bf26e1f8cb9681fa&format=json';
-
 export const TRACK_IMAGE_PLACEHOLDER =
   'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png';
 

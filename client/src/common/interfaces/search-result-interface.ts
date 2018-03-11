@@ -1,4 +1,10 @@
 export interface ISearchResults {
+  success: boolean;
+  message?: string;
+  result: ISearchData;
+}
+
+interface ISearchData {
   results: Results;
 }
 

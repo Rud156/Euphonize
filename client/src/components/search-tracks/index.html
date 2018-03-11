@@ -5,7 +5,7 @@
 
   <h2 class="category-header">Searching For: ${searchQuery}...</h2>
 
-  <div class="uk-overflow-auto uk-padding-large" style="padding-top: 0" if.bind="tracks.length > 0">
+  <div class="uk-overflow-auto uk-padding-large uk-padding-remove-bottom" style="padding-top: 0" if.bind="tracks.length > 0">
     <table class="uk-table uk-table-small uk-table-divider">
       <thead>
         <tr>
@@ -23,7 +23,7 @@
     </table>
   </div>
 
-  <div if.bind="searchLoading" style="width: 100%; margin: 0 auto; text-align: center">
+  <div if.bind="searchLoading" style="width: 100%; margin: 0 auto 140px auto; text-align: center">
     <loader></loader>
   </div>
 </template>
