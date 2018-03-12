@@ -10,8 +10,8 @@
 
 ### Road Map for `v0.1`:
 - [x] Search Bar for Music Search
-- [ ] Youtube Results
-- [ ] Media Player
+- [x] Youtube Results
+- [x] Media Player
 - [ ] Dynamic Audio Switching
 - [ ] Meta Data Extractor - Last.FM / Itunes
 - [x] Flask API with Search and Play Functionality
