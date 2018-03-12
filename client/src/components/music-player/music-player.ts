@@ -44,7 +44,8 @@ export class MusicPlayer {
   playButton: HTMLElement;
   pauseButton: HTMLElement;
   nextTrackButton: HTMLElement;
-  replayButton: HTMLElement;
+  replayButtonNormal: HTMLElement;
+  replayButtonRotated: HTMLElement;
   playlistButton: HTMLElement;
   seekSlider: HTMLInputElement;
   volumeSlider: HTMLInputElement;
@@ -352,7 +353,8 @@ export class MusicPlayer {
     this.nextTrackButton.addEventListener('click', this.handleNextButtonClick.bind(this));
     this.prevTrackButton.addEventListener('click', this.handlePrevTrackButtonClick.bind(this));
     this.playlistButton.addEventListener('click', this.handlePlaylistButtonClick.bind(this));
-    this.replayButton.addEventListener('click', this.handleReplayButtonClick.bind(this));
+    this.replayButtonNormal.addEventListener('click', this.handleReplayButtonClick.bind(this));
+    this.replayButtonRotated.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.randomButton.addEventListener('click', this.handleRandomButtonClick.bind(this));
     this.volumeSlider.addEventListener('input', this.handleVolumeSliderChange.bind(this));
 
@@ -371,7 +373,8 @@ export class MusicPlayer {
     this.nextTrackButton.removeEventListener('click', this.handleNextButtonClick);
     this.prevTrackButton.removeEventListener('click', this.handlePrevTrackButtonClick);
     this.playlistButton.removeEventListener('click', this.handlePlaylistButtonClick);
-    this.replayButton.removeEventListener('click', this.handleReplayButtonClick);
+    this.replayButtonNormal.removeEventListener('click', this.handleReplayButtonClick);
+    this.replayButtonRotated.removeEventListener('click', this.handleReplayButtonClick);
     this.randomButton.removeEventListener('click', this.handleRandomButtonClick);
     this.volumeSlider.removeEventListener('input', this.handleVolumeSliderChange);
 

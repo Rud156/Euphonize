@@ -62,6 +62,34 @@
   }
 }
 
+.player-control-rotate-180 {
+  animation: rotate-180 0.5s forwards;
+}
+
+.player-control-rotate-0 {
+  animation: rotate-0 0.5s forwards;
+}
+
+@keyframes rotate-180 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate-0 {
+  0% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 @media only screen and (max-width: 950px) {
   .player-left-content {
     & .player-track-image {

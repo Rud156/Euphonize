@@ -31,8 +31,11 @@
         <span ref="nextTrackButton">
           <i class="fas fa-chevron-right"></i>
         </span>
-        <span ref="replayButton">
-          <i class="fas fa-redo-alt"></i>
+        <span ref="replayButtonNormal" show.bind="!replay">
+          <i class="fas fa-redo-alt player-control-rotate-0"></i>
+        </span>
+        <span ref="replayButtonRotated" show.bind="replay">
+          <i class="fas fa-redo-alt player-control-rotate-180"></i>
         </span>
         <span ref="playlistButton">
           <i class="fas fa-plus-circle"></i>
