@@ -28,10 +28,12 @@ export const removeFromNowPlaying = (id: number) => {
   };
 };
 
-export const shuffleNowPlaying = () => {
+export const shuffleNowPlaying = (currentTrack: ITrackBasic) => {
   return {
     type: SHUFFLE_NOW_PLAYING,
-    payload: {},
+    payload: {
+      track: currentTrack
+    },
   };
 };
 

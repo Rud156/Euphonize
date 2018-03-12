@@ -188,7 +188,7 @@ export class MusicPlayer {
   }
 
   handleRandomButtonClick() {
-    this.store.dataStore.dispatch(shuffleNowPlaying());
+    this.store.dataStore.dispatch(shuffleNowPlaying(this.playingTrack));
   }
 
   handlePrevTrackButtonClick() {
@@ -273,26 +273,26 @@ export class MusicPlayer {
     if (!this.preventDefaultEnabled) return;
 
     event.preventDefault();
-    const { keyCode } = event;
+    const { key } = event;
 
-    switch (keyCode) {
-      case 32:
+    switch (key) {
+      case ' ':
         this.togglePlayPause();
         break;
 
-      case 65:
+      case 'a':
         this.handlePrevTrackButtonClick();
         break;
 
-      case 68:
+      case 'd':
         this.handleNextButtonClick();
         break;
 
-      case 83:
+      case 's':
         this.handleRandomButtonClick();
         break;
 
-      case 82:
+      case 'r':
         this.handleReplayButtonClick();
         break;
 

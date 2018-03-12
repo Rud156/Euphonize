@@ -63,23 +63,38 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
     }
 
     case SHUFFLE_NOW_PLAYING: {
-      let currentTracks = state.tracks;
+      const currentTrack: ITrackBasic = action.payload.track;
+      const currentTracks = state.tracks;
+
+      const filteredTracks: ITrack[] = currentTracks.filter(element => {
+        return (
+          element.trackName !== currentTrack.trackName ||
+          element.artistName !== currentTrack.artistName
+        );
+      });
+      const currentTrackInArray = currentTracks.find(
+        _ => _.trackName === currentTrack.trackName && _.artistName === currentTrack.artistName
+      );
+
       if (currentTracks.length == 0 || currentTracks.length == 1) return state;
 
-      let currentIndex = currentTracks.length;
+      let currentIndex = filteredTracks.length;
       let tempVal, randomIndex;
 
       while (currentIndex != 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
-        tempVal = currentTracks[currentIndex];
-        currentTracks[currentIndex] = currentTracks[randomIndex];
-        currentTracks[randomIndex] = tempVal;
+        tempVal = filteredTracks[currentIndex];
+        filteredTracks[currentIndex] = filteredTracks[randomIndex];
+        filteredTracks[randomIndex] = tempVal;
       }
+
+      filteredTracks.unshift(currentTrackInArray);
+
       const shuffledNowPlaying = {
         id: state.id,
-        tracks: currentTracks,
+        tracks: filteredTracks,
         name: state.name,
       };
       return shuffledNowPlaying;

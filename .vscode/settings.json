@@ -4,9 +4,11 @@
         "Noty",
         "Trackmatches",
         "fontawesome",
+        "jsonify",
         "mbid",
         "offcanvas",
         "opensearch",
+        "pafy",
         "streamable",
         "uikit"
     ]
