@@ -150,6 +150,12 @@ export class App {
     ]);
   }
 
+  redirectAndCloseSidebar(routeToNavigateTo: string) {
+    UIkit.offcanvas(this.sidebarRef).hide();
+    this.sidebarShowing = false;
+    this.router.navigateToRoute(routeToNavigateTo);
+  }
+
   handleSearchInput() {
     this.handleDebouncedSearch();
   }

@@ -135,21 +135,17 @@ export class MusicPlayer {
             image: '',
           };
         } else {
-          const { message } = data;
+          const { message }: { message: string } = data;
           this.audioIsLoading = false;
-          this.ea.publish('notification', {
-            type: 'error',
-            message: message,
-            data: null,
-          });
+          this.publishNotification('error', message, null);
         }
       })
       .catch(error => {
-        this.ea.publish('notification', {
-          type: 'error',
-          message: 'Yikes! We were unable to load track. Please try again',
-          data: error,
-        });
+        this.publishNotification(
+          'error',
+          'Yikes! We were unable to load track. Please try again',
+          error
+        );
         this.currentTrack = {
           trackName: '',
           artistName: '',
@@ -189,7 +185,11 @@ export class MusicPlayer {
   }
 
   handleRandomButtonClick() {
+    const tracks = this.store.dataStore.getState().nowPlaying.tracks;
+    if (tracks.length <= 0) return;
+
     this.store.dataStore.dispatch(shuffleNowPlaying(this.playingTrack));
+    this.publishNotification('success', 'Now Playing Shuffled', {});
   }
 
   handlePrevTrackButtonClick() {
@@ -202,11 +202,7 @@ export class MusicPlayer {
         playSelectedTrack(track.trackName, track.artistName, track.image)
       );
     } else {
-      this.ea.publish('notification', {
-        type: 'warning',
-        message: 'No previous track to play',
-        data: {},
-      });
+      this.publishNotification('warning', 'No previous track to play', {});
     }
   }
 
@@ -220,11 +216,7 @@ export class MusicPlayer {
         playSelectedTrack(track.trackName, track.artistName, track.image)
       );
     } else {
-      this.ea.publish('notification', {
-        type: 'warning',
-        message: 'No next track to play',
-        data: {},
-      });
+      this.publishNotification('warning', 'No next track to play', {});
     }
   }
 
@@ -233,6 +225,12 @@ export class MusicPlayer {
   }
 
   handlePlaylistButtonClick() {
+    const tracks = this.store.dataStore.getState().nowPlaying.tracks;
+    if (tracks.length <= 0) {
+      this.publishNotification('warning', 'No tracks playing to add to playlist', {});
+      return;
+    }
+
     this.store.dataStore.dispatch(selectTrackForPlaylist(this.playingTrack));
   }
 
@@ -329,6 +327,14 @@ export class MusicPlayer {
     };
     this.playingTrack = modifiedTrackData;
     this.playAudio();
+  }
+
+  publishNotification(eventType: string, message: string, error: object) {
+    this.ea.publish('notification', {
+      type: eventType,
+      message,
+      data: error,
+    });
   }
 
   attached() {

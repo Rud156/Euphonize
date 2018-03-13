@@ -53,7 +53,9 @@
 
           <ul class="uk-list uk-list-large uk-list-divider">
             <li repeat.for="nav of router.navigation">
-              <a class="${nav.isActive ? 'active-link' : 'black-text'}" href.bind="nav.href">${nav.title}</a>
+              <a class="${nav.isActive ? 'active-link' : 'black-text'}" href="${nav.href}" click.delegate="redirectAndCloseSidebar(nav.route)">
+                ${nav.title}
+              </a>
             </li>
           </ul>
 
