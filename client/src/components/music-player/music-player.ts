@@ -186,7 +186,10 @@ export class MusicPlayer {
 
   handleRandomButtonClick() {
     const tracks = this.store.dataStore.getState().nowPlaying.tracks;
-    if (tracks.length <= 0) return;
+    if (tracks.length <= 0) {
+      this.publishNotification('warning', 'No tracks playing to shuffle', {});
+      return;
+    }
 
     this.store.dataStore.dispatch(shuffleNowPlaying(this.playingTrack));
     this.publishNotification('success', 'Now Playing Shuffled', {});

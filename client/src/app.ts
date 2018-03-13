@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
-import { RouterConfiguration, Router } from 'aurelia-router';
+import { RouterConfiguration, Router, NavModel } from 'aurelia-router';
 import { Unsubscribe } from 'redux';
 import * as _ from 'lodash';
 
@@ -150,10 +150,9 @@ export class App {
     ]);
   }
 
-  redirectAndCloseSidebar(routeToNavigateTo: string) {
+  redirectAndCloseSidebar() {
     UIkit.offcanvas(this.sidebarRef).hide();
     this.sidebarShowing = false;
-    this.router.navigateToRoute(routeToNavigateTo);
   }
 
   handleSearchInput() {
