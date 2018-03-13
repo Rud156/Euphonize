@@ -302,7 +302,7 @@ export class MusicPlayer {
         break;
     }
   }
-
+  
   checkAndSwitchToNextTrack() {
     if (this.audioElement.currentTime >= this.audioElement.duration) {
       this.pauseAudio();

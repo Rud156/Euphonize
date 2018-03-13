@@ -23,7 +23,7 @@ let main;
 if (CLIOptions.taskName() === 'build' && CLIOptions.hasFlag('watch')) {
   main = gulp.series(
     build,
-    (done) => { watch(); done(); }
+    (done) => { watch(null); done(); }
   );
 } else {
   main = build;
