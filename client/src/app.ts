@@ -125,14 +125,14 @@ export class App {
         name: 'albums',
         moduleId: './components/albums/index',
         nav: true,
-        title: 'Artists',
+        title: 'Albums',
       },
       {
         route: 'artists',
         name: 'artists',
         moduleId: './components/artists/index',
         nav: true,
-        title: 'Albums',
+        title: 'Artists',
       },
       {
         route: 'genre',
