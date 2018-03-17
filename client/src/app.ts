@@ -121,18 +121,18 @@ export class App {
         title: 'Tracks',
       },
       {
-        route: 'albums',
-        name: 'albums',
-        moduleId: './components/albums/index',
-        nav: true,
-        title: 'Albums',
-      },
-      {
         route: 'artists',
         name: 'artists',
         moduleId: './components/artists/index',
         nav: true,
         title: 'Artists',
+      },
+      {
+        route: 'albums',
+        name: 'albums',
+        moduleId: './components/albums/index',
+        nav: true,
+        title: 'Albums',
       },
       {
         route: 'genre',

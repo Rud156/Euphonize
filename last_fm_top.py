@@ -51,7 +51,7 @@ def top_artists():
             'image': all_artists[i]['image'][3]['#text']
         }
         artists.append(data_set)
-    return artists
+    return artists[:20]
 
 
 def top_tags():

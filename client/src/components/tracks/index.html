@@ -48,10 +48,10 @@
         </div>
       </div>
 
-      <div if.bind="trendingTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
+      <div show.bind="trendingTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
         <loader></loader>
       </div>
-      <div else>
+      <div show.bind="!trendingTracksLoading">
         <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px; margin-bottom: 121px">
           <ul class="uk-slider-items">
             <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
