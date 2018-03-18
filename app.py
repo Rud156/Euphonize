@@ -1,4 +1,3 @@
-import os
 import pafy
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -280,6 +279,4 @@ def get_album_info():
 
 if __name__ == '__main__':
     APP.secret_key = 'someSecret'
-    # APP.run(debug=True, threaded=True)
-    port = int(os.environ.get("PORT", 5000))
-    APP.run(host='0.0.0.0', port=port)
+    APP.run(debug=True, threaded=True)
