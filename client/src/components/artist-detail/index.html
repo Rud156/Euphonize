@@ -1,0 +1,28 @@
+<template>
+  <require from="./../loader/loader.html"></require>
+  <require from="./index.css"></require>
+  <require from="../../resources/value-converters/remove-link-format"></require>
+
+  <h2 class="category-header">${artistName}</h2>
+
+  <div class="uk-padding-large fixed-padding" style="padding-top: 14px">
+
+    <div show.bind="artistInfoLoading" style="width: 100%; margin: 0 auto; text-align: center">
+      <loader></loader>
+    </div>
+    <div show.bind="!artistInfoLoading" class="uk-grid-medium" ref="artistInfoGrid">
+      <div class="uk-width-1-4@m uk-width-1-4@s">
+        <div class="uk-card cursor-pointer image-hover">
+          <div class="uk-card-media-top">
+            <img src="${artistInfo.image}" alt="${artistInfo.artist_name}" style="width: 100%; height: 100%">
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-width-3-4@m uk-width-3-4@s">
+        <h4 class="white-text uk-padding-large uk-padding-remove-vertical uk-text-center" innerhtml.bind="artistInfo.summary | removeLink"></h4>
+      </div>
+    </div>
+
+  </div>
+</template>

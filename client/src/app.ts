@@ -128,6 +128,12 @@ export class App {
         title: 'Artists',
       },
       {
+        route: 'artist/:name',
+        name: 'artistDetail',
+        moduleId: './components/artist-detail/index',
+        nav: false,
+      },
+      {
         route: 'albums',
         name: 'albums',
         moduleId: './components/albums/index',
