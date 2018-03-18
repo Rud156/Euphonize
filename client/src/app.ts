@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator, Subscription } from 'aurelia-event-aggregator';
-import { RouterConfiguration, Router, NavModel } from 'aurelia-router';
+import { RouterConfiguration, Router, NavModel, NavigationInstruction, Next } from 'aurelia-router';
 import { Unsubscribe } from 'redux';
 import * as _ from 'lodash';
 
@@ -88,6 +88,13 @@ export class App {
     config.title = 'Fumen';
     config.options.pushState = true;
     config.options.root = '/';
+    const step = {
+      run(navigationInstruction: NavigationInstruction, next: Next): Promise<any> {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+        return next();
+      },
+    };
+    config.addPostRenderStep(step);
     config.map([
       {
         route: '',

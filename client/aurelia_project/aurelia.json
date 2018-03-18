@@ -114,7 +114,8 @@
               "lib/noty.css",
               "lib/themes/metroui.css"
             ]
-          }
+          },
+          "smoothscroll-polyfill"
         ]
       }
     ],

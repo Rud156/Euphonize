@@ -7,6 +7,7 @@ import * as UIkit from 'uikit';
 
 import ArtistService from '../../common/services/artistService';
 import TrackService from '../../common/services/trackService';
+import Store from '../../common/utils/store';
 import {
   IArtistData,
   ISimilarArtist,
@@ -14,12 +15,15 @@ import {
   IArtistInfoRawData,
   IArtistTopTracks,
 } from '../../common/interfaces/artist-interface';
+import { addToNowPlaying } from '../../common/actions/now-playing-actions';
+import { playSelectedTrack } from '../../common/actions/player-actions';
+import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
 
 interface IParams {
   name: string;
 }
 
-@inject(ArtistService, TrackService, Router, EventAggregator)
+@inject(ArtistService, TrackService, Router, EventAggregator, Store)
 export class ArtistDetail {
   artistInfoGrid: HTMLElement;
   similarArtistsSlider: HTMLElement;
@@ -27,6 +31,7 @@ export class ArtistDetail {
 
   artistName: string = '';
 
+  artistInfoLoadingSuccess: boolean = true;
   artistInfoLoading: boolean = false;
   artistInfo: IArtistData = null;
 
@@ -40,25 +45,36 @@ export class ArtistDetail {
     private artistService: ArtistService,
     private trackService: TrackService,
     private router: Router,
-    private ea: EventAggregator
+    private ea: EventAggregator,
+    private store: Store
   ) {}
 
   handleTracksPlay(trackName: string, artistName: string, image: string) {
-    console.log(trackName, artistName, image);
+    this.store.dataStore.dispatch(addToNowPlaying(trackName, artistName, image));
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 
   handleTracksAddToPlaylist(trackName: string, artistName: string, image: string) {
-    console.log(trackName, artistName, image);
+    this.store.dataStore.dispatch(
+      selectTrackForPlaylist({
+        trackName,
+        artistName,
+        image,
+      })
+    );
   }
 
   fetchArtistInfo() {
     this.artistInfoLoading = true;
+    this.artistInfoLoadingSuccess = true;
 
     this.artistService
       .getArtistInfo(this.artistName)
       .then((data: IArtistInfoRawData) => {
         if (data.success) {
           this.artistInfo = data['artist_data'];
+        } else {
+          this.artistInfoLoadingSuccess = false;
         }
 
         this.artistInfoLoading = false;

@@ -1,10 +1,10 @@
-import {Aurelia} from 'aurelia-framework'
+import { Aurelia } from 'aurelia-framework';
 import environment from './environment';
+import * as smoothscroll from 'smoothscroll-polyfill';
 
+smoothscroll.polyfill();
 export function configure(aurelia: Aurelia) {
-  aurelia.use
-    .standardConfiguration()
-    .feature('resources');
+  aurelia.use.standardConfiguration().feature('resources');
 
   if (environment.debug) {
     aurelia.use.developmentLogging();

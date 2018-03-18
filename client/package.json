@@ -7,7 +7,8 @@
     "url": "???"
   },
   "scripts": {
-    "serve": "serve /"
+    "serve": "serve /",
+    "deploy": "au build --env prod && firebase deploy"
   },
   "license": "MIT",
   "dependencies": {
@@ -21,6 +22,7 @@
     "noty": "^3.2.0-beta",
     "redux": "^3.7.2",
     "requirejs": "^2.3.2",
+    "smoothscroll-polyfill": "^0.4.3",
     "text": "github:requirejs/text#latest",
     "whatwg-fetch": "^2.0.3",
     "yarn": "^1.3.2"

@@ -7,6 +7,7 @@
 ![Landing Page](./ScreenShots/LandingPage.png)
 ![Playlists Page](./ScreenShots/PlaylistsPage.png)
 ![Playlist Detail Page](./ScreenShots/PlaylistDetailPage.png)
+![Artist Detail Page](./ScreenShots/ArtistDetailPage.png)
 
 ### Road Map for `v0.1`:
 - [x] Search Bar for Music Search
