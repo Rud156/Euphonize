@@ -19,3 +19,8 @@ export interface ISimilarArtist {
   artist_name: string;
   image: string;
 }
+
+export interface IArtistTopTracks {
+  artist_tracks: string[];
+  success: boolean;
+}

@@ -1,5 +1,5 @@
 <template>
-  <require from="./components/track-card.html"></require>
+  <require from="../track-card/track-card.html"></require>
   <require from="../track-table/track-table.html"></require>
   <require from="./../loader/loader.html"></require>
   <require from="./index.css"></require>
@@ -17,9 +17,8 @@
         </div>
       </div>
 
-      <div if.bind="topTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
-        <loader></loader>
-      </div>
+
+      <loader if.bind="topTracksLoading"></loader>
       <div else>
         <div class="uk-overflow-auto" style="padding: 0 21px">
           <table class="uk-table uk-table-small uk-table-divider">
@@ -48,9 +47,7 @@
         </div>
       </div>
 
-      <div show.bind="trendingTracksLoading" style="width: 100%; margin: 0 auto; text-align: center">
-        <loader></loader>
-      </div>
+      <loader if.bind="trendingTracksLoading"></loader>
       <div show.bind="!trendingTracksLoading">
         <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px; margin-bottom: 121px">
           <ul class="uk-slider-items">

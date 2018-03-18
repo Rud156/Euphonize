@@ -116,6 +116,33 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
   border: 1px solid #e5e5e5;
 }
 
+.overlay-content {
+  transition: 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) all;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.padding-21 {
+  padding: 21px;
+}
+
+.color-hover {
+  transition-duration: 0.7s;
+}
+
+.color-hover:hover {
+  color: coral;
+}
+
+.overlay-content:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 /* OVERRIDDEN STYLES */
 .uk-card-primary.uk-card-body .uk-list-divider>li:nth-child(n+2), .uk-card-primary>:not([class*=uk-card-media]) .uk-list-divider>li:nth-child(n+2), .uk-card-secondary.uk-card-body .uk-list-divider>li:nth-child(n+2), .uk-card-secondary>:not([class*=uk-card-media]) .uk-list-divider>li:nth-child(n+2), .uk-light .uk-list-divider>li:nth-child(n+2), .uk-offcanvas-bar .uk-list-divider>li:nth-child(n+2), .uk-overlay-primary .uk-list-divider>li:nth-child(n+2), .uk-section-primary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-section-secondary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-tile-primary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-tile-secondary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2) {
   border-top-color: rgba(0, 0, 0, 0.2) !important;

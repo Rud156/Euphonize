@@ -14,7 +14,7 @@ export const CONTENT_TYPES = {
 
 export const ARTIST_DATA = {
   INFO: 'info',
-  SIMILAR: 'similar',
+  SIMILAR: 'similar_artists',
 };
 
 export const SELECTION_TYPE = {

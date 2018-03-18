@@ -6,20 +6,25 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import * as UIkit from 'uikit';
 
 import ArtistService from '../../common/services/artistService';
+import TrackService from '../../common/services/trackService';
 import {
   IArtistData,
   ISimilarArtist,
   ISimilarArtistsRawData,
   IArtistInfoRawData,
+  IArtistTopTracks,
 } from '../../common/interfaces/artist-interface';
 
 interface IParams {
   name: string;
 }
 
-@inject(ArtistService, Router, EventAggregator)
+@inject(ArtistService, TrackService, Router, EventAggregator)
 export class ArtistDetail {
   artistInfoGrid: HTMLElement;
+  similarArtistsSlider: HTMLElement;
+  topTracksSlider: HTMLElement;
+
   artistName: string = '';
 
   artistInfoLoading: boolean = false;
@@ -28,11 +33,23 @@ export class ArtistDetail {
   similarArtistsLoading: boolean = false;
   similarArtists: ISimilarArtist[] = [];
 
+  artistTopTracksLoading: boolean = false;
+  artistTopTracks: string[] = [];
+
   constructor(
     private artistService: ArtistService,
+    private trackService: TrackService,
     private router: Router,
     private ea: EventAggregator
   ) {}
+
+  handleTracksPlay(trackName: string, artistName: string, image: string) {
+    console.log(trackName, artistName, image);
+  }
+
+  handleTracksAddToPlaylist(trackName: string, artistName: string, image: string) {
+    console.log(trackName, artistName, image);
+  }
 
   fetchArtistInfo() {
     this.artistInfoLoading = true;
@@ -78,6 +95,27 @@ export class ArtistDetail {
       });
   }
 
+  fetchArtistTopTracks() {
+    this.artistTopTracksLoading = true;
+
+    this.trackService
+      .getArtistTopTracks(this.artistName)
+      .then((data: IArtistTopTracks) => {
+        if (data.success) {
+          this.artistTopTracks = data.artist_tracks;
+        }
+        this.artistTopTracksLoading = false;
+      })
+      .catch(error => {
+        this.artistTopTracksLoading = false;
+        this.publishNotification(
+          'error',
+          'Yikes! We were unable to load the data. Could you try again',
+          error
+        );
+      });
+  }
+
   activate(params: IParams, routeConfig: RouteConfig) {
     routeConfig.navModel.setTitle(params.name);
     this.artistName = params.name;
@@ -85,6 +123,7 @@ export class ArtistDetail {
     if (this.artistName) {
       this.fetchArtistInfo();
       this.fetchSimilarArtists();
+      this.fetchArtistTopTracks();
     }
   }
 
@@ -104,5 +143,11 @@ export class ArtistDetail {
 
   initializeElements() {
     UIkit.grid(this.artistInfoGrid);
+    UIkit.slider(this.similarArtistsSlider, {
+      finite: true,
+    });
+    UIkit.slider(this.topTracksSlider, {
+      finite: true,
+    });
   }
 }

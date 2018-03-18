@@ -1,15 +1,16 @@
 <template>
+  <require from="../track-card/track-card.html"></require>
   <require from="./../loader/loader.html"></require>
   <require from="./index.css"></require>
   <require from="../../resources/value-converters/remove-link-format"></require>
+  <require from="../../resources/value-converters/trim-string-format"></require>
 
   <h2 class="category-header">${artistName}</h2>
 
   <div class="uk-padding-large fixed-padding" style="padding-top: 14px">
 
-    <div show.bind="artistInfoLoading" style="width: 100%; margin: 0 auto; text-align: center">
-      <loader></loader>
-    </div>
+
+    <loader if.bind="artistInfoLoading"></loader>
     <div show.bind="!artistInfoLoading" class="uk-grid-medium" ref="artistInfoGrid">
       <div class="uk-width-1-4@m uk-width-1-4@s">
         <div class="uk-card cursor-pointer image-hover">
@@ -24,5 +25,57 @@
       </div>
     </div>
 
+    <!-- Similar Artists -->
+    <div class="uk-padding-large uk-padding-remove-horizontal" style="padding-bottom: 14px">
+      <div class="uk-position-relative">
+        <h2 class="sub-category-headers white-text" style="font-weight: 500">Similar Artists</h2>
+      </div>
+    </div>
+
+
+    <loader if.bind="similarArtistsLoading"></loader>
+    <div show.bind="!similarArtistsLoading" class="uk-position-relative uk-slider-container" ref="similarArtistsSlider">
+      <ul class="uk-slider-items">
+        <li repeat.for="artist of similarArtists" style="height: 200px; width: 200px;" class="uk-transition-toggle">
+          <a href.bind="'artist/' + artist.artist_name">
+            <img src="${artist.image}" alt="${artist.artist_name}">
+            <div class="uk-position-center uk-panel">
+              <h3 class="white-text text-shadow uk-transition-slide-bottom-small">${artist.artist_name | trimString:15}</h3>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover white-text" href="#" uk-slider-item="previous">
+        <i class="fas fa-chevron-left fa-2x text-shadow"></i>
+      </a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover white-text" href="#" uk-slider-item="next">
+        <i class="fas fa-chevron-right fa-2x text-shadow"></i>
+      </a>
+    </div>
+    <!-- Similar Artists End -->
+
+    <!-- Artist Top Tracks -->
+    <div class="uk-padding-large uk-padding-remove-horizontal" style="padding-bottom: 14px">
+      <div class="uk-position-relative">
+        <h2 class="sub-category-headers white-text" style="font-weight: 500">Top Tracks</h2>
+      </div>
+    </div>
+
+    <loader if.bind="artistTopTracksLoading"></loader>
+    <div show.bind="!artistTopTracksLoading" class="uk-position-relative uk-slider-container" ref="topTracksSlider">
+      <ul class="uk-slider-items">
+        <li repeat.for="track of artistTopTracks" style="height: 200px; width: 200px;" class="uk-transition-toggle">
+          <track-card track-image.bind="artistInfo.image" track-name.bind="track | trimString:15" artist-name.bind="artistInfo.artist_name  | trimString:15"
+            play-track.call="handleTracksPlay(track, artistInfo.artist_name, artistInfo.image)" add-track.call="handleTracksAddToPlaylist(track, artistInfo.artist_name, artistInfo.image)"></track-card>
+        </li>
+      </ul>
+      <a class="uk-position-center-left uk-position-small uk-hidden-hover white-text" href="#" uk-slider-item="previous">
+        <i class="fas fa-chevron-left fa-2x text-shadow"></i>
+      </a>
+      <a class="uk-position-center-right uk-position-small uk-hidden-hover white-text" href="#" uk-slider-item="next">
+        <i class="fas fa-chevron-right fa-2x text-shadow"></i>
+      </a>
+    </div>
+    <!-- Artist Top Tracks End -->
   </div>
 </template>

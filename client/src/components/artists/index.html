@@ -14,9 +14,8 @@
       </div>
     </div>
 
-    <div show.bind="topArtistsLoading" style="width: 100%; margin: 0 auto; text-align: center">
-      <loader></loader>
-    </div>
+
+    <loader if.bind="topArtistsLoading"></loader>
     <div show.bind="!topArtistsLoading" class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" ref="topArtistsGrid">
       <a repeat.for="artist of topArtists" href.bind="'artist/' + artist.artist_name">
         <div class="uk-card cursor-pointer card-hover">
