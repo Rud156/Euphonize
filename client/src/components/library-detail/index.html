@@ -26,7 +26,13 @@
         </div>
       </div>
 
-      <div class="uk-width-3-4@m uk-width-1-2@s">
+      <div if.bind="currentPlaylist.tracks.length <= 0" class="uk-width-3-4@m uk-width-1-2@s">
+        <div class="uk-padding-large" style="text-align: center">
+          <i class="fas fa-exclamation fa-7x"></i>
+          <h3 class="white-text">No tracks avaliable. Add some and come back!!!</h3>
+        </div>
+      </div>
+      <div show.bind="currentPlaylist.tracks.length > 0" class="uk-width-3-4@m uk-width-1-2@s">
         <div class="uk-overflow-auto">
           <table class="uk-table uk-table-small uk-table-divider">
             <thead>

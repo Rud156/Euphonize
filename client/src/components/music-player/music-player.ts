@@ -271,6 +271,14 @@ export class MusicPlayer {
     this.checkAndSwitchToNextTrack();
   }
 
+  handlePlayingError() {
+    this.publishNotification(
+      'error',
+      `Yikes! Looks like we can't play this audio as YouTube is restricting us. Sorry about that.`,
+      null
+    );
+  }
+
   handleKeyInputs(event: KeyboardEvent) {
     if (!this.preventDefaultEnabled) return;
 
@@ -302,7 +310,7 @@ export class MusicPlayer {
         break;
     }
   }
-  
+
   checkAndSwitchToNextTrack() {
     if (this.audioElement.currentTime >= this.audioElement.duration) {
       this.pauseAudio();
@@ -357,6 +365,8 @@ export class MusicPlayer {
   addAllEventListeners() {
     this.audioElement.addEventListener('canplay', this.handleCanPlay.bind(this));
     this.audioElement.addEventListener('timeupdate', this.handleTimeUpdate.bind(this));
+    this.audioElement.addEventListener('error', this.handlePlayingError.bind(this));
+
     this.playButton.addEventListener('click', this.handlePlayButtonClick.bind(this));
     this.pauseButton.addEventListener('click', this.handlePauseButtonClick.bind(this));
     this.nextTrackButton.addEventListener('click', this.handleNextButtonClick.bind(this));
@@ -377,6 +387,8 @@ export class MusicPlayer {
   removeAllEventListeners() {
     this.audioElement.removeEventListener('canplay', this.handleCanPlay);
     this.audioElement.removeEventListener('timeupdate', this.handleTimeUpdate);
+    this.audioElement.removeEventListener('error', this.handlePlayingError);
+
     this.playButton.removeEventListener('click', this.handlePlayButtonClick);
     this.pauseButton.removeEventListener('click', this.handlePauseButtonClick);
     this.nextTrackButton.removeEventListener('click', this.handleNextButtonClick);

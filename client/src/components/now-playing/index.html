@@ -5,7 +5,7 @@
 
   <h2 class="category-header">Now Playing</h2>
 
-  <div show.bind="tracks.length <= 0" class="uk-padding-large" style="text-align: center">
+  <div if.bind="tracks.length <= 0" class="uk-padding-large" style="text-align: center">
     <i class="far fa-frown fa-7x"></i>
     <h3 class="white-text">No tracks avaliable. Add some and come back!!!</h3>
   </div>
