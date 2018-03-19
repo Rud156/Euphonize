@@ -55,18 +55,14 @@ def get_video():
     request_youtube = audio_title + ' lyrics'
     print('Request String Created: ' + request_youtube)
     videos = youtube_search({'q': request_youtube, 'max_results': 20})
-    image, success = itunes_album_art(audio_title)
+    image, success = last_fm_cover_art(track_name, artist_name)
 
     video = pafy.new(videos[0])
     audio_stream = video.getbestaudio()
     if success:
         image_url = image
     else:
-        image, success = last_fm_cover_art(audio_title)
-        if success:
-            image_url = image
-        else:
-            image_url = video.thumb
+        image_url = video.thumb
 
     data_set = {
         'success': True,

@@ -1,9 +1,11 @@
+import base64
 import json
 import re
 
 import requests
 from lxml import html
 
+API_KEY = '7ede02c397c8cf99bf26e1f8cb9681fa'
 HEADER = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0'
 }
@@ -42,29 +44,43 @@ def cover_art(search_term):
     return all_results, True
 
 
-def last_fm_cover_art(search_term):
-    print('Getting cover art for ' + search_term)
-    track_parts = search_term.split(' - ')
+def last_fm_cover_art(track_name, artist_name):
+    print(f'Getting cover art for {track_name} {artist_name}')
 
-    track = track_parts[0]
+    track = track_name
     track = track.replace(' ', '%20')
-    artist = track_parts[1]
+    artist = artist_name
     artist = artist.replace(' ', '%20')
 
+    image = None
+    request_success = True
+
     try:
-        response = requests.get('http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=\
-        7ede02c397c8cf99bf26e1f8cb9681fa&artist=' + artist + '&track=' + track + '&format=json')
+        last_fm_track_url = f'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=' \
+                            f'{API_KEY}&artist=' + artist + '&track=' + track + '&format=json'
+        print(last_fm_track_url)
+        response = requests.get(last_fm_track_url)
         response = json.loads(response.text)
-    except (requests.ConnectionError, requests.ConnectTimeout) as exception_value:
-        print('Error Occurred ' + str(exception_value))
-        return None, False
-
-    try:
         image = response['track']['album']['image'][3]['#text']
-    except KeyError as exception_value:
-        print('Error Occurred: ' + str(exception_value))
-        return None, False
+    except (KeyError, requests.ConnectionError, requests.ConnectTimeout) as exception_value:
+        print('Error Occurred ' + str(exception_value))
+        request_success = False
 
+    if not request_success:
+        try:
+            last_fm_artist_url = f'http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&' \
+                                 f'artist={artist_name}&api_key={API_KEY}&format=json'
+            print(last_fm_artist_url)
+            response = requests.get(last_fm_artist_url)
+            response = json.loads(response.text)
+            image = response['artist']['image'][3]['#text']
+            request_success = True
+        except (KeyError, requests.ConnectionError, requests.ConnectTimeout) as exception_value:
+            print('Error Occurred: ' + str(exception_value))
+            request_success = False
+
+    if not request_success:
+        return None, False
     return image, True
 
 
@@ -79,7 +95,7 @@ def itunes_album_art(search_term):
 
     try:
         response = requests.get(
-            'http://itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=' + track + '+' + artist)
+            'http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsSearch?term=' + track + '+' + artist)
         response = json.loads(response.text)
     except Exception as exception_value:
         print('Error Occurred ' + str(exception_value))
