@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(to top, rgb(255, 100, 124), rgb(254, 161, 125));
+  background: black;
   min-height: 100vh;
   height: 100%;
   width: 100%;
@@ -69,7 +69,7 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .navbar {
-  background: rgb(254, 189, 164) !important;
+  background: black !important;
   z-index: 2;
 }
 
@@ -86,7 +86,7 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .active-link {
-  color: lightcoral !important;
+  color: black !important;
 }
 
 .table-padding-5 {
@@ -136,7 +136,7 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .color-hover:hover {
-  color: coral;
+  color: black;
 }
 
 .overlay-content:hover {
@@ -150,6 +150,10 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 
 .uk-list-divider>li:nth-child(n+2) {
   border-top: 1px solid #000000 !important;
+}
+
+.uk-table-divider>:first-child>tr:not(:first-child), .uk-table-divider>:not(:first-child)>tr, .uk-table-divider>tr:not(:first-child) {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .uk-radio:checked, .uk-checkbox:checked, .uk-checkbox:indeterminate {
