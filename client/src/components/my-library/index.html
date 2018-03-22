@@ -51,10 +51,7 @@
 
   <h2 class="category-header">My Library</h2>
 
-  <div if.bind="playlists.length <= 0" class="uk-padding-large" style="text-align: center">
-    <i class="fas fa-exclamation-triangle fa-7x"></i>
-    <h3 class="white-text">No playlists found. Make some and come back!!!</h3>
-  </div>
+  <error-page if.bind="playlists.length <= 0" message="No playlists found. Make some and come back!!!"></error-page>
   <div class="uk-padding-large fixed-padding">
     <div class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" ref="playlistGrid">
       <div repeat.for="playlist of playlists">

@@ -1,5 +1,6 @@
 <template>
   <require from="../track-table/track-table.html"></require>
+  <require from="../error-page/error-page.html"></require>
   <require from="../../resources/value-converters/trim-string-format"></require>
 
   <h2 class="category-header">${playlistName}</h2>
@@ -27,10 +28,7 @@
       </div>
 
       <div if.bind="currentPlaylist.tracks.length <= 0" class="uk-width-3-4@m uk-width-1-2@s">
-        <div class="uk-padding-large" style="text-align: center">
-          <i class="fas fa-exclamation fa-7x"></i>
-          <h3 class="white-text">No tracks avaliable. Add some and come back!!!</h3>
-        </div>
+        <error-page message="No tracks avaliable. Add some and come back!!!"></error-page>
       </div>
       <div show.bind="currentPlaylist.tracks.length > 0" class="uk-width-3-4@m uk-width-1-2@s">
         <div class="uk-overflow-auto">

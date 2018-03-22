@@ -1,4 +1,4 @@
-<template bindable="playlists, track, checkboxSelect, saveData">
+<template>
   <div class="uk-modal-dialog">
     <div class="uk-modal-header">
       <div class="uk-modal-close-default" type="button" style="cursor: pointer">
@@ -15,7 +15,7 @@
           <span>
             <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})">
           </span>
-          <span>
+          <span class="cursor-pointer" click.delegate="handleCheckboxSelect($index)">
             ${playlist.name}
           </span>
         </li>

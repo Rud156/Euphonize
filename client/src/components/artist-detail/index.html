@@ -2,6 +2,7 @@
   <require from="../track-card/track-card.html"></require>
   <require from="./../loader/loader.html"></require>
   <require from="./index.css"></require>
+  <require from="../error-page/error-page.html"></require>
   <require from="../../resources/value-converters/remove-link-format"></require>
   <require from="../../resources/value-converters/trim-string-format"></require>
 
@@ -78,10 +79,7 @@
       </div>
       <!-- Artist Top Tracks End -->
     </div>
-    <div show.bind="!artistInfoLoadingSuccess" class="uk-text-center">
-      <i class="fas fa-exclamation-circle fa-7x"></i>
-      <h3 class="white-text">I'm sorry but we don't have enough info about ${artistName}</h3>
-    </div>
+    <error-page show.bind="!artistInfoLoadingSuccess" message="I'm sorry but we don't have enough info about ${artistName}"></error-page>
 
   </div>
 </template>
