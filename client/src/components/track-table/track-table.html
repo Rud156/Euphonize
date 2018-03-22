@@ -21,13 +21,13 @@
   <td style="text-align: left">
     <div style="padding-top: 7px">
       <span click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="playTrack">
-        <i class="fas fa-play-circle fa-2x cursor-pointer table-padding-5" style="font-size: 1.5em; color: #fff900"></i>
+        <i class="fas fa-play-circle fa-2x cursor-pointer table-padding-5 play-color" style="font-size: 1.5em;"></i>
       </span>
       <span click.delegate="addTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="addTrack">
-        <i class="fas fa-plus-circle fa-2x cursor-pointer table-padding-5" style="font-size: 1.5em; color: #00ffc6"></i>
+        <i class="fas fa-plus-circle fa-2x cursor-pointer table-padding-5 playlist-color" style="font-size: 1.5em;"></i>
       </span>
       <span click.delegate="removeTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="removeTrack">
-        <i class="fas fa-trash-alt fa-2x cursor-pointer table-padding-5" style="font-size: 1.5em; color: #ff0000"></i>
+        <i class="fas fa-trash-alt fa-2x cursor-pointer table-padding-5 remove-color" style="font-size: 1.5em"></i>
       </span>
     </div>
   </td>
