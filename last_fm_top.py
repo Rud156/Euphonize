@@ -38,7 +38,7 @@ def top_tracks():
 
 def top_artists():
     url = 'http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&' + \
-          'api_key=' + API_KEY + '&format=json&limit=100'
+          'api_key=' + API_KEY + '&format=json&limit=30'
     data = get_api_contents(url)
     if data is None:
         return None
@@ -51,7 +51,7 @@ def top_artists():
             'image': all_artists[i]['image'][3]['#text']
         }
         artists.append(data_set)
-    return artists[:20]
+    return artists
 
 
 def top_tags():
