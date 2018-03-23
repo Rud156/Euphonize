@@ -5,8 +5,9 @@
   <require from="../error-page/error-page.html"></require>
   <require from="../../resources/value-converters/remove-link-format"></require>
   <require from="../../resources/value-converters/trim-string-format"></require>
+  <require from="../../resources/value-converters/title-case-format"></require>
 
-  <h2 class="category-header">${artistName}</h2>
+  <h2 class="category-header">${artistName | titleCase}</h2>
 
   <div class="uk-padding-large fixed-padding" style="padding-top: 14px">
 
