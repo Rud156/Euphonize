@@ -1,5 +1,5 @@
 body {
-  background: black;
+  background: #1a1a1a;
   min-height: 100vh;
   height: 100%;
   width: 100%;
@@ -26,7 +26,7 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .playlist-color {
-  color: #48ffd6;
+  color: #ffc048;
 }
 
 .text-shadow {
@@ -152,16 +152,22 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .overlay-content:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(26, 26, 26, 0.7);
+}
+
+@media only screen and (max-width: 640px) {
+  .main-logo {
+    visibility: hidden;
+  }
 }
 
 /* OVERRIDDEN STYLES */
 .uk-card-primary.uk-card-body .uk-list-divider>li:nth-child(n+2), .uk-card-primary>:not([class*=uk-card-media]) .uk-list-divider>li:nth-child(n+2), .uk-card-secondary.uk-card-body .uk-list-divider>li:nth-child(n+2), .uk-card-secondary>:not([class*=uk-card-media]) .uk-list-divider>li:nth-child(n+2), .uk-light .uk-list-divider>li:nth-child(n+2), .uk-offcanvas-bar .uk-list-divider>li:nth-child(n+2), .uk-overlay-primary .uk-list-divider>li:nth-child(n+2), .uk-section-primary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-section-secondary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-tile-primary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2), .uk-tile-secondary:not(.uk-preserve-color) .uk-list-divider>li:nth-child(n+2) {
-  border-top-color: rgba(0, 0, 0, 0.2) !important;
+  border-top-color: rgba(26, 26, 26, 0.2) !important;
 }
 
 .uk-list-divider>li:nth-child(n+2) {
-  border-top: 1px solid #000000 !important;
+  border-top: 1px solid rgb(26, 26, 26) !important;
 }
 
 .uk-table-divider>:first-child>tr:not(:first-child), .uk-table-divider>:not(:first-child)>tr, .uk-table-divider>tr:not(:first-child) {
@@ -173,7 +179,7 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 }
 
 .uk-offcanvas-overlay::before {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(26, 26, 26, 0.7);
 }
 
 /* END OF OVERRIDDEN STYLES */
