@@ -18,9 +18,9 @@ class AlbumService {
       .then(response => response.json());
   };
 
-  getAlbumsForTag = (tagName: string) => {
+  getAlbumsForGenre = (genre: string) => {
     return this.httpClient
-      .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.ALBUMS}&tag_name=${tagName}`)
+      .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.ALBUMS}&tag_name=${genre}`)
       .then(response => response.json());
   };
 

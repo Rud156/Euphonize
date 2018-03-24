@@ -24,9 +24,9 @@ class TrackService {
       .then(response => response.json());
   };
 
-  getTracksForTag = (tagName: string) => {
+  getTracksForGenre = (genre: string) => {
     return this.httpClient
-      .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.TRACKS}&tag_name=${tagName}`)
+      .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.TRACKS}&tag_name=${genre}`)
       .then(response => response.json());
   };
 }

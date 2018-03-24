@@ -7,7 +7,7 @@
   <h2 class="category-header">Now Playing</h2>
 
   <error-page if.bind="tracks.length <= 0" message="No tracks playing right now. Play some and come back!!!"></error-page>
-  <div class="uk-padding-large" show.bind="tracks.length > 0">
+  <div class="uk-padding-large fixed-padding" show.bind="tracks.length > 0">
 
     <div class="uk-grid-medium uk-text-center uk-padding-remove-vertical" ref="nowPlayingGrid">
 

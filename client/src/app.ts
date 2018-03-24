@@ -155,6 +155,12 @@ export class App {
         title: 'Genre',
       },
       {
+        route: 'genre/:name',
+        name: 'genreDetails',
+        moduleId: './components/genre-details/index',
+        nav: false
+      },
+      {
         route: ['search', 'search/:query'],
         name: 'search',
         moduleId: './components/search-tracks/index',
