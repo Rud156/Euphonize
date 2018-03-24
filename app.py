@@ -274,7 +274,7 @@ def get_track():
         else:
             return jsonify({'success': True, 'track_data': data})
     else:
-        data = last_fm
+        data = last_fm.get_track_similar_tracks(track_name, artist_name)
         if data is None:
             return jsonify({'success': False,
                             'message': 'I\'m sorry but we do not have enough information about the track you requested'})

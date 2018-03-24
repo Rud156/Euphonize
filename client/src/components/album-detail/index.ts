@@ -1,20 +1,21 @@
 import { RouteConfig } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
 import AlbumService from '../../common/services/albumService';
+import Store from '../../common/utils/store';
 
 interface IParams {
   name: string;
   album: string;
 }
 
-@inject(AlbumService)
+@inject(AlbumService, Store)
 export class AlbumDetail {
   albumTitle: string = '';
   artistName: string = '';
 
   albumLoading: boolean = false;
 
-  constructor(private albumService: AlbumService) {}
+  constructor(private albumService: AlbumService, private store: Store) {}
 
   fetchAlbumInfo() {
     this.albumLoading = true;

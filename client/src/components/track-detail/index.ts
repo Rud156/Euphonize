@@ -1,18 +1,19 @@
 import { RouteConfig } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
 import TrackService from '../../common/services/trackService';
+import Store from '../../common/utils/store';
 
 interface IParams {
   name: string;
   track: string;
 }
 
-@inject(TrackService)
+@inject(TrackService, Store)
 export class TrackDetail {
   trackName: string = '';
   artistName: string = '';
 
-  constructor(private trackService: TrackService) {}
+  constructor(private trackService: TrackService, private store: Store) {}
 
   fetchTrackInfo() {
     this.trackService.getTrackInfo(this.trackName, this.artistName).then(data => {
