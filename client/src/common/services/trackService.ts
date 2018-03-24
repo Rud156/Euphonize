@@ -1,5 +1,5 @@
 import { HttpClient } from 'aurelia-fetch-client';
-import { BASE_URL, SELECTION_TYPE } from '../utils/constants';
+import { BASE_URL, SELECTION_TYPE, TRACK_DATA } from '../utils/constants';
 
 class TrackService {
   private httpClient: HttpClient;
@@ -32,7 +32,21 @@ class TrackService {
 
   getTrackInfo = (trackName: string, artistName: string) => {
     return this.httpClient
-      .fetch(`${BASE_URL}/track_info?track_name=${trackName}&artist_name=${artistName}`)
+      .fetch(
+        `${BASE_URL}/track?track_name=${trackName}&artist_name=${artistName}&data_type=${
+          TRACK_DATA.INFO
+        }`
+      )
+      .then(response => response.json());
+  };
+
+  getSimilarTracks = (trackName: string, artistName: string) => {
+    return this.httpClient
+      .fetch(
+        `${BASE_URL}/track?track_name=${trackName}&artist_name=${artistName}&data_type=${
+          TRACK_DATA.SIMILAR
+        }`
+      )
       .then(response => response.json());
   };
 }

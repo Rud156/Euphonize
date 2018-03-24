@@ -1,15 +1,28 @@
 import { RouteConfig } from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import AlbumService from '../../common/services/albumService';
 
 interface IParams {
   name: string;
   album: string;
 }
 
+@inject(AlbumService)
 export class AlbumDetail {
   albumTitle: string = '';
   artistName: string = '';
 
-  constructor() {}
+  albumLoading: boolean = false;
+
+  constructor(private albumService: AlbumService) {}
+
+  fetchAlbumInfo() {
+    this.albumLoading = true;
+
+    this.albumService.getAlbumInfo(this.albumTitle, this.artistName).then(data => {
+      console.log(data);
+    });
+  }
 
   activate(params: IParams, routeConfig: RouteConfig) {
     routeConfig.navModel.setTitle(params.album);
@@ -18,6 +31,7 @@ export class AlbumDetail {
     this.artistName = params.name;
 
     if (this.albumTitle) {
+      this.fetchAlbumInfo();
     }
   }
 

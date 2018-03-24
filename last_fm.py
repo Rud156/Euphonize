@@ -153,6 +153,31 @@ def get_artist_similar_artists(artist_name):
         return None
 
 
+def get_track_similar_tracks(track_name, artist_name):
+    track_name = urllib.parse.quote_plus(track_name)
+    artist_name = urllib.parse.quote_plus(artist_name)
+
+    url = f'http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist={artist_name}&' \
+             f'track={track_name}&api_key={API_KEY}&format=json&limit=25'
+    data = get_api_contents(url)
+    if data is None:
+        return None
+
+    tracks = []
+    try:
+        all_tracks = data['similartracks']['track']
+        for track in all_tracks:
+            data_set = {
+                'track_name': track['name'],
+                'artist_name': track['artist']['name'],
+                'image': track['image'][3]['#text']
+            }
+            tracks.append(data_set)
+        return tracks
+    except KeyError:
+        return None
+
+
 def get_albums_for_tags(tag_name, limit):
     url = 'http://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=' + tag_name + \
           '&api_key=' + API_KEY + '&format=json&limit=' + str(limit)

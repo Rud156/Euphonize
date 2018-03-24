@@ -18,6 +18,11 @@ export const ARTIST_DATA = {
   SIMILAR: 'similar_artists',
 };
 
+export const TRACK_DATA = {
+  INFO: 'info',
+  SIMILAR: 'similar_tracks'
+}
+
 export const SELECTION_TYPE = {
   TRACKS: 'tracks',
   ALBUMS: 'albums',

@@ -1,15 +1,30 @@
 import { RouteConfig } from 'aurelia-router';
+import { inject } from 'aurelia-framework';
+import TrackService from '../../common/services/trackService';
 
 interface IParams {
   name: string;
   track: string;
 }
 
+@inject(TrackService)
 export class TrackDetail {
   trackName: string = '';
   artistName: string = '';
 
-  constructor() {}
+  constructor(private trackService: TrackService) {}
+
+  fetchTrackInfo() {
+    this.trackService.getTrackInfo(this.trackName, this.artistName).then(data => {
+      console.log(data);
+    });
+  }
+
+  fetchSimilarTracks() {
+    this.trackService.getSimilarTracks(this.trackName, this.artistName).then(data => {
+      console.log(data);
+    });
+  }
 
   activate(params: IParams, routeConfig: RouteConfig) {
     routeConfig.navModel.setTitle(params.track);
@@ -18,6 +33,8 @@ export class TrackDetail {
     this.artistName = params.name;
 
     if (this.trackName) {
+      this.fetchTrackInfo();
+      this.fetchSimilarTracks();
     }
   }
 

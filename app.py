@@ -251,6 +251,37 @@ def get_artist():
             return jsonify({'success': True, 'similar_artists': similar_artists})
 
 
+@APP.route('/track', methods=['GET'])
+def get_track():
+    """
+    Get data related to track
+    """
+    track_name = request.args.get('track_name')
+    artist_name = request.args.get('artist_name')
+    content = request.args.get('data_type')
+
+    # Check validity of incomming data
+    if artist_name is None or track_name is None:
+        return jsonify({'success': False, 'message': 'No parameters supplied'})
+    if not constants.TRACK_NAME.match(track_name) or not constants.ARTIST_NAME.match(artist_name):
+        return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
+
+    if content == 'info':
+        data = last_fm.get_track_info(track_name, artist_name)
+        if data is None:
+            return jsonify({'success': False,
+                            'message': 'I\'m sorry but we do not have enough information about the track you requested'})
+        else:
+            return jsonify({'success': True, 'track_data': data})
+    else:
+        data = last_fm
+        if data is None:
+            return jsonify({'success': False,
+                            'message': 'I\'m sorry but we do not have enough information about the track you requested'})
+        else:
+            return jsonify({'success': True, 'similar_tracks': data})
+
+
 @APP.route('/album_info', methods=['GET'])
 def get_album_info():
     """
@@ -271,28 +302,6 @@ def get_album_info():
                         'message': 'I\'m sorry but we do not have enough information about the album you requested'})
     else:
         return jsonify({'success': True, 'album_data': data})
-
-
-@APP.route('/track_info', methods=['GET'])
-def get_track_info():
-    """
-    Get data related to track
-    """
-    track_name = request.args.get('track_name')
-    artist_name = request.args.get('artist_name')
-
-    # Check validity of incomming data
-    if artist_name is None or track_name is None:
-        return jsonify({'success': False, 'message': 'No parameters supplied'})
-    if not constants.TRACK_NAME.match(track_name) or not constants.ARTIST_NAME.match(artist_name):
-            return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
-
-    data = last_fm.get_track_info(track_name, artist_name)
-    if data is None:
-        return jsonify({'success': False,
-                        'message': 'I\'m sorry but we do not have enough information about the track you requested'})
-    else:
-        return jsonify({'success': True, 'track_data': data})
 
 
 if __name__ == '__main__':
