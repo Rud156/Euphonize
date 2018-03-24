@@ -1,9 +1,61 @@
 <template>
   <require from="./../../resources/value-converters/title-case-format"></require>
+  <require from="./../../resources/value-converters/trim-string-format"></require>
+  <require from="./../album-card/album-card.html"></require>
+  <require from="./../loader/loader.html"></require>
+  <require from="./../track-table/track-table.html"></require>
 
   <h2 class="category-header">
     ${genreName | titleCase}
   </h2>
 
-  
+  <div class="uk-padding-large fixed-padding" style="margin-top: 14px">
+
+    <!-- Genre Top Albums -->
+    <h2 class="sub-category-headers white-text" style="font-weight: 500">Albums</h2>
+
+    <loader if.bind="albumsLoading"></loader>
+    <div show.bind="!albumsLoading" style="margin-top: 7px">
+      <div class="uk-position-relative uk-slider-container" ref="sliderAlbums" style="margin: 0 21px">
+        <ul class="uk-slider-items">
+          <li repeat.for="album of albums" style="height: 200px; width: 200px">
+            <album-card image.bind="album.image" album-name.bind="album.album_name" artist-name.bind="album.artist_name"></album-card>
+          </li>
+        </ul>
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
+          <i class="fas fa-chevron-left fa-2x text-shadow white-text"></i>
+        </a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
+          <i class="fas fa-chevron-right fa-2x text-shadow white-text"></i>
+        </a>
+      </div>
+    </div>
+    <!-- End of Genre Top Albums -->
+
+    <!-- Genre Top Tracks -->
+    <h2 class="sub-category-headers white-text" style="font-weight: 500">Tracks</h2>
+
+    <loader if.bind="tracksLoading"></loader>
+    <div else>
+      <div class="uk-overflow-auto" style="padding: 0 21px">
+        <table class="uk-table uk-table-small uk-table-divider">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Artist</th>
+              <th>Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name.bind="track.track_name | trimString:30"
+              artist-name.bind="track.artist_name | trimString:20" index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image)"
+              add-track.call="addToNowPlayingAndPlay(trackName, artistName, image)"></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- End of Genre Top Tracks -->
+  </div>
 </template>

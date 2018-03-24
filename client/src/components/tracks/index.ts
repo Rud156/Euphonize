@@ -28,10 +28,6 @@ export class Tracks {
     private ea: EventAggregator
   ) {}
 
-  handleTracksPlay(trackName: string, artistName: string, image: string) {
-    this.addToNowPlayingAndPlay(trackName, artistName, image);
-  }
-
   handleTracksAddToPlaylist(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(
       selectTrackForPlaylist({

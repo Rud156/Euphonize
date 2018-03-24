@@ -3,9 +3,9 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 import constants
-import last_fm_top
+import last_fm
 import top_chart
-from cover_art_getter import itunes_album_art, last_fm_cover_art
+from cover_art_getter import last_fm_cover_art
 from search import get_search_result
 from youtube_list import youtube_search
 
@@ -88,7 +88,7 @@ def get_top_artists():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data == 'user_cu':
-        artists = last_fm_top.top_artists()
+        artists = last_fm.top_artists()
         if artists is None:
             return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'artists': artists})
@@ -113,7 +113,7 @@ def get_top_tracks():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data == 'user_cu':
-        tracks = last_fm_top.top_tracks()
+        tracks = last_fm.top_tracks()
         if tracks is None:
             return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
         return jsonify({'success': True, 'tracks': tracks})
@@ -140,7 +140,7 @@ def get_top_albums():
     """
     Get Top Albums
     """
-    albums = last_fm_top.top_albums()
+    albums = last_fm.top_albums()
     if albums is None:
         return jsonify({'success': False, 'message': 'Unable to fetch data. Please try again later'})
     return jsonify({'success': True, 'albums': albums})
@@ -172,9 +172,9 @@ def artist_top():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data == 'tracks':
-        return jsonify({'success': True, 'artist_tracks': last_fm_top.get_artist_top_tracks(artist)})
+        return jsonify({'success': True, 'artist_tracks': last_fm.get_artist_top_tracks(artist)})
     else:
-        return jsonify({'success': True, 'artist_albums': last_fm_top.get_artist_top_albums(artist)})
+        return jsonify({'success': True, 'artist_albums': last_fm.get_artist_top_albums(artist)})
 
 
 @APP.route('/popular_genre', methods=['GET'])
@@ -191,7 +191,7 @@ def popular_genre():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if data == 'tags':
-        pop_genre = last_fm_top.top_tags()
+        pop_genre = last_fm.top_tags()
         if pop_genre is None:
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'popular_genre': pop_genre})
@@ -202,7 +202,7 @@ def popular_genre():
         # Check validity of incoming data
         if not constants.TAG_NAME.match(tag_name):
             return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
-        albums = last_fm_top.get_albums_for_tags(tag_name, 25)
+        albums = last_fm.get_albums_for_tags(tag_name, 25)
         if albums is None:
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'albums': albums})
@@ -215,7 +215,7 @@ def popular_genre():
             return jsonify({'success': False, 'message': 'No parameters supplied'})
         if not constants.TAG_NAME.match(tag_name):
             return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
-        tracks = last_fm_top.get_tracks_for_tags(tag_name)
+        tracks = last_fm.get_tracks_for_tags(tag_name)
         if tracks is None:
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'tracks': tracks})
@@ -236,7 +236,7 @@ def get_artist():
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
     if content == 'info':
-        data = last_fm_top.get_artist_info(artist_name)
+        data = last_fm.get_artist_info(artist_name)
         if data is None:
             return jsonify({'success': False,
                             'message': 'I\'m sorry but \
@@ -244,7 +244,7 @@ def get_artist():
         else:
             return jsonify({'success': True, 'artist_data': data})
     else:
-        similar_artists = last_fm_top.get_artist_similar_artists(artist_name)
+        similar_artists = last_fm.get_artist_similar_artists(artist_name)
         if similar_artists is None:
             return jsonify({'success': False, 'message': 'Incorrect or invalid artist name supplied'})
         else:
@@ -265,12 +265,34 @@ def get_album_info():
     if not constants.ALBUM_NAME.match(album_name) or not constants.ARTIST_NAME.match(artist_name):
         return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
 
-    data = last_fm_top.get_album_info(album_name, artist_name)
+    data = last_fm.get_album_info(album_name, artist_name)
     if data is None:
         return jsonify({'success': False,
                         'message': 'I\'m sorry but we do not have enough information about the album you requested'})
     else:
         return jsonify({'success': True, 'album_data': data})
+
+
+@APP.route('/track_info', methods=['GET'])
+def get_track_info():
+    """
+    Get data related to track
+    """
+    track_name = request.args.get('track_name')
+    artist_name = request.args.get('artist_name')
+
+    # Check validity of incomming data
+    if artist_name is None or track_name is None:
+        return jsonify({'success': False, 'message': 'No parameters supplied'})
+    if not constants.TRACK_NAME.match(track_name) or not constants.ARTIST_NAME.match(artist_name):
+            return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
+
+    data = last_fm.get_track_info(track_name, artist_name)
+    if data is None:
+        return jsonify({'success': False,
+                        'message': 'I\'m sorry but we do not have enough information about the track you requested'})
+    else:
+        return jsonify({'success': True, 'track_data': data})
 
 
 if __name__ == '__main__':

@@ -254,6 +254,30 @@ def get_artist_info(artist_name):
         return None
 
 
+def get_track_info(track_name, artist_name):
+    track_name = urllib.parse.quote_plus(track_name)
+    artist_name = urllib.parse.quote_plus(artist_name)
+
+    url = f'http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key={API_KEY}&artist={artist_name}' \
+          f'&track={track_name}&format=json'
+    data = get_api_contents(url)
+    if data is None:
+        return None
+
+    try:
+        data_set = {
+            'track_name': data['track']['name'],
+            'album_name': data['track']['album']['title'],
+            'artist_name': data['track']['artist']['name'],
+            'image': data['track']['album']['image'][3]['#text'],
+            'summary': data['track']['wiki']['summary'] if 'wiki' in data['track'] else 'No Summary Available',
+            'published': data['track']['wiki']['published'] if 'wiki' in data['track'] else 'No Publish Date Available'
+        }
+        return data_set
+    except KeyError:
+        return None
+
+
 if __name__ == '__main__':
     INFO = top_artists()
     print(INFO)

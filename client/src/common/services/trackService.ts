@@ -29,6 +29,12 @@ class TrackService {
       .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.TRACKS}&tag_name=${genre}`)
       .then(response => response.json());
   };
+
+  getTrackInfo = (trackName: string, artistName: string) => {
+    return this.httpClient
+      .fetch(`${BASE_URL}/track_info?track_name=${trackName}&artist_name=${artistName}`)
+      .then(response => response.json());
+  };
 }
 
 export default TrackService;
