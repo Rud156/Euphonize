@@ -8,3 +8,16 @@ export interface IAlbumGenre {
   artist_name: string;
   image: string;
 }
+
+interface IAlbumResponse {
+  album_data: IAlbumData;
+  success: boolean;
+}
+
+interface IAlbumData {
+  album_name: string;
+  artist_name: string;
+  image: string;
+  summary: string;
+  tracks: string[];
+}

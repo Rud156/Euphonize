@@ -147,13 +147,13 @@ export class App {
         nav: false,
       },
       {
-        route: 'artist/:name/:album',
+        route: 'artist/:name/album/:album',
         name: 'albumDetail',
         moduleId: './components/album-detail/index',
         nav: false,
       },
       {
-        route: 'artist/:name/:track',
+        route: 'artist/:name/track/:track',
         name: 'trackDetail',
         moduleId: './components/track-detail/index',
         nav: false,
