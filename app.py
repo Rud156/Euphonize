@@ -196,13 +196,13 @@ def popular_genre():
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'popular_genre': pop_genre})
 
-    elif data is 'albums':
+    elif data == 'albums':
         tag_name = request.args.get('tag_name')
 
         # Check validity of incoming data
         if not constants.TAG_NAME.match(tag_name):
             return jsonify({'success': False, 'message': 'Invalid parameters supplied'})
-        albums = last_fm_top.get_albums_for_tags(tag_name, 100)
+        albums = last_fm_top.get_albums_for_tags(tag_name, 25)
         if albums is None:
             return jsonify({'success': False, 'message': 'Unable to fetch the data'})
         return jsonify({'success': True, 'albums': albums})

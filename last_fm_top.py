@@ -174,7 +174,7 @@ def get_albums_for_tags(tag_name, limit):
 
 def get_tracks_for_tags(tag_name):
     url = 'http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=' + tag_name + \
-          '&api_key=' + API_KEY + '&format=json&limit=100'
+          '&api_key=' + API_KEY + '&format=json&limit=25'
     data = get_api_contents(url)
     if data is None:
         return None
