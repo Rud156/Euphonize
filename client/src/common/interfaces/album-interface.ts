@@ -9,12 +9,12 @@ export interface IAlbumGenre {
   image: string;
 }
 
-interface IAlbumResponse {
+export interface IAlbumResponse {
   album_data: IAlbumData;
   success: boolean;
 }
 
-interface IAlbumData {
+export interface IAlbumData {
   album_name: string;
   artist_name: string;
   image: string;

@@ -2,6 +2,7 @@ import { RouteConfig } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
 import AlbumService from '../../common/services/albumService';
 import Store from '../../common/utils/store';
+import { IAlbumResponse } from '../../common/interfaces/album-interface';
 
 interface IParams {
   name: string;
@@ -20,9 +21,11 @@ export class AlbumDetail {
   fetchAlbumInfo() {
     this.albumLoading = true;
 
-    this.albumService.getAlbumInfo(this.albumTitle, this.artistName).then(data => {
-      console.log(data);
-    });
+    this.albumService
+      .getAlbumInfo(this.albumTitle, this.artistName)
+      .then((data: IAlbumResponse) => {
+        console.log(data);
+      });
   }
 
   activate(params: IParams, routeConfig: RouteConfig) {

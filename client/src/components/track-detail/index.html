@@ -1,6 +1,88 @@
 <template>
+  <require from="./../../resources/value-converters/remove-link-format"></require>
   <require from="./../../resources/value-converters/title-case-format"></require>
+  <require from="./../../resources/value-converters/trim-string-format"></require>
+  <require from="./../../resources/value-converters/date-time-format"></require>
+  <require from="../loader/loader.html"></require>
+  <require from="../track-table/track-table.html"></require>
 
   <h2 class="category-header">${trackName | titleCase} - ${artistName | titleCase}</h2>
+
+  <div class="uk-padding-large fixed-padding" style="margin-top: 14px" show.bind="trackInfoLoadingSuccess">
+
+    <loader if.bind="trackInfoLoading"></loader>
+    <div show.bind="!trackInfoLoading" class="uk-grid-medium uk-text-center" ref="detailGrid">
+
+      <div class="uk-width-1-4@m uk-width-1-2@s">
+        <div class="uk-card uk-card-default">
+          <div class="uk-card-media-top">
+            <img src.bind="trackInfo.image ? trackInfo.image : 'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png'" style="height: 100%; width: 100%"
+              class="library-image" />
+          </div>
+        </div>
+
+        <div style="width: 100%; display: flex; justify-content: space-around; margin-top: 21px; font-size: 40px">
+          <span click.delegate="addToNowPlayingAndPlay(trackInfo.track_name, trackInfo.artist_name, trackInfo.image)" style="display: inline-block; margin-top: 14px">
+            <i class="fas fa-play-circle cursor-pointer table-padding-5 play-color"></i>
+          </span>
+          <span click.delegate="handleTrackAddToPlaylist(trackInfo.track_name, trackInfo.artist_name, trackInfo.image)" style="display: inline-block; margin-top: 14px">
+            <i class="fas fa-plus-circle cursor-pointer table-padding-5 playlist-color"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="uk-width-3-4@m uk-width-1-2@s">
+        <div class="uk-padding-large uk-padding-remove-vertical">
+          <h3 class="white-text">
+            Album:
+            <a href.bind="'artist/' + trackInfo.artist_name + '/album/' + trackInfo.album_name" class="white-text">
+              ${trackInfo.album_name}
+            </a>
+          </h3>
+          <div if.bind="trackInfo.published">
+            <h4 class="white-text">
+              Published On: ${trackInfo.published | dateTime}
+            </h4>
+          </div>
+          <div if.bind="trackInfo.summary">
+            <h4 class="white-text">
+              ${trackInfo.summary | removeLink}
+            </h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Similar Tracks -->
+    <div class="white-text">
+      <div class="uk-position-relative">
+        <h2 class="sub-category-headers white-text" style="font-weight: 500">Similar Tracks</h2>
+      </div>
+    </div>
+
+    <loader if.bind="similarTracksLoading"></loader>
+    <div if.bind="similarTracks.length > 0">
+      <div class="uk-overflow-auto" style="padding: 0 21px">
+        <table class="uk-table uk-table-small uk-table-divider">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Artist</th>
+              <th>Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr as-element="track-table" repeat.for="track of similarTracks" track-image.bind="track.image" track-name.bind="track.track_name | trimString:30"
+              artist-name.bind="track.artist_name | trimString:20" index.bind="$index" play-track.call="addToNowPlayingAndPlay(trackName, artistName, image)"
+              add-track.call="handleTrackAddToPlaylist(trackName, artistName, image)"></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Similar Tracks End -->
+
+  </div>
 
 </template>

@@ -29,6 +29,7 @@ export class Genre {
       })
       .catch(error => {
         this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
+        this.genreLoading = false;
       });
   }
 

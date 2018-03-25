@@ -295,8 +295,8 @@ def get_track_info(track_name, artist_name):
             'album_name': data['track']['album']['title'],
             'artist_name': data['track']['artist']['name'],
             'image': data['track']['album']['image'][3]['#text'],
-            'summary': data['track']['wiki']['summary'] if 'wiki' in data['track'] else 'No Summary Available',
-            'published': data['track']['wiki']['published'] if 'wiki' in data['track'] else 'No Publish Date Available'
+            'summary': data['track']['wiki']['summary'] if 'wiki' in data['track'] else '',
+            'published': data['track']['wiki']['published'] if 'wiki' in data['track'] else ''
         }
         return data_set
     except KeyError:

@@ -64,6 +64,7 @@ export class GenreDetails {
       })
       .catch(error => {
         this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
+        this.tracksLoading = false;
       });
   }
 
@@ -80,6 +81,7 @@ export class GenreDetails {
       })
       .catch(error => {
         this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
+        this.albumsLoading = false;
       });
   }
 
