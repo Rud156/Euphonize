@@ -8,6 +8,7 @@
   },
   "scripts": {
     "serve": "serve /",
+    "build": "au build --env prod",
     "deploy": "au build --env prod && firebase deploy"
   },
   "license": "MIT",
