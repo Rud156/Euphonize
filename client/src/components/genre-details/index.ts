@@ -5,7 +5,7 @@ import { inject } from 'aurelia-framework';
 import * as UIkit from 'uikit';
 
 import { ITrackGenreResponse, ITrackResponse } from '../../common/interfaces/track-interface';
-import { IAlbumGenreResponse, IAlbumGenre } from '../../common/interfaces/album-interface';
+import { IAlbumGenreResponse, IAlbumData } from '../../common/interfaces/album-interface';
 import TrackService from '../../common/services/trackService';
 import AlbumService from '../../common/services/albumService';
 import { EventAggregator } from 'aurelia-event-aggregator';
@@ -26,7 +26,7 @@ export class GenreDetails {
 
   tracks: ITrackResponse[];
   tracksLoading: boolean = false;
-  albums: IAlbumGenre[];
+  albums: IAlbumData[];
   albumsLoading: boolean = false;
 
   constructor(

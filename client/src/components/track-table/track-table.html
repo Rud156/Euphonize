@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, artistName, index, playTrack, addTrack, removeTrack">
+<template bindable="trackImage, trackName, trackNameDisplay, artistName, artistNameDisplay, index, playTrack, addTrack, removeTrack">
 
   <td style="text-align: left">
     <div style="padding-top: 14px">
@@ -10,7 +10,7 @@
       <img src="${trackImage}" alt="${trackName}" class="table-track-image">
       <div class="table-track-name">
         <a href.bind="'artist/' + artistName + '/track/' + trackName" class="white-text">
-          ${trackName}
+          ${trackNameDisplay}
         </a>
       </div>
     </div>
@@ -18,7 +18,7 @@
   <td style="text-align: left">
     <div style="padding-top: 7px">
       <a href.bind="'artist/' + artistName" class="white-text">
-        ${artistName}
+        ${artistNameDisplay}
       </a>
     </div>
   </td>

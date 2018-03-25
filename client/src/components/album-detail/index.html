@@ -1,6 +1,70 @@
 <template>
+  <require from="./../../resources/value-converters/remove-link-format"></require>
   <require from="./../../resources/value-converters/title-case-format"></require>
+  <require from="./../../resources/value-converters/trim-string-format"></require>
+  <require from="../error-page/error-page.html"></require>
+  <require from="../loader/loader.html"></require>
+  <require from="../track-table/track-table.html"></require>
 
   <h2 class="category-header">${albumTitle | titleCase} - ${artistName | titleCase}</h2>
+
+  <div class="uk-padding-large fixed-padding" style="margin-top: 14px">
+
+    <div show.bind="albumInfoLoadingSuccess">
+      <loader if.bind="albumLoading"></loader>
+      <div show.bind="!albumLoading" class="uk-grid-medium uk-text-center" ref="detailGrid">
+
+        <div class="uk-width-1-4@m uk-width-1-2@s">
+          <div class="uk-card uk-card-default">
+            <div class="uk-card-media-top">
+              <img src.bind="albumInfo.image ? albumInfo.image : 'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png'" style="height: 100%; width: 100%"
+                class="library-image" />
+            </div>
+          </div>
+        </div>
+
+        <div class="uk-width-3-4@m uk-width-1-2@s">
+          <div class="uk-padding-large uk-padding-remove-vertical">
+            <div if.bind="albumInfo.summary">
+              <h4 class="white-text">
+                ${albumInfo.summary | removeLink}
+              </h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Top Album Tracks -->
+      <div class="white-text">
+        <div class="uk-position-relative">
+          <h2 class="sub-category-headers white-text" style="font-weight: 500">Tracks</h2>
+        </div>
+      </div>
+
+      <loader if.bind="albumLoading"></loader>
+      <div if.bind="tracks.length > 0">
+        <div class="uk-overflow-auto" style="padding: 0 21px">
+          <table class="uk-table uk-table-small uk-table-divider">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="albumInfo.image" track-name-display.bind="track | trimString:30"
+                track-name.bind="track" artist-name-display.bind="albumInfo.artist_name | trimString:20" artist-name.bind="albumInfo.artist_name"
+                index.bind="$index" play-track.call="addToNowPlayingAndPlay(trackName, artistName, image)" add-track.call="handleTrackAddToPlaylist(trackName, artistName, image)"></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Top Album Tracks End -->
+    </div>
+    <error-page show.bind="!albumInfoLoadingSuccess" message="I'm sorry but we don't have enough info about ${albumTitle}"></error-page>
+  </div>
 
 </template>

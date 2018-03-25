@@ -1,7 +1,7 @@
-<template bindable="image, albumName, artistName">
-  <a href.bind="'artist/' + artistName + '/album/' + albumName">
-    <img src="${image}" alt="${albumName}" style="width: 100%; height: 100%">
-    <div class="uk-position-center uk-panel overlay-content">
+<template bindable="image, albumName, artistName, albumNameDisplay, artistNameDisplay">
+  <a href.bind="'artist/' + artistName + '/album/' + albumName" class="uk-position-relative image-hover-overlay">
+    <img src="${image}" alt="${albumName}">
+    <div class="uk-position-center uk-panel center-content">
       <div style="padding: 7px">
         <h3 class="text-shadow white-text" style="margin: 0">${albumName}</h3>
         <h4 class="text-shadow white-text" style="margin: 0">- ${artistName}</h4>

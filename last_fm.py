@@ -158,7 +158,7 @@ def get_track_similar_tracks(track_name, artist_name):
     artist_name = urllib.parse.quote_plus(artist_name)
 
     url = f'http://ws.audioscrobbler.com/2.0/?method=track.getsimilar&artist={artist_name}&' \
-             f'track={track_name}&api_key={API_KEY}&format=json&limit=25'
+          f'track={track_name}&api_key={API_KEY}&format=json&limit=25'
     data = get_api_contents(url)
     if data is None:
         return None

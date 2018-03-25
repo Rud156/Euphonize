@@ -1,9 +1,9 @@
 export interface IAlbumGenreResponse {
-  albums: IAlbumGenre[];
+  albums: IAlbumData[];
   success: boolean;
 }
 
-export interface IAlbumGenre {
+export interface IAlbumData {
   album_name: string;
   artist_name: string;
   image: string;
@@ -20,4 +20,9 @@ export interface IAlbumData {
   image: string;
   summary: string;
   tracks: string[];
+}
+
+export interface ITopAlbumResponse {
+  albums: IAlbumData[];
+  success: boolean;
 }

@@ -43,7 +43,8 @@
             </thead>
             <tbody>
               <tr as-element="track-table" repeat.for="track of currentPlaylist.tracks" index.bind="$index" track-image.bind="track.image"
-                track-name.bind="track.trackName | trimString:30" artist-name.bind="track.artistName | trimString:20" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"
+                track-name-display.bind="track.trackName | trimString:30" track-name.bind="track.trackName" artist-name-display.bind="track.artistName | trimString:20"
+                artist-name.bind="track.artistName" remove-track.call="removeTrackFromPlaylist(trackName, artistName, image)"
                 play-track.call="playTrackFromPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>

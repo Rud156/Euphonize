@@ -9,7 +9,7 @@
   "scripts": {
     "serve": "serve /",
     "build": "au build --env prod",
-    "deploy": "au build --env prod && firebase deploy"
+    "deploy": "yarn build && firebase deploy"
   },
   "license": "MIT",
   "dependencies": {

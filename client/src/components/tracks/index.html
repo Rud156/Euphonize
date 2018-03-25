@@ -31,9 +31,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name.bind="track.track_name | trimString:30"
-                artist-name.bind="track.artist_name | trimString:20" index.bind="$index" play-track.call="addToNowPlayingAndPlay(trackName, artistName, image)"
-                add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
+              <tr as-element="track-table" repeat.for="track of topTracks" track-image.bind="track.image" track-name-display.bind="track.track_name | trimString:30"
+                track-name.bind="track.track_name" artist-name-display.bind="track.artist_name | trimString:20" artist-name.bind="track.artist_name"
+                index.bind="$index" play-track.call="addToNowPlayingAndPlay(trackName, artistName, image)" add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></tr>
             </tbody>
           </table>
         </div>

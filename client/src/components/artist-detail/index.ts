@@ -147,8 +147,6 @@ export class ArtistDetail {
     this.initializeElements();
   }
 
-  detached() {}
-
   publishNotification(eventType: string, message: string, error: object) {
     this.ea.publish('notification', {
       type: eventType,

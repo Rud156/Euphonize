@@ -68,7 +68,6 @@ export class TrackDetail {
         } else {
           this.trackInfoLoadingSuccess = false;
         }
-
         this.trackInfoLoading = false;
       })
       .catch(error => {

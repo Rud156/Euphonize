@@ -79,8 +79,6 @@ export class Artists {
     this.initializeElements();
   }
 
-  detached() {}
-
   initializeElements() {
     UIkit.grid(this.topArtistsGrid);
   }

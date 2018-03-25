@@ -132,6 +132,13 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
   border: 1px solid #e5e5e5;
 }
 
+.center-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .overlay-content {
   transition: 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) all;
   width: 100%;
@@ -141,6 +148,20 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.overlay-content:hover {
+  background-color: rgba(26, 26, 26, 0.7);
+}
+
+.image-hover-overlay > img {
+  transition: 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) all;
+  height: 100%;
+  width: 100%;
+}
+
+.image-hover-overlay:hover > img {
+  filter: brightness(50%);
 }
 
 .padding-21 {
@@ -153,10 +174,6 @@ body, html, div, svg, a, li, ul, ol, span, code, pre, i, img {
 
 .color-hover:hover {
   color: #c57de2;
-}
-
-.overlay-content:hover {
-  background-color: rgba(26, 26, 26, 0.7);
 }
 
 .card-hover {
