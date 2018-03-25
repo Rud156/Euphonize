@@ -40,7 +40,7 @@ export class Tracks {
 
   attached() {
     this.initializeElements();
-    this.fetchTrendingTracks();
+    // this.fetchTrendingTracks();
     this.fetchTopTracks();
   }
 
