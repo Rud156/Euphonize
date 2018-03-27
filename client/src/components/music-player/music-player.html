@@ -59,8 +59,13 @@
 
 
     <div class="player-right-content uk-width-1-4">
-      <i class="fas fa-volume-up"></i>
-      <input class="uk-range player-volume-slider" type="range" min="0" max="1" step="0.1" ref="volumeSlider" value.bind="playingTrack.volume">
+      <span ref="volumeOn" show.bind="playingTrack.volume >= 0.01" class="cursor-pointer">
+        <i class="fas fa-volume-up"></i>
+      </span>
+      <span ref="volumeOff" show.bind="playingTrack.volume < 0.01" class="cursor-pointer">
+        <i class="fas fa-volume-off"></i>
+      </span>
+      <input class="uk-range player-volume-slider" type="range" min="0" max="1" step="0.001" ref="volumeSlider" value.bind="playingTrack.volume">
     </div>
   </div>
 </template>

@@ -40,32 +40,6 @@
       </div>
       <!-- Top Tracks End -->
 
-      <!-- Top Trending Tracks -->
-      <!-- <div class="white-text">
-        <div class="uk-position-relative">
-          <h2 class="sub-category-headers" style="font-weight: 500; margin: 21px 0">Trending</h2>
-        </div>
-      </div>
-
-      <loader if.bind="trendingTracksLoading"></loader>
-      <div show.bind="!trendingTracksLoading">
-        <div class="uk-position-relative uk-slider-container" ref="sliderTracks" style="margin: 0 21px; margin-bottom: 121px">
-          <ul class="uk-slider-items">
-            <li repeat.for="track of trendingTracks" style="height: 200px; width: 200px">
-              <track-card track-image.bind="track.artist_image" track-name.bind="track.track_name | trimString:15" artist-name.bind="track.artist_name  | trimString:15"
-                play-track.call="addToNowPlayingAndPlay(trackName, artistName, image)" add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></track-card>
-            </li>
-          </ul>
-          <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slider-item="previous">
-            <i class="fas fa-chevron-left fa-2x text-shadow"></i>
-          </a>
-          <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slider-item="next">
-            <i class="fas fa-chevron-right fa-2x text-shadow"></i>
-          </a>
-        </div>
-      </div> -->
-      <!-- Top Trending Tracks End -->
-
     </div>
   </div>
 </template>

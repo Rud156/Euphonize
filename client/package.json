@@ -8,6 +8,7 @@
   },
   "scripts": {
     "serve": "serve /",
+    "start": "au run --watch",
     "build": "au build --env prod",
     "deploy": "yarn build && firebase deploy"
   },

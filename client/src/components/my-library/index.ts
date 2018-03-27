@@ -109,8 +109,14 @@ export class MyLibrary {
     const anchorElement = document.createElement('a');
     anchorElement.setAttribute('href', dataString);
     anchorElement.setAttribute('download', 'playlist.json');
-    anchorElement.click();
-    anchorElement.remove();
+
+    if (document.createEvent) {
+      const event = document.createEvent('MouseEvents');
+      event.initEvent('click', true, true);
+      anchorElement.dispatchEvent(event);
+    } else {
+      anchorElement.click();
+    }
   }
 
   handleFileUpload(event: Event) {

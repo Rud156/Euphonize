@@ -67,8 +67,9 @@
       <div show.bind="!artistTopTracksLoading" class="uk-position-relative uk-slider-container" ref="topTracksSlider">
         <ul class="uk-slider-items">
           <li repeat.for="track of artistTopTracks" style="height: 200px; width: 200px;" class="uk-transition-toggle">
-            <track-card track-image.bind="artistInfo.image" track-name.bind="track | trimString:15" artist-name.bind="artistInfo.artist_name  | trimString:15"
-              play-track.call="handleTracksPlay(track, artistInfo.artist_name, artistInfo.image)" add-track.call="handleTracksAddToPlaylist(track, artistInfo.artist_name, artistInfo.image)"></track-card>
+            <track-card track-image.bind="artistInfo.image" track-name.bind="track" track-name-display.bind="track | trimString:15" artist-name.bind="artistInfo.artist_name"
+              artist-name-display.bind="artistInfo.artist_name  | trimString:15" play-track.call="handleTracksPlay(trackName, artistName, image)"
+              add-track.call="handleTracksAddToPlaylist(trackName, artistName, image)"></track-card>
           </li>
         </ul>
         <a class="uk-position-center-left uk-position-small uk-hidden-hover white-text" href="#" uk-slider-item="previous">

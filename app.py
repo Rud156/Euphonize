@@ -1,4 +1,5 @@
 import pafy
+# from pymongo import MongoClient
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -11,6 +12,9 @@ from youtube_list import youtube_search
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 APP = Flask(__name__)
+# CLIENT = MongoClient('localhost', 27017)
+# DB = CLIENT.euphonize
+# PLAYLIST = DB.playlist
 CORS(APP)
 
 

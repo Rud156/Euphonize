@@ -48,7 +48,10 @@ export class MusicPlayer {
   replayButtonRotated: HTMLElement;
   playlistButton: HTMLElement;
   seekSlider: HTMLInputElement;
+
   volumeSlider: HTMLInputElement;
+  volumeOn: HTMLElement;
+  volumeOff: HTMLElement;
 
   currentTrack: ITrackBasic = {
     trackName: '',
@@ -85,11 +88,11 @@ export class MusicPlayer {
   handleStoreStateUpdate() {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
     if (
-      currentTrack.trackName !== this.playingTrack.trackName &&
+      currentTrack.trackName !== this.playingTrack.trackName ||
       currentTrack.artistName !== this.playingTrack.artistName
     ) {
       if (
-        this.currentTrack.trackName !== currentTrack.trackName &&
+        this.currentTrack.trackName !== currentTrack.trackName ||
         this.currentTrack.artistName !== currentTrack.artistName
       ) {
         this.currentTrack = currentTrack;
@@ -225,6 +228,8 @@ export class MusicPlayer {
 
   handleReplayButtonClick() {
     this.replay = !this.replay;
+    if (this.replay) this.publishNotification('success', 'Now Playing set on repeat', {});
+    else this.publishNotification('success', 'Now Playing repeat removed', {});
   }
 
   handlePlaylistButtonClick() {
@@ -258,6 +263,24 @@ export class MusicPlayer {
       volume,
     };
     this.playingTrack = modifiedTrackData;
+  }
+
+  muteVolume() {
+    const { playingTrack } = this;
+    this.audioElement.volume = 0;
+    this.playingTrack = {
+      ...playingTrack,
+      volume: 0,
+    };
+  }
+
+  fullVolume() {
+    const { playingTrack } = this;
+    this.audioElement.volume = 1;
+    this.playingTrack = {
+      ...playingTrack,
+      volume: 1,
+    };
   }
 
   handleTimeUpdate() {
@@ -375,7 +398,10 @@ export class MusicPlayer {
     this.replayButtonNormal.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.replayButtonRotated.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.randomButton.addEventListener('click', this.handleRandomButtonClick.bind(this));
+
     this.volumeSlider.addEventListener('input', this.handleVolumeSliderChange.bind(this));
+    this.volumeOn.addEventListener('click', this.muteVolume.bind(this));
+    this.volumeOff.addEventListener('click', this.fullVolume.bind(this));
 
     this.seekSlider.addEventListener('change', this.handleSeekSliderChange.bind(this));
     this.seekSlider.addEventListener('mousedown', this.pauseAudio.bind(this));
@@ -397,7 +423,10 @@ export class MusicPlayer {
     this.replayButtonNormal.removeEventListener('click', this.handleReplayButtonClick);
     this.replayButtonRotated.removeEventListener('click', this.handleReplayButtonClick);
     this.randomButton.removeEventListener('click', this.handleRandomButtonClick);
+
     this.volumeSlider.removeEventListener('input', this.handleVolumeSliderChange);
+    this.volumeOn.removeEventListener('click', this.muteVolume);
+    this.volumeOff.removeEventListener('click', this.fullVolume);
 
     this.seekSlider.removeEventListener('change', this.handleSeekSliderChange);
     this.seekSlider.removeEventListener('mousedown', this.pauseAudio);

@@ -85,7 +85,7 @@ export class App {
 
   configureRouter(config: RouterConfiguration, router: Router) {
     this.router = router;
-    config.title = 'Fumen';
+    config.title = 'Euphonize';
     config.options.pushState = true;
     config.options.root = '/';
     const step = {
