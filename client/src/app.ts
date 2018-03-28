@@ -17,7 +17,11 @@ import { readFromLocalStorage } from './common/utils/utils';
 import { ISelectablePlaylist, IPlaylistDictionary } from './common/interfaces/playlist-interface';
 import { ISearchResults } from './common/interfaces/search-result-interface';
 import { ITrackBasic } from './common/interfaces/track-interface';
-import { deployPlaylists, addTrackToMultiplePlaylists } from './common/actions/playlist-actions';
+import {
+  deployPlaylists,
+  addTrackToMultiplePlaylists,
+  createPlaylist,
+} from './common/actions/playlist-actions';
 import { removeSelectedTrack } from './common/actions/track-playlist-action';
 import { addToNowPlaying } from './common/actions/now-playing-actions';
 import { updateSearchResults } from './common/actions/search-actions';
@@ -198,6 +202,11 @@ export class App {
 
   handleDebouncedSearch() {
     this.router.navigateToRoute('search', { query: this.searchString });
+  }
+
+  handleAddNewPlaylist(playlistName: string) {
+    this.store.dataStore.dispatch(createPlaylist(playlistName));
+    this.createPlaylistAndShowModal();
   }
 
   createPlaylistAndShowModal() {

@@ -30,7 +30,7 @@
                 <i class="fab fa-sistrix"></i>
               </span>
               <input focus.trigger="inputFocused()" blur.trigger="inputBlurred()" type="text" class="uk-input animated-input" value.bind="searchString"
-                input.delegate="handleSearchInput()" style="width: 40vw" style.bind="styleString">
+                input.delegate="handleSearchInput()" style="width: 40vw" style.bind="styleString" />
             </div>
           </form>
         </div>
@@ -38,7 +38,7 @@
       </nav>
 
       <playlist-modal ref="playlistModal" playlists.bind="playlists" checkbox-select.call="handleCheckboxSelect(index, state)"
-        save-data.call="handleSaveData()" track.bind="selectedTrack"></playlist-modal>
+        save-data.call="handleSaveData()" track.bind="selectedTrack" add-new-playlist.call="handleAddNewPlaylist(name)"></playlist-modal>
 
       <music-player></music-player>
 

@@ -26,12 +26,12 @@
               <i class="fas fa-music"></i>
             </span>
             <input type="text" class="uk-input" value.bind="playlistName" placeholder="Enter Playlist Name..." style="width: 100%" focus.trigger="inputFocused()"
-              blur.trigger="inputBlurred()">
+              blur.trigger="inputBlurred()" />
           </div>
         </form>
         <hr class="uk-divider-icon">
         <div ref="playlistImportForm" style="text-align: center; width: 100%">
-          <input type="file" change.delegate="handleFileUpload($event)" files.bind="playlistFile">
+          <input type="file" change.delegate="handleFileUpload($event)" files.bind="playlistFile" />
           <button type="button" class="uk-button uk-button-default" tabindex="-1" style="margin: 0 auto;">Import Playlist</button>
         </div>
       </div>

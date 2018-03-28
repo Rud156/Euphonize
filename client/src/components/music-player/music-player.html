@@ -52,7 +52,7 @@
       <div class="player-slider" show.bind="!audioIsLoading">
         <span class="player-left-time">${playingTrack.currentTime | playerTime}</span>
         <input class="uk-range player-time-slider" type="range" min="0" max="10000" ref="seekSlider" value.bind="playingTrack.currentTime"
-          max.bind="playingTrack.maxTime">
+          max.bind="playingTrack.maxTime" />
         <span class="player-right-time">${playingTrack.maxTime | playerTime}</span>
       </div>
     </div>
@@ -65,7 +65,7 @@
       <span ref="volumeOff" show.bind="playingTrack.volume < 0.01" class="cursor-pointer">
         <i class="fas fa-volume-off"></i>
       </span>
-      <input class="uk-range player-volume-slider" type="range" min="0" max="1" step="0.001" ref="volumeSlider" value.bind="playingTrack.volume">
+      <input class="uk-range player-volume-slider" type="range" min="0" max="1" step="0.001" ref="volumeSlider" value.bind="playingTrack.volume" />
     </div>
   </div>
 </template>

@@ -13,10 +13,33 @@
       <ul class="uk-list uk-list-divider">
         <li class="black-text" repeat.for="playlist of playlists">
           <span>
-            <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})">
+            <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})" />
           </span>
           <span class="cursor-pointer" click.delegate="handleCheckboxSelect($index)">
             ${playlist.name}
+          </span>
+        </li>
+        <li class="black-text" click.delegate="displayPlaylistInput()" if.bind="!showPlaylistInput">
+          <span style="margin: 0 7px">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="cursor-pointer">
+            Add New Playlist
+          </span>
+        </li>
+        <li else style="width: 100%; display: inline-flex">
+          <span style="width: 95%">
+            <form submit.delegate="handleAddNewPlaylist()">
+              <div class="uk-inline" style="width: 95%">
+                <input type="text" class="uk-input" value.bind="playlistName" placeholder="Enter Playlist Name..." style="width: 95%" focus.trigger="inputFocused()"
+                  blur.trigger="inputBlurred()" />
+              </div>
+            </form>
+          </span>
+          <span style="display: inline-flex; justify-content: center; align-items: center" class="cursor-pointer">
+            <div click.trigger="closePlaylistInput()" style="left: auto; display: inline-flex; justify-content: center; align-items: center">
+              <i class="fas fa-times black-text" style="font-size: 20px"></i>
+            </div>
           </span>
         </li>
       </ul>
