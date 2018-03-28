@@ -1,5 +1,6 @@
+import uuid
 import pafy
-# from pymongo import MongoClient
+from pymongo import MongoClient, errors
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -10,11 +11,14 @@ from cover_art_getter import last_fm_cover_art
 from search import get_search_result
 from youtube_list import youtube_search
 
+MONGO_URI = 'mongodb://localhost:27017'
+# MONGO_URI = 'mongodb://rud156:1234@ds227469.mlab.com:27469/euphonize'
+
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 APP = Flask(__name__)
-# CLIENT = MongoClient('localhost', 27017)
-# DB = CLIENT.euphonize
-# PLAYLIST = DB.playlist
+CLIENT = MongoClient(MONGO_URI)
+DB = CLIENT.euphonize
+PLAYLIST = DB.playlist
 CORS(APP)
 
 
@@ -76,6 +80,49 @@ def get_video():
         'image': image_url
     }
     return jsonify({'success': True, 'track': data_set})
+
+
+@APP.route('/generate_playlist_link', methods=['POST'])
+def generate_playlist_link():
+    playlist_content = request.get_json()
+    unique_string = uuid.uuid4().hex
+
+    try:
+        PLAYLIST.insert_one({
+            'playlist_id': unique_string,
+            'playlist': playlist_content
+        })
+        return jsonify({
+            'success': True,
+            'playlist_id': unique_string
+        })
+    except errors.PyMongoError as exception:
+        print(exception)
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred when saving the playlist. Please try again'
+        })
+
+
+@APP.route('/get_playlist', methods=['GET'])
+def get_playlist():
+    playlist_id = request.args.get('playlist_id')
+
+    try:
+        data = PLAYLIST.find_one({'playlist_id': playlist_id})
+        if data is None:
+            return jsonify({
+                'success': False,
+                'message': 'The playlist you requested does not exist'
+            })
+
+        return jsonify({'success': True, 'playlist': data['playlist']})
+    except errors.PyMongoError as exception:
+        print(exception)
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred when retrieving the playlist. Please try again'
+        })
 
 
 @APP.route('/top_artists', methods=['GET'])
