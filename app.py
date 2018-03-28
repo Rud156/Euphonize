@@ -11,8 +11,8 @@ from cover_art_getter import last_fm_cover_art
 from search import get_search_result
 from youtube_list import youtube_search
 
-MONGO_URI = 'mongodb://localhost:27017'
-# MONGO_URI = 'mongodb://rud156:1234@ds227469.mlab.com:27469/euphonize'
+# MONGO_URI = 'mongodb://localhost:27017'
+MONGO_URI = 'mongodb://rud156:1234@ds227469.mlab.com:27469/euphonize'
 
 pafy.set_api_key('AIzaSyCsrKjMf7_mHYrT6rIJ-oaA6KL5IYg389A')
 APP = Flask(__name__)
