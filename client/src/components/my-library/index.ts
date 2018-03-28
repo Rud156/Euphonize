@@ -17,8 +17,9 @@ import { deployPlaylists, createPlaylist } from '../../common/actions/playlist-a
 import { convertDictToList, convertDictToPlaylistView } from '../../common/utils/player-utils';
 import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
 import { playSelectedTrack } from '../../common/actions/player-actions';
+import PlaylistService from '../../common/services/playlistService';
 
-@inject(Store, EventAggregator)
+@inject(Store, EventAggregator, PlaylistService)
 export class MyLibrary {
   router: Router;
   reduxSubscription: Unsubscribe;
@@ -35,7 +36,11 @@ export class MyLibrary {
 
   playlists: IPlaylistView[] = [];
 
-  constructor(private store: Store, private ea: EventAggregator) {
+  constructor(
+    private store: Store,
+    private ea: EventAggregator,
+    private playlistService: PlaylistService
+  ) {
     this.fileReader.onload = (event: Event) => {
       // @ts-ignore
       this.fileContents = event.target.result;
