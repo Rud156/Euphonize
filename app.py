@@ -106,7 +106,7 @@ def get_playlist():
 @APP.route('/generate_playlist_link', methods=['POST'])
 def generate_playlist_link():
     playlist_content = request.get_json()
-    unique_string = uuid.uuid4().hex
+    unique_string = hex(int(uuid.uuid4().time_low))[2:]
 
     try:
         PLAYLIST.insert_one({
