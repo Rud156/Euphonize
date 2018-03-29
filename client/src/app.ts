@@ -211,7 +211,6 @@ export class App {
 
   createPlaylistAndShowModal() {
     const playlists = this.store.dataStore.getState().playlist.playlists;
-    this.selectedTrack = this.store.dataStore.getState().trackPlaylist.selectedTrack;
     const keys = Object.keys(playlists);
 
     this.playlists = keys.map(element => {

@@ -9,6 +9,12 @@ class PlaylistService {
     this.httpClient = new HttpClient();
   }
 
+  getPlaylist = (playlistId: string) => {
+    return this.httpClient
+      .fetch(`${BASE_URL}/get_playlist?playlist_id=${playlistId}`)
+      .then(response => response.json());
+  };
+
   generatePlaylistLink = (playlist: IPlaylistDictionary) => {
     return this.httpClient
       .fetch(`${BASE_URL}/generate_playlist_link`, {
@@ -18,9 +24,12 @@ class PlaylistService {
       .then(response => response.json());
   };
 
-  getPlaylist = (playlistId: string) => {
+  updatePlaylist = (playlistId: string, playlist: IPlaylistDictionary) => {
     return this.httpClient
-      .fetch(`${BASE_URL}/get_playlist?playlist_id=${playlistId}`)
+      .fetch(`${BASE_URL}/update_playlist?playlist_id=${playlistId}`, {
+        body: JSON.stringify(playlist),
+        method: 'PUT',
+      })
       .then(response => response.json());
   };
 }

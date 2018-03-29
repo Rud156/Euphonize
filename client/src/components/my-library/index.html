@@ -1,6 +1,7 @@
 <template>
   <require from="./index.css"></require>
   <require from="./../loader/loader.html"></require>
+  <require from="../playlist-modal/playlist-modal"></require>
   <require from="./components/playlist-card.html"></require>
 
   <!-- Add Playlist Modal -->
@@ -42,10 +43,30 @@
   </div>
   <!-- End of Add Playlist Modal -->
 
+  <!-- Export Playlist Modal -->
+  <playlist-modal ref="exportPlaylistModal" playlists.bind="playlists" checkbox-select.call="handleCheckboxSelect(index, state)"
+    save-data.call="handleExportNewPlaylist()" track.bind="selectedTrack" add-new-playlist.call="handleAddNewPlaylist(name)">
+    <div slot="titleSlot">
+      <h2 class="uk-modal-title">
+        Export Playlists
+      </h2>
+    </div>
+    <div slot="extraData">
+      <div style="width: 100%; margin: 7px 0">
+        <input type="text" class="uk-input" value.bind="exportPlaylistId" style="width: 100%" focus.trigger="inputFocused()" blur.trigger="inputBlurred()"
+        />
+      </div>
+    </div>
+    <div slot="button_2">
+      <button class="uk-button uk-button-default" type="button" click.delegate="handleUpdatePlaylist()">Update</button>
+    </div>
+  </playlist-modal>
+  <!-- End of Export Playlist Modal -->
+
   <!-- Export Playlist Button -->
   <div class="uk-position-fixed uk-box-shadow-hover-large library-absolute-buttons library-export-playlist" style="cursor: pointer"
-    click.delegate="exportPlaylistModal()">
-    <i class="fas fa-upload"></i>
+    click.delegate="openExportPlaylistModal()">
+    <i class="fas fa-share"></i>
   </div>
   <!-- End of Export Playlist Button -->
 

@@ -11,6 +11,7 @@ import {
   IPlaylist,
   IPlaylistView,
   IPlaylistDictionary,
+  ISelectablePlaylist,
 } from '../../common/interfaces/playlist-interface';
 import { ITrackBasic } from '../../common/interfaces/track-interface';
 import { deployPlaylists, createPlaylist } from '../../common/actions/playlist-actions';
@@ -19,18 +20,28 @@ import { addPlayListToNowPlaying } from '../../common/actions/now-playing-action
 import { playSelectedTrack } from '../../common/actions/player-actions';
 import PlaylistService from '../../common/services/playlistService';
 
+interface IPlaylistExportResponse {
+  success: boolean;
+  playlist_id: string;
+  message?: string;
+}
+
 @inject(Store, EventAggregator, PlaylistService)
 export class MyLibrary {
   router: Router;
   reduxSubscription: Unsubscribe;
 
   newPlaylistModal: HTMLElement;
+  exportPlaylistModal: HTMLElement;
   playlistImportForm: HTMLElement;
   playlistGrid: HTMLElement;
 
   playlistName: string = '';
   playlistFile: File[] = [];
   fileContents: string;
+
+  exportPlaylists: ISelectablePlaylist[] = [];
+  exportPlaylistId: string = '';
 
   fileReader: FileReader = new FileReader();
 
@@ -101,27 +112,97 @@ export class MyLibrary {
     this.store.dataStore.dispatch(deployPlaylists(currentPlaylists));
   }
 
+  handleCheckboxSelect(index: number, state: boolean) {
+    this.exportPlaylists[index].selected = state;
+  }
+
+  handleExportNewPlaylist() {
+    const selectedPlaylists = this.exportPlaylists
+      .filter(element => {
+        return element.selected;
+      })
+      .map(element => {
+        return element.name;
+      });
+    const selectedPlaylistsSet = new Set(selectedPlaylists);
+
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    const keysToBeDeleted = [];
+    for (const key in currentPlaylists)
+      if (!selectedPlaylistsSet.has(key)) keysToBeDeleted.push(key);
+
+    keysToBeDeleted.forEach(key => {
+      delete currentPlaylists[key];
+    });
+
+    this.playlistService
+      .generatePlaylistLink(currentPlaylists)
+      .then((data: IPlaylistExportResponse) => {
+        if (data.success) {
+          this.exportPlaylistId = data['playlist_id'];
+        } else {
+          this.publishNotification('error', data.message, {});
+        }
+      })
+      .catch(error => {
+        this.publishNotification('error', 'Yikes!!. Unable to connect to the server', error);
+      });
+  }
+
+  handleUpdatePlaylist() {
+    const selectedPlaylists = this.exportPlaylists
+      .filter(element => {
+        return element.selected;
+      })
+      .map(element => {
+        return element.name;
+      });
+    const selectedPlaylistsSet = new Set(selectedPlaylists);
+
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    const keysToBeDeleted = [];
+    for (const key in currentPlaylists)
+      if (!selectedPlaylistsSet.has(key)) keysToBeDeleted.push(key);
+
+    keysToBeDeleted.forEach(key => {
+      delete currentPlaylists[key];
+    });
+
+    if (!this.exportPlaylistId) {
+      this.publishNotification('error', 'Enter a the Playlist Id to update data', {});
+    }
+
+    this.playlistService
+      .updatePlaylist(this.exportPlaylistId, currentPlaylists)
+      .then((data: IPlaylistExportResponse) => {
+        this.publishNotification(data.success ? 'success' : 'error', data.message, {});
+      })
+      .catch(error => {
+        this.publishNotification('error', 'Yikes!!. Unable to connect to the server', error);
+      });
+  }
+
+  handleAddNewPlaylist(playlistName: string) {
+    this.store.dataStore.dispatch(createPlaylist(playlistName));
+    this.openExportPlaylistModal();
+  }
+
   openNewPlaylistModal() {
     UIkit.modal(this.newPlaylistModal).show();
   }
 
-  exportPlaylistModal() {
+  openExportPlaylistModal() {
     const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
-    const dataString: string = `data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify(currentPlaylists)
-    )}`;
+    const keys = Object.keys(this.playlists);
 
-    const anchorElement = document.createElement('a');
-    anchorElement.setAttribute('href', dataString);
-    anchorElement.setAttribute('download', 'playlist.json');
+    this.exportPlaylists = keys.map(element => {
+      return {
+        selected: false,
+        name: element,
+      };
+    });
 
-    if (document.createEvent) {
-      const event = document.createEvent('MouseEvents');
-      event.initEvent('click', true, true);
-      anchorElement.dispatchEvent(event);
-    } else {
-      anchorElement.click();
-    }
+    UIkit.modal(this.exportPlaylistModal).show();
   }
 
   handleFileUpload(event: Event) {
@@ -139,6 +220,14 @@ export class MyLibrary {
     this.ea.publish('enablePreventDefault');
   }
 
+  publishNotification(eventType: string, message: string, error: object) {
+    this.ea.publish('notification', {
+      type: eventType,
+      message,
+      data: error,
+    });
+  }
+
   attached() {
     this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.handleStoreUpdate();
@@ -151,6 +240,9 @@ export class MyLibrary {
 
   initializeElements() {
     UIkit.modal(this.newPlaylistModal, {
+      bgClose: false,
+    });
+    UIkit.modal(this.exportPlaylistModal, {
       bgClose: false,
     });
     UIkit.formCustom(this.playlistImportForm);

@@ -82,6 +82,27 @@ def get_video():
     return jsonify({'success': True, 'track': data_set})
 
 
+@APP.route('/get_playlist', methods=['GET'])
+def get_playlist():
+    playlist_id = request.args.get('playlist_id')
+
+    try:
+        data = PLAYLIST.find_one({'playlist_id': playlist_id})
+        if data is None:
+            return jsonify({
+                'success': False,
+                'message': 'The playlist you requested does not exist'
+            })
+
+        return jsonify({'success': True, 'playlist': data['playlist']})
+    except errors.PyMongoError as exception:
+        print(exception)
+        return jsonify({
+            'success': False,
+            'message': 'An error occurred when retrieving the playlist. Please try again'
+        })
+
+
 @APP.route('/generate_playlist_link', methods=['POST'])
 def generate_playlist_link():
     playlist_content = request.get_json()
@@ -104,24 +125,23 @@ def generate_playlist_link():
         })
 
 
-@APP.route('/get_playlist', methods=['GET'])
-def get_playlist():
+@APP.route('/update_playlist', methods=['PUT'])
+def update_playlist():
     playlist_id = request.args.get('playlist_id')
+    playlist_content = request.get_json()
 
     try:
-        data = PLAYLIST.find_one({'playlist_id': playlist_id})
-        if data is None:
-            return jsonify({
-                'success': False,
-                'message': 'The playlist you requested does not exist'
-            })
-
-        return jsonify({'success': True, 'playlist': data['playlist']})
+        PLAYLIST.update_one(playlist_id, {
+            '$set': {
+                'playlist': playlist_content
+            }
+        })
+        return jsonify({'success': True, 'message': 'Playlist updated successfully'})
     except errors.PyMongoError as exception:
         print(exception)
         return jsonify({
             'success': False,
-            'message': 'An error occurred when retrieving the playlist. Please try again'
+            'message': 'An error occurred when updating the playlist. Please try again'
         })
 
 

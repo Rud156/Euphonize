@@ -4,12 +4,11 @@
       <div class="uk-modal-close-default" type="button" style="cursor: pointer">
         <i class="fas fa-times-circle black-text"></i>
       </div>
-      <h2 class="uk-modal-title">
-        Add
-        <span style="font-weight: bold">${track.trackName} - ${track.artistName}</span> To...
-      </h2>
+      <slot name="titleSlot">
+      </slot>
     </div>
     <div class="uk-modal-body modal-height" uk-overflow-auto>
+      <slot name="extraData"></slot>
       <ul class="uk-list uk-list-divider">
         <li class="black-text" repeat.for="playlist of playlists">
           <span>
@@ -46,6 +45,7 @@
     </div>
     <div class="uk-modal-footer uk-text-right">
       <button class="uk-button uk-button-default" type="button" click.delegate="saveData()">Add</button>
+      <slot name="button_2"></slot>
     </div>
   </div>
 </template>
