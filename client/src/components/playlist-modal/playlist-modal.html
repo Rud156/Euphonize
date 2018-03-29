@@ -7,12 +7,13 @@
       <slot name="titleSlot">
       </slot>
     </div>
-    <div class="uk-modal-body modal-height" uk-overflow-auto>
+    <div class="uk-modal-body modal-height" style="padding-top: 7px" uk-overflow-auto>
       <slot name="extraData"></slot>
       <ul class="uk-list uk-list-divider">
         <li class="black-text" repeat.for="playlist of playlists">
           <span>
-            <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})" />
+            <input type="checkbox" class="uk-checkbox margin-left-right" checked.bind="playlist.selected" change.delegate="checkboxSelect({index: $index, state: $event.target.checked})"
+            />
           </span>
           <span class="cursor-pointer" click.delegate="handleCheckboxSelect($index)">
             ${playlist.name}
@@ -43,9 +44,14 @@
         </li>
       </ul>
     </div>
-    <div class="uk-modal-footer uk-text-right">
-      <button class="uk-button uk-button-default" type="button" click.delegate="saveData()">Add</button>
+    <div class="uk-modal-footer uk-text-right" style="display: flex; justify-content: flex-end">
+      <button show.bind="!loading" class="uk-button uk-button-default" type="button" click.delegate="saveData()" style="margin: 0 7px">
+        <slot name="button_1_Name"></slot>
+      </button>
       <slot name="button_2"></slot>
+      <button if.bind="loading" class="uk-button uk-button-default" type="button">
+        <i class="fas fa-circle-notch fa-spin"></i>
+      </button>
     </div>
   </div>
 </template>

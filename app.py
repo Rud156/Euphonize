@@ -131,7 +131,7 @@ def update_playlist():
     playlist_content = request.get_json()
 
     try:
-        PLAYLIST.update_one(playlist_id, {
+        PLAYLIST.update_one({'playlist_id': playlist_id}, {
             '$set': {
                 'playlist': playlist_content
             }

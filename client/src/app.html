@@ -38,12 +38,15 @@
       </nav>
 
       <playlist-modal ref="playlistModal" playlists.bind="playlists" checkbox-select.call="handleCheckboxSelect(index, state)"
-        save-data.call="handleSaveData()" track.bind="selectedTrack" add-new-playlist.call="handleAddNewPlaylist(name)">
+        save-data.call="handleSaveData()" add-new-playlist.call="handleAddNewPlaylist(name)">
         <div slot="titleSlot">
           <h2 class="uk-modal-title">
             Add
             <span style="font-weight: bold">${selectedTrack.trackName} - ${selectedTrack.artistName}</span> To...
           </h2>
+        </div>
+        <div slot="button_1_Name">
+          Add
         </div>
       </playlist-modal>
 

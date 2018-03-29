@@ -32,20 +32,30 @@
         </form>
         <hr class="uk-divider-icon">
         <div ref="playlistImportForm" style="text-align: center; width: 100%">
-          <input type="file" change.delegate="handleFileUpload($event)" files.bind="playlistFile" />
-          <button type="button" class="uk-button uk-button-default" tabindex="-1" style="margin: 0 auto;">Import Playlist</button>
+          <form submit.delegate="handleImportPlaylistSave()">
+            <div class="uk-inline" style="width: 100%">
+              <span class="uk-form-icon">
+                <i class="far fa-file-alt"></i>
+              </span>
+              <input type="text" class="uk-input" value.bind="exportPlaylistId" placeholder="Enter Playlist Id..." style="width: 100%"
+                focus.trigger="inputFocused()" blur.trigger="inputBlurred()" />
+            </div>
+          </form>
         </div>
       </div>
       <div class="uk-modal-footer uk-text-right">
-        <button class="uk-button uk-button-default" type="button" click.delegate="addNewPlaylist()">Save</button>
+        <button if.bind="!exportPlaylistLoading" class="uk-button uk-button-default" type="button" click.delegate="addNewPlaylist()">Save</button>
+        <button else class="uk-button uk-button-default" type="button">
+          <i class="fas fa-circle-notch fa-spin"></i>
+        </button>
       </div>
     </div>
   </div>
   <!-- End of Add Playlist Modal -->
 
   <!-- Export Playlist Modal -->
-  <playlist-modal ref="exportPlaylistModal" playlists.bind="playlists" checkbox-select.call="handleCheckboxSelect(index, state)"
-    save-data.call="handleExportNewPlaylist()" track.bind="selectedTrack" add-new-playlist.call="handleAddNewPlaylist(name)">
+  <playlist-modal ref="exportPlaylistModal" playlists.bind="exportPlaylists" checkbox-select.call="handleCheckboxSelect(index, state)"
+    save-data.call="handleExportNewPlaylist()" add-new-playlist.call="handleAddNewPlaylist(name)" loading.bind="exportPlaylistLoading">
     <div slot="titleSlot">
       <h2 class="uk-modal-title">
         Export Playlists
@@ -53,12 +63,15 @@
     </div>
     <div slot="extraData">
       <div style="width: 100%; margin: 7px 0">
-        <input type="text" class="uk-input" value.bind="exportPlaylistId" style="width: 100%" focus.trigger="inputFocused()" blur.trigger="inputBlurred()"
-        />
+        <input type="text" class="uk-input" value.bind="exportPlaylistId" placeholder="Playlist Id..." style="width: 100%" focus.trigger="inputFocused()"
+          blur.trigger="inputBlurred()" />
       </div>
     </div>
-    <div slot="button_2">
-      <button class="uk-button uk-button-default" type="button" click.delegate="handleUpdatePlaylist()">Update</button>
+    <div slot="button_1_Name">
+      Export
+    </div>
+    <div slot="button_2" show.bind="!exportPlaylistLoading">
+      <button class="uk-button uk-button-default" type="button" click.delegate="handleUpdatePlaylist()" style="margin: 0 7px">Update</button>
     </div>
   </playlist-modal>
   <!-- End of Export Playlist Modal -->

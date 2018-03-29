@@ -60,9 +60,10 @@ export class App {
   handleStoreUpdate() {
     const selectedTrack = this.store.dataStore.getState().trackPlaylist.selectedTrack;
     if (
-      selectedTrack.artistName !== this.selectedTrack.artistName &&
+      selectedTrack.artistName !== this.selectedTrack.artistName ||
       selectedTrack.trackName !== this.selectedTrack.trackName
     ) {
+      this.selectedTrack = selectedTrack;
       this.createPlaylistAndShowModal();
     }
   }

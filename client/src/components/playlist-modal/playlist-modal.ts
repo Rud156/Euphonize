@@ -6,10 +6,10 @@ import { ISelectablePlaylist } from '../../common/interfaces/playlist-interface'
 @inject(EventAggregator)
 export class PlaylistModal {
   @bindable playlists: ISelectablePlaylist[];
-  @bindable track;
   @bindable checkboxSelect: Function;
   @bindable saveData;
   @bindable addNewPlaylist: Function;
+  @bindable loading: boolean = false;
 
   showPlaylistInput: boolean = false;
   playlistName: string = '';
