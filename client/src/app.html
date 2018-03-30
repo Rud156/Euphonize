@@ -10,18 +10,13 @@
 
   <div style="margin-bottom: 21px;">
     <div class="uk-offcanvas-content">
-      <nav class="uk-navbar uk-navbar-container uk-margin navbar fixed-nav">
+      <nav class="uk-navbar uk-navbar-container uk-margin navbar fixed-nav uk-padding-small">
 
         <div class="uk-navbar-left">
           <div class="uk-button uk-margin-small-right uk-margin-small-top" type="button" click.delegate="toggleSidebar()">
             <i class="fas fa-bars fa-2x" style="color: ghostwhite"></i>
           </div>
         </div>
-
-        <div class="uk-navbar-item uk-logo main-logo">
-          <img src="static/images/Fu.png" style="height: 50px" />
-        </div>
-
 
         <div class="uk-navbar-center">
           <form submit.delegate="searchSubmitted()">
@@ -68,6 +63,10 @@
               </a>
             </li>
           </ul>
+
+          <div style="text-align: center; margin-top: 72px">
+            <img source="static/images/Fu.png" style="height: 50px; width: 50px" />
+          </div>
 
         </div>
       </div>
