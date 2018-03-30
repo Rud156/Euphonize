@@ -3,8 +3,7 @@ export const LINK_REGEX = /<a(|\s+[^>]+)>.*<\/a(|\s+[^>]+)>/g;
 export const BASE_URL: string = 'https://euphonize.herokuapp.com';
 // export const BASE_URL: string = 'http://localhost:5000';
 
-export const TRACK_IMAGE_PLACEHOLDER =
-  'https://static.tumblr.com/uqie0nv/1vIn5g72i/default_album_art.png';
+export const TRACK_IMAGE_PLACEHOLDER = 'static/images/DefaultAlbumArt.png';
 
 export const PLAYLIST_LOCAL_STORAGE = 'playlists';
 
@@ -20,8 +19,8 @@ export const ARTIST_DATA = {
 
 export const TRACK_DATA = {
   INFO: 'info',
-  SIMILAR: 'similar_tracks'
-}
+  SIMILAR: 'similar_tracks',
+};
 
 export const SELECTION_TYPE = {
   TRACKS: 'tracks',

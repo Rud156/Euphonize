@@ -1,5 +1,7 @@
-import {FrameworkConfiguration} from 'aurelia-framework';
+import { FrameworkConfiguration } from 'aurelia-framework';
 
 export function configure(config: FrameworkConfiguration) {
-  //config.globalResources([]);
+  config.globalResources([
+    './custom-attributes/source'
+  ]);
 }

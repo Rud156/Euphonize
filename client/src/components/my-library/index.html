@@ -55,7 +55,7 @@
 
   <!-- Export Playlist Modal -->
   <playlist-modal ref="exportPlaylistModal" playlists.bind="exportPlaylists" checkbox-select.call="handleCheckboxSelect(index, state)"
-    save-data.call="handleExportNewPlaylist()" add-new-playlist.call="handleAddNewPlaylist(name)" loading.bind="exportPlaylistLoading">
+    save-data.call="handlePlaylistSelectData()" add-new-playlist.call="handleAddNewPlaylist(name)" loading.bind="exportPlaylistLoading">
     <div slot="titleSlot">
       <h2 class="uk-modal-title">
         Export Playlists
@@ -71,7 +71,7 @@
       Export
     </div>
     <div slot="button_2" show.bind="!exportPlaylistLoading">
-      <button class="uk-button uk-button-default" type="button" click.delegate="handleUpdatePlaylist()" style="margin: 0 7px">Update</button>
+      <button class="uk-button uk-button-default" type="button" click.delegate="handlePlaylistSelectData(true)" style="margin: 0 7px">Update</button>
     </div>
   </playlist-modal>
   <!-- End of Export Playlist Modal -->

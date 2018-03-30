@@ -126,7 +126,7 @@ export class MyLibrary {
     this.exportPlaylists[index].selected = state;
   }
 
-  handleExportNewPlaylist() {
+  handlePlaylistSelectData(handleUpdate: boolean) {
     const selectedPlaylists = this.exportPlaylists
       .filter(element => {
         return element.selected;
@@ -147,6 +147,14 @@ export class MyLibrary {
       delete currentPlaylistsCopy[key];
     });
 
+    if (handleUpdate) {
+      this.handleUpdatePlaylist(currentPlaylistsCopy);
+    } else {
+      this.handleExportNewPlaylist(currentPlaylistsCopy);
+    }
+  }
+
+  handleExportNewPlaylist(currentPlaylistsCopy: IPlaylistDictionary) {
     this.exportPlaylistLoading = true;
 
     this.playlistService
@@ -165,26 +173,7 @@ export class MyLibrary {
       });
   }
 
-  handleUpdatePlaylist() {
-    const selectedPlaylists = this.exportPlaylists
-      .filter(element => {
-        return element.selected;
-      })
-      .map(element => {
-        return element.name;
-      });
-    const selectedPlaylistsSet = new Set(selectedPlaylists);
-
-    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
-    const currentPlaylistsCopy = { ...currentPlaylists };
-    const keysToBeDeleted = [];
-    for (const key in currentPlaylistsCopy)
-      if (!selectedPlaylistsSet.has(key)) keysToBeDeleted.push(key);
-
-    keysToBeDeleted.forEach(key => {
-      delete currentPlaylistsCopy[key];
-    });
-
+  handleUpdatePlaylist(currentPlaylistsCopy: IPlaylistDictionary) {
     if (!this.exportPlaylistId) {
       this.publishNotification('warning', 'Enter a the Playlist Id to update data', {});
       return;

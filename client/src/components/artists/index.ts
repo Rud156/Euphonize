@@ -58,7 +58,7 @@ export class Artists {
       .catch(error => {
         this.publishNotification(
           'error',
-          'Yikes! Yikes! We were unable to load the data. Could you try again',
+          'Yikes! We were unable to load the data. Could you try again',
           error
         );
         this.emergingArtistsLoading = false;
