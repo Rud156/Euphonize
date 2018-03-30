@@ -20,7 +20,7 @@
       <a repeat.for="artist of topArtists" href.bind="'artist/' + artist.artist_name">
         <div class="uk-card cursor-pointer card-hover">
           <div class="uk-card-media-top">
-            <img src="${artist.image}" alt="${artist.artist_name}" style="width: 100%; height: 100%">
+            <img source="${artist.image}" alt="${artist.artist_name}" style="width: 100%; height: 100%">
           </div>
           <div class="uk-card-body padding-small card-body-hover">
             <h4 class="uk-card-title white-text">${artist.artist_name}</h4>

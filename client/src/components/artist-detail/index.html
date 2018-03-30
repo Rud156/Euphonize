@@ -17,7 +17,7 @@
         <div class="uk-width-1-4@m uk-width-1-4@s">
           <div class="uk-card cursor-pointer image-hover">
             <div class="uk-card-media-top">
-              <img src="${artistInfo.image}" alt="${artistInfo.artist_name}" style="width: 100%; height: 100%">
+              <img source="${artistInfo.image}" alt="${artistInfo.artist_name}" style="width: 100%; height: 100%">
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
         <ul class="uk-slider-items">
           <li repeat.for="artist of similarArtists" style="height: 200px; width: 200px;" class="uk-transition-toggle">
             <a href.bind="'artist/' + artist.artist_name">
-              <img src="${artist.image}" alt="${artist.artist_name}">
+              <img source="${artist.image}" alt="${artist.artist_name}">
               <div class="uk-position-center uk-panel">
                 <h3 class="white-text text-shadow uk-transition-slide-bottom-small uk-text-center">${artist.artist_name | trimString:15}</h3>
               </div>

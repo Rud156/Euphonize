@@ -1,7 +1,7 @@
 <template bindable="playlist, playPlaylist">
   <div class="uk-card uk-card-default cursor-pointer white-text-hover" style="box-shadow: none; background-color: transparent">
     <div class="uk-card-media-top uk-position-relative" click.delegate="playPlaylist({playlist: playlist})">
-      <img src="${playlist.image}" alt="${playlist.name}" style="height: 100%; width: 100%">
+      <img source="${playlist.image}" alt="${playlist.name}" style="height: 100%; width: 100%">
       <div class="uk-overlay uk-light uk-position-top" style="padding: 14px 7px">
         <h3 class="text-shadow white-text">${playlist.name}</h3>
       </div>
