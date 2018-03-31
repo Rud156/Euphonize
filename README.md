@@ -1,6 +1,9 @@
 # Euphonize
 > Boilerplate and Basic Functioning for WebApp
 
+### https://euphonize-app.firebaseapp.com/
+##### Initial start time might be long as I'm using the free tier of Heroku which switches off servers after 30 mins of non use
+
 ### Work In Progress
 
 ### Screenshots:
