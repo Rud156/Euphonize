@@ -11,7 +11,7 @@
 ![Playlist Detail Page](./ScreenShots/PlaylistDetailPage.png)
 ![Artist Detail Page](./ScreenShots/ArtistDetailPage.png)
 
-### Road Map for `v0.1`:
+### Road Map for `v0.5`:
 - [x] Search Bar for Music Search
 - [x] Youtube Results
 - [x] Media Player
