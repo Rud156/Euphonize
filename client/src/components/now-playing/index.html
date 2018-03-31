@@ -41,7 +41,7 @@
           <tr as-element="track-table" repeat.for="track of tracks" track-image.bind="track.image" track-name-display.bind="track.trackName | trimString:30"
             track-name.bind="track.trackName" artist-name-display.bind="track.artistName | trimString:20" artist-name.bind="track.artistName"
             index.bind="$index" play-track.call="handleTracksPlay(trackName, artistName, image, index)" add-track.call="handleTracksAddToPlaylist(trackName, artistName, image, index)"
-            remove-track.call="handleTracksRemove(trackName, artistName, image, index)"></tr>
+            remove-track.call="handleTracksRemove(trackName, artistName, image, index)" playing-track.bind="currentTrack"></tr>
         </tbody>
       </table>
     </div>

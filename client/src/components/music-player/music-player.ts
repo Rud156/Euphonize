@@ -188,6 +188,10 @@ export class MusicPlayer {
   }
 
   handleRandomButtonClick() {
+    if (this.audioIsLoading) {
+      return;
+    }
+
     const tracks = this.store.dataStore.getState().nowPlaying.tracks;
     if (tracks.length <= 0) {
       this.publishNotification('warning', 'No tracks playing to shuffle', {});
@@ -199,6 +203,10 @@ export class MusicPlayer {
   }
 
   handlePrevTrackButtonClick() {
+    if (this.audioIsLoading) {
+      return;
+    }
+
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
     const result: IReturn = getPrevTrack(currentTracks, this.playingTrack);
 
@@ -213,6 +221,10 @@ export class MusicPlayer {
   }
 
   handleNextButtonClick() {
+    if (this.audioIsLoading) {
+      return;
+    }
+
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
     const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
 
@@ -303,7 +315,9 @@ export class MusicPlayer {
   }
 
   handleKeyInputs(event: KeyboardEvent) {
-    if (!this.preventDefaultEnabled) return;
+    if (!this.preventDefaultEnabled || this.audioIsLoading) {
+      return;
+    }
 
     event.preventDefault();
     const { key } = event;

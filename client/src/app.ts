@@ -192,7 +192,7 @@ export class App {
     ]);
   }
 
-  redirectAndCloseSidebar() {
+  closeNavOnRedirect() {
     UIkit.offcanvas(this.sidebarRef).hide();
     this.sidebarShowing = false;
   }

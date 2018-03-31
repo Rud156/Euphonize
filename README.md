@@ -5,7 +5,6 @@
 
 ### Screenshots:
 ![Landing Page](./ScreenShots/LandingPage.png)
-![Playlists Page](./ScreenShots/PlaylistsPage.png)
 ![Playlist Detail Page](./ScreenShots/PlaylistDetailPage.png)
 ![Artist Detail Page](./ScreenShots/ArtistDetailPage.png)
 
