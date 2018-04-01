@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, trackNameDisplay, artistName, artistNameDisplay, index, playTrack, addTrack, removeTrack, playingTrack">
+<template bindable="trackImage, trackName, trackNameDisplay, artistName, artistNameDisplay, index, playTrack, addTrack, removeTrack">
 
   <td style="text-align: left">
     <div style="padding-top: 14px">
@@ -7,7 +7,6 @@
   </td>
   <td style="text-align: left">
     <div>
-      <img style="margin-right: 14px; height: 30px; width: 30px" src="static/images/headphones.svg" if.bind="playingTrack.trackName === trackName && playingTrack.artistName === artistName">
       <img source="${trackImage}" alt="${trackName}" class="table-track-image">
       <div class="table-track-name">
         <a href.bind="'artist/' + artistName + '/track/' + trackName" class="white-text">
