@@ -1,33 +1,27 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { BASE_URL, ARTIST_DATA } from '../utils/constants';
+import BaseRequest from './baseRequest';
+import { ARTIST_DATA } from '../utils/constants';
 
-class ArtistService {
-  private httpClient: HttpClient;
-
-  constructor() {
-    this.httpClient = new HttpClient();
-  }
-
-  getTopArtists = (artistType: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/top_artists?type=${artistType}`)
-      .then(response => response.json());
+class ArtistService extends BaseRequest {
+  getTopArtists = (artistType: string, errorMessage?: string) => {
+    return this.getDataFromService(`/top_artists?type=${artistType}`, errorMessage);
   };
 
   getEmergingArtists = () => {
-    return this.httpClient.fetch(`${BASE_URL}/emerging_artists`).then(response => response.json());
+    return this.getDataFromService('/emerging_artists');
   };
 
-  getArtistInfo = (artistName: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/artist?artist_name=${artistName}&data_type=${ARTIST_DATA.INFO}`)
-      .then(response => response.json());
+  getArtistInfo = (artistName: string, errorMessage?: string) => {
+    return this.getDataFromService(
+      `/artist?artist_name=${artistName}&data_type=${ARTIST_DATA.INFO}`,
+      errorMessage
+    );
   };
 
-  getSimilarArtists = (artistName: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/artist?artist_name=${artistName}&data_type=${ARTIST_DATA.SIMILAR}`)
-      .then(response => response.json());
+  getSimilarArtists = (artistName: string, errorMessage?: string) => {
+    return this.getDataFromService(
+      `/artist?artist_name=${artistName}&data_type=${ARTIST_DATA.SIMILAR}`,
+      errorMessage
+    );
   };
 }
 

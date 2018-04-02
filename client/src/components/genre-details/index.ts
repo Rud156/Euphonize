@@ -54,35 +54,23 @@ export class GenreDetails {
   fetchTrackData() {
     this.tracksLoading = true;
 
-    this.trackService
-      .getTracksForGenre(this.genreName)
-      .then((data: ITrackGenreResponse) => {
-        if (data.success) {
-          this.tracks = data.tracks;
-        }
-        this.tracksLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
-        this.tracksLoading = false;
-      });
+    this.trackService.getTracksForGenre(this.genreName).then((data: ITrackGenreResponse) => {
+      if (data.success) {
+        this.tracks = data.tracks;
+      }
+      this.tracksLoading = false;
+    });
   }
 
   fetchAlbumData() {
     this.albumsLoading = true;
 
-    this.albumService
-      .getAlbumsForGenre(this.genreName)
-      .then((data: IAlbumGenreResponse) => {
-        if (data.success) {
-          this.albums = data.albums;
-        }
-        this.albumsLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
-        this.albumsLoading = false;
-      });
+    this.albumService.getAlbumsForGenre(this.genreName).then((data: IAlbumGenreResponse) => {
+      if (data.success) {
+        this.albums = data.albums;
+      }
+      this.albumsLoading = false;
+    });
   }
 
   activate(params: IParams, routeConfig: RouteConfig) {

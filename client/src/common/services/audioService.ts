@@ -1,17 +1,8 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { BASE_URL } from '../utils/constants';
+import BaseRequest from './baseRequest';
 
-class AudioService {
-  private httpClient: HttpClient;
-
-  constructor() {
-    this.httpClient = new HttpClient();
-  }
-
-  getAudioURL = (trackName: string, artistName: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/audio?track=${trackName}&artist=${artistName}`)
-      .then(response => response.json());
+class AudioService extends BaseRequest {
+  getAudioURL = (trackName: string, artistName: string, errorMessage?: string) => {
+    return this.getDataFromService(`/audio?track=${trackName}&artist=${artistName}`, errorMessage);
   };
 }
 

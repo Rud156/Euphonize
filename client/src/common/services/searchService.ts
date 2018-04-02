@@ -1,17 +1,8 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { BASE_URL } from '../utils/constants';
+import BaseRequest from './baseRequest';
 
-class SearchService {
-  private httpClient: HttpClient;
-
-  constructor() {
-    this.httpClient = new HttpClient();
-  }
-
-  getSearchResults = (searchQuery: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/search?search_query=${searchQuery}`)
-      .then(response => response.json());
+class SearchService extends BaseRequest {
+  getSearchResults = (searchQuery: string, errorMessage?: string) => {
+    return this.getDataFromService(`/search?search_query=${searchQuery}`, errorMessage);
   };
 }
 

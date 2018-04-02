@@ -68,68 +68,38 @@ export class ArtistDetail {
     this.artistInfoLoading = true;
     this.artistInfoLoadingSuccess = true;
 
-    this.artistService
-      .getArtistInfo(this.artistName)
-      .then((data: IArtistInfoRawData) => {
-        if (data.success) {
-          this.artistInfo = data['artist_data'];
-        } else {
-          this.artistInfoLoadingSuccess = false;
-        }
+    this.artistService.getArtistInfo(this.artistName).then((data: IArtistInfoRawData) => {
+      if (data.success) {
+        this.artistInfo = data['artist_data'];
+      } else {
+        this.artistInfoLoadingSuccess = false;
+      }
 
-        this.artistInfoLoading = false;
-      })
-      .catch(error => {
-        this.artistInfoLoading = false;
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load the data. Could you try again',
-          error
-        );
-      });
+      this.artistInfoLoading = false;
+    });
   }
 
   fetchSimilarArtists() {
     this.similarArtistsLoading = true;
 
-    this.artistService
-      .getSimilarArtists(this.artistName)
-      .then((data: ISimilarArtistsRawData) => {
-        if (data.success) {
-          this.similarArtists = data['similar_artists'];
-        }
+    this.artistService.getSimilarArtists(this.artistName).then((data: ISimilarArtistsRawData) => {
+      if (data.success) {
+        this.similarArtists = data['similar_artists'];
+      }
 
-        this.similarArtistsLoading = false;
-      })
-      .catch(error => {
-        this.similarArtistsLoading = false;
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load the data. Could you try again',
-          error
-        );
-      });
+      this.similarArtistsLoading = false;
+    });
   }
 
   fetchArtistTopTracks() {
     this.artistTopTracksLoading = true;
 
-    this.trackService
-      .getArtistTopTracks(this.artistName)
-      .then((data: IArtistTopTracks) => {
-        if (data.success) {
-          this.artistTopTracks = data.artist_tracks;
-        }
-        this.artistTopTracksLoading = false;
-      })
-      .catch(error => {
-        this.artistTopTracksLoading = false;
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load the data. Could you try again',
-          error
-        );
-      });
+    this.trackService.getArtistTopTracks(this.artistName).then((data: IArtistTopTracks) => {
+      if (data.success) {
+        this.artistTopTracks = data.artist_tracks;
+      }
+      this.artistTopTracksLoading = false;
+    });
   }
 
   activate(params: IParams, routeConfig: RouteConfig) {

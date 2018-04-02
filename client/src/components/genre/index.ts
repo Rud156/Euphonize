@@ -18,19 +18,13 @@ export class Genre {
   fetchGenreData() {
     this.genreLoading = true;
 
-    this.genreService
-      .getTopGenres()
-      .then((data: { success: boolean; popular_genre: string[] }) => {
-        if (data.success) {
-          this.genres = data['popular_genre'];
-        }
+    this.genreService.getTopGenres().then((data: { success: boolean; popular_genre: string[] }) => {
+      if (data.success) {
+        this.genres = data['popular_genre'];
+      }
 
-        this.genreLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
-        this.genreLoading = false;
-      });
+      this.genreLoading = false;
+    });
   }
 
   publishNotification(eventType: string, message: string, error: object) {

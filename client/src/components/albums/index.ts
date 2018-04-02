@@ -19,23 +19,13 @@ export class Albums {
   fetchTopAlbums() {
     this.albumsLoading = true;
 
-    this.albumService
-      .getTopAlbums()
-      .then((data: ITopAlbumResponse) => {
-        if (data.success) {
-          this.albums = data.albums;
-        }
+    this.albumService.getTopAlbums().then((data: ITopAlbumResponse) => {
+      if (data.success) {
+        this.albums = data.albums;
+      }
 
-        this.albumsLoading = false;
-      })
-      .catch(error => {
-        this.ea.publish('notification', {
-          type: 'error',
-          message: 'Yikes!! We were unable to load the data.',
-          data: error,
-        });
-        this.albumsLoading = false;
-      });
+      this.albumsLoading = false;
+    });
   }
 
   attached() {

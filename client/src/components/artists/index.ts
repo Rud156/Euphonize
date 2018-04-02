@@ -26,43 +26,23 @@ export class Artists {
   fetchTopArtists() {
     this.topArtistsLoading = true;
 
-    this.artistService
-      .getTopArtists(CONTENT_TYPES.USER_CU)
-      .then(data => {
-        if (data.success) {
-          this.topArtists = data.artists;
-        }
-        this.topArtistsLoading = false;
-      })
-      .catch(error => {
-        this.topArtistsLoading = false;
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load the data. Could you try again',
-          error
-        );
-      });
+    this.artistService.getTopArtists(CONTENT_TYPES.USER_CU).then(data => {
+      if (data.success) {
+        this.topArtists = data.artists;
+      }
+      this.topArtistsLoading = false;
+    });
   }
 
   fetchEmergingArtists() {
     this.emergingArtistsLoading = true;
 
-    this.artistService
-      .getEmergingArtists()
-      .then(data => {
-        if (data.success) {
-          this.emergingArtists = data.artists;
-        }
-        this.emergingArtistsLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load the data. Could you try again',
-          error
-        );
-        this.emergingArtistsLoading = false;
-      });
+    this.artistService.getEmergingArtists().then(data => {
+      if (data.success) {
+        this.emergingArtists = data.artists;
+      }
+      this.emergingArtistsLoading = false;
+    });
   }
 
   publishNotification(eventType: string, message: string, error: object) {

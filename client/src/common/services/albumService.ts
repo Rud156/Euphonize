@@ -1,33 +1,30 @@
-import { HttpClient } from 'aurelia-fetch-client';
-import { BASE_URL, SELECTION_TYPE } from '../utils/constants';
+import BaseRequest from './baseRequest';
+import { SELECTION_TYPE } from '../utils/constants';
 
-class AlbumService {
-  private httpClient: HttpClient;
-
-  constructor() {
-    this.httpClient = new HttpClient();
-  }
-
-  getTopAlbums = () => {
-    return this.httpClient.fetch(`${BASE_URL}/top_albums`).then(response => response.json());
+class AlbumService extends BaseRequest {
+  getTopAlbums = (errorMessage?: string) => {
+    return this.getDataFromService('/top_albums', errorMessage);
   };
 
-  getArtistTopAlbums = (artistName: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/artist_top?name=${artistName}&type=${SELECTION_TYPE.ALBUMS}`)
-      .then(response => response.json());
+  getArtistTopAlbums = (artistName: string, errorMessage?: string) => {
+    return this.getDataFromService(
+      `/artist_top?name=${artistName}&type=${SELECTION_TYPE.ALBUMS}`,
+      errorMessage
+    );
   };
 
-  getAlbumsForGenre = (genre: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/popular_genre?type=${SELECTION_TYPE.ALBUMS}&tag_name=${genre}`)
-      .then(response => response.json());
+  getAlbumsForGenre = (genre: string, errorMessage?: string) => {
+    return this.getDataFromService(
+      `/popular_genre?type=${SELECTION_TYPE.ALBUMS}&tag_name=${genre}`,
+      errorMessage
+    );
   };
 
-  getAlbumInfo = (albumName: string, artistName: string) => {
-    return this.httpClient
-      .fetch(`${BASE_URL}/album_info?album_name=${albumName}&artist_name=${artistName}`)
-      .then(response => response.json());
+  getAlbumInfo = (albumName: string, artistName: string, errorMessage?: string) => {
+    return this.getDataFromService(
+      `/album_info?album_name=${albumName}&artist_name=${artistName}`,
+      errorMessage
+    );
   };
 }
 

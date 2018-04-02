@@ -69,10 +69,6 @@ export class TrackDetail {
           this.trackInfoLoadingSuccess = false;
         }
         this.trackInfoLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
-        this.trackInfoLoading = false;
       });
   }
 
@@ -86,10 +82,6 @@ export class TrackDetail {
           this.similarTracks = data['similar_tracks'];
         }
 
-        this.similarTracksLoading = false;
-      })
-      .catch(error => {
-        this.publishNotification('error', 'Yikes!! We were unable to load the data.', error);
         this.similarTracksLoading = false;
       });
   }

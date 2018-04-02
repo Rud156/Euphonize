@@ -40,7 +40,6 @@ export class Tracks {
 
   attached() {
     this.initializeElements();
-    // this.fetchTrendingTracks();
     this.fetchTopTracks();
   }
 
@@ -52,43 +51,23 @@ export class Tracks {
   fetchTopTracks() {
     this.topTracksLoading = true;
 
-    this.trackService
-      .getTopTracks(CONTENT_TYPES.USER_CU)
-      .then(data => {
-        if (data.success) {
-          this.topTracks = data.tracks;
-        }
-        this.topTracksLoading = false;
-      })
-      .catch(error => {
-        this.ea.publish('notification', {
-          type: 'error',
-          message: 'Yikes! We were unable to load the data. Could you try again',
-          data: error,
-        });
-        this.topTracksLoading = false;
-      });
+    this.trackService.getTopTracks(CONTENT_TYPES.USER_CU).then(data => {
+      if (data.success) {
+        this.topTracks = data.tracks;
+      }
+      this.topTracksLoading = false;
+    });
   }
 
   fetchTrendingTracks() {
     this.trendingTracksLoading = true;
 
-    this.trackService
-      .getTopTrendingTracks()
-      .then(data => {
-        if (data.success) {
-          this.trendingTracks = data.tracks;
-        }
-        this.trendingTracksLoading = false;
-      })
-      .catch(error => {
-        this.ea.publish('notification', {
-          type: 'error',
-          message: 'Yikes! We were unable to load the data. Could you try again',
-          data: error,
-        });
-        this.trendingTracksLoading = false;
-      });
+    this.trackService.getTopTrendingTracks().then(data => {
+      if (data.success) {
+        this.trendingTracks = data.tracks;
+      }
+      this.trendingTracksLoading = false;
+    });
   }
 
   initializeElements() {

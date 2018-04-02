@@ -113,7 +113,11 @@ export class MusicPlayer {
     this.audioIsLoading = true;
 
     this.audioService
-      .getAudioURL(currentTrack.trackName, currentTrack.artistName)
+      .getAudioURL(
+        currentTrack.trackName,
+        currentTrack.artistName,
+        'Yikes! We were unable to load track. Please try again'
+      )
       .then(data => {
         this.pauseAudio();
 
@@ -131,24 +135,12 @@ export class MusicPlayer {
           this.playingTrack = trackData;
           this.audioElement.src = data.track['url'];
           this.audioElement.volume = 1;
-
-          this.currentTrack = {
-            trackName: '',
-            artistName: '',
-            image: '',
-          };
         } else {
           const { message }: { message: string } = data;
           this.audioIsLoading = false;
           this.publishNotification('error', message, null);
         }
-      })
-      .catch(error => {
-        this.publishNotification(
-          'error',
-          'Yikes! We were unable to load track. Please try again',
-          error
-        );
+
         this.currentTrack = {
           trackName: '',
           artistName: '',

@@ -80,7 +80,7 @@ export class MyLibrary {
     this.exportPlaylistLoading = true;
 
     this.playlistService
-      .getPlaylist(this.exportPlaylistId)
+      .getPlaylist(this.exportPlaylistId, 'Yikes!!. Unable to connect to the server')
       .then((data: IPlaylistExportResponse) => {
         if (data.success) {
           const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
@@ -115,10 +115,6 @@ export class MyLibrary {
         this.exportPlaylistLoading = false;
         this.exportPlaylistId = '';
         UIkit.modal(this.newPlaylistModal).hide();
-      })
-      .catch(error => {
-        this.exportPlaylistLoading = false;
-        this.publishNotification('error', 'Yikes!!. Unable to connect to the server', error);
       });
   }
 
@@ -158,7 +154,7 @@ export class MyLibrary {
     this.exportPlaylistLoading = true;
 
     this.playlistService
-      .generatePlaylistLink(currentPlaylistsCopy)
+      .generatePlaylistLink(currentPlaylistsCopy, 'Yikes!!. Unable to connect to the server')
       .then((data: IPlaylistExportResponse) => {
         if (data.success) {
           this.exportPlaylistId = data['playlist_id'];
@@ -166,10 +162,6 @@ export class MyLibrary {
           this.publishNotification('error', data.message, {});
         }
         this.exportPlaylistLoading = false;
-      })
-      .catch(error => {
-        this.exportPlaylistLoading = false;
-        this.publishNotification('error', 'Yikes!!. Unable to connect to the server', error);
       });
   }
 
@@ -182,14 +174,14 @@ export class MyLibrary {
     this.exportPlaylistLoading = true;
 
     this.playlistService
-      .updatePlaylist(this.exportPlaylistId, currentPlaylistsCopy)
+      .updatePlaylist(
+        this.exportPlaylistId,
+        currentPlaylistsCopy,
+        'Yikes!!. Unable to connect to the server'
+      )
       .then((data: IPlaylistExportResponse) => {
         this.publishNotification(data.success ? 'success' : 'error', data.message, {});
         this.exportPlaylistLoading = false;
-      })
-      .catch(error => {
-        this.exportPlaylistLoading = false;
-        this.publishNotification('error', 'Yikes!! Unable to connect to the server', error);
       });
   }
 

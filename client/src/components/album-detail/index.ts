@@ -65,14 +65,6 @@ export class AlbumDetail {
         }
 
         this.albumLoading = false;
-      })
-      .catch(error => {
-        this.albumLoading = false;
-        this.ea.publish('notification', {
-          type: 'error',
-          message: 'Yikes!! We were unable to load the data.',
-          data: error,
-        });
       });
   }
 
