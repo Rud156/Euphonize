@@ -19,6 +19,11 @@ export class SourceCustomAttribute {
     this.imageSource = this.value;
     // @ts-ignore
     this.element.src = this.imageSource;
+
+    if (this.eventListenerRemoved) {
+      this.eventListenerRemoved = false;
+      this.element.addEventListener('error', this.handleImageError.bind(this));
+    }
   }
 
   handleImageError() {

@@ -344,7 +344,8 @@ export class MusicPlayer {
     if (this.audioElement.currentTime >= this.audioElement.duration) {
       this.pauseAudio();
       const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
-      const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
+      const currentPlayingTrack = this.store.dataStore.getState().player.currentTrack;
+      const result: IReturn = getNextTrack(currentTracks, currentPlayingTrack);
 
       if (result.success) {
         if ((result.repeat && this.replay) || !result.repeat) {
