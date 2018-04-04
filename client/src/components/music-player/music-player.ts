@@ -200,7 +200,8 @@ export class MusicPlayer {
     }
 
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
-    const result: IReturn = getPrevTrack(currentTracks, this.playingTrack);
+    const currentTrack = this.store.dataStore.getState().player.currentTrack;
+    const result: IReturn = getPrevTrack(currentTracks, currentTrack);
 
     if (result.success) {
       const track = result.track;
@@ -218,7 +219,8 @@ export class MusicPlayer {
     }
 
     const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
-    const result: IReturn = getNextTrack(currentTracks, this.playingTrack);
+    const currentTrack = this.store.dataStore.getState().player.currentTrack;
+    const result: IReturn = getNextTrack(currentTracks, currentTrack);
 
     if (result.success) {
       const track = result.track;
