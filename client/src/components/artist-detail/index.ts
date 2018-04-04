@@ -1,6 +1,5 @@
 import { inject } from 'aurelia-framework';
 import { Router, RouteConfig } from 'aurelia-router';
-import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -23,7 +22,7 @@ interface IParams {
   name: string;
 }
 
-@inject(ArtistService, TrackService, Router, EventAggregator, Store)
+@inject(ArtistService, TrackService, Router, Store)
 export class ArtistDetail {
   artistInfoGrid: HTMLElement;
   similarArtistsSlider: HTMLElement;
@@ -45,7 +44,6 @@ export class ArtistDetail {
     private artistService: ArtistService,
     private trackService: TrackService,
     private router: Router,
-    private ea: EventAggregator,
     private store: Store
   ) {}
 
@@ -115,14 +113,6 @@ export class ArtistDetail {
 
   attached() {
     this.initializeElements();
-  }
-
-  publishNotification(eventType: string, message: string, error: object) {
-    this.ea.publish('notification', {
-      type: eventType,
-      message,
-      data: error,
-    });
   }
 
   initializeElements() {

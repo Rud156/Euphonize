@@ -1,4 +1,3 @@
-import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
@@ -8,7 +7,7 @@ import * as UIkit from 'uikit';
 import ArtistService from '../../common/services/artistService';
 import { CONTENT_TYPES } from '../../common/utils/constants';
 
-@inject(EventAggregator, ArtistService, Router)
+@inject(ArtistService, Router)
 export class Artists {
   topArtistsGrid: HTMLElement;
 
@@ -17,11 +16,7 @@ export class Artists {
   emergingArtists = [];
   emergingArtistsLoading: boolean = false;
 
-  constructor(
-    private ea: EventAggregator,
-    private artistService: ArtistService,
-    private router: Router
-  ) {}
+  constructor(private artistService: ArtistService, private router: Router) {}
 
   fetchTopArtists() {
     this.topArtistsLoading = true;
@@ -42,14 +37,6 @@ export class Artists {
         this.emergingArtists = data.artists;
       }
       this.emergingArtistsLoading = false;
-    });
-  }
-
-  publishNotification(eventType: string, message: string, error: object) {
-    this.ea.publish('notification', {
-      type: eventType,
-      message,
-      data: error,
     });
   }
 

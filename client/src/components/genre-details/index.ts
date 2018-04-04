@@ -8,7 +8,6 @@ import { ITrackGenreResponse, ITrackResponse } from '../../common/interfaces/tra
 import { IAlbumGenreResponse, IAlbumData } from '../../common/interfaces/album-interface';
 import TrackService from '../../common/services/trackService';
 import AlbumService from '../../common/services/albumService';
-import { EventAggregator } from 'aurelia-event-aggregator';
 import { addToNowPlaying } from '../../common/actions/now-playing-actions';
 import { playSelectedTrack } from '../../common/actions/player-actions';
 import { selectTrackForPlaylist } from '../../common/actions/track-playlist-action';
@@ -18,7 +17,7 @@ interface IParams {
   name: string;
 }
 
-@inject(TrackService, AlbumService, EventAggregator, Store)
+@inject(TrackService, AlbumService, Store)
 export class GenreDetails {
   sliderAlbums: HTMLElement;
 
@@ -32,7 +31,6 @@ export class GenreDetails {
   constructor(
     private trackService: TrackService,
     private albumService: AlbumService,
-    private ea: EventAggregator,
     private store: Store
   ) {}
 
@@ -85,14 +83,6 @@ export class GenreDetails {
 
   attached() {
     this.initializeElements();
-  }
-
-  publishNotification(eventType: string, message: string, error: object) {
-    this.ea.publish('notification', {
-      type: eventType,
-      message,
-      data: error,
-    });
   }
 
   initializeElements() {

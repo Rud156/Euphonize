@@ -1,6 +1,5 @@
 import { RouteConfig } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
@@ -22,7 +21,7 @@ interface IParams {
   track: string;
 }
 
-@inject(TrackService, Store, EventAggregator)
+@inject(TrackService, Store)
 export class TrackDetail {
   detailGrid: HTMLElement;
 
@@ -35,11 +34,7 @@ export class TrackDetail {
   similarTracks: ITrackResponse[] = [];
   trackInfoLoadingSuccess: boolean = true;
 
-  constructor(
-    private trackService: TrackService,
-    private store: Store,
-    private ea: EventAggregator
-  ) {}
+  constructor(private trackService: TrackService, private store: Store) {}
 
   addToNowPlayingAndPlay(trackName: string, artistName: string, image: string) {
     this.store.dataStore.dispatch(addToNowPlaying(trackName, artistName, image));
@@ -96,14 +91,6 @@ export class TrackDetail {
       this.fetchTrackInfo();
       this.fetchSimilarTracks();
     }
-  }
-
-  publishNotification(eventType: string, message: string, error: object) {
-    this.ea.publish('notification', {
-      type: eventType,
-      message,
-      data: error,
-    });
   }
 
   attached() {

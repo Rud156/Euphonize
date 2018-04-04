@@ -1,19 +1,18 @@
 import { inject } from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
 
 // @ts-ignore
 import * as UIkit from 'uikit';
 
 import GenreService from '../../common/services/genreService';
 
-@inject(GenreService, EventAggregator)
+@inject(GenreService)
 export class Genre {
   genreGrid: HTMLElement;
 
   genreLoading: boolean = false;
   genres: string[];
 
-  constructor(private genreService: GenreService, private ea: EventAggregator) {}
+  constructor(private genreService: GenreService) {}
 
   fetchGenreData() {
     this.genreLoading = true;
@@ -24,14 +23,6 @@ export class Genre {
       }
 
       this.genreLoading = false;
-    });
-  }
-
-  publishNotification(eventType: string, message: string, error: object) {
-    this.ea.publish('notification', {
-      type: eventType,
-      message,
-      data: error,
     });
   }
 
