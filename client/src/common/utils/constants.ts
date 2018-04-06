@@ -2,6 +2,7 @@ export const LINK_REGEX = /<a(|\s+[^>]+)>.*<\/a(|\s+[^>]+)>/g;
 
 export const BASE_URL: string = 'https://euphonize.herokuapp.com';
 // export const BASE_URL: string = 'http://localhost:5000';
+// export const BASE_URL: string = 'http://localhost:8000';
 
 export const TRACK_IMAGE_PLACEHOLDER = 'static/images/DefaultAlbumArt.png';
 
