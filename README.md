@@ -7,9 +7,9 @@
 ### Work In Progress
 
 ### Data Persistance
-##### Data persistance is achieved by stroing your playlists in the LocalStorage. 
-##### ⚠️ Beware if the LocalStorage is cleared your playlists are also cleared.
-##### To save your playlists permanantly use the Share Playlist option and keep the ID recieved safely.
+> Data persistance is achieved by stroing your playlists in the LocalStorage. 
+> ⚠️ Beware if the LocalStorage is cleared your playlists are also cleared.
+> To save your playlists permanantly use the Share Playlist option and keep the ID recieved safely.
 
 ### Screenshots:
 ![Landing Page](./ScreenShots/LandingPage.png)
