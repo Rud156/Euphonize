@@ -69,6 +69,7 @@ export class MusicPlayer {
     image: TRACK_IMAGE_PLACEHOLDER,
   };
   replay: boolean = false;
+  trackEnded: boolean = false;
 
   constructor(
     private store: Store,
@@ -119,6 +120,7 @@ export class MusicPlayer {
         'Yikes! We were unable to load track. Please try again'
       )
       .then(data => {
+        this.trackEnded = false;
         this.pauseAudio();
 
         if (data.success) {
@@ -222,6 +224,8 @@ export class MusicPlayer {
     const currentTrack = this.store.dataStore.getState().player.currentTrack;
     const result: IReturn = getNextTrack(currentTracks, currentTrack);
 
+    console.log(result);
+
     if (result.success) {
       const track = result.track;
       this.store.dataStore.dispatch(
@@ -290,6 +294,8 @@ export class MusicPlayer {
   }
 
   handleTimeUpdate() {
+    if (this.trackEnded) return;
+
     const { playingTrack } = this;
     const modifiedTrackData = {
       ...playingTrack,
@@ -345,6 +351,8 @@ export class MusicPlayer {
   checkAndSwitchToNextTrack() {
     if (this.audioElement.currentTime >= this.audioElement.duration) {
       this.pauseAudio();
+      this.trackEnded = true;
+      
       const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
       const currentPlayingTrack = this.store.dataStore.getState().player.currentTrack;
       const result: IReturn = getNextTrack(currentTracks, currentPlayingTrack);

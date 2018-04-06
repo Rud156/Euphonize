@@ -11,7 +11,7 @@
     "start": "au run --watch",
     "build": "au build --env prod",
     "deploy": "firebase deploy",
-    "cd": "yarn build && firebase deploy",
+    "bd": "yarn build && firebase deploy",
     "bs": "yarn build && yarn serve"
   },
   "license": "MIT",

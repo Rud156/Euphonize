@@ -29,6 +29,8 @@ class BaseRequest {
           message: errorMessage ? errorMessage : 'Yikes!! We were unable to load the data.',
           date: error,
         });
+
+        return { success: false };
       });
   };
 
@@ -50,6 +52,8 @@ class BaseRequest {
           message: errorMessage ? errorMessage : 'Yikes!! We were unable to load the data.',
           date: error,
         });
+
+        return { success: false };
       });
   };
 }
