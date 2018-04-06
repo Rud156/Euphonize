@@ -6,6 +6,11 @@
 
 ### Work In Progress
 
+### Data Persistance
+##### Data persistance is achieved by stroing your playlists in the LocalStorage. 
+##### ⚠️ Beware if the LocalStorage is cleared your playlists are also cleared.
+##### To save your playlists permanantly use the Share Playlist option and keep the ID recieved safely.
+
 ### Screenshots:
 ![Landing Page](./ScreenShots/LandingPage.png)
 ![Playlist Detail Page](./ScreenShots/PlaylistDetailPage.png)
@@ -15,7 +20,6 @@
 - [x] Search Bar for Music Search
 - [x] Youtube Results
 - [x] Media Player
-- [ ] Dynamic Audio Switching
-- [ ] Meta Data Extractor - Last.FM / Itunes
 - [x] Flask API with Search and Play Functionality
+- [ ] Meta Data Extractor - Last.FM / Itunes
 - [ ] Convert to PWA
