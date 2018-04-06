@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["./scripts/app-bundle.js","afe8defb95008342131d64461cc46e47"]];
+var precacheConfig = [["./index.html","0b313608f0dc7f386992573c7a632890"],["./manifest.json","628db4ccc3bf5ad3c01ca929240189ca"],["./scripts/app-bundle.js","bf2dbb818f68e9b7e5d6860216cc02a7"],["./scripts/vendor-bundle.js","b74843a6939d59a87aa7060b480dfd99"],["./static/images/DefaultAlbumArt.png","32c6b8ccd5661f6e723d0ff0373b3865"],["./static/images/Euphonize.png","e8869437711c4812828f728ae9fc4059"],["./static/images/Euphonize_192x192.png","de020ff92328e7fedc29138204463ebc"],["./static/images/Euphonize_48x48.png","597030c97d11315ccf2688df6658aefe"],["./static/images/Euphonize_512x512.png","909429d7ba717ad54993ad9be8fde67b"],["./static/images/Euphonize_96x96.png","a201b618a138b4b2c86c7b9fc1d973c8"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 

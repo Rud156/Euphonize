@@ -1,0 +1,31 @@
+{
+  "short_name": "Euphonize",
+  "name": "Euphonize",
+  "description": "A simple application for listening and discovering music",
+  "icons": [
+    {
+      "src": "static/images/Euphonize_48x48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "static/images/Euphonize_96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "static/images/Euphonize_192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "static/images/Euphonize_512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?launcher=true",
+  "display": "standalone",
+  "theme_color": "#644f80",
+  "background_color": "#1a1a1a"
+}

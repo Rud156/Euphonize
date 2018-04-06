@@ -30,14 +30,20 @@ function readProjectConfiguration() {
 }
 
 function writeBundles() {
-  return swPreCache.write(
+  buildCLI.dest();
+  swPreCache.write(
     './service-worker.js',
     {
-      staticFileGlobs: ['./static/images/*.{png}', './scripts/*.{js, js.map}', './*.{html}'],
+      staticFileGlobs: [
+        './scripts/*.js',
+        './static/images/*.png',
+        './index.html',
+        './manifest.json',
+      ],
       stripPrefix: '',
     },
     () => {
-      return buildCLI.dest();
+      console.log('Task Completed');
     }
   );
 }

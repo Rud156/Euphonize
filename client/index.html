@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
+  <meta name="theme-color" content="#644f80">
+  <meta name="Description" content="Euphonize. A simple application for listening and discovering music">
   <title>Euphonize</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="static/images/Euphonize.png" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
 </head>
 
 <body aurelia-app="main">
   <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
+  <script src="service-worker-registration.js"></script>
+  <noscript>Javascript is required to run this application!!</noscript>
 </body>
 
 </html>
