@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { RouterConfiguration, Router } from 'aurelia-router';
 
-export class Genre {
+export class GenreIndex {
   router: Router;
 
   constructor() {}
@@ -11,7 +11,7 @@ export class Genre {
     config.map([
       {
         route: '',
-        moduleId: './genre',
+        moduleId: './components/genre',
         title: 'Genre',
       },
       {

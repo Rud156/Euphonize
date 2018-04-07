@@ -113,12 +113,6 @@ export class App {
         title: 'My Library',
       },
       {
-        route: 'library/:id',
-        name: 'libraryDetail',
-        moduleId: './components/library-detail/index',
-        nav: false,
-      },
-      {
         route: 'playing',
         name: 'playing',
         moduleId: './components/now-playing/index',

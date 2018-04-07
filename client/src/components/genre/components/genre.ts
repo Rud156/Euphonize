@@ -3,7 +3,7 @@ import { inject } from 'aurelia-framework';
 // @ts-ignore
 import * as UIkit from 'uikit';
 
-import GenreService from '../../common/services/genreService';
+import GenreService from '../../../common/services/genreService';
 
 @inject(GenreService)
 export class Genre {
