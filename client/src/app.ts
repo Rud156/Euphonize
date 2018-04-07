@@ -127,35 +127,11 @@ export class App {
         title: 'Tracks',
       },
       {
-        route: 'track/:name',
-        name: 'trackDetail',
-        moduleId: './components/track-detail/index',
-        nav: false,
-      },
-      {
         route: 'artists',
         name: 'artists',
         moduleId: './components/artists/index',
         nav: true,
         title: 'Artists',
-      },
-      {
-        route: 'artists/:name',
-        name: 'artistDetail',
-        moduleId: './components/artist-detail/index',
-        nav: false,
-      },
-      {
-        route: 'artists/:name/album/:album',
-        name: 'albumDetail',
-        moduleId: './components/album-detail/index',
-        nav: false,
-      },
-      {
-        route: 'artists/:name/track/:track',
-        name: 'trackDetail',
-        moduleId: './components/track-detail/index',
-        nav: false,
       },
       {
         route: 'albums',
