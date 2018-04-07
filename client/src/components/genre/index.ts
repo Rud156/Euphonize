@@ -12,7 +12,7 @@ export class GenreIndex {
       {
         route: '',
         moduleId: './components/genre',
-        title: 'Genre',
+        title: '',
       },
       {
         route: '/:name',

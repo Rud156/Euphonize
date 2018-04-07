@@ -12,7 +12,7 @@ export class LibraryIndex {
       {
         route: '',
         moduleId: './components/library',
-        title: 'Genre',
+        title: '',
       },
       {
         route: '/:id',

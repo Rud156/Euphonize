@@ -12,24 +12,12 @@ export class ArtistsIndex {
       {
         route: '',
         moduleId: './components/artists',
-        title: 'Artists',
+        title: '',
       },
       {
         route: '/:name',
         name: 'artistDetail',
         moduleId: '../artist-detail/index',
-        nav: false,
-      },
-      {
-        route: '/:name/album/:album',
-        name: 'albumDetail',
-        moduleId: '../album-detail/index',
-        nav: false,
-      },
-      {
-        route: '/:name/track/:track',
-        name: 'trackDetail',
-        moduleId: '../track-detail/index',
         nav: false,
       },
     ]);
