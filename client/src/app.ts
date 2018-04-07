@@ -146,19 +146,19 @@ export class App {
         title: 'Artists',
       },
       {
-        route: 'artist/:name',
+        route: 'artists/:name',
         name: 'artistDetail',
         moduleId: './components/artist-detail/index',
         nav: false,
       },
       {
-        route: 'artist/:name/album/:album',
+        route: 'artists/:name/album/:album',
         name: 'albumDetail',
         moduleId: './components/album-detail/index',
         nav: false,
       },
       {
-        route: 'artist/:name/track/:track',
+        route: 'artists/:name/track/:track',
         name: 'trackDetail',
         moduleId: './components/track-detail/index',
         nav: false,
@@ -176,12 +176,6 @@ export class App {
         moduleId: './components/genre/index',
         nav: true,
         title: 'Genre',
-      },
-      {
-        route: 'genre/:name',
-        name: 'genreDetail',
-        moduleId: './components/genre-details/index',
-        nav: false,
       },
       {
         route: ['search', 'search/:query'],

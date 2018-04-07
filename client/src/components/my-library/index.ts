@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { RouterConfiguration, Router } from 'aurelia-router';
+import { Router } from 'aurelia-router';
 import { Unsubscribe } from 'redux';
 import { EventAggregator } from 'aurelia-event-aggregator';
 

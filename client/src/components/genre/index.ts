@@ -1,37 +1,23 @@
 import { inject } from 'aurelia-framework';
+import { RouterConfiguration, Router } from 'aurelia-router';
 
-// @ts-ignore
-import * as UIkit from 'uikit';
-
-import GenreService from '../../common/services/genreService';
-
-@inject(GenreService)
 export class Genre {
-  genreGrid: HTMLElement;
+  router: Router;
 
-  genreLoading: boolean = false;
-  genres: string[];
+  constructor() {}
 
-  constructor(private genreService: GenreService) {}
-
-  fetchGenreData() {
-    this.genreLoading = true;
-
-    this.genreService.getTopGenres().then((data: { success: boolean; popular_genre: string[] }) => {
-      if (data.success) {
-        this.genres = data['popular_genre'];
-      }
-
-      this.genreLoading = false;
-    });
-  }
-
-  attached() {
-    this.fetchGenreData();
-    this.initializeElements();
-  }
-
-  initializeElements() {
-    UIkit.grid(this.genreGrid);
+  configureRouter(config: RouterConfiguration, router: Router) {
+    this.router = router;
+    config.map([
+      {
+        route: '',
+        moduleId: './genre',
+        title: 'Genre',
+      },
+      {
+        route: '/:name',
+        moduleId: './../genre-details/index',
+      },
+    ]);
   }
 }

@@ -17,7 +17,7 @@
 
     <loader if.bind="topArtistsLoading"></loader>
     <div show.bind="!topArtistsLoading" class="uk-grid-medium uk-child-width-1-4@m uk-child-width-1-2@s uk-text-center" ref="topArtistsGrid">
-      <a repeat.for="artist of topArtists" href.bind="'artist/' + artist.artist_name">
+      <a repeat.for="artist of topArtists" href.bind="'artists/' + artist.artist_name">
         <div class="uk-card cursor-pointer card-hover">
           <div class="uk-card-media-top">
             <img source="${artist.image}" alt="${artist.artist_name}" style="width: 100%; height: 100%">

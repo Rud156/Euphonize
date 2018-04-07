@@ -39,7 +39,7 @@
       <div show.bind="!similarArtistsLoading" class="uk-position-relative uk-slider-container" ref="similarArtistsSlider">
         <ul class="uk-slider-items">
           <li repeat.for="artist of similarArtists" style="height: 200px; width: 200px;" class="uk-transition-toggle">
-            <a href.bind="'artist/' + artist.artist_name">
+            <a href.bind="'artists/' + artist.artist_name">
               <img source="${artist.image}" alt="${artist.artist_name}">
               <div class="uk-position-center uk-panel">
                 <h3 class="white-text text-shadow uk-transition-slide-bottom-small uk-text-center">${artist.artist_name | trimString:15}</h3>
