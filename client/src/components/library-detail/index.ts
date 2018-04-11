@@ -30,15 +30,11 @@ export class LibraryDetail {
   constructor(private store: Store, private router: Router, private taskQueue: TaskQueue) {}
 
   handleStoreUpdate() {
-    this.loading = true;
-    this.taskQueue.queueTask(() => {
-      const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
-      this.currentPlaylist = {
-        name: this.playlistName,
-        tracks: currentPlaylists[this.playlistName].slice(),
-      };
-      this.loading = false;
-    });
+    const currentPlaylists = this.store.dataStore.getState().playlist.playlists;
+    this.currentPlaylist = {
+      name: this.playlistName,
+      tracks: currentPlaylists[this.playlistName],
+    };
   }
 
   handleRouteAttachment() {
@@ -51,7 +47,7 @@ export class LibraryDetail {
 
       this.currentPlaylist = {
         name: this.playlistName,
-        tracks: currentPlaylists[this.playlistName].slice(),
+        tracks: currentPlaylists[this.playlistName],
       };
       this.loading = false;
     });
