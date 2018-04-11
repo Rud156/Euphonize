@@ -2,12 +2,14 @@
   <require from="../track-table/track-table.html"></require>
   <require from="../error-page/error-page.html"></require>
   <require from="../../resources/value-converters/trim-string-format"></require>
+  <require from="../loader/loader.html"></require>
 
   <h2 class="category-header">${playlistName}</h2>
 
 
   <div class="uk-container uk-container-expand fixed-padding">
-    <div class="uk-grid-medium uk-text-center" ref="detailGrid">
+    <loader if.bind="loading"></loader>
+    <div class="uk-grid-medium uk-text-center" ref="detailGrid" show.bind="!loading">
 
       <div class="uk-width-1-4@m uk-width-1-2@s">
         <div class="uk-card uk-card-default">
