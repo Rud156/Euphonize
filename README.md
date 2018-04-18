@@ -11,6 +11,7 @@
 - ⚠️ Beware if the LocalStorage is cleared your playlists are also cleared.
 - To save your playlists permanently use the Share Playlist option and keep the ID received safely.
 - These can then be restored anytime you want via the ID received
+- Keyboard Shortcuts are supported 🎉!!! See them by pressing ``` '/' ```.
 
 ### Screenshots:
 ![Landing Page](./ScreenShots/LandingPage.png)
