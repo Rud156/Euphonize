@@ -48,6 +48,53 @@
         </div>
       </playlist-modal>
 
+      <div ref="shortcutsModal">
+        <div class="uk-modal-dialog">
+          <div class="uk-modal-header">
+            <div class="uk-modal-close-default" type="button" style="cursor: pointer">
+              <i class="fas fa-times-circle black-text"></i>
+            </div>
+            <h2 class="uk-modal-title">
+              Keyboard Shortcuts
+            </h2>
+          </div>
+          <div class="uk-modal-body">
+            <div class="space-between">
+              <span class="uk-label">Space</span>
+              <span class="black-text">Play | Pause</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">a</span>
+              <span class="black-text"> Previous Track</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">d</span>
+              <span class="black-text"> Next Track</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">s</span>
+              <span class="black-text">Shuffle Now Playing</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">r</span>
+              <span class="black-text">Repeat Now Playing</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">Left Arrow</span>
+              <span class="black-text">Go Back By 10 Sec</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">Right Arrow</span>
+              <span class="black-text">Skip By 10 Sec</span>
+            </div>
+            <div class="space-between">
+              <span class="uk-label">/</span>
+              <span class="black-text">Open This Modal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <music-player></music-player>
 
       <router-view></router-view>

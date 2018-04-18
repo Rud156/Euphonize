@@ -30,9 +30,11 @@ import { updateSearchResults } from './common/actions/search-actions';
 export class App {
   router: Router;
   reduxSubscription: Unsubscribe;
+  shortcutsModalOpen: boolean = false;
 
   sidebarRef: HTMLElement;
   playlistModal: HTMLElement;
+  shortcutsModal: HTMLElement;
   sidebarShowing: boolean = false;
   searchString: string = '';
   styleString: string = 'color: white';
@@ -46,6 +48,7 @@ export class App {
 
   notificationSubs: Subscription;
   searchSubs: Subscription;
+  openShortcutsSubs: Subscription;
 
   constructor(private store: Store, private ea: EventAggregator) {
     this.notificationSubs = this.ea.subscribe(
@@ -53,6 +56,9 @@ export class App {
       this.handleDisplayNotification.bind(this)
     );
     this.searchSubs = this.ea.subscribe('search', this.handleSearchQuery.bind(this));
+    this.openShortcutsSubs = this.ea.subscribe('openShortcuts', () => {
+      this.handleShortcutsModalOpenClose();
+    });
 
     this.handleDebouncedSearch = _.debounce(this.handleDebouncedSearch, 250);
   }
@@ -86,6 +92,18 @@ export class App {
 
   handleSearchQuery(searchQuery) {
     this.searchString = searchQuery;
+  }
+
+  handleShortcutsModalOpenClose(closeModal?: boolean) {
+    const { shortcutsModalOpen } = this;
+
+    if (shortcutsModalOpen || closeModal) {
+      UIkit.modal(this.shortcutsModal).hide();
+      this.shortcutsModalOpen = false;
+    } else {
+      UIkit.modal(this.shortcutsModal).show();
+      this.shortcutsModalOpen = true;
+    }
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -241,6 +259,7 @@ export class App {
     this.reduxSubscription();
     this.notificationSubs.dispose();
     this.searchSubs.dispose();
+    this.openShortcutsSubs.dispose();
     // @ts-ignore
     this.sidebarRef.$destroy();
   }
@@ -288,6 +307,11 @@ export class App {
     UIkit.modal(this.playlistModal);
     UIkit.util.on(this.playlistModal, 'hidden', () => {
       this.closePlaylistModal();
+    });
+
+    UIkit.modal(this.shortcutsModal);
+    UIkit.util.on(this.shortcutsModal, 'hidden', () => {
+      this.handleShortcutsModalOpenClose(true);
     });
   }
 }

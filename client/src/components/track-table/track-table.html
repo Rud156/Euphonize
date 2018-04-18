@@ -1,4 +1,4 @@
-<template bindable="trackImage, trackName, trackNameDisplay, artistName, artistNameDisplay, index, playTrack, addTrack, removeTrack">
+<template bindable="trackImage, trackName, trackNameDisplay, artistName, artistNameDisplay, index, id, playTrack, addTrack, removeTrack">
 
   <td style="text-align: left">
     <div style="padding-top: 14px">
@@ -24,13 +24,13 @@
   </td>
   <td style="text-align: left">
     <div style="padding-top: 7px">
-      <span click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="playTrack">
+      <span click.delegate="playTrack({trackName: trackName, artistName: artistName, image: trackImage, index: id ? id : index })" if.bind="playTrack">
         <i class="fas fa-play-circle fa-2x cursor-pointer table-padding-5 play-color" style="font-size: 1.5em;"></i>
       </span>
-      <span click.delegate="addTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="addTrack">
+      <span click.delegate="addTrack({trackName: trackName, artistName: artistName, image: trackImage, index: id ? id : index })" if.bind="addTrack">
         <i class="fas fa-plus-circle fa-2x cursor-pointer table-padding-5 playlist-color" style="font-size: 1.5em;"></i>
       </span>
-      <span click.delegate="removeTrack({trackName: trackName, artistName: artistName, image: trackImage, index: index})" if.bind="removeTrack">
+      <span click.delegate="removeTrack({trackName: trackName, artistName: artistName, image: trackImage, index: id ? id : index })" if.bind="removeTrack">
         <i class="fas fa-trash-alt fa-2x cursor-pointer table-padding-5 remove-color" style="font-size: 1.5em"></i>
       </span>
     </div>

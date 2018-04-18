@@ -215,7 +215,7 @@ export class MusicPlayer {
     }
   }
 
-  handleNextButtonClick() {
+  handleNextTrackButtonClick() {
     if (this.audioIsLoading) {
       return;
     }
@@ -314,33 +314,93 @@ export class MusicPlayer {
     );
   }
 
+  handleMinus10Sec() {
+    if (this.audioIsLoading) {
+      return;
+    }
+
+    const { currentTime } = this.audioElement;
+    const { playingTrack } = this;
+    let modifiedCurrentTime;
+
+    if (currentTime - 10 <= 10) {
+      modifiedCurrentTime = 0;
+    } else {
+      modifiedCurrentTime = currentTime - 10;
+    }
+
+    const modifiedTrackData = {
+      ...playingTrack,
+      currentTime: modifiedCurrentTime,
+    };
+
+    this.audioElement.currentTime = modifiedCurrentTime;
+    this.playingTrack = modifiedTrackData;
+  }
+
+  handlePlus10Sec() {
+    if (this.audioIsLoading) {
+      return;
+    }
+
+    const { currentTime, duration } = this.audioElement;
+    const { playingTrack } = this;
+    let modifiedCurrentTime;
+
+    if (currentTime + 10 >= duration) {
+      modifiedCurrentTime = duration - 1;
+    } else {
+      modifiedCurrentTime = currentTime + 10;
+    }
+
+    const modifiedTrackData = {
+      ...playingTrack,
+      currentTime: modifiedCurrentTime,
+    };
+
+    this.audioElement.currentTime = modifiedCurrentTime;
+    this.playingTrack = modifiedTrackData;
+  }
+
   handleKeyInputs(event: KeyboardEvent) {
     if (!this.preventDefaultEnabled || this.audioIsLoading) {
       return;
     }
 
     event.preventDefault();
-    const { key } = event;
+    const { which } = event;
 
-    switch (key) {
-      case ' ':
+    switch (which) {
+      case 32:
         this.togglePlayPause();
         break;
 
-      case 'a':
+      case 65:
         this.handlePrevTrackButtonClick();
         break;
 
-      case 'd':
-        this.handleNextButtonClick();
+      case 68:
+        this.handleNextTrackButtonClick();
         break;
 
-      case 's':
+      case 83:
         this.handleRandomButtonClick();
         break;
 
-      case 'r':
+      case 82:
         this.handleReplayButtonClick();
+        break;
+
+      case 37:
+        this.handleMinus10Sec();
+        break;
+
+      case 39:
+        this.handlePlus10Sec();
+        break;
+
+      case 191:
+        this.ea.publish('openShortcuts', {});
         break;
 
       default:
@@ -352,7 +412,7 @@ export class MusicPlayer {
     if (this.audioElement.currentTime >= this.audioElement.duration) {
       this.pauseAudio();
       this.trackEnded = true;
-      
+
       const currentTracks = this.store.dataStore.getState().nowPlaying.tracks;
       const currentPlayingTrack = this.store.dataStore.getState().player.currentTrack;
       const result: IReturn = getNextTrack(currentTracks, currentPlayingTrack);
@@ -409,7 +469,7 @@ export class MusicPlayer {
 
     this.playButton.addEventListener('click', this.handlePlayButtonClick.bind(this));
     this.pauseButton.addEventListener('click', this.handlePauseButtonClick.bind(this));
-    this.nextTrackButton.addEventListener('click', this.handleNextButtonClick.bind(this));
+    this.nextTrackButton.addEventListener('click', this.handleNextTrackButtonClick.bind(this));
     this.prevTrackButton.addEventListener('click', this.handlePrevTrackButtonClick.bind(this));
     this.playlistButton.addEventListener('click', this.handlePlaylistButtonClick.bind(this));
     this.replayButtonNormal.addEventListener('click', this.handleReplayButtonClick.bind(this));
@@ -424,7 +484,7 @@ export class MusicPlayer {
     this.seekSlider.addEventListener('mousedown', this.pauseAudio.bind(this));
     this.seekSlider.addEventListener('mouseup', this.playAudio.bind(this));
 
-    window.addEventListener('keypress', this.handleKeyInputs.bind(this));
+    window.addEventListener('keydown', this.handleKeyInputs.bind(this));
   }
 
   removeAllEventListeners() {
@@ -434,7 +494,7 @@ export class MusicPlayer {
 
     this.playButton.removeEventListener('click', this.handlePlayButtonClick);
     this.pauseButton.removeEventListener('click', this.handlePauseButtonClick);
-    this.nextTrackButton.removeEventListener('click', this.handleNextButtonClick);
+    this.nextTrackButton.removeEventListener('click', this.handleNextTrackButtonClick);
     this.prevTrackButton.removeEventListener('click', this.handlePrevTrackButtonClick);
     this.playlistButton.removeEventListener('click', this.handlePlaylistButtonClick);
     this.replayButtonNormal.removeEventListener('click', this.handleReplayButtonClick);
