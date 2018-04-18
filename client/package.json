@@ -46,6 +46,8 @@
     "event-stream": "^3.3.3",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-changed-in-place": "^2.0.3",
+    "gulp-delete-lines": "^0.0.7",
+    "gulp-inject": "^4.3.2",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",

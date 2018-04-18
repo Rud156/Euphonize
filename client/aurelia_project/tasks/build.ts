@@ -1,4 +1,6 @@
 import * as gulp from 'gulp';
+import * as swPreCache from 'sw-precache';
+import * as inject from 'gulp-inject';
 import { CLIOptions, build as buildCLI } from 'aurelia-cli';
 import transpile from './transpile';
 import processMarkup from './process-markup';
@@ -6,7 +8,6 @@ import processCSS from './process-css';
 import copyFiles from './copy-files';
 import watch from './watch';
 import * as project from '../aurelia.json';
-import * as swPreCache from 'sw-precache';
 
 let build = gulp.series(
   readProjectConfiguration,
@@ -44,6 +45,9 @@ function writeBundles() {
     },
     () => {
       console.log('Task Completed');
+      const target = gulp.src('./index.html');
+      const sources = gulp.src('./service-worker-registration.js');
+      target.pipe(inject(sources)).pipe(gulp.dest('./'));
     }
   );
 }

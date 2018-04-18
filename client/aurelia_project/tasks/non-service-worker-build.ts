@@ -1,4 +1,5 @@
 import * as gulp from 'gulp';
+import * as deleteLines from 'gulp-delete-lines';
 import { CLIOptions, build as buildCLI } from 'aurelia-cli';
 import transpile from './transpile';
 import processMarkup from './process-markup';
@@ -6,7 +7,6 @@ import processCSS from './process-css';
 import copyFiles from './copy-files';
 import watch from './watch';
 import * as project from '../aurelia.json';
-import * as swPreCache from 'sw-precache';
 
 let build = gulp.series(
   readProjectConfiguration,
@@ -30,6 +30,14 @@ function readProjectConfiguration() {
 }
 
 function writeBundles() {
+  gulp
+    .src('./index.html')
+    .pipe(
+      deleteLines({
+        filters: ['<script src="\/service-worker-registration\.js"><\/script>'],
+      })
+    )
+    .pipe(gulp.dest('./'));
   return buildCLI.dest();
 }
 

@@ -37,7 +37,7 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["./index.html","0b313608f0dc7f386992573c7a632890"],["./manifest.json","628db4ccc3bf5ad3c01ca929240189ca"],["./scripts/app-bundle.js","156487f232b5746dc5ed34a0dba547a5"],["./scripts/vendor-bundle.js","7c0f510bdd9466660d51beab4868b8f6"],["./static/images/DefaultAlbumArt.png","32c6b8ccd5661f6e723d0ff0373b3865"],["./static/images/Euphonize.png","e8869437711c4812828f728ae9fc4059"],["./static/images/Euphonize_192x192.png","de020ff92328e7fedc29138204463ebc"],["./static/images/Euphonize_48x48.png","597030c97d11315ccf2688df6658aefe"],["./static/images/Euphonize_512x512.png","909429d7ba717ad54993ad9be8fde67b"],["./static/images/Euphonize_96x96.png","a201b618a138b4b2c86c7b9fc1d973c8"]];
+var precacheConfig = [["./index.html","db3f35bbf3ead7d61f6948ee3d6ba2eb"],["./manifest.json","628db4ccc3bf5ad3c01ca929240189ca"],["./scripts/app-bundle.js","f3d2d6c5fcaee4c01a52c01e88b96e10"],["./static/images/DefaultAlbumArt.png","32c6b8ccd5661f6e723d0ff0373b3865"],["./static/images/Euphonize.png","e8869437711c4812828f728ae9fc4059"],["./static/images/Euphonize_192x192.png","de020ff92328e7fedc29138204463ebc"],["./static/images/Euphonize_48x48.png","597030c97d11315ccf2688df6658aefe"],["./static/images/Euphonize_512x512.png","909429d7ba717ad54993ad9be8fde67b"],["./static/images/Euphonize_96x96.png","a201b618a138b4b2c86c7b9fc1d973c8"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 
 
