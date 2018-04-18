@@ -39,10 +39,10 @@ export class NowPlaying {
     const tracks = this.store.dataStore.getState().nowPlaying.tracks;
     this.tracks = tracks.slice();
 
-    if(this.currentTrack.trackName) {
+    if (this.currentTrack.trackName) {
       this.routeConfig.navModel.setTitle(`${this.currentTrack.trackName} | Now Playing`);
     } else {
-      this.routeConfig.navModel.setTitle('Now Playing')
+      this.routeConfig.navModel.setTitle('Now Playing');
     }
   }
 
@@ -76,6 +76,7 @@ export class NowPlaying {
 
   detached() {
     this.reduxSubscription();
+    this.routeConfig.navModel.setTitle('Now Playing');
   }
 
   initializeElements() {
