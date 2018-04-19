@@ -72,6 +72,13 @@ export class App {
       this.selectedTrack = selectedTrack;
       this.createPlaylistAndShowModal();
     }
+
+    const { trackName } = this.store.dataStore.getState().player.currentTrack;
+    if (!trackName) {
+      this.router.navigation[1].setTitle('Now Playing');
+    } else {
+      this.router.navigation[1].setTitle(`${trackName} | Now Playing`);
+    }
   }
 
   handleDisplayNotification(notification) {

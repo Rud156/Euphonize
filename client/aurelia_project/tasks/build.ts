@@ -31,25 +31,26 @@ function readProjectConfiguration() {
 }
 
 function writeBundles() {
-  buildCLI.dest();
-  swPreCache.write(
-    './service-worker.js',
-    {
-      staticFileGlobs: [
-        './scripts/*.js',
-        './static/images/*.png',
-        './index.html',
-        './manifest.json',
-      ],
-      stripPrefix: '',
-    },
-    () => {
-      console.log('Task Completed');
-      const target = gulp.src('./index.html');
-      const sources = gulp.src('./service-worker-registration.js');
-      target.pipe(inject(sources)).pipe(gulp.dest('./'));
-    }
-  );
+  buildCLI.dest().then(() => {
+    swPreCache.write(
+      './service-worker.js',
+      {
+        staticFileGlobs: [
+          './scripts/*.js',
+          './static/images/*.png',
+          './index.html',
+          './manifest.json',
+        ],
+        stripPrefix: '',
+      },
+      () => {
+        console.log('Task Completed');
+        const target = gulp.src('./index.html');
+        const sources = gulp.src('./service-worker-registration.js');
+        target.pipe(inject(sources)).pipe(gulp.dest('./'));
+      }
+    );
+  });
 }
 
 export { main as default };

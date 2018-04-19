@@ -323,7 +323,7 @@ export class MusicPlayer {
     const { playingTrack } = this;
     let modifiedCurrentTime;
 
-    if (currentTime - 10 <= 10) {
+    if (currentTime <= 10) {
       modifiedCurrentTime = 0;
     } else {
       modifiedCurrentTime = currentTime - 10;

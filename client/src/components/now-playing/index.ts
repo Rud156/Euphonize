@@ -1,5 +1,4 @@
 import { inject } from 'aurelia-framework';
-import { RouteConfig } from 'aurelia-router';
 import { Unsubscribe } from 'redux';
 
 // @ts-ignore
@@ -14,7 +13,6 @@ import { playSelectedTrack } from '../../common/actions/player-actions';
 
 @inject(Store)
 export class NowPlaying {
-  routeConfig: RouteConfig;
 
   nowPlayingGrid: HTMLElement;
   reduxSubscription: Unsubscribe;
@@ -38,12 +36,6 @@ export class NowPlaying {
 
     const tracks = this.store.dataStore.getState().nowPlaying.tracks;
     this.tracks = tracks.slice();
-
-    if (this.currentTrack.trackName) {
-      this.routeConfig.navModel.setTitle(`${this.currentTrack.trackName} | Now Playing`);
-    } else {
-      this.routeConfig.navModel.setTitle('Now Playing');
-    }
   }
 
   handleTracksPlay(trackName: string, artistName: string, image: string, index: number) {
@@ -64,10 +56,6 @@ export class NowPlaying {
     this.store.dataStore.dispatch(removeFromNowPlaying(id));
   }
 
-  activate(params: {}, routeConfig: RouteConfig) {
-    this.routeConfig = routeConfig;
-  }
-
   attached() {
     this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
     this.handleStoreUpdate();
@@ -76,7 +64,6 @@ export class NowPlaying {
 
   detached() {
     this.reduxSubscription();
-    this.routeConfig.navModel.setTitle('Now Playing');
   }
 
   initializeElements() {
