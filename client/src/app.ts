@@ -26,6 +26,12 @@ import { removeSelectedTrack } from './common/actions/track-playlist-action';
 import { addToNowPlaying } from './common/actions/now-playing-actions';
 import { updateSearchResults } from './common/actions/search-actions';
 
+interface NotificationInterface {
+  message: string;
+  type: 'success' | 'error' | 'warning';
+  data: object;
+}
+
 @inject(Store, EventAggregator)
 export class App {
   router: Router;
@@ -81,7 +87,7 @@ export class App {
     }
   }
 
-  handleDisplayNotification(notification) {
+  handleDisplayNotification(notification: NotificationInterface) {
     const message: string = notification.message;
     const notificationType: string = notification.type;
 
@@ -254,8 +260,20 @@ export class App {
     this.store.dataStore.dispatch(removeSelectedTrack());
   }
 
+  displayServiceWorkerNotification(event) {
+    this.handleDisplayNotification({
+      message: event.detail.message,
+      type: 'success',
+      data: {},
+    });
+  }
+
   attached() {
     this.reduxSubscription = this.store.dataStore.subscribe(this.handleStoreUpdate.bind(this));
+    window.addEventListener(
+      'serviceWorkerUpdated',
+      this.displayServiceWorkerNotification.bind(this)
+    );
 
     this.handleStoreUpdate();
     this.initializeElements();
@@ -267,6 +285,7 @@ export class App {
     this.notificationSubs.dispose();
     this.searchSubs.dispose();
     this.openShortcutsSubs.dispose();
+    window.removeEventListener('serviceWorkerUpdated', this.displayServiceWorkerNotification);
     // @ts-ignore
     this.sidebarRef.$destroy();
   }
