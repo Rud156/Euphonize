@@ -31,7 +31,7 @@ function readProjectConfiguration() {
 }
 
 function writeBundles() {
-  buildCLI.dest().then(() => {
+  return buildCLI.dest().then(() => {
     swPreCache.write(
       './service-worker.js',
       {
