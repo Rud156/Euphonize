@@ -1,5 +1,6 @@
 import * as gulp from 'gulp';
 import * as swPreCache from 'sw-precache';
+import * as deleteLines from 'gulp-delete-lines';
 import * as inject from 'gulp-inject';
 import { CLIOptions, build as buildCLI } from 'aurelia-cli';
 import transpile from './transpile';
@@ -31,26 +32,44 @@ function readProjectConfiguration() {
 }
 
 function writeBundles() {
-  return buildCLI.dest().then(() => {
-    swPreCache.write(
-      './service-worker.js',
-      {
-        staticFileGlobs: [
-          './scripts/*.js',
-          './static/images/*.png',
-          './index.html',
-          './manifest.json',
-        ],
-        stripPrefix: '',
-      },
-      () => {
-        console.log('Task Completed');
-        const target = gulp.src('./index.html');
-        const sources = gulp.src('./service-worker-registration.js');
-        target.pipe(inject(sources)).pipe(gulp.dest('./'));
-      }
-    );
-  });
+  const envFlag = CLIOptions.getEnvironment();
+  console.log(`The Environment is: ${envFlag}`);
+  switch (envFlag) {
+    case 'prod':
+      return buildCLI.dest().then(() => {
+        swPreCache.write(
+          './service-worker.js',
+          {
+            staticFileGlobs: [
+              './scripts/*.js',
+              './static/images/*.png',
+              './index.html',
+              './manifest.json',
+            ],
+            stripPrefix: '',
+          },
+          () => {
+            console.log('Service Worker Written');
+            const target = gulp.src('./index.html');
+            const sources = gulp.src('./service-worker-registration.js');
+            target.pipe(inject(sources)).pipe(gulp.dest('./'));
+            console.log('Service Worker Injected');
+          }
+        );
+      });
+    case 'dev':
+      gulp
+        .src('./index.html')
+        .pipe(
+          deleteLines({
+            filters: ['<script src="/service-worker-registration.js"></script>'],
+          })
+        )
+        .pipe(gulp.dest('./'));
+      return buildCLI.dest();
+    default:
+      return buildCLI.dest();
+  }
 }
 
 export { main as default };
