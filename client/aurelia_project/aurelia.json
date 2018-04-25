@@ -92,15 +92,6 @@
             ]
           },
           {
-            "name": "fontawesome",
-            "path": "../assets/font-awesome/",
-            "main": "js/fontawesome-all",
-            "exports": "___FONT_AWESOME___",
-            "resources": [
-              "css/fa-svg-with-js.css"
-            ]
-          },
-          {
             "name": "redux",
             "path": "../node_modules/redux/dist",
             "main": "redux.min"

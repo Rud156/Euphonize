@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 import * as UIkit from 'uikit';
 // @ts-ignore
 import * as Noty from 'Noty';
-import 'fontawesome';
 
 import { CONTENT_TYPES, PLAYLIST_LOCAL_STORAGE } from './common/utils/constants';
 import Store from './common/utils/store';

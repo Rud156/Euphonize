@@ -43,6 +43,8 @@ function writeBundles() {
             staticFileGlobs: [
               './scripts/*.js',
               './static/images/*.png',
+              './static/css/*.css',
+              './static/webfonts/*.*',
               './index.html',
               './manifest.json',
             ],
