@@ -48,6 +48,7 @@ export class MusicPlayer {
   replayButtonRotated: HTMLElement;
   playlistButton: HTMLElement;
   seekSlider: HTMLInputElement;
+  downloadButton: HTMLElement;
 
   volumeSlider: HTMLInputElement;
   volumeOn: HTMLElement;
@@ -250,6 +251,16 @@ export class MusicPlayer {
     }
 
     this.store.dataStore.dispatch(selectTrackForPlaylist(this.playingTrack));
+  }
+
+  handleDownloadButtonClick() {
+    const { audioURL } = this.playingTrack;
+    if (!audioURL) {
+      this.publishNotification('warning', 'No Audio Playing.', {});
+      return;
+    }
+
+    window.open(audioURL, '_blank');
   }
 
   handleSeekSliderChange() {
@@ -475,6 +486,7 @@ export class MusicPlayer {
     this.replayButtonNormal.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.replayButtonRotated.addEventListener('click', this.handleReplayButtonClick.bind(this));
     this.randomButton.addEventListener('click', this.handleRandomButtonClick.bind(this));
+    this.downloadButton.addEventListener('click', this.handleDownloadButtonClick.bind(this));
 
     this.volumeSlider.addEventListener('input', this.handleVolumeSliderChange.bind(this));
     this.volumeOn.addEventListener('click', this.muteVolume.bind(this));
@@ -500,6 +512,7 @@ export class MusicPlayer {
     this.replayButtonNormal.removeEventListener('click', this.handleReplayButtonClick);
     this.replayButtonRotated.removeEventListener('click', this.handleReplayButtonClick);
     this.randomButton.removeEventListener('click', this.handleRandomButtonClick);
+    this.downloadButton.removeEventListener('click', this.handleDownloadButtonClick);
 
     this.volumeSlider.removeEventListener('input', this.handleVolumeSliderChange);
     this.volumeOn.removeEventListener('click', this.muteVolume);

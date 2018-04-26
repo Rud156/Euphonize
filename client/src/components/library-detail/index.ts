@@ -10,6 +10,7 @@ import { IPlaylist } from '../../common/interfaces/playlist-interface';
 import { removeTrackFromPlaylist, removePlaylist } from '../../common/actions/playlist-actions';
 import { addPlayListToNowPlaying } from '../../common/actions/now-playing-actions';
 import { playSelectedTrack } from '../../common/actions/player-actions';
+import { shuffleTracks } from '../../common/utils/player-utils';
 
 interface IParams {
   id: string;
@@ -82,6 +83,15 @@ export class LibraryDetail {
     this.store.dataStore.dispatch(addPlayListToNowPlaying(tracks, name));
 
     const { trackName, artistName, image } = tracks[0];
+    this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
+  }
+
+  shuffleAndPlayPlaylist() {
+    const { name, tracks } = this.currentPlaylist;
+    const shuffledTracks = shuffleTracks(tracks);
+    this.store.dataStore.dispatch(addPlayListToNowPlaying(shuffledTracks, name));
+
+    const { trackName, artistName, image } = shuffledTracks[0];
     this.store.dataStore.dispatch(playSelectedTrack(trackName, artistName, image));
   }
 

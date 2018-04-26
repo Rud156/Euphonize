@@ -76,12 +76,12 @@ export const nowPlayingReducer = (state = defaultState, action): INowPlayingRedu
         _ => _.trackName === currentTrack.trackName && _.artistName === currentTrack.artistName
       );
 
-      if (currentTracks.length == 0 || currentTracks.length == 1) return state;
+      if (currentTracks.length === 0 || currentTracks.length === 1) return state;
 
       let currentIndex = filteredTracks.length;
       let tempVal, randomIndex;
 
-      while (currentIndex != 0) {
+      while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 

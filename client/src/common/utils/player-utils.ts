@@ -108,3 +108,22 @@ export const convertDictToPlaylistView = (playlist: IPlaylistDictionary): IPlayl
 
   return playlistView;
 };
+
+export const shuffleTracks = (currentTracks: ITrackBasic[]): ITrackBasic[] => {
+  const filteredTracks: ITrackBasic[] = currentTracks.slice();
+
+  if (currentTracks.length === 0 || currentTracks.length === 1) return currentTracks;
+
+  let currentIndex = filteredTracks.length;
+  let tempVal, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    tempVal = filteredTracks[currentIndex];
+    filteredTracks[currentIndex] = filteredTracks[randomIndex];
+    filteredTracks[randomIndex] = tempVal;
+  }
+  return filteredTracks;
+};
