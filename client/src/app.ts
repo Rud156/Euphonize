@@ -260,11 +260,20 @@ export class App {
   }
 
   displayServiceWorkerNotification(event) {
-    this.handleDisplayNotification({
-      message: event.detail.message,
+    const message: string = event.detail.message;
+    new Noty({
+      theme: 'metroui',
       type: 'success',
-      data: {},
-    });
+      layout: 'topRight',
+      text: message,
+      timeout: 5000,
+      callbacks: {
+        onClose: () => {
+          const origin: string = window.location.origin;
+          window.location.href = origin;
+        },
+      },
+    }).show();
   }
 
   attached() {
